@@ -19,5 +19,6 @@ namespace shr
         //std::vector<Script*> mScripts;
         //state jump;
         //state Attack;
+        //Version 1.1
     };
 }

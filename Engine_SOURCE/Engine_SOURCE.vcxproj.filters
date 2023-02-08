@@ -123,6 +123,9 @@
     <ClCompile Include="shrPlayerScript.cpp">
       <Filter>Script</Filter>
     </ClCompile>
+    <ClCompile Include="Test.cpp">
+      <Filter>Script</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CommonInclude.h">
@@ -207,6 +210,9 @@
       <Filter>Script</Filter>
     </ClInclude>
     <ClInclude Include="shrPlayerScript.h">
+      <Filter>Script</Filter>
+    </ClInclude>
+    <ClInclude Include="Test.h">
       <Filter>Script</Filter>
     </ClInclude>
   </ItemGroup>
