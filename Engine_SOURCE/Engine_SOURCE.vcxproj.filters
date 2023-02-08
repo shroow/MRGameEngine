@@ -1,0 +1,221 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Common">
+      <UniqueIdentifier>{0bc27fa8-afac-4a02-8354-f8ac7e3056e0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="High Level Interface">
+      <UniqueIdentifier>{ef2cc17f-dc8c-4713-acb5-11a43c435929}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphics">
+      <UniqueIdentifier>{84407bf0-b431-49e7-b0cd-167e818415ab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Common\Math">
+      <UniqueIdentifier>{8f5edaa5-ad5d-423a-bc41-5e68a8621da5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource">
+      <UniqueIdentifier>{767d4264-e56a-430c-8c2d-f49d85c35b59}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Time">
+      <UniqueIdentifier>{d5cea299-11de-49f8-9c0c-c110056dd303}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Input">
+      <UniqueIdentifier>{cd4b9eba-c6cf-46a9-a814-89a620c95213}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Renderer">
+      <UniqueIdentifier>{f2d38e5b-5248-43e0-b712-e484a165f414}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene">
+      <UniqueIdentifier>{976687b1-0493-449e-87e3-f6bf27d49c71}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject">
+      <UniqueIdentifier>{68d11966-8044-4e2a-abef-cc0a1a1642f3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource\Mesh">
+      <UniqueIdentifier>{5ddde7d6-5dbf-4474-8ff2-f014eaefe47e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource\Shader">
+      <UniqueIdentifier>{f6d54454-faa4-4b11-8592-0408c79bef47}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource\Manager">
+      <UniqueIdentifier>{566c056d-bc1c-4a66-9874-1eb8b38721ee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component">
+      <UniqueIdentifier>{d54e1d46-871f-40f8-ad58-0a2d4ec246e6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource\Material">
+      <UniqueIdentifier>{b120460a-4944-428f-b9a0-e7253c288eab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource\Texture">
+      <UniqueIdentifier>{54096d5d-30e3-4a34-a2d2-2c3bb74005ba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script">
+      <UniqueIdentifier>{9e58e318-c2d4-4537-9684-372fe9cacfa9}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="shrApplication.cpp">
+      <Filter>High Level Interface</Filter>
+    </ClCompile>
+    <ClCompile Include="shrGraphicDevice_DX11.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="shrMath.cpp">
+      <Filter>Common\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="shrTime.cpp">
+      <Filter>Time</Filter>
+    </ClCompile>
+    <ClCompile Include="shrInput.cpp">
+      <Filter>Input</Filter>
+    </ClCompile>
+    <ClCompile Include="shrEntity.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="shrResource.cpp">
+      <Filter>Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="shrRenderer.cpp">
+      <Filter>Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="shrGameObject.cpp">
+      <Filter>GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="shrLayer.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="shrScene.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="shrSceneManager.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="shrMesh.cpp">
+      <Filter>Resource\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="shrShader.cpp">
+      <Filter>Resource\Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="shrResources.cpp">
+      <Filter>Resource\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="shrComponent.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
+    <ClCompile Include="shrMaterial.cpp">
+      <Filter>Resource\Material</Filter>
+    </ClCompile>
+    <ClCompile Include="shrTransform.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
+    <ClCompile Include="shrMeshRenderer.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
+    <ClCompile Include="shrTexture.cpp">
+      <Filter>Resource\Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="shrConstantBuffer.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="shrScript.cpp">
+      <Filter>Script</Filter>
+    </ClCompile>
+    <ClCompile Include="shrPlayerScript.cpp">
+      <Filter>Script</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="CommonInclude.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="shrApplication.h">
+      <Filter>High Level Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="shrGraphicDevice_DX11.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="shrMath.h">
+      <Filter>Common\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="shrTime.h">
+      <Filter>Time</Filter>
+    </ClInclude>
+    <ClInclude Include="shrInput.h">
+      <Filter>Input</Filter>
+    </ClInclude>
+    <ClInclude Include="shrEntity.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="shrResource.h">
+      <Filter>Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="shrGraphics.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="shrEngine.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="shrEnums.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="shrRenderer.h">
+      <Filter>Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="shrGameObject.h">
+      <Filter>GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="shrLayer.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="shrScene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="shrSceneManager.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="shrMesh.h">
+      <Filter>Resource\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="shrShader.h">
+      <Filter>Resource\Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="shrResources.h">
+      <Filter>Resource\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="shrComponent.h">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="shrMaterial.h">
+      <Filter>Resource\Material</Filter>
+    </ClInclude>
+    <ClInclude Include="shrTransform.h">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="shrMeshRenderer.h">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\External\DirectTex\Include\DirectXTex.h">
+      <Filter>Resource\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="shrTexture.h">
+      <Filter>Resource\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="shrConstantBuffer.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="shrScript.h">
+      <Filter>Script</Filter>
+    </ClInclude>
+    <ClInclude Include="shrPlayerScript.h">
+      <Filter>Script</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="shrMath.inl">
+      <Filter>Common\Math</Filter>
+    </None>
+    <None Include="..\External\DirectTex\Include\DirectXTex.inl">
+      <Filter>Resource\Texture</Filter>
+    </None>
+  </ItemGroup>
+</Project>
