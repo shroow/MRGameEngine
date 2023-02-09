@@ -181,7 +181,6 @@
     <ClInclude Include="shrTexture.h" />
     <ClInclude Include="shrTime.h" />
     <ClInclude Include="shrTransform.h" />
-    <ClInclude Include="Test.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="shrApplication.cpp" />
@@ -207,7 +206,6 @@
     <ClCompile Include="shrTexture.cpp" />
     <ClCompile Include="shrTime.cpp" />
     <ClCompile Include="shrTransform.cpp" />
-    <ClCompile Include="Test.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\External\DirectTex\Include\DirectXTex.inl" />

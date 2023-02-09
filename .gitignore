@@ -38,7 +38,7 @@
 # Folders
 /.vs
 /x64
-/.vs/
-/x64/
+.vs/
+x64/
 
 # End of https://www.toptal.com/developers/gitignore/api/c++
