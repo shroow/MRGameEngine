@@ -1,4 +1,4 @@
-
+#include "globals.hlsli"
 
 struct VTX_OUT
 {
