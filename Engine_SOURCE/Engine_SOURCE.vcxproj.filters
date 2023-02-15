@@ -123,6 +123,9 @@
     <ClCompile Include="shrPlayerScript.cpp">
       <Filter>Script</Filter>
     </ClCompile>
+    <ClCompile Include="shrCamera.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CommonInclude.h">
@@ -208,6 +211,9 @@
     </ClInclude>
     <ClInclude Include="shrPlayerScript.h">
       <Filter>Script</Filter>
+    </ClInclude>
+    <ClInclude Include="shrCamera.h">
+      <Filter>Component</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
