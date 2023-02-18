@@ -51,11 +51,18 @@ namespace shr::graphics
 
     void Material::Bind()
     {
+        mTexture->BindShader(eShaderStage::PS, 0);
+
         ConstantBuffer* pCB = renderer::constantBuffers[(UINT)eCBType::Material];
         pCB->Bind(&mCB);
         pCB->SetPipline(eShaderStage::VS);
         pCB->SetPipline(eShaderStage::PS);
 
         mShader->Binds();
+    }
+
+    void Material::Clear()
+    {
+        mTexture->Clear();
     }
 }

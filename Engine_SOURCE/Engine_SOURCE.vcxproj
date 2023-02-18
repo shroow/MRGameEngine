@@ -157,6 +157,7 @@
     <ClInclude Include="CommonInclude.h" />
     <ClInclude Include="shrApplication.h" />
     <ClInclude Include="shrCamera.h" />
+    <ClInclude Include="shrCameraScript.h" />
     <ClInclude Include="shrComponent.h" />
     <ClInclude Include="shrConstantBuffer.h" />
     <ClInclude Include="shrEngine.h" />
@@ -179,6 +180,7 @@
     <ClInclude Include="shrSceneManager.h" />
     <ClInclude Include="shrScript.h" />
     <ClInclude Include="shrShader.h" />
+    <ClInclude Include="shrSpriteRenderer.h" />
     <ClInclude Include="shrTexture.h" />
     <ClInclude Include="shrTime.h" />
     <ClInclude Include="shrTransform.h" />
@@ -186,6 +188,7 @@
   <ItemGroup>
     <ClCompile Include="shrApplication.cpp" />
     <ClCompile Include="shrCamera.cpp" />
+    <ClCompile Include="shrCameraScript.cpp" />
     <ClCompile Include="shrComponent.cpp" />
     <ClCompile Include="shrConstantBuffer.cpp" />
     <ClCompile Include="shrEntity.cpp" />
@@ -205,6 +208,7 @@
     <ClCompile Include="shrSceneManager.cpp" />
     <ClCompile Include="shrScript.cpp" />
     <ClCompile Include="shrShader.cpp" />
+    <ClCompile Include="shrSpriteRenderer.cpp" />
     <ClCompile Include="shrTexture.cpp" />
     <ClCompile Include="shrTime.cpp" />
     <ClCompile Include="shrTransform.cpp" />

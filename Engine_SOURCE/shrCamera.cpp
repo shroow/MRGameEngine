@@ -7,8 +7,8 @@ extern shr::Application application;
 
 namespace shr
 {
-	Matrix Camera::mView = Matrix::Identity;
-	Matrix Camera::mProjection = Matrix::Identity;
+	Matrix Camera::View = Matrix::Identity;			//View와 mView를 따로 만든 이유 찾기
+	Matrix Camera::Projection = Matrix::Identity;	//Proj와 mProj를 따로 만든 이유 찾기
 
 	Camera::Camera()
 		: Component(eComponentType::Camera)
@@ -42,8 +42,8 @@ namespace shr
 		Vector3 pos = tr->GetPosition();
 
 		// Crate Translate view matrix
-		mView = Matrix::Identity;
-		mView *= Matrix::CreateTranslation(-pos);
+		View = Matrix::Identity;
+		View *= Matrix::CreateTranslation(-pos);
 
 		Vector3 up = tr->Up();
 		Vector3 right = tr->Right();
@@ -54,7 +54,7 @@ namespace shr
 		viewRotate._21 = right.y; viewRotate._22 = up.y; viewRotate._23 = foward.y;
 		viewRotate._31 = right.z; viewRotate._32 = up.z; viewRotate._33 = foward.z;
 
-		mView *= viewRotate;
+		View *= viewRotate;
 	}
 	void Camera::CreateProjectionMatrix()
 	{
@@ -67,7 +67,7 @@ namespace shr
 
 		if (mType == eProjectionType::Perspective)
 		{
-			mProjection = Matrix::CreatePerspectiveFieldOfViewLH
+			Projection = Matrix::CreatePerspectiveFieldOfViewLH
 			(
 				XM_2PI / 6.0f
 				, mAspectRatio
@@ -77,7 +77,7 @@ namespace shr
 		}
 		else
 		{
-			mProjection = Matrix::CreateOrthographicLH(width, height, mNear, mFar);
+			Projection = Matrix::CreateOrthographicLH(width, height, mNear, mFar);
 		}
 	}
 }

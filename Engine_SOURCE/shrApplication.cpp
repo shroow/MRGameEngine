@@ -16,7 +16,7 @@ namespace shr
 
 	Application::~Application()
 	{
-
+		SceneManager::Release();
 	}
 
 	// Running main engine loop

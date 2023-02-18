@@ -15,8 +15,8 @@ namespace shr
         };
 
         //__inline 하면 함수형태로 타고 들어오지않고 컴파일과정에서 변환해준다 __forceinline은 강제성 또한 갖고 있다 
-        __forceinline static Matrix& GetViewMatrix() { return mView; }
-        __forceinline static Matrix& GetProjectionMatrix() { return mProjection; }
+        __forceinline static Matrix& GetViewMatrix() { return View; }
+        __forceinline static Matrix& GetProjectionMatrix() { return Projection; }
 
     public:
         Camera();
@@ -32,8 +32,11 @@ namespace shr
         void CreateProjectionMatrix();
 
     private:
-        static Matrix mView;
-        static Matrix mProjection;
+        static Matrix View;
+        static Matrix Projection;
+
+        Matrix mView;
+        Matrix mProjection;
 
         eProjectionType mType;
         float mAspectRatio;

@@ -52,6 +52,9 @@
     <Filter Include="Script">
       <UniqueIdentifier>{9e58e318-c2d4-4537-9684-372fe9cacfa9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Component\Renderer">
+      <UniqueIdentifier>{86f6d97f-1f2d-49cb-bc59-837fd385e6d9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="shrApplication.cpp">
@@ -108,9 +111,6 @@
     <ClCompile Include="shrTransform.cpp">
       <Filter>Component</Filter>
     </ClCompile>
-    <ClCompile Include="shrMeshRenderer.cpp">
-      <Filter>Component</Filter>
-    </ClCompile>
     <ClCompile Include="shrTexture.cpp">
       <Filter>Resource\Texture</Filter>
     </ClCompile>
@@ -125,6 +125,15 @@
     </ClCompile>
     <ClCompile Include="shrCamera.cpp">
       <Filter>Component</Filter>
+    </ClCompile>
+    <ClCompile Include="shrMeshRenderer.cpp">
+      <Filter>Component\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="shrSpriteRenderer.cpp">
+      <Filter>Component\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="shrCameraScript.cpp">
+      <Filter>Script</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -194,9 +203,6 @@
     <ClInclude Include="shrTransform.h">
       <Filter>Component</Filter>
     </ClInclude>
-    <ClInclude Include="shrMeshRenderer.h">
-      <Filter>Component</Filter>
-    </ClInclude>
     <ClInclude Include="..\External\DirectTex\Include\DirectXTex.h">
       <Filter>Resource\Texture</Filter>
     </ClInclude>
@@ -214,6 +220,15 @@
     </ClInclude>
     <ClInclude Include="shrCamera.h">
       <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="shrMeshRenderer.h">
+      <Filter>Component\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="shrSpriteRenderer.h">
+      <Filter>Component\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="shrCameraScript.h">
+      <Filter>Script</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

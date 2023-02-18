@@ -1,18 +1,17 @@
 #pragma once
 #include "shrComponent.h"
 #include "shrMesh.h"
-//#include "shrShader.h"
 #include "shrMaterial.h"
 
 using namespace shr::graphics;
 namespace shr
 {
-
-	class MeshRenderer : public Component
-	{
+    class SpriteRenderer :
+        public Component
+    {
 	public:
-		MeshRenderer();
-		virtual ~MeshRenderer();
+		SpriteRenderer();
+		virtual ~SpriteRenderer();
 
 		virtual void Initialize() override;
 		virtual void Update() override;
@@ -25,6 +24,5 @@ namespace shr
 	private:
 		std::shared_ptr <Mesh> mMesh;
 		std::shared_ptr <Material> mMaterial;
-	};
-
+    };
 }

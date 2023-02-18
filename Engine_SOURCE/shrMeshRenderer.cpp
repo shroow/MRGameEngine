@@ -5,7 +5,7 @@
 namespace shr
 {
 	MeshRenderer::MeshRenderer() 
-		: Component(eComponentType::Mesh)
+		: Component(eComponentType::MeshRenderer)
 	{
 	}
 	MeshRenderer::~MeshRenderer()
@@ -27,7 +27,8 @@ namespace shr
 		mMaterial->Bind();
 		mMesh->BindBuffer();
 
-
 		mMesh->Render();
+
+		mMaterial->Clear();
 	}
 }

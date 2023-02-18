@@ -2,15 +2,34 @@
 #include "shrResources.h"
 #include "shrMaterial.h"
 
+// 애니메이션
+// Sprite Renderer
+
+// Rasterrizer state
+// Depth Stencil state
+// Blend State
+
+
+
+
+// 셰이더 효과 
+
+// 툴 ( imgui )
+
+// 한달 일찍 게임만들면 // 2 ~ 3달 
+
 namespace shr::renderer
 {
 	Vertex vertexes[4] = {};
 	ConstantBuffer* constantBuffers[(UINT)eCBType::End] = {};
 	Microsoft::WRL::ComPtr<ID3D11SamplerState> samplerStates[(UINT)eSamplerType::End] = {};
+	Microsoft::WRL::ComPtr<ID3D11RasterizerState> rasterizerStates[(UINT)eRSType::End] = {};
+	Microsoft::WRL::ComPtr<ID3D11DepthStencilState> depthstencilStates[(UINT)eDSType::End] = {};
+	Microsoft::WRL::ComPtr<ID3D11BlendState> blendStates[(UINT)eBSType::End] = {};
 
 	void SetUpState()
 	{
-		// Input Layout ( 정점 구조 정보 )
+#pragma region Input layout
 		D3D11_INPUT_ELEMENT_DESC arrLayoutDesc[3] = {};
 
 		arrLayoutDesc[0].AlignedByteOffset = 0;
@@ -41,7 +60,14 @@ namespace shr::renderer
 			, shader->GetVSBlobBufferSize()
 			, shader->GetInputLayoutAddressOf());
 
-		//Sampler State
+		std::shared_ptr<Shader> spriteShader = Resources::Find<Shader>(L"SpriteShader");
+		GetDevice()->CreateInputLayout(arrLayoutDesc, 3
+			, spriteShader->GetVSBlobBufferPointer()
+			, spriteShader->GetVSBlobBufferSize()
+			, spriteShader->GetInputLayoutAddressOf());
+#pragma endregion
+
+#pragma region sampler state
 		D3D11_SAMPLER_DESC samplerDesc = {};
 		samplerDesc.AddressU = D3D11_TEXTURE_ADDRESS_MODE::D3D11_TEXTURE_ADDRESS_WRAP;
 		samplerDesc.AddressV = D3D11_TEXTURE_ADDRESS_MODE::D3D11_TEXTURE_ADDRESS_WRAP;
@@ -70,6 +96,102 @@ namespace shr::renderer
 
 		GetDevice()->BindsSamplers((UINT)eSamplerType::Anisotropic
 			, 1, samplerStates[(UINT)eSamplerType::Anisotropic].GetAddressOf());
+#pragma endregion
+
+#pragma region Rasterizer state
+		D3D11_RASTERIZER_DESC rsDesc = {};
+		rsDesc.FillMode = D3D11_FILL_MODE::D3D11_FILL_SOLID;
+		rsDesc.CullMode = D3D11_CULL_MODE::D3D11_CULL_BACK;
+
+		GetDevice()->CreateRasterizerState(&rsDesc
+			, rasterizerStates[(UINT)eRSType::SolidBack].GetAddressOf());
+
+		rsDesc.FillMode = D3D11_FILL_MODE::D3D11_FILL_SOLID;
+		rsDesc.CullMode = D3D11_CULL_MODE::D3D11_CULL_FRONT;
+
+		GetDevice()->CreateRasterizerState(&rsDesc
+			, rasterizerStates[(UINT)eRSType::SolidFront].GetAddressOf());
+
+		rsDesc.FillMode = D3D11_FILL_MODE::D3D11_FILL_SOLID;
+		rsDesc.CullMode = D3D11_CULL_MODE::D3D11_CULL_NONE;
+
+		GetDevice()->CreateRasterizerState(&rsDesc
+			, rasterizerStates[(UINT)eRSType::SolidNone].GetAddressOf());
+
+		rsDesc.FillMode = D3D11_FILL_MODE::D3D11_FILL_WIREFRAME;
+		rsDesc.CullMode = D3D11_CULL_MODE::D3D11_CULL_NONE;
+
+		GetDevice()->CreateRasterizerState(&rsDesc
+			, rasterizerStates[(UINT)eRSType::WireframeNone].GetAddressOf());
+
+
+#pragma endregion
+#pragma region Depth Stencil State
+		D3D11_DEPTH_STENCIL_DESC dsDesc = {};
+		dsDesc.DepthEnable = true;
+		dsDesc.DepthFunc = D3D11_COMPARISON_FUNC::D3D11_COMPARISON_LESS;
+		dsDesc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK::D3D11_DEPTH_WRITE_MASK_ALL;
+		dsDesc.StencilEnable = false;
+
+		GetDevice()->CreateDepthStencilState(&dsDesc
+			, depthstencilStates[(UINT)eDSType::Less].GetAddressOf());
+
+		dsDesc.DepthEnable = true;
+		dsDesc.DepthFunc = D3D11_COMPARISON_FUNC::D3D11_COMPARISON_GREATER;
+		dsDesc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK::D3D11_DEPTH_WRITE_MASK_ALL;
+		dsDesc.StencilEnable = false;
+
+		GetDevice()->CreateDepthStencilState(&dsDesc
+			, depthstencilStates[(UINT)eDSType::Greater].GetAddressOf());
+
+		dsDesc.DepthEnable = true;
+		dsDesc.DepthFunc = D3D11_COMPARISON_FUNC::D3D11_COMPARISON_LESS;
+		dsDesc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK::D3D11_DEPTH_WRITE_MASK_ZERO;
+		dsDesc.StencilEnable = false;
+
+		GetDevice()->CreateDepthStencilState(&dsDesc
+			, depthstencilStates[(UINT)eDSType::NoWrite].GetAddressOf());
+
+		dsDesc.DepthEnable = false;
+		dsDesc.DepthFunc = D3D11_COMPARISON_FUNC::D3D11_COMPARISON_LESS;
+		dsDesc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK::D3D11_DEPTH_WRITE_MASK_ZERO;
+		dsDesc.StencilEnable = false;
+
+		GetDevice()->CreateDepthStencilState(&dsDesc
+			, depthstencilStates[(UINT)eDSType::None].GetAddressOf());
+
+#pragma endregion
+#pragma region Blend State
+
+		blendStates[(UINT)eBSType::Default] = nullptr;
+
+		D3D11_BLEND_DESC bsDesc = {};
+		bsDesc.AlphaToCoverageEnable = false;
+		bsDesc.IndependentBlendEnable = false;
+		bsDesc.RenderTarget[0].BlendEnable = true;
+		bsDesc.RenderTarget[0].BlendOp = D3D11_BLEND_OP::D3D11_BLEND_OP_ADD;
+		bsDesc.RenderTarget[0].SrcBlend = D3D11_BLEND_SRC_ALPHA;
+		bsDesc.RenderTarget[0].DestBlend = D3D11_BLEND_INV_SRC_ALPHA;
+		bsDesc.RenderTarget[0].BlendOpAlpha = D3D11_BLEND_OP::D3D11_BLEND_OP_ADD;
+		bsDesc.RenderTarget[0].SrcBlendAlpha = D3D11_BLEND_ONE;
+		bsDesc.RenderTarget[0].DestBlendAlpha = D3D11_BLEND_ZERO;
+
+		bsDesc.RenderTarget[0].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
+
+		GetDevice()->CreateBlendState(&bsDesc, blendStates[(UINT)eBSType::AlphaBlend].GetAddressOf());
+
+		bsDesc.AlphaToCoverageEnable = false;
+		bsDesc.IndependentBlendEnable = false;
+
+		bsDesc.RenderTarget[0].BlendEnable = true;
+		bsDesc.RenderTarget[0].BlendOp = D3D11_BLEND_OP::D3D11_BLEND_OP_ADD;
+		bsDesc.RenderTarget[0].SrcBlend = D3D11_BLEND_ONE;
+		bsDesc.RenderTarget[0].DestBlend = D3D11_BLEND_ONE;
+		bsDesc.RenderTarget[0].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
+
+		GetDevice()->CreateBlendState(&bsDesc, blendStates[(UINT)eBSType::OneOne].GetAddressOf());
+
+#pragma endregion
 	}
 
 	void LoadBuffer()
@@ -105,20 +227,36 @@ namespace shr::renderer
 	void LoadShader()
 	{
 		std::shared_ptr<Shader> shader = std::make_shared<Shader>();
-		shader->Create(eShaderStage::VS, L"TriangleVS.hlsl", "VS_Test");
-		shader->Create(eShaderStage::PS, L"TrianglePS.hlsl", "PS_Test");
+		shader->Create(eShaderStage::VS, L"TriangleVS.hlsl", "main");
+		shader->Create(eShaderStage::PS, L"TrianglePS.hlsl", "main");
 
 		Resources::Insert<Shader>(L"RectShader", shader);
+
+		std::shared_ptr<Shader> spriteshader = std::make_shared<Shader>();
+		spriteshader->Create(eShaderStage::VS, L"SpriteVS.hlsl", "main");
+		spriteshader->Create(eShaderStage::PS, L"SpritePS.hlsl", "main");
+
+		Resources::Insert<Shader>(L"SpriteShader", shader);
 	}
 
 	void LoadMaterial()
 	{
+		std::shared_ptr<Texture> texture = Resources::Load<Texture>(L"SmileTexture", L"Smile.png");
+		
 		std::shared_ptr<Shader> shader = Resources::Find<Shader>(L"RectShader");
-
 		std::shared_ptr<Material> material = std::make_shared<Material>(); 
-		material->SetShader(shader.get());
+		material->SetShader(shader);
+		material->SetTexture(texture);
 
 		Resources::Insert<Material>(L"RectMaterial", material);
+
+		std::shared_ptr <Texture> spriteTexture = Resources::Load<Texture>(L"DefaultSprite", L"Light.png");
+		// Sprite
+		std::shared_ptr<Shader> spriteShader = Resources::Find<Shader>(L"SpriteShader");
+		std::shared_ptr<Material> spriteMaterial = std::make_shared<Material>();
+		spriteMaterial->SetShader(spriteShader);
+		spriteMaterial->SetTexture(spriteTexture);
+		Resources::Insert<Material>(L"SpriteMaterial", spriteMaterial);
 	}
 
 	void Initialize()

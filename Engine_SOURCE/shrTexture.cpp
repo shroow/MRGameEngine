@@ -59,4 +59,16 @@ namespace shr::graphics
 	{
 		GetDevice()->SetShaderResource(stage, slot, mSRV.GetAddressOf());
 	}
+
+	void Texture::Clear()
+	{
+		ID3D11ShaderResourceView* srv = nullptr;
+
+		GetDevice()->SetShaderResource(eShaderStage::VS, 0, &srv);
+		GetDevice()->SetShaderResource(eShaderStage::DS, 0, &srv);
+		GetDevice()->SetShaderResource(eShaderStage::GS, 0, &srv);
+		GetDevice()->SetShaderResource(eShaderStage::HS, 0, &srv);
+		GetDevice()->SetShaderResource(eShaderStage::CS, 0, &srv);
+		GetDevice()->SetShaderResource(eShaderStage::PS, 0, &srv);
+	}
 }

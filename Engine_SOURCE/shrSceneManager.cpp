@@ -6,6 +6,8 @@
 #include "shrTexture.h"
 #include "shrPlayerScript.h"
 #include "shrCamera.h"
+#include "shrCameraScript.h"
+#include "shrSpriteRenderer.h"
 
 namespace shr
 {
@@ -23,13 +25,16 @@ namespace shr
 		cameraObj->AddComponent(cameraTr);
 		Camera* cameraComp = new Camera();
 		cameraObj->AddComponent(cameraComp);
+		CameraScript* cameraScript = new CameraScript();
+		cameraObj->AddComponent(cameraScript);
 
 		mPlayScene->AddGameObject(cameraObj, eLayerType::Camera);
 
 		//Player Object SMILE
 		GameObject* obj = new GameObject();
 		Transform* tr = new Transform();
-		tr->SetPosition(Vector3 (0.0f, 0.0f, 20.0f));
+		tr->SetPosition(Vector3(0.0f, 0.0f, 11.0f));
+		tr->SetScale(Vector3(5.0f, 5.0f, 1.0f));
 		obj->AddComponent(tr);
 
 		MeshRenderer* mr = new MeshRenderer();
@@ -44,18 +49,30 @@ namespace shr
 		Vector2 vec2(1.0f, 1.0f);
 		material->SetData(eGPUParam::Vector2, &vec2);
 
-		mr->SetMaterial(material.get());
-		mr->SetMesh(mesh.get());
-
-		std::shared_ptr <Texture> texture = Resources::Load<Texture>(L"SmileTexture", L"Smile.png");
-		texture->BindShader(eShaderStage::PS, 0);
-		
-		PlayerScript* playerScript = new PlayerScript();
-		obj->AddComponent(playerScript);
+		mr->SetMaterial(material);
+		mr->SetMesh(mesh);
 
 		mPlayScene->AddGameObject(obj, eLayerType::Player);
 
+		// SMILE RECT
+		GameObject* spriteObj = new GameObject();
+		Transform* spriteTr = new Transform();
+		spriteTr->SetPosition(Vector3(0.0f, 0.0f, 10.0f));
+		spriteTr->SetScale(Vector3(5.0f, 0.0f, 10.0f));
+		spriteObj->AddComponent(spriteTr);
+			
+		SpriteRenderer* sr = new SpriteRenderer();
+		spriteObj->AddComponent(sr);
 
+		std::shared_ptr<Material> spriteMaterial = Resources::Find<Material>(L"SpriteMaterial");
+
+		//Vector2 vec2(1.0f, 1.0f);
+		//spriteMaterial->SetData(eGPUParam::Vector2, &vec2);
+
+		sr->SetMaterial(spriteMaterial);
+		sr->SetMesh(mesh);
+
+		mPlayScene->AddGameObject(spriteObj, eLayerType::Player);
 	}
 
 	void SceneManager::Update()
@@ -71,5 +88,11 @@ namespace shr
 	void SceneManager::Render()
 	{
 		mPlayScene->Render();
+	}
+
+	void SceneManager::Release()
+	{
+		delete mPlayScene;
+		mPlayScene = nullptr;
 	}
 }
