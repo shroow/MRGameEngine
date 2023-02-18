@@ -15,8 +15,10 @@ namespace shr
 		virtual void Render();
 
 		void AddGameObject(GameObject* gameObject);
+		const std::vector<GameObject*>& GetVecGameObjects() { return mVecGameObjects; }
 
 	private:
-		std::vector<GameObject*> mGameObjects;
+		std::vector<GameObject*> mVecGameObjects;
 	};
+	typedef const std::vector<GameObject*>& GameObjects;
 }

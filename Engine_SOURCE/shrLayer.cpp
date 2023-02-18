@@ -9,7 +9,7 @@ namespace shr
 
 	Layer::~Layer()
 	{
-		for (GameObject* obj : mGameObjects)
+		for (GameObject* obj : mVecGameObjects)
 		{
 			if (obj == nullptr)
 				continue;
@@ -21,7 +21,7 @@ namespace shr
 
 	void Layer::Initialize()
 	{
-		for (GameObject* obj : mGameObjects)
+		for (GameObject* obj : mVecGameObjects)
 		{
 			if (obj == nullptr)
 				continue;
@@ -32,7 +32,7 @@ namespace shr
 
 	void Layer::Update()
 	{
-		for (GameObject* obj : mGameObjects)
+		for (GameObject* obj : mVecGameObjects)
 		{
 			if (obj == nullptr)
 				continue;
@@ -43,7 +43,7 @@ namespace shr
 
 	void Layer::FixedUpdate()
 	{
-		for (GameObject* obj : mGameObjects)
+		for (GameObject* obj : mVecGameObjects)
 		{
 			if (obj == nullptr)
 				continue;
@@ -54,7 +54,7 @@ namespace shr
 
 	void Layer::Render()
 	{
-		for (GameObject* obj : mGameObjects)
+		for (GameObject* obj : mVecGameObjects)
 		{
 			if (obj == nullptr)
 				continue;
@@ -68,6 +68,6 @@ namespace shr
 		if (gameObject == nullptr)
 			return;
 
-		mGameObjects.push_back(gameObject);
+		mVecGameObjects.push_back(gameObject);
 	}
 }

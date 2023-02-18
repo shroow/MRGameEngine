@@ -11,16 +11,16 @@
 
 namespace shr
 {
-	Scene* SceneManager::mPlayScene = nullptr;
+	Scene* SceneManager::mActiveScene = nullptr;
 
 	void SceneManager::Initialize()
 	{
-		mPlayScene = new Scene();
-		mPlayScene->Initialize();
+		mActiveScene = new Scene();
+		mActiveScene->Initialize();
 
-		//Camera Object
+		// Camera Game Object
 		GameObject* cameraObj = new GameObject();
-		Transform* cameraTr = new Transform;
+		Transform* cameraTr = new Transform();
 		cameraTr->SetPosition(Vector3(0.0f, 0.0f, 0.0f));
 		cameraObj->AddComponent(cameraTr);
 		Camera* cameraComp = new Camera();
@@ -28,42 +28,21 @@ namespace shr
 		CameraScript* cameraScript = new CameraScript();
 		cameraObj->AddComponent(cameraScript);
 
-		mPlayScene->AddGameObject(cameraObj, eLayerType::Camera);
+		mActiveScene->AddGameObject(cameraObj, eLayerType::Camera);
 
-		//Player Object SMILE
-		GameObject* obj = new GameObject();
-		Transform* tr = new Transform();
-		tr->SetPosition(Vector3(0.0f, 0.0f, 11.0f));
-		tr->SetScale(Vector3(5.0f, 5.0f, 1.0f));
-		obj->AddComponent(tr);
 
-		MeshRenderer* mr = new MeshRenderer();
-		obj->AddComponent(mr);
-		
-		//머테리얼이 없어서 셰이더를 직접 지정해줄때 사용했다
-		//Shader* shader = Resources::Find<Shader>(L"RectShader");
-		
-		std::shared_ptr<Mesh> mesh = Resources::Find<Mesh>(L"RectMesh");
-		std::shared_ptr<Material> material = Resources::Find<Material>(L"RectMaterial");
-
-		Vector2 vec2(1.0f, 1.0f);
-		material->SetData(eGPUParam::Vector2, &vec2);
-
-		mr->SetMaterial(material);
-		mr->SetMesh(mesh);
-
-		mPlayScene->AddGameObject(obj, eLayerType::Player);
-
-		// SMILE RECT
+		// Light Object
 		GameObject* spriteObj = new GameObject();
+		spriteObj->SetName(L"LIGHT");
 		Transform* spriteTr = new Transform();
-		spriteTr->SetPosition(Vector3(0.0f, 0.0f, 10.0f));
-		spriteTr->SetScale(Vector3(5.0f, 0.0f, 10.0f));
+		spriteTr->SetPosition(Vector3(0.0f, 0.0f, 11.0f));
+		spriteTr->SetScale(Vector3(5.0f, 5.0f, 1.0f));
 		spriteObj->AddComponent(spriteTr);
-			
+
 		SpriteRenderer* sr = new SpriteRenderer();
 		spriteObj->AddComponent(sr);
 
+		std::shared_ptr<Mesh> mesh = Resources::Find<Mesh>(L"RectMesh");
 		std::shared_ptr<Material> spriteMaterial = Resources::Find<Material>(L"SpriteMaterial");
 
 		//Vector2 vec2(1.0f, 1.0f);
@@ -72,27 +51,51 @@ namespace shr
 		sr->SetMaterial(spriteMaterial);
 		sr->SetMesh(mesh);
 
-		mPlayScene->AddGameObject(spriteObj, eLayerType::Player);
+		mActiveScene->AddGameObject(spriteObj, eLayerType::Player);
+
+		//SMILE RECT
+		GameObject* obj = new GameObject();
+		obj->SetName(L"SMILE");
+		Transform* tr = new Transform();
+		tr->SetPosition(Vector3(0.0f, 0.0f, 11.0f));
+		tr->SetScale(Vector3(5.0f, 5.0f, 1.0f));
+		obj->AddComponent(tr);
+
+		MeshRenderer* mr = new MeshRenderer();
+		obj->AddComponent(mr);
+
+		std::shared_ptr<Material> mateiral = Resources::Find<Material>(L"RectMaterial");
+
+		Vector2 vec2(1.0f, 1.0f);
+		mateiral->SetData(eGPUParam::Vector2, &vec2);
+
+		mr->SetMaterial(mateiral);
+		mr->SetMesh(mesh);
+
+		mActiveScene->AddGameObject(obj, eLayerType::Player);
+
+
+		mActiveScene->Initialize();
 	}
 
 	void SceneManager::Update()
 	{
-		mPlayScene->Update();
+		mActiveScene->Update();
 	}
 
 	void SceneManager::FixedUpdate()
 	{
-		mPlayScene->FixedUpdate();
+		mActiveScene->FixedUpdate();
 	}
 
 	void SceneManager::Render()
 	{
-		mPlayScene->Render();
+		mActiveScene->Render();
 	}
 
 	void SceneManager::Release()
 	{
-		delete mPlayScene;
-		mPlayScene = nullptr;
+		delete mActiveScene;
+		mActiveScene = nullptr;
 	}
 }

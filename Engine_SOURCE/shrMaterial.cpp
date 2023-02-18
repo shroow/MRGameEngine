@@ -4,6 +4,7 @@ namespace shr::graphics
 {
     Material::Material()
         : Resource(eResourceType::Material)
+        , mMode(eRenderingMode::Opaque)
     {
 
     }

@@ -5,7 +5,7 @@
 namespace shr
 {
 	SpriteRenderer::SpriteRenderer()
-		: Component(eComponentType::SpriteRenderer)
+		: BaseRenderer(eComponentType::SpriteRenderer)
 	{
 	}
 
@@ -29,11 +29,11 @@ namespace shr
 	{
 		GetOwner()->GetComponent<Transform>()->SetConstantBuffer();
 
-		mMaterial->Bind();
-		mMesh->BindBuffer();
+		GetMaterial()->Bind();
+		GetMesh()->BindBuffer();
 
-		mMesh->Render();
+		GetMesh()->Render();
 
-		mMaterial->Clear();
+		GetMaterial()->Clear();
 	}
 }

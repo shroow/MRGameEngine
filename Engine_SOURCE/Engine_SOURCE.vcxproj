@@ -156,6 +156,7 @@
     <ClInclude Include="..\External\DirectTex\Include\DirectXTex.h" />
     <ClInclude Include="CommonInclude.h" />
     <ClInclude Include="shrApplication.h" />
+    <ClInclude Include="shrBaseRenderer.h" />
     <ClInclude Include="shrCamera.h" />
     <ClInclude Include="shrCameraScript.h" />
     <ClInclude Include="shrComponent.h" />
@@ -187,6 +188,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="shrApplication.cpp" />
+    <ClCompile Include="shrBaseRenderer.cpp" />
     <ClCompile Include="shrCamera.cpp" />
     <ClCompile Include="shrCameraScript.cpp" />
     <ClCompile Include="shrComponent.cpp" />

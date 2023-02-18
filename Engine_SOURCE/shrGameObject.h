@@ -1,10 +1,11 @@
 #pragma once
+#include "shrEntity.h"
 #include "shrComponent.h"
 #include "shrScript.h"
 
 namespace shr
 {
-	class GameObject
+	class GameObject : public Entity
 	{
 	public:
 		enum eState

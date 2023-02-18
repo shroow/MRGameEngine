@@ -30,6 +30,18 @@ namespace shr
     public:
         void CreateViewMatrix();
         void CreateProjectionMatrix();
+        void RegisterCameraInRenderer();
+
+        void TurnLayerMask(eLayerType layer, bool enable = true);
+        void EnableLayerMasks() { mLayerMasks.set(); }
+        void DisableLayerMasks() { mLayerMasks.reset(); }
+
+    private:
+        void sortGameObjects();
+        void renderOpaque();
+        void renderCutout();
+        void renderTransparent();
+        void pushGameObjectToRenderingModes(GameObject* gameObj);
 
     private:
         static Matrix View;
@@ -44,5 +56,10 @@ namespace shr
         float mNear;
         float mFar;
         float mScale;
+
+        std::bitset<(UINT)eLayerType::End> mLayerMasks;
+        std::vector<GameObject*> mOpaqueGameObjects;
+        std::vector<GameObject*> mCutoutGameObjects;
+        std::vector<GameObject*> mTransparentGameObjects;
     };
 }

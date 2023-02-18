@@ -68,6 +68,13 @@ namespace shr::graphics
 		End,
 	};
 
+	enum class eRenderingMode
+	{
+		Opaque,
+		CutOut,
+		Transparent,
+		End,
+	};
 
 	struct GpuBuffer
 	{

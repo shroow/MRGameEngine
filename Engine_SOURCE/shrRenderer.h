@@ -6,6 +6,7 @@
 #include "shrMesh.h"
 #include "shrShader.h"
 #include "shrConstantBuffer.h"
+#include "shrCamera.h"
 
 using namespace shr::math;
 using namespace shr::graphics;
@@ -43,8 +44,10 @@ namespace shr::renderer
 	extern Microsoft::WRL::ComPtr<ID3D11DepthStencilState> depthstencilStates[];
 	extern Microsoft::WRL::ComPtr<ID3D11BlendState> blendStates[];
 
+	extern std::vector<Camera*> cameras;
 
 	void Initialize();
+	void Render();
 	void Release();
 }
 
