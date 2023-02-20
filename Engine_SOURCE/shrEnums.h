@@ -16,6 +16,7 @@ namespace shr::enums
 		None,
 		Transform, // 위치 데이터 수정하는 컴포넌트
 		Camera,
+		Unit,
 		Mesh,
 		Collider,
 		//Collider2,

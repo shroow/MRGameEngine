@@ -55,6 +55,9 @@
     <Filter Include="Component\Renderer">
       <UniqueIdentifier>{86f6d97f-1f2d-49cb-bc59-837fd385e6d9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Component\Object">
+      <UniqueIdentifier>{d8c0d794-561a-4005-83d9-b1841cdf5f6b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="shrApplication.cpp">
@@ -137,6 +140,9 @@
     </ClCompile>
     <ClCompile Include="shrBaseRenderer.cpp">
       <Filter>Component\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="shrUnitComponent.cpp">
+      <Filter>Component\Object</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -235,6 +241,9 @@
     </ClInclude>
     <ClInclude Include="shrBaseRenderer.h">
       <Filter>Component\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="shrUnitComponent.h">
+      <Filter>Component\Object</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

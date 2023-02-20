@@ -6,7 +6,7 @@ extern shr::Application application;
 namespace shr
 {
 	std::vector<Input::Key> Input::mKeys;
-	math::Vector2 Input::mMousPosition;
+	Input::Mouse Input::mMouse;
 	int ASCII[(UINT)eKeyCode::END] =
 	{
 		//Alphabet
@@ -77,8 +77,49 @@ namespace shr
 			POINT mousePos = {};
 			GetCursorPos(&mousePos);
 			ScreenToClient(application.GetHwnd(), &mousePos);
-			mMousPosition.x = mousePos.x;
-			mMousPosition.y = mousePos.y;
+			//GetResolutionRatio
+			mMouse.mMove.x = mousePos.x - mMouse.mPos.x;
+			mMouse.mMove.y = mousePos.y - mMouse.mPos.y;
+			mMouse.mPos.x = mousePos.x;
+			mMouse.mPos.y = mousePos.y;
+
+			if (GetAsyncKeyState(VK_LBUTTON) & 0x8000)
+			{
+				if (mMouse.bLPressed)
+					mMouse.eLState = eKeyState::PRESSED;
+				else
+					mMouse.eLState = eKeyState::DOWN;
+
+				mMouse.bLPressed = true;
+			}
+			else
+			{
+				if (mMouse.bLPressed)
+					mMouse.eLState = eKeyState::UP;
+				else 
+					mMouse.eLState = eKeyState::NONE;
+
+				mMouse.bLPressed = false;
+			}
+
+			if (GetAsyncKeyState(VK_RBUTTON) & 0x8000)
+			{
+				if (mMouse.bRPressed)
+					mMouse.eRState = eKeyState::PRESSED;
+				else
+					mMouse.eRState = eKeyState::DOWN;
+
+				mMouse.bRPressed = true;
+			}
+			else
+			{
+				if (mMouse.bRPressed)
+					mMouse.eRState = eKeyState::UP;
+				else
+					mMouse.eRState = eKeyState::NONE;
+
+				mMouse.bRPressed = false;
+			}
 		}
 		else
 		{

@@ -47,6 +47,18 @@ namespace shr
 			bool	  bPressed;
 		};
 
+		struct Mouse
+		{
+			eKeyState eLState;
+			eKeyState eRState;
+
+			bool	  bLPressed;
+			bool	  bRPressed;
+
+			math::Vector2 mPos;
+			math::Vector2 mMove;
+		};
+
 		static void Initialize();
 		static void Update();
 
@@ -55,9 +67,19 @@ namespace shr
 			return mKeys[static_cast<UINT>(keyCode)].eState; 
 		}
 
-		static __forceinline math::Vector2 GetMousPosition()
+		static __forceinline Mouse GetMouse(Mouse& mouse)
 		{
-			return mMousPosition;
+			mouse.bLPressed = mMouse.bLPressed;
+			mouse.bRPressed = mMouse.bRPressed;
+			mouse.eLState = mMouse.eLState;
+			mouse.eRState = mMouse.eRState;
+			mouse.mMove = mMouse.mMove;
+			mouse.mPos = mMouse.mPos;
+		}
+
+		static __forceinline math::Vector2 GetMousePosition()
+		{
+			return mMouse.mPos;
 		}
 
 	private:
@@ -66,6 +88,6 @@ namespace shr
 
 	private:
 		static std::vector<Key> mKeys;
-		static math::Vector2 mMousPosition;
+		static Mouse mMouse;
 	};
 }

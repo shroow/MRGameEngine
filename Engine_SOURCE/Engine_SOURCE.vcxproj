@@ -44,6 +44,7 @@
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
+    <EnableUnitySupport>true</EnableUnitySupport>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
@@ -124,6 +125,7 @@
       <PrecompiledHeaderFile>
       </PrecompiledHeaderFile>
       <LanguageStandard>stdcpp20</LanguageStandard>
+      <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -185,6 +187,7 @@
     <ClInclude Include="shrTexture.h" />
     <ClInclude Include="shrTime.h" />
     <ClInclude Include="shrTransform.h" />
+    <ClInclude Include="shrUnitComponent.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="shrApplication.cpp" />
@@ -214,6 +217,7 @@
     <ClCompile Include="shrTexture.cpp" />
     <ClCompile Include="shrTime.cpp" />
     <ClCompile Include="shrTransform.cpp" />
+    <ClCompile Include="shrUnitComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\External\DirectTex\Include\DirectXTex.inl" />
