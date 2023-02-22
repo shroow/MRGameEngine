@@ -17,6 +17,9 @@ namespace shr
 
 		void SetConstantBuffer();
 
+		void SetParent(Transform* tr) { mParent = tr; }
+		Transform* GetParent() { return mParent; }
+
 		Vector3 GetPosition() { return mPosition; };
 		Vector3 GetRotation() { return mRotation; };
 		Vector3 GetScale() { return mScale; };
@@ -30,6 +33,7 @@ namespace shr
 		Vector3 Up() { return mUp; }
 
 	private:
+		Transform* mParent;
 		Vector3 mFoward;
 		Vector3 mRight;
 		Vector3 mUp;

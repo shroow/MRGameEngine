@@ -6,6 +6,7 @@ namespace shr
 {
 	Transform::Transform()
 		: Component(eComponentType::Transform)
+		, mParent(nullptr)
 		, mFoward(Vector3::Forward)
 		, mRight(Vector3::Right)
 		, mUp(Vector3::Up)
@@ -56,6 +57,11 @@ namespace shr
 		// 카메라 컴포넌트에서 세팅해준다
 		// 뷰행렬 세팅
 		// 프로젝션 행렬 세팅
+
+		if (mParent)
+		{
+			mWorld *= mParent->mWorld;
+		}
 	}
 
 	void Transform::Render()

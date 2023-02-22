@@ -23,6 +23,7 @@ namespace shr
 		, mFar(1000.0f)
 		, mScale(1.0f)
 	{
+		EnableLayerMasks();
 	}
 
 	Camera::~Camera()
@@ -31,7 +32,6 @@ namespace shr
 
 	void Camera::Initialize()
 	{
-		EnableLayerMasks();
 	}
 
 	void Camera::Update()
@@ -84,8 +84,8 @@ namespace shr
 		RECT winRect;
 		GetClientRect(application.GetHwnd(), &winRect);
 
-		float width = winRect.right - winRect.left;
-		float height = winRect.bottom - winRect.top;
+		float width = (winRect.right - winRect.left) * mScale;
+		float height = (winRect.bottom - winRect.top) * mScale;
 		mAspectRatio = width / height;
 
 		if (mType == eProjectionType::Perspective)

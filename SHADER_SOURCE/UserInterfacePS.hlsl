@@ -16,9 +16,9 @@ struct VSOut
 
 float4 main(VSOut In) : SV_TARGET
 {
-	float4 color = (float)0.f;
-	
-	color = defaultTexture.Sample(anisotropicSampler, In.UV);
-
-	return color;
+    float4 color = (float) 0.f;
+    
+    color = defaultTexture.Sample(anisotropicSampler, In.UV);
+    
+    return color;
 }

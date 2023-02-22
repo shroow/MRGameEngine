@@ -43,6 +43,12 @@ namespace shr
 								,funcName.c_str() , "vs_5_0", 0, 0
 								, mVSBlob.GetAddressOf()
 								, mErrorBlob.GetAddressOf());
+			
+			if (mErrorBlob)
+			{
+				OutputDebugStringA((char*)mErrorBlob->GetBufferPointer());
+				mErrorBlob->Release();
+			}
 
 			GetDevice()->CreateVertexShader(mVSBlob->GetBufferPointer()
 														, mVSBlob->GetBufferSize()
@@ -55,6 +61,12 @@ namespace shr
 				, funcName.c_str(), "ps_5_0", 0, 0
 				, mPSBlob.GetAddressOf()
 				, mErrorBlob.GetAddressOf());
+
+			if (mErrorBlob)
+			{
+				OutputDebugStringA((char*)mErrorBlob->GetBufferPointer());
+				mErrorBlob->Release();
+			}
 
 			GetDevice()->CreatePixelShader(mPSBlob->GetBufferPointer()
 				, mPSBlob->GetBufferSize()

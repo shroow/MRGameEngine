@@ -55,7 +55,6 @@ namespace shr::renderer
 		arrLayoutDesc[2].SemanticIndex = 0;
 
 		std::shared_ptr<Shader> shader = Resources::Find<Shader>(L"RectShader");
-
 		GetDevice()->CreateInputLayout(arrLayoutDesc, 3
 			, shader->GetVSBlobBufferPointer()
 			, shader->GetVSBlobBufferSize()
@@ -66,6 +65,19 @@ namespace shr::renderer
 			, spriteShader->GetVSBlobBufferPointer()
 			, spriteShader->GetVSBlobBufferSize()
 			, spriteShader->GetInputLayoutAddressOf());
+
+
+		std::shared_ptr<Shader> uiShader = Resources::Find<Shader>(L"UIShader");
+		GetDevice()->CreateInputLayout(arrLayoutDesc, 3
+			, uiShader->GetVSBlobBufferPointer()
+			, uiShader->GetVSBlobBufferSize()
+			, uiShader->GetInputLayoutAddressOf());
+
+		std::shared_ptr<Shader> gridShader = Resources::Find<Shader>(L"GridShader");
+		GetDevice()->CreateInputLayout(arrLayoutDesc, 3
+			, uiShader->GetVSBlobBufferPointer()
+			, uiShader->GetVSBlobBufferSize()
+			, uiShader->GetInputLayoutAddressOf());
 #pragma endregion
 
 #pragma region sampler state
@@ -221,8 +233,12 @@ namespace shr::renderer
 
 		constantBuffers[(UINT)eCBType::Transform] = new ConstantBuffer(eCBType::Transform);
 		constantBuffers[(UINT)eCBType::Transform]->Create(sizeof(TransformCB));
+		
 		constantBuffers[(UINT)eCBType::Material] = new ConstantBuffer(eCBType::Material);
 		constantBuffers[(UINT)eCBType::Material]->Create(sizeof(MaterialCB));
+
+		constantBuffers[(UINT)eCBType::Grid] = new ConstantBuffer(eCBType::Grid);
+		constantBuffers[(UINT)eCBType::Grid]->Create(sizeof(GridCB));
 	}
 
 	void LoadShader()
@@ -233,16 +249,38 @@ namespace shr::renderer
 
 		Resources::Insert<Shader>(L"RectShader", shader);
 
-		std::shared_ptr<Shader> spriteshader = std::make_shared<Shader>();
-		spriteshader->Create(eShaderStage::VS, L"SpriteVS.hlsl", "main");
-		spriteshader->Create(eShaderStage::PS, L"SpritePS.hlsl", "main");
+		std::shared_ptr<Shader> spriteShader = std::make_shared<Shader>();
+		spriteShader->Create(eShaderStage::VS, L"SpriteVS.hlsl", "main");
+		spriteShader->Create(eShaderStage::PS, L"SpritePS.hlsl", "main");
 
-		Resources::Insert<Shader>(L"SpriteShader", shader);
+		Resources::Insert<Shader>(L"SpriteShader", spriteShader);
+
+		std::shared_ptr<Shader> uiShader = std::make_shared<Shader>();
+		uiShader->Create(eShaderStage::VS, L"UserInterfaceVS.hlsl", "main");
+		uiShader->Create(eShaderStage::PS, L"UserInterfacePS.hlsl", "main");
+
+		Resources::Insert<Shader>(L"UIShader", uiShader);
+
+		std::shared_ptr<Shader> gridShader = std::make_shared<Shader>();
+		gridShader->Create(eShaderStage::VS, L"GridVS.hlsl", "main");
+		gridShader->Create(eShaderStage::PS, L"GridPS.hlsl", "main");
+		gridShader->SetRSState(eRSType::SolidNone);
+		gridShader->SetDSState(eDSType::NoWrite);
+		gridShader->SetBSState(eBSType::AlphaBlend);
+
+		Resources::Insert<Shader>(L"GridShader", gridShader);
+	}
+
+	void LoadTexture()
+	{
+		Resources::Load<Texture>(L"SmileTexture", L"Smile.png");
+		Resources::Load<Texture>(L"DefaultSprite", L"Light.png");
+		Resources::Load<Texture>(L"HPBarTexture", L"HPBar.png");
 	}
 
 	void LoadMaterial()
 	{
-		std::shared_ptr<Texture> texture = Resources::Load<Texture>(L"SmileTexture", L"Smile.png");
+		std::shared_ptr<Texture> texture = Resources::Find<Texture>(L"SmileTexture");
 		
 		std::shared_ptr<Shader> shader = Resources::Find<Shader>(L"RectShader");
 		std::shared_ptr<Material> material = std::make_shared<Material>(); 
@@ -251,14 +289,31 @@ namespace shr::renderer
 
 		Resources::Insert<Material>(L"RectMaterial", material);
 
-		std::shared_ptr <Texture> spriteTexture = Resources::Load<Texture>(L"DefaultSprite", L"Light.png");
 		// Sprite
+		std::shared_ptr <Texture> spriteTexture = Resources::Find<Texture>(L"DefaultSprite");
+		
 		std::shared_ptr<Shader> spriteShader = Resources::Find<Shader>(L"SpriteShader");
 		std::shared_ptr<Material> spriteMaterial = std::make_shared<Material>();
 		spriteMaterial->SetRenderingMode(eRenderingMode::Transparent);
 		spriteMaterial->SetShader(spriteShader);
 		spriteMaterial->SetTexture(spriteTexture);
 		Resources::Insert<Material>(L"SpriteMaterial", spriteMaterial);
+
+		// UI
+		std::shared_ptr <Texture> uiTexture = Resources::Find<Texture>(L"HPBarTexture");
+
+		std::shared_ptr<Shader> uiShader = Resources::Find<Shader>(L"SpriteShader");
+		std::shared_ptr<Material> uiMaterial = std::make_shared<Material>();
+		uiMaterial->SetRenderingMode(eRenderingMode::Transparent);
+		uiMaterial->SetShader(uiShader);
+		uiMaterial->SetTexture(uiTexture);
+		Resources::Insert<Material>(L"UIMaterial", uiMaterial);
+
+		// Grid
+		std::shared_ptr<Shader> gridShader = Resources::Find<Shader>(L"SpriteShader");
+		std::shared_ptr<Material> gridMaterial = std::make_shared<Material>();
+		gridMaterial->SetShader(gridShader);
+		Resources::Insert<Material>(L"GridMaterial", gridMaterial);
 	}
 
 	void Initialize()
@@ -283,6 +338,7 @@ namespace shr::renderer
 		LoadShader();
 		SetUpState();
 		LoadBuffer();
+		LoadTexture();
 		LoadMaterial();
 	}
 

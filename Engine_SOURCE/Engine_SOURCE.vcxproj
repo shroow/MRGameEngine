@@ -169,6 +169,7 @@
     <ClInclude Include="shrGameObject.h" />
     <ClInclude Include="shrGraphicDevice_DX11.h" />
     <ClInclude Include="shrGraphics.h" />
+    <ClInclude Include="shrGridScript.h" />
     <ClInclude Include="shrInput.h" />
     <ClInclude Include="shrLayer.h" />
     <ClInclude Include="shrMaterial.h" />
@@ -199,6 +200,7 @@
     <ClCompile Include="shrEntity.cpp" />
     <ClCompile Include="shrGameObject.cpp" />
     <ClCompile Include="shrGraphicDevice_DX11.cpp" />
+    <ClCompile Include="shrGridScript.cpp" />
     <ClCompile Include="shrInput.cpp" />
     <ClCompile Include="shrLayer.cpp" />
     <ClCompile Include="shrMaterial.cpp" />

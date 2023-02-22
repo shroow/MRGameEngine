@@ -144,6 +144,9 @@
     <ClCompile Include="shrUnitComponent.cpp">
       <Filter>Component\Object</Filter>
     </ClCompile>
+    <ClCompile Include="shrGridScript.cpp">
+      <Filter>Script</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CommonInclude.h">
@@ -244,6 +247,9 @@
     </ClInclude>
     <ClInclude Include="shrUnitComponent.h">
       <Filter>Component\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="shrGridScript.h">
+      <Filter>Script</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
