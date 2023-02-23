@@ -60,62 +60,53 @@ namespace shr
 
 			SpriteRenderer* sr = spriteObj->AddComponent<SpriteRenderer>();
 
-			std::shared_ptr<Mesh> mesh = Resources::Find<Mesh>(L"RectMesh");
-			std::shared_ptr<Material> spriteMaterial = Resources::Find<Material>(L"SpriteMaterial");
-			sr->SetMaterial(spriteMaterial);
-			sr->SetMesh(mesh);
+			sr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+			sr->SetMaterial(Resources::Find<Material>(L"SpriteMaterial"));
 		}
 
 		//SMILE RECT
 		{
-			GameObject* obj = object::Instantiate<GameObject>(eLayerType::Player
-				, Vector3(0.f, 0.f, 11.0f), Vector3(0.f, 0.f, XM_PIDIV2));
+			GameObject* obj = object::Instantiate<GameObject>(eLayerType::Camera, Vector3(0.f, 0.f, 11.0f), Vector3(0.f, 0.f, XM_PIDIV2));
 			obj->SetName(L"SMILE");
 			obj->GetComponent<Transform>()->SetScale(Vector3(1.0f, 1.0f, 1.0f));
 
 			MeshRenderer* mr = obj->AddComponent<MeshRenderer>();
 
-			std::shared_ptr<Mesh> mesh = Resources::Find<Mesh>(L"RectMesh");
-			std::shared_ptr<Material> mateiral = Resources::Find<Material>(L"RectMaterial");
-			mr->SetMesh(mesh);
-			mr->SetMaterial(mateiral);
+			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+			mr->SetMaterial(Resources::Find<Material>(L"SpriteMaterial"));
 
 			Vector2 vec2(1.0f, 1.0f);
 			mr->GetMaterial()->SetData(eGPUParam::Vector2, &vec2);
 
-			obj->AddComponent<PlayerScript>();
+			PlayerScript* playerScript = obj->AddComponent<PlayerScript>();
 		
 		//SMILE RECT CHILD
-			GameObject* child = object::Instantiate<GameObject>(eLayerType::Player, obj->GetComponent<Transform>());
+			GameObject* child = object::Instantiate<GameObject>(eLayerType::Camera, obj->GetComponent<Transform>());
 			child->SetName(L"SMILE");
 			child->GetComponent<Transform>()->SetPosition(Vector3(1.0f, 1.0f, 1.0f));
 			child->GetComponent<Transform>()->SetScale(Vector3(1.0f, 1.0f, 1.0f));
 
-			//MeshRenderer* childMr = obj->AddComponent<MeshRenderer>();
-			//서로참조하게 되어서 제대로 지우지 못하고 릭이 남았다
 			MeshRenderer* childMr = child->AddComponent<MeshRenderer>();
 
-
-			std::shared_ptr<Material> childmateiral = Resources::Find<Material>(L"RectMaterial");
-			childMr->SetMaterial(childmateiral);
-			childMr->SetMesh(mesh);
+			childMr->SetMaterial(Resources::Find<Material>(L"RectMaterial"));
+			childMr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
 		}
 
 		//HPBAR
 		{
 			GameObject* hpBar = object::Instantiate<GameObject>(eLayerType::UI);
-			hpBar->GetComponent<Transform>()->SetPosition(Vector3(-5.0f, 3.0f, 11.0f));
+			hpBar->GetComponent<Transform>()->SetPosition(Vector3(1.0f, 1.0f, 1.0f));
 			hpBar->GetComponent<Transform>()->SetScale(Vector3(1.0f, 1.0f, 1.0f));
 
 			SpriteRenderer* hpBarSR = hpBar->AddComponent<SpriteRenderer>();
 
-			std::shared_ptr<Mesh> hpMesh = Resources::Find<Mesh>(L"RectMesh");
-			std::shared_ptr<Material> hpSpriteMaterial = Resources::Find<Material>(L"UIMaterial");
-			hpBarSR->SetMesh(hpMesh);
-			hpBarSR->SetMaterial(hpSpriteMaterial);
+			//std::shared_ptr<Mesh> hpMesh = Resources::Find<Mesh>(L"RectMesh");
+			//std::shared_ptr<Material> hpMaterial = Resources::Find<Material>(L"UIMaterial");
+			//std::shared_ptr<Texture> hpTexture = Resources::Find<Texture>(L"UIMaterial");
+			//hpMaterial->SetTexture(hpTexture);
 
-			//hpBarSR->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
-			//hpBarSR->SetMaterial(Resources::Find<Material>(L"UIMaterial"));
+			hpBarSR->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+			hpBarSR->SetMaterial(Resources::Find<Material>(L"UIMaterial"));
 		}
 
 		mActiveScene->Initialize();
