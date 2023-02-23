@@ -100,7 +100,7 @@ namespace shr
 		}
 		else
 		{
-			mProjection = Matrix::CreateOrthographicLH(width, height, mNear, mFar);
+			mProjection = Matrix::CreateOrthographicLH(width / 100.f, height / 100.f, mNear, mFar);
 		}
 	}
 
@@ -117,12 +117,11 @@ namespace shr
 	void Camera::sortGameObjects()
 	{
 		mOpaqueGameObjects.clear();
-		int size = mOpaqueGameObjects.size();
 		mCutoutGameObjects.clear();
 		mTransparentGameObjects.clear();
 
 		Scene* scene = SceneManager::GetActiveScene();
-		for (UINT i = 0; i < (UINT)eLayerType::End; i++)
+		for (size_t i = 0; i < (UINT)eLayerType::End; i++)
 		{
 			if (mLayerMasks[i] == true)
 			{

@@ -11,17 +11,16 @@ namespace shr
 		Application();
 		~Application();
 
-		// Running main engine loop
-		void Run();
-		void Release();
-
 		virtual void Initialize();
 		virtual void Update();
 		virtual void FixedUpdate();
 		virtual void Render();
 
-		void SetWindow(HWND hwnd, UINT width, UINT height);
+		// Running main engine loop
+		void Run();
+		void Release();
 
+		void SetWindow(HWND hwnd, UINT width, UINT height);
 		void SetHwnd(HWND hwnd) { mHwnd = hwnd; }
 		HWND GetHwnd() { return mHwnd; }
 		UINT GetWidth() { return mWidth; }

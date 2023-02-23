@@ -1,5 +1,5 @@
 #include "shrGameObject.h"
-
+#include "shrTransform.h"
 
 namespace shr
 {
@@ -7,6 +7,7 @@ namespace shr
 		: mState(eState::Active)
 	{
 		mComponents.resize((UINT)eComponentType::End);
+		AddComponent(new Transform());
 	}
 
 	GameObject::~GameObject()

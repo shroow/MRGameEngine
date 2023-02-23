@@ -4,9 +4,9 @@
 #include "shrGraphicDevice_DX11.h"
 
 #ifdef _DEBUG
-#pragma comment(lib, "..\\External\\DirectXTex\\lib\\Debug\\DirectXTex.lib") 
+#pragma comment(lib, "..\\External\\DirectXTex\\Lib\\Debug\\DirectXTex.lib") 
 #else 
-#pragma comment(lib, "..\\External\\DirectXTex\\lib\\Release\\DirectXTex.lib") 
+#pragma comment(lib, "..\\External\\DirectXTex\\Lib\\Release\\DirectXTex.lib") 
 #endif
 
 using namespace shr::enums;

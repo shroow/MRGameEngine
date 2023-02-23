@@ -25,6 +25,7 @@ namespace shr::enums
 		MeshRenderer,
 		SpriteRenderer,
 		UI,
+		FadeInOut,
 		Script,
 		End,
 	};

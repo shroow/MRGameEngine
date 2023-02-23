@@ -23,13 +23,14 @@ namespace shr::graphics
 
 		// Device, Device Context
 		// 
-		//UINT DeviceFlag = D3D11_CREATE_DEVICE_DEBUG;
-		UINT DeviceFlag = D3D11_CREATE_DEVICE_BGRA_SUPPORT;
+		UINT DeviceFlag = D3D11_CREATE_DEVICE_DEBUG;
 
+	/*
+		UINT DeviceFlag = D3D11_CREATE_DEVICE_BGRA_SUPPORT;
 	#ifdef _DEBUG
 		DeviceFlag |= D3D11_CREATE_DEVICE_DEBUG;
 	#endif // _DEBUG
-		
+	*/
 
 		D3D_FEATURE_LEVEL FeatureLevel = (D3D_FEATURE_LEVEL)0;
 

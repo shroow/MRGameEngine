@@ -3,7 +3,7 @@
 
 namespace shr
 {
-    using namespace shr::math;
+    using namespace math;
     class Camera :
         public Component
     {

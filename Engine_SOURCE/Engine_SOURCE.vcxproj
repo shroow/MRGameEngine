@@ -176,6 +176,7 @@
     <ClInclude Include="shrMath.h" />
     <ClInclude Include="shrMesh.h" />
     <ClInclude Include="shrMeshRenderer.h" />
+    <ClInclude Include="shrObject.h" />
     <ClInclude Include="shrPlayerScript.h" />
     <ClInclude Include="shrRenderer.h" />
     <ClInclude Include="shrResource.h" />

@@ -17,7 +17,7 @@ namespace shr
 			{
 				return std::dynamic_pointer_cast<T>(iter->second);
 			}
-			
+
 			return nullptr;
 		}
 
@@ -53,16 +53,10 @@ namespace shr
 			mResources.insert(std::make_pair(key, std::dynamic_pointer_cast<Resource>(resource)));
 		}
 
-		//SharedPtr 을 사용해서 필요없음
-		//static void Release()
-		//{
-		//	std::map<std::wstring, Resource*>::iterator iter = mResources.begin();
-		//	for (; iter != mResources.end(); ++iter)
-		//	{
-		//		delete iter->second;
-		//		iter->second = nullptr;
-		//	}
-		//}
+		static void deleteTest()
+		{
+			int a = 0;
+		}
 
 	private:
 		Resources() = delete;

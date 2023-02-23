@@ -251,6 +251,9 @@
     <ClInclude Include="shrGridScript.h">
       <Filter>Script</Filter>
     </ClInclude>
+    <ClInclude Include="shrObject.h">
+      <Filter>GameObject</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="shrMath.inl">

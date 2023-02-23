@@ -75,9 +75,9 @@ namespace shr::renderer
 
 		std::shared_ptr<Shader> gridShader = Resources::Find<Shader>(L"GridShader");
 		GetDevice()->CreateInputLayout(arrLayoutDesc, 3
-			, uiShader->GetVSBlobBufferPointer()
-			, uiShader->GetVSBlobBufferSize()
-			, uiShader->GetInputLayoutAddressOf());
+			, gridShader->GetVSBlobBufferPointer()
+			, gridShader->GetVSBlobBufferSize()
+			, gridShader->GetInputLayoutAddressOf());
 #pragma endregion
 
 #pragma region sampler state
@@ -302,7 +302,7 @@ namespace shr::renderer
 		// UI
 		std::shared_ptr <Texture> uiTexture = Resources::Find<Texture>(L"HPBarTexture");
 
-		std::shared_ptr<Shader> uiShader = Resources::Find<Shader>(L"SpriteShader");
+		std::shared_ptr<Shader> uiShader = Resources::Find<Shader>(L"UIShader");
 		std::shared_ptr<Material> uiMaterial = std::make_shared<Material>();
 		uiMaterial->SetRenderingMode(eRenderingMode::Transparent);
 		uiMaterial->SetShader(uiShader);
@@ -310,7 +310,7 @@ namespace shr::renderer
 		Resources::Insert<Material>(L"UIMaterial", uiMaterial);
 
 		// Grid
-		std::shared_ptr<Shader> gridShader = Resources::Find<Shader>(L"SpriteShader");
+		std::shared_ptr<Shader> gridShader = Resources::Find<Shader>(L"GridShader");
 		std::shared_ptr<Material> gridMaterial = std::make_shared<Material>();
 		gridMaterial->SetShader(gridShader);
 		Resources::Insert<Material>(L"GridMaterial", gridMaterial);

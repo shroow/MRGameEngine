@@ -571,7 +571,6 @@ namespace shr::math
         static Matrix CreateOrthographicRH(float width, float height, float zNearPlane, float zFarPlane) noexcept;
         static Matrix CreateOrthographicOffCenterRH(float left, float right, float bottom, float top, float zNearPlane, float zFarPlane) noexcept;
 
-        //Fixed RH, Added LH
         static Matrix CreatePerspectiveFieldOfViewLH(float fov, float aspectRatio, float nearPlane, float farPlane) noexcept;
         static Matrix CreatePerspectiveLH(float width, float height, float nearPlane, float farPlane) noexcept;
         static Matrix CreatePerspectiveOffCenterLH(float left, float right, float bottom, float top, float nearPlane, float farPlane) noexcept;

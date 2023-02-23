@@ -23,6 +23,26 @@ namespace shr
 		virtual void FixedUpdate();
 		virtual void Render();
 
+
+		template <typename T>
+		T* AddComponent()
+		{
+			T* comp = new T();
+			eComponentType order = comp->GetOrder();
+			if (order != eComponentType::Script)
+			{
+				mComponents[(UINT)order] = comp;
+				mComponents[(UINT)order]->SetOwner(this);
+			}
+			else
+			{
+				mScripts.push_back(comp);
+				comp->SetOwner(this);
+			}
+
+			return comp;
+		}
+
 		void AddComponent(Component* comp);
 
 		template <typename T>
@@ -39,6 +59,12 @@ namespace shr
 
 			return nullptr;
 		}
+
+		eState GetState() { return mState; }
+		bool IsPaused() { return mState == eState::Paused ? true : false; }
+		bool IsDead() { return mState == eState::Dead ? true : false; }
+		void Pause() { mState = eState::Paused; }
+		void Die() { mState = eState::Dead; }
 
 	private:
 		eState mState;

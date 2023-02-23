@@ -19,19 +19,6 @@ namespace shr
 		SceneManager::Release();
 	}
 
-	// Running main engine loop
-	void Application::Run()
-	{
-		Update();
-		FixedUpdate();
-		Render();
-	}
-
-	void Application::Release()
-	{
-		//Resources::Release(); SharedPtr 사용해서 필요없음
-	}
-
 	void Application::Initialize()
 	{
 		Time::Initialize();
@@ -64,10 +51,24 @@ namespace shr
 		graphicDevice->Clear();
 		graphicDevice->AdjustViewPorts();
 
-		SceneManager::Render();
+		//SceneManager::Render();
+		renderer::Render();
 
 		//graphicDevice->Render();
 		graphicDevice->Present();
+	}
+
+	// Running main engine loop
+	void Application::Run()
+	{
+		Update();
+		FixedUpdate();
+		Render();
+	}
+
+	void Application::Release()
+	{
+		Resources::deleteTest();
 	}
 
 	void Application::SetWindow(HWND hwnd, UINT width, UINT height)
