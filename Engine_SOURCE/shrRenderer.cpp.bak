@@ -252,28 +252,24 @@ namespace shr::renderer
 
 	void LoadShader()
 	{
-		// Default
 		std::shared_ptr<Shader> shader = std::make_shared<Shader>();
 		shader->Create(eShaderStage::VS, L"TriangleVS.hlsl", "main");
 		shader->Create(eShaderStage::PS, L"TrianglePS.hlsl", "main");
 
 		Resources::Insert<Shader>(L"RectShader", shader);
 
-		// Sprite
 		std::shared_ptr<Shader> spriteShader = std::make_shared<Shader>();
 		spriteShader->Create(eShaderStage::VS, L"SpriteVS.hlsl", "main");
 		spriteShader->Create(eShaderStage::PS, L"SpritePS.hlsl", "main");
 
 		Resources::Insert<Shader>(L"SpriteShader", spriteShader);
 
-		// UI
 		std::shared_ptr<Shader> uiShader = std::make_shared<Shader>();
 		uiShader->Create(eShaderStage::VS, L"UserInterfaceVS.hlsl", "main");
 		uiShader->Create(eShaderStage::PS, L"UserInterfacePS.hlsl", "main");
 
 		Resources::Insert<Shader>(L"UIShader", uiShader);
 
-		// Grid Shader
 		std::shared_ptr<Shader> gridShader = std::make_shared<Shader>();
 		gridShader->Create(eShaderStage::VS, L"GridVS.hlsl", "main");
 		gridShader->Create(eShaderStage::PS, L"GridPS.hlsl", "main");
@@ -296,7 +292,7 @@ namespace shr::renderer
 		Resources::Load<Texture>(L"SmileTexture", L"Smile.png");
 		Resources::Load<Texture>(L"DefaultSprite", L"Light.png");
 		Resources::Load<Texture>(L"HPBarTexture", L"HPBar.png");
-		Resources::Load<Texture>(L"FadeinTexture", L"Fade.png");
+		Resources::Load<Texture>(L"FadeinTexture", L"Fadein.png");
 	}
 
 	void LoadMaterial()
@@ -337,7 +333,7 @@ namespace shr::renderer
 		Resources::Insert<Material>(L"GridMaterial", gridMaterial);
 
 		//FadeIn
-		std::shared_ptr <Texture> fadeInTexture = Resources::Find<Texture>(L"FadeinTexture");
+		std::shared_ptr <Texture> fadeInTexture = Resources::Find<Texture>(L"FadeInTexture");
 
 		std::shared_ptr<Shader> fadeInShader = Resources::Find<Shader>(L"FadeInShader");
 		std::shared_ptr<Material> fadeInMaterial = std::make_shared<Material>();

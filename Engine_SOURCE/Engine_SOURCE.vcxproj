@@ -155,7 +155,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="..\External\DirectTex\Include\DirectXTex.h" />
+    <ClInclude Include="..\External\DirectXTex\Include\DirectXTex.h" />
     <ClInclude Include="CommonInclude.h" />
     <ClInclude Include="shrApplication.h" />
     <ClInclude Include="shrBaseRenderer.h" />
@@ -166,6 +166,7 @@
     <ClInclude Include="shrEngine.h" />
     <ClInclude Include="shrEntity.h" />
     <ClInclude Include="shrEnums.h" />
+    <ClInclude Include="shrFadeInScript.h" />
     <ClInclude Include="shrGameObject.h" />
     <ClInclude Include="shrGraphicDevice_DX11.h" />
     <ClInclude Include="shrGraphics.h" />
@@ -199,6 +200,7 @@
     <ClCompile Include="shrComponent.cpp" />
     <ClCompile Include="shrConstantBuffer.cpp" />
     <ClCompile Include="shrEntity.cpp" />
+    <ClCompile Include="shrFadeInScript.cpp" />
     <ClCompile Include="shrGameObject.cpp" />
     <ClCompile Include="shrGraphicDevice_DX11.cpp" />
     <ClCompile Include="shrGridScript.cpp" />
@@ -223,7 +225,7 @@
     <ClCompile Include="shrUnitComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\External\DirectTex\Include\DirectXTex.inl" />
+    <None Include="..\External\DirectXTex\Include\DirectXTex.inl" />
     <None Include="shrMath.inl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

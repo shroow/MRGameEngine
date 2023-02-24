@@ -44,6 +44,14 @@ namespace shr::renderer
 		Vector2 resolution;
 	};
 
+
+	CBUFFER(FadeInCB, CBSLOT_FADEIN)
+	{
+		int iFadeOut;
+		float fTime;
+		Vector4 fadeColor;
+	};
+
 	extern Vertex vertexes[4];
 	extern ConstantBuffer* constantBuffers[];
 	extern Microsoft::WRL::ComPtr<ID3D11SamplerState> samplerStates[];

@@ -8,6 +8,5 @@ namespace shr
 	}
 	Resource::~Resource()
 	{
-		int a = 0;
 	}
 }

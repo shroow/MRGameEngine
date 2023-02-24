@@ -21,8 +21,8 @@ float4 main(VSOut In) : SV_TARGET
     const int Width = 100;
     const int Height = 100;
     
-    uint worldX = (int) In.WorldPos.x;
-    uint worldY = (int) In.WorldPos.y;
+    int worldX = (int) In.WorldPos.x;
+    int worldY = (int) In.WorldPos.y;
     
     const float Tickness = 1.0f;
     

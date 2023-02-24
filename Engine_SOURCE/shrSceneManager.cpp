@@ -10,6 +10,8 @@
 #include "shrCameraScript.h"
 #include "shrGridScript.h"
 #include "shrObject.h"
+#include "shrFadeInScript.h"
+#include "shrInput.h"
 
 namespace shr
 {
@@ -31,82 +33,100 @@ namespace shr
 
 		// Main Camera Game Object
 		{
-			GameObject* cameraObj = object::Instantiate<GameObject>(eLayerType::Camera
-				, Vector3(0.f, 0.f, 0.f), Vector3(0.f, 0.f, 0.f));
+			GameObject* cameraObj = object::Instantiate<GameObject>(eLayerType::Camera);
 			Camera* cameraComp = cameraObj->AddComponent<Camera>();
-
 			cameraComp->RegisterCameraInRenderer();
 			cameraComp->TurnLayerMask(eLayerType::UI, false);
-			
 			cameraObj->AddComponent<CameraScript>();
 		}
 
 		//UI CameraObj
 		{
-			GameObject* cameraUIObj = object::Instantiate<GameObject>(eLayerType::Camera
-				, Vector3(0.f, 0.f, 0.f), Vector3(0.f, 0.f, 0.f));
+			GameObject* cameraUIObj = object::Instantiate<GameObject>(eLayerType::Camera);
 			Camera* cameraUIComp = cameraUIObj->AddComponent<Camera>();
-
 			cameraUIComp->SetProjectionType(Camera::eProjectionType::Orthographic);
 			cameraUIComp->DisableLayerMasks();
 			cameraUIComp->TurnLayerMask(eLayerType::UI, true);
 		}
 
+
+
 		// Light Object
 		{
-			GameObject* spriteObj = object::Instantiate<GameObject>(eLayerType::Player
-				, Vector3(0.0f, 0.0f, 11.0f), Vector3(5.0f, 5.0f, 1.0f));
+			GameObject* spriteObj = object::Instantiate<GameObject>(eLayerType::Player);
 			spriteObj->SetName(L"LIGHT");
+			Transform* spriteTr = spriteObj->GetComponent<Transform>();
+			spriteTr->SetPosition(Vector3(5.0f, 5.0f, 11.0f));
+			spriteTr->SetScale(Vector3(5.0f, 5.0f, 1.0f));
 
 			SpriteRenderer* sr = spriteObj->AddComponent<SpriteRenderer>();
-
-			sr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
-			sr->SetMaterial(Resources::Find<Material>(L"SpriteMaterial"));
+			std::shared_ptr<Mesh> mesh = Resources::Find<Mesh>(L"RectMesh");
+			std::shared_ptr<Material> spriteMaterial = Resources::Find<Material>(L"SpriteMaterial");
+			sr->SetMaterial(spriteMaterial);
+			sr->SetMesh(mesh);
 		}
 
-		//SMILE RECT
+		//SMILE RECT /SMILE RECT CHild
 		{
-			GameObject* obj = object::Instantiate<GameObject>(eLayerType::Camera, Vector3(0.f, 0.f, 11.0f), Vector3(0.f, 0.f, XM_PIDIV2));
+			//SMILE RECT
+			GameObject* obj = object::Instantiate<GameObject>(eLayerType::Player);
 			obj->SetName(L"SMILE");
-			obj->GetComponent<Transform>()->SetScale(Vector3(1.0f, 1.0f, 1.0f));
+			Transform* tr = obj->GetComponent<Transform>();
+			tr->SetPosition(Vector3(-3.0f, 0.0f, 11.0f));
+			tr->SetRotation(Vector3(0.0f, 0.0f, XM_PIDIV2));
+			tr->SetScale(Vector3(1.0f, 1.0f, 1.0f));
 
 			MeshRenderer* mr = obj->AddComponent<MeshRenderer>();
+			std::shared_ptr<Material> mateiral = Resources::Find<Material>(L"RectMaterial");
+			std::shared_ptr<Mesh> mesh = Resources::Find<Mesh>(L"RectMesh");
+			mr->SetMaterial(mateiral);
+			mr->SetMesh(mesh);
+			obj->AddComponent<PlayerScript>();
 
-			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
-			mr->SetMaterial(Resources::Find<Material>(L"SpriteMaterial"));
-
-			Vector2 vec2(1.0f, 1.0f);
-			mr->GetMaterial()->SetData(eGPUParam::Vector2, &vec2);
-
-			PlayerScript* playerScript = obj->AddComponent<PlayerScript>();
-		
-		//SMILE RECT CHILD
-			GameObject* child = object::Instantiate<GameObject>(eLayerType::Camera, obj->GetComponent<Transform>());
+			//SMILE RECT CHild
+			GameObject* child = object::Instantiate<GameObject>(eLayerType::Player);
 			child->SetName(L"SMILE");
-			child->GetComponent<Transform>()->SetPosition(Vector3(1.0f, 1.0f, 1.0f));
-			child->GetComponent<Transform>()->SetScale(Vector3(1.0f, 1.0f, 1.0f));
+			Transform* childTr = child->GetComponent<Transform>();
+			childTr->SetPosition(Vector3(2.0f, 0.0f, 0.0f));
+			childTr->SetScale(Vector3(1.0f, 1.0f, 1.0f));
+			childTr->SetParent(tr);
 
 			MeshRenderer* childMr = child->AddComponent<MeshRenderer>();
-
-			childMr->SetMaterial(Resources::Find<Material>(L"RectMaterial"));
-			childMr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+			std::shared_ptr<Material> childmateiral = Resources::Find<Material>(L"RectMaterial");
+			childMr->SetMaterial(childmateiral);
+			childMr->SetMesh(mesh);
 		}
 
 		//HPBAR
 		{
-			GameObject* hpBar = object::Instantiate<GameObject>(eLayerType::UI);
-			hpBar->GetComponent<Transform>()->SetPosition(Vector3(1.0f, 1.0f, 1.0f));
-			hpBar->GetComponent<Transform>()->SetScale(Vector3(1.0f, 1.0f, 1.0f));
+			GameObject* hpBar = object::Instantiate<GameObject>(eLayerType::Player);
+			hpBar->SetName(L"HPBAR");
+			Transform* hpBarTR = hpBar->GetComponent<Transform>();
+			hpBarTR->SetPosition(Vector3(-5.0f, 3.0f, 12.0f));
+			hpBarTR->SetScale(Vector3(1.0f, 1.0f, 1.0f));
 
-			SpriteRenderer* hpBarSR = hpBar->AddComponent<SpriteRenderer>();
+			SpriteRenderer* hpsr = hpBar->AddComponent<SpriteRenderer>();
+			hpBar->AddComponent(hpsr);
+			std::shared_ptr<Mesh> hpmesh = Resources::Find<Mesh>(L"RectMesh");
+			std::shared_ptr<Material> hpspriteMaterial = Resources::Find<Material>(L"UIMaterial");
+			hpsr->SetMesh(hpmesh);
+			hpsr->SetMaterial(hpspriteMaterial);
+		}
 
-			//std::shared_ptr<Mesh> hpMesh = Resources::Find<Mesh>(L"RectMesh");
-			//std::shared_ptr<Material> hpMaterial = Resources::Find<Material>(L"UIMaterial");
-			//std::shared_ptr<Texture> hpTexture = Resources::Find<Texture>(L"UIMaterial");
-			//hpMaterial->SetTexture(hpTexture);
+		{//Fadein Obj
+			GameObject* fadeinObject = object::Instantiate<GameObject>(eLayerType::Player);
+			fadeinObject->SetName(L"FadeIn");
+			Transform* fadeinTR = fadeinObject->GetComponent<Transform>();
+			fadeinTR->SetPosition(Vector3(1.0f, 1.0f, 3.0f));
+			fadeinTR->SetScale(Vector3(1.0f, 1.0f, 1.0f));
 
-			hpBarSR->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
-			hpBarSR->SetMaterial(Resources::Find<Material>(L"UIMaterial"));
+			SpriteRenderer* fadeinSR = fadeinObject->AddComponent<SpriteRenderer>();
+
+			std::shared_ptr<Mesh> fadeinmesh = Resources::Find<Mesh>(L"RectMesh");
+			std::shared_ptr<Material> fadeinMaterial = Resources::Find<Material>(L"FadeInMaterial");
+			fadeinSR->SetMesh(fadeinmesh);
+			fadeinSR->SetMaterial(fadeinMaterial);
+			fadeinObject->AddComponent<FadeInScript>();
 		}
 
 		mActiveScene->Initialize();
@@ -114,6 +134,10 @@ namespace shr
 
 	void SceneManager::Update()
 	{
+		
+		//if (Input::GetKeyState(eKeyCode::F) == eKeyState::DOWN)
+
+
 		mActiveScene->Update();
 	}
 

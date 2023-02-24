@@ -68,7 +68,7 @@ namespace shr
 
 	void Application::Release()
 	{
-		Resources::deleteTest();
+		//Resources::deleteTest();
 	}
 
 	void Application::SetWindow(HWND hwnd, UINT width, UINT height)

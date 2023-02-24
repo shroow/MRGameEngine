@@ -22,6 +22,13 @@ cbuffer Grid : register(b2)
     float2 resolution;
 }
 
+cbuffer FadeIn : register(b3)
+{
+    int isFadeOut;
+    float deltaTime;
+    float4 fadeColor;
+}
+
 SamplerState pointSampler : register(s0);
 SamplerState linearSampler : register(s1);
 SamplerState anisotropicSampler : register(s2);

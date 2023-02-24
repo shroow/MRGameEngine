@@ -50,7 +50,7 @@ namespace shr
 		D3D11_SUBRESOURCE_DATA subData = {};
 		subData.pSysMem = data;
 
-		if (!GetDevice()->CreateBuffer(&mIBDesc, &subData, mIndexBuffer.GetAddressOf()))
+ 		if (!GetDevice()->CreateBuffer(&mIBDesc, &subData, mIndexBuffer.GetAddressOf()))
 			return false;
 
 		return true;

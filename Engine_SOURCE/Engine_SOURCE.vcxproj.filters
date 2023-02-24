@@ -147,6 +147,9 @@
     <ClCompile Include="shrGridScript.cpp">
       <Filter>Script</Filter>
     </ClCompile>
+    <ClCompile Include="shrFadeInScript.cpp">
+      <Filter>Script</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CommonInclude.h">
@@ -215,9 +218,6 @@
     <ClInclude Include="shrTransform.h">
       <Filter>Component</Filter>
     </ClInclude>
-    <ClInclude Include="..\External\DirectTex\Include\DirectXTex.h">
-      <Filter>Resource\Texture</Filter>
-    </ClInclude>
     <ClInclude Include="shrTexture.h">
       <Filter>Resource\Texture</Filter>
     </ClInclude>
@@ -254,12 +254,18 @@
     <ClInclude Include="shrObject.h">
       <Filter>GameObject</Filter>
     </ClInclude>
+    <ClInclude Include="..\External\DirectXTex\Include\DirectXTex.h">
+      <Filter>Resource\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="shrFadeInScript.h">
+      <Filter>Script</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="shrMath.inl">
       <Filter>Common\Math</Filter>
     </None>
-    <None Include="..\External\DirectTex\Include\DirectXTex.inl">
+    <None Include="..\External\DirectXTex\Include\DirectXTex.inl">
       <Filter>Resource\Texture</Filter>
     </None>
   </ItemGroup>

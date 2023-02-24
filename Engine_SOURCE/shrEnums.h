@@ -9,6 +9,7 @@ namespace shr::enums
 		Grid,
 		Monster,
 		Player,
+		CameraEffect,
 		UI,
 		End = 16,
 	};
@@ -25,7 +26,6 @@ namespace shr::enums
 		MeshRenderer,
 		SpriteRenderer,
 		UI,
-		FadeInOut,
 		Script,
 		End,
 	};

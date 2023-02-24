@@ -33,7 +33,7 @@ namespace shr::object
 	}
 
 	template <typename T>
-	static T* Instantiate(enums::eLayerType type, Vector3 position, Vector3 rotation = Vector3(0.f, 0.f, 0.f))
+	static T* Instantiate(enums::eLayerType type, Vector3 position, Vector3 rotation)
 	{
 		T* gameObj = new T();
 		Scene* scene = SceneManager::GetActiveScene();
