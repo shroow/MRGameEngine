@@ -7,9 +7,11 @@ namespace shr
 	{
 		mLayerVec.resize((UINT)eLayerType::End);
 	}
+
 	Scene::~Scene()
 	{
 	}
+
 	void Scene::Initialize()
 	{
 		
@@ -18,6 +20,7 @@ namespace shr
 			layer.Initialize();
 		}
 	}
+
 	void Scene::Update()
 	{
 		for (Layer& layer : mLayerVec)
@@ -25,6 +28,7 @@ namespace shr
 			layer.Update();
 		}
 	}
+
 	void Scene::FixedUpdate()
 	{
 		for (Layer& layer : mLayerVec)
@@ -32,6 +36,7 @@ namespace shr
 			layer.FixedUpdate();
 		}
 	}
+
 	void Scene::Render()
 	{
 		for (Layer& layer : mLayerVec)
@@ -39,20 +44,21 @@ namespace shr
 			layer.Render();
 		}
 	}
+
 	void Scene::OnEnter()
 	{
 	}
+
 	void Scene::OnExit()
 	{
 	}
-	void Scene::LoadResources()
-	{
-	}
+
 	void Scene::AddGameObject(GameObject* gameObj, const eLayerType type)
 	{
 		mLayerVec[(UINT)type].AddGameObject(gameObj);
 		gameObj->SetLayerType(type);
 	}
+
 	std::vector<GameObject*> Scene::GetDontDestroyGameObjects()
 	{
 		std::vector<GameObject*> gameObjects;

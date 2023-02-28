@@ -21,7 +21,7 @@ namespace shr
 		virtual void OnExit();
 
 	public:
-		virtual void LoadResources();
+		virtual void LoadResources() {};
 
 	
 		void AddGameObject(GameObject* gameObj, const eLayerType type);
