@@ -16,7 +16,7 @@ namespace shr
 
 	Application::~Application()
 	{
-		SceneManager::Release();
+
 	}
 
 	void Application::Initialize()

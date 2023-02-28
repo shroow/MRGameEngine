@@ -14,9 +14,10 @@ namespace shr
 {
 	FadeInScript::FadeInScript()
 		: Script()
-		, mStart(false)
-		, mFadeOut(0)
-		, mSpeed(3.f)
+		, mStart(true)
+		, mFadeIn(1)
+		, mSpeed(2.f)
+		, mAlpha(0.f)
 		, mColor(Vector4(255.f, 255.f, 255.f, 1.f))
 	{
 	}
@@ -31,14 +32,34 @@ namespace shr
 
 	void FadeInScript::Update()
 	{
-		float DeltaTime = Time::DeltaTime();
-		float Time = DeltaTime / mSpeed;
+		if (Input::GetKeyState(eKeyCode::P) == eKeyState::DOWN)
+		{
+			if (mStart)
+				mStart = false;
+			else
+				mStart = true;
+		}
+
+		if (Input::GetKeyState(eKeyCode::F) == eKeyState::DOWN)
+		{
+			if (mFadeIn)
+				mFadeIn = false;
+			else
+				mFadeIn = true;
+		}
+
+		if (mStart)
+		{
+			if (mFadeIn && mAlpha < 1.f)
+				mAlpha += Time::DeltaTime() / mSpeed;
+			else if(!mFadeIn && mAlpha > -1.f)
+				mAlpha -= Time::DeltaTime() / mSpeed;
+		}
+
 		//Constant buffer
 		ConstantBuffer* cb = renderer::constantBuffers[(UINT)eCBType::FadeIn];
 		renderer::FadeInCB data;
-		data.iFadeOut = mFadeOut;
-		data.fTime = Time;
-		data.fadeColor = mColor;
+		data.fAlpha = mAlpha;
 
 		cb->Bind(&data);
 		cb->SetPipline(eShaderStage::VS);

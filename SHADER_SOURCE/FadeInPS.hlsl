@@ -24,11 +24,10 @@ float4 main(VSOut In) : SV_TARGET
     float4 color = (float) 0.f;
 	
     color = defaultTexture.Sample(anisotropicSampler, In.UV);
-
-    float time = deltaTime;
-    float4 fade = fadeColor;
     
-    color.a -= time;
+    float fAlpha = alpha;
+    
+    color.a += fAlpha;
     
     return float4(color.r, color.g, color.b, color.a);
 }

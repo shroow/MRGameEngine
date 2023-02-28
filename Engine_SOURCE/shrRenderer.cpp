@@ -26,7 +26,7 @@ namespace shr::renderer
 	Microsoft::WRL::ComPtr<ID3D11DepthStencilState> depthstencilStates[(UINT)eDSType::End] = {};
 	Microsoft::WRL::ComPtr<ID3D11BlendState> blendStates[(UINT)eBSType::End] = {};
 
-	std::vector<Camera*> cameras;
+	std::vector<Camera*> cameraVec;
 
 	void SetUpState()
 	{
@@ -199,7 +199,7 @@ namespace shr::renderer
 
 		GetDevice()->CreateBlendState(&bsDesc, blendStates[(UINT)eBSType::AlphaBlend].GetAddressOf());
 
- 		bsDesc.AlphaToCoverageEnable = false;
+		bsDesc.AlphaToCoverageEnable = false;
 		bsDesc.IndependentBlendEnable = false;
 
 		bsDesc.RenderTarget[0].BlendEnable = true;
@@ -282,7 +282,7 @@ namespace shr::renderer
 		gridShader->SetBSState(eBSType::AlphaBlend);
 
 		Resources::Insert<Shader>(L"GridShader", gridShader);
-
+		
 		// FadeIn
 		std::shared_ptr<Shader> fadeInShader = std::make_shared<Shader>();
 		fadeInShader->Create(eShaderStage::VS, L"FadeInVS.hlsl", "main");
@@ -296,7 +296,9 @@ namespace shr::renderer
 		Resources::Load<Texture>(L"SmileTexture", L"Smile.png");
 		Resources::Load<Texture>(L"DefaultSprite", L"Light.png");
 		Resources::Load<Texture>(L"HPBarTexture", L"HPBar.png");
-		Resources::Load<Texture>(L"FadeinTexture", L"Fade.png");
+		Resources::Load<Texture>(L"FadeInTexture", L"Fade.png");
+		//Resources::Load<Texture>(L"Biker_Idle", L"Biker\\Idle.png");
+		//Resources::Load<Texture>(L"Biker_Death", L"Biker\\Death.png");
 	}
 
 	void LoadMaterial()
@@ -337,7 +339,7 @@ namespace shr::renderer
 		Resources::Insert<Material>(L"GridMaterial", gridMaterial);
 
 		//FadeIn
-		std::shared_ptr <Texture> fadeInTexture = Resources::Find<Texture>(L"FadeinTexture");
+		std::shared_ptr <Texture> fadeInTexture = Resources::Find<Texture>(L"FadeInTexture");
 
 		std::shared_ptr<Shader> fadeInShader = Resources::Find<Shader>(L"FadeInShader");
 		std::shared_ptr<Material> fadeInMaterial = std::make_shared<Material>();
@@ -375,7 +377,7 @@ namespace shr::renderer
 
 	void Render()
 	{
-		for (Camera* cam : cameras)
+		for (Camera* cam : cameraVec)
 		{
 			if (cam == nullptr)
 				continue;
@@ -383,7 +385,7 @@ namespace shr::renderer
 			cam->Render();
 		}
 
-		cameras.clear();
+		cameraVec.clear();
 	}
 
 	void Release()

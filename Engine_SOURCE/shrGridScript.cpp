@@ -1,9 +1,9 @@
 #include "shrGridScript.h"
-#include "shrRenderer.h"
-#include "shrGameObject.h"
 #include "shrTransform.h"
-#include "shrConstantBuffer.h"
+#include "shrGameObject.h"
 #include "shrApplication.h"
+#include "shrConstantBuffer.h"
+#include "shrRenderer.h"
 
 extern shr::Application application;
 
@@ -13,15 +13,17 @@ namespace shr
 		: Script()
 		, mCamera(nullptr)
 	{
+
 	}
 
 	GridScript::~GridScript()
 	{
+
 	}
 
 	void GridScript::Initialize()
 	{
-		mCamera = renderer::cameras[0];
+		mCamera = renderer::cameraVec[0];
 	}
 
 	void GridScript::Update()
@@ -40,7 +42,7 @@ namespace shr
 		Transform* tr = gameObj->GetComponent<Transform>();
 
 		Vector3 cameraPos = tr->GetPosition();
-		Vector4 position = Vector4(cameraPos.x, cameraPos.y, cameraPos.z, 1.f);
+		Vector4 position = Vector4(cameraPos.x, cameraPos.y, cameraPos.z, 1.0f);
 
 		float scale = mCamera->GetScale();
 
@@ -50,7 +52,7 @@ namespace shr
 		float height = winRect.bottom - winRect.top;
 		Vector2 resolution(width, height);
 
-		//Constant buffer
+		// Constant buffer
 		ConstantBuffer* cb = renderer::constantBuffers[(UINT)eCBType::Grid];
 		renderer::GridCB data;
 		data.cameraPosition = position;
@@ -69,4 +71,5 @@ namespace shr
 	void GridScript::Render()
 	{
 	}
+
 }

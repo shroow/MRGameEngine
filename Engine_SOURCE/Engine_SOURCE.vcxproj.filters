@@ -58,6 +58,9 @@
     <Filter Include="Component\Object">
       <UniqueIdentifier>{d8c0d794-561a-4005-83d9-b1841cdf5f6b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Scene\GameScenes">
+      <UniqueIdentifier>{3f1c802d-00b4-46d6-a61f-9a100cb3d572}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="shrApplication.cpp">
@@ -149,6 +152,18 @@
     </ClCompile>
     <ClCompile Include="shrFadeInScript.cpp">
       <Filter>Script</Filter>
+    </ClCompile>
+    <ClCompile Include="shrBikerScript.cpp">
+      <Filter>Script</Filter>
+    </ClCompile>
+    <ClCompile Include="shrPlayScene.cpp">
+      <Filter>Scene\GameScenes</Filter>
+    </ClCompile>
+    <ClCompile Include="shrTitleScene.cpp">
+      <Filter>Scene\GameScenes</Filter>
+    </ClCompile>
+    <ClCompile Include="shrMultiShaderRenderer.cpp">
+      <Filter>Component\Renderer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -259,6 +274,18 @@
     </ClInclude>
     <ClInclude Include="shrFadeInScript.h">
       <Filter>Script</Filter>
+    </ClInclude>
+    <ClInclude Include="shrBikerScript.h">
+      <Filter>Script</Filter>
+    </ClInclude>
+    <ClInclude Include="shrPlayScene.h">
+      <Filter>Scene\GameScenes</Filter>
+    </ClInclude>
+    <ClInclude Include="shrTitleScene.h">
+      <Filter>Scene\GameScenes</Filter>
+    </ClInclude>
+    <ClInclude Include="shrMultiShaderRenderer.h">
+      <Filter>Component\Renderer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

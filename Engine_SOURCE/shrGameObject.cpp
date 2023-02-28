@@ -5,6 +5,8 @@ namespace shr
 {
 	GameObject::GameObject()
 		: mState(eState::Active)
+		, mLayerType(eLayerType::None)
+		, mDontDestroy(false)
 	{
 		mComponents.resize((UINT)eComponentType::End);
 		AddComponent(new Transform());

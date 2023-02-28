@@ -17,10 +17,18 @@ namespace shr
 		virtual void FixedUpdate();
 		virtual void Render();
 
+		virtual void OnEnter();
+		virtual void OnExit();
+
+	public:
+		virtual void LoadResources();
+
+	
 		void AddGameObject(GameObject* gameObj, const eLayerType type);
-		Layer& GetLayer(eLayerType type) { return mLayers[(UINT)type]; }
+		Layer& GetLayerType(eLayerType type) { return mLayerVec[(UINT)type]; }
+		std::vector<GameObject*> GetDontDestroyGameObjects();
 
 	private:
-		std::vector<Layer> mLayers;
+		std::vector<Layer> mLayerVec;
 	};
 }

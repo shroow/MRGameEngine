@@ -64,7 +64,7 @@ namespace shr
 
 		static __forceinline eKeyState GetKeyState(eKeyCode keyCode) 
 		{ 
-			return mKeys[static_cast<UINT>(keyCode)].eState; 
+			return mKeyVec[static_cast<UINT>(keyCode)].eState; 
 		}
 
 		static __forceinline Mouse GetMouse(Mouse& mouse)
@@ -87,7 +87,7 @@ namespace shr
 		~Input() = delete;
 
 	private:
-		static std::vector<Key> mKeys;
+		static std::vector<Key> mKeyVec;
 		static Mouse mMouse;
 	};
 }

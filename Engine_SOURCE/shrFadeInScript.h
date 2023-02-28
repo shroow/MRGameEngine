@@ -16,10 +16,17 @@ namespace shr
         virtual void FixedUpdate() override;
         virtual void Render() override;
 
+        void Start() { mStart = true; }
+        void Stop() { mStart = false; }
+        void SetFadeOut() { mFadeIn = false; }
+        void SetSpeed(float speed) { mSpeed = speed; }
+        void SetState(bool start, bool fadeIn, float speed) { mStart = start, mFadeIn = fadeIn, mSpeed = speed; }
+
     private:
         bool mStart;
-        bool mFadeOut;
+        bool mFadeIn;
         float mSpeed;
+        float mAlpha;
         Vector4 mColor;
     };
 }

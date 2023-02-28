@@ -66,9 +66,16 @@ namespace shr
 		void Pause() { mState = eState::Paused; }
 		void Die() { mState = eState::Dead; }
 
+		bool IsDontDestroy() { return mDontDestroy; }
+		void DontDestroy(bool TF) { mDontDestroy = TF; }
+		eLayerType GetLayerType() { return mLayerType; }
+		void SetLayerType(eLayerType type) { mLayerType = type; }
+
 	private:
 		eState mState;
+		eLayerType mLayerType;
 		std::vector<Component*> mComponents;
 		std::vector<Component*> mScripts;
+		bool mDontDestroy;
 	};
 }

@@ -62,8 +62,8 @@ namespace shr
         float mScale;
 
         std::bitset<(UINT)eLayerType::End> mLayerMasks;
-        std::vector<GameObject*> mOpaqueGameObjects;
-        std::vector<GameObject*> mCutoutGameObjects;
-        std::vector<GameObject*> mTransparentGameObjects;
+        std::vector<GameObject*> mOpaqueGameObjectVec;
+        std::vector<GameObject*> mCutoutGameObjectVec;
+        std::vector<GameObject*> mTransparentGameObjectVec;
     };
 }

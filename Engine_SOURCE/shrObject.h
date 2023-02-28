@@ -12,7 +12,7 @@ namespace shr::object
 	{
 		T* gameObj = new T();
 		Scene* scene = SceneManager::GetActiveScene();
-		Layer& layer = scene->GetLayer(type);
+		Layer& layer = scene->GetLayerType(type);
 		layer.AddGameObject(gameObj);
 
 		return gameObj;
@@ -23,7 +23,7 @@ namespace shr::object
 	{
 		T* gameObj = new T();
 		Scene* scene = SceneManager::GetActiveScene();
-		Layer& layer = scene->GetLayer(type);
+		Layer& layer = scene->GetLayerType(type);
 		layer.AddGameObject(gameObj);
 
 		Transform* tr = gameObj->GameObject::GetComponent<Transform>();
@@ -37,7 +37,7 @@ namespace shr::object
 	{
 		T* gameObj = new T();
 		Scene* scene = SceneManager::GetActiveScene();
-		Layer& layer = scene->GetLayer(type);
+		Layer& layer = scene->GetLayerType(type);
 		layer.AddGameObject(gameObj);
 
 		Transform* tr = gameObj->GameObject::GetComponent<Transform>();
@@ -52,7 +52,7 @@ namespace shr::object
 	{
 		T* gameObj = new T();
 		Scene* scene = SceneManager::GetActiveScene();
-		Layer& layer = scene->GetLayer(type);
+		Layer& layer = scene->GetLayerType(type);
 		layer.AddGameObject(gameObj);
 
 		Transform* tr = gameObj->GameObject::GetComponent<Transform>();
@@ -66,5 +66,13 @@ namespace shr::object
 	void Destroy(GameObject* gameObject)
 	{
 		gameObject->Die();
+	}
+
+	void DontDestroyOnLoad(GameObject* gameObject)
+	{
+		if (gameObject == nullptr)
+			return;
+
+		gameObject->DontDestroy(true);
 	}
 }

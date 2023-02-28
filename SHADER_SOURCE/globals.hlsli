@@ -24,9 +24,7 @@ cbuffer Grid : register(b2)
 
 cbuffer FadeIn : register(b3)
 {
-    int isFadeOut;
-    float deltaTime;
-    float4 fadeColor;
+    float alpha;
 }
 
 SamplerState pointSampler : register(s0);

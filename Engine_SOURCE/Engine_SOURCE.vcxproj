@@ -44,7 +44,7 @@
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
-    <EnableUnitySupport>true</EnableUnitySupport>
+    <EnableUnitySupport>false</EnableUnitySupport>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
@@ -159,6 +159,7 @@
     <ClInclude Include="CommonInclude.h" />
     <ClInclude Include="shrApplication.h" />
     <ClInclude Include="shrBaseRenderer.h" />
+    <ClInclude Include="shrBikerScript.h" />
     <ClInclude Include="shrCamera.h" />
     <ClInclude Include="shrCameraScript.h" />
     <ClInclude Include="shrComponent.h" />
@@ -177,8 +178,10 @@
     <ClInclude Include="shrMath.h" />
     <ClInclude Include="shrMesh.h" />
     <ClInclude Include="shrMeshRenderer.h" />
+    <ClInclude Include="shrMultiShaderRenderer.h" />
     <ClInclude Include="shrObject.h" />
     <ClInclude Include="shrPlayerScript.h" />
+    <ClInclude Include="shrPlayScene.h" />
     <ClInclude Include="shrRenderer.h" />
     <ClInclude Include="shrResource.h" />
     <ClInclude Include="shrResources.h" />
@@ -189,12 +192,14 @@
     <ClInclude Include="shrSpriteRenderer.h" />
     <ClInclude Include="shrTexture.h" />
     <ClInclude Include="shrTime.h" />
+    <ClInclude Include="shrTitleScene.h" />
     <ClInclude Include="shrTransform.h" />
     <ClInclude Include="shrUnitComponent.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="shrApplication.cpp" />
     <ClCompile Include="shrBaseRenderer.cpp" />
+    <ClCompile Include="shrBikerScript.cpp" />
     <ClCompile Include="shrCamera.cpp" />
     <ClCompile Include="shrCameraScript.cpp" />
     <ClCompile Include="shrComponent.cpp" />
@@ -210,7 +215,9 @@
     <ClCompile Include="shrMath.cpp" />
     <ClCompile Include="shrMesh.cpp" />
     <ClCompile Include="shrMeshRenderer.cpp" />
+    <ClCompile Include="shrMultiShaderRenderer.cpp" />
     <ClCompile Include="shrPlayerScript.cpp" />
+    <ClCompile Include="shrPlayScene.cpp" />
     <ClCompile Include="shrRenderer.cpp" />
     <ClCompile Include="shrResource.cpp" />
     <ClCompile Include="shrResources.cpp" />
@@ -221,6 +228,7 @@
     <ClCompile Include="shrSpriteRenderer.cpp" />
     <ClCompile Include="shrTexture.cpp" />
     <ClCompile Include="shrTime.cpp" />
+    <ClCompile Include="shrTitleScene.cpp" />
     <ClCompile Include="shrTransform.cpp" />
     <ClCompile Include="shrUnitComponent.cpp" />
   </ItemGroup>

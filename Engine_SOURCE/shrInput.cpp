@@ -5,7 +5,7 @@
 extern shr::Application application;
 namespace shr
 {
-	std::vector<Input::Key> Input::mKeys;
+	std::vector<Input::Key> Input::mKeyVec;
 	Input::Mouse Input::mMouse;
 	int ASCII[(UINT)eKeyCode::END] =
 	{
@@ -40,7 +40,7 @@ namespace shr
 			key.eState = eKeyState::NONE;
 			key.bPressed = false;
 
-			mKeys.push_back(key);
+			mKeyVec.push_back(key);
 		}
 	}
 
@@ -55,22 +55,22 @@ namespace shr
 				if (GetAsyncKeyState(ASCII[i]) & 0x8000)
 				{
 					// 이전 프레임에도 눌려 있었다.
-					if (mKeys[i].bPressed)
-						mKeys[i].eState = eKeyState::PRESSED;
+					if (mKeyVec[i].bPressed)
+						mKeyVec[i].eState = eKeyState::PRESSED;
 					else
-						mKeys[i].eState = eKeyState::DOWN;
+						mKeyVec[i].eState = eKeyState::DOWN;
 
-					mKeys[i].bPressed = true;
+					mKeyVec[i].bPressed = true;
 				}
 				else // 해당키가 현재 안눌려있다.
 				{
 					// 이전 프레임에는 눌려 있었다.
-					if (mKeys[i].bPressed)
-						mKeys[i].eState = eKeyState::UP;
+					if (mKeyVec[i].bPressed)
+						mKeyVec[i].eState = eKeyState::UP;
 					else // 이전 프레임에도 안눌려 있었다.
-						mKeys[i].eState = eKeyState::NONE;
+						mKeyVec[i].eState = eKeyState::NONE;
 
-					mKeys[i].bPressed = false;
+					mKeyVec[i].bPressed = false;
 				}
 			}
 			
@@ -125,12 +125,12 @@ namespace shr
 		{
 			for (UINT i = 0; i < (UINT)eKeyCode::END; ++i)
 			{
-				if (eKeyState::DOWN == mKeys[i].eState || eKeyState::PRESSED == mKeys[i].eState)
-					mKeys[i].eState = eKeyState::UP;
-				else if (eKeyState::UP == mKeys[i].eState)
-					mKeys[i].eState = eKeyState::NONE;
+				if (eKeyState::DOWN == mKeyVec[i].eState || eKeyState::PRESSED == mKeyVec[i].eState)
+					mKeyVec[i].eState = eKeyState::UP;
+				else if (eKeyState::UP == mKeyVec[i].eState)
+					mKeyVec[i].eState = eKeyState::NONE;
 
-				mKeys[i].bPressed = false;
+				mKeyVec[i].bPressed = false;
 			}
 		}
 

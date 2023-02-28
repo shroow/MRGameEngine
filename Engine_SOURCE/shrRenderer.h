@@ -47,9 +47,7 @@ namespace shr::renderer
 
 	CBUFFER(FadeInCB, CBSLOT_FADEIN)
 	{
-		int iFadeOut;
-		float fTime;
-		Vector4 fadeColor;
+		float fAlpha;
 	};
 
 	extern Vertex vertexes[4];
@@ -59,7 +57,7 @@ namespace shr::renderer
 	extern Microsoft::WRL::ComPtr<ID3D11DepthStencilState> depthstencilStates[];
 	extern Microsoft::WRL::ComPtr<ID3D11BlendState> blendStates[];
 
-	extern std::vector<Camera*> cameras;
+	extern std::vector<Camera*> cameraVec;
 
 	void Initialize();
 	void Render();

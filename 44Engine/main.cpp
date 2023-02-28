@@ -4,6 +4,7 @@
 #include "framework.h"
 #include "44Engine.h"
 #include "shrApplication.h"
+#include "shrSceneManager.h"
 
 #ifdef _DEBUG
 #pragma comment(lib, "..\\x64\\Debug\\Lib\\Engine_SOURCE.lib") 
@@ -74,6 +75,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
         }
     }
 
+    shr::SceneManager::Release();
     application.Release();
 
     return (int) msg.wParam;

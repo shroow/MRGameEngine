@@ -106,7 +106,7 @@ namespace shr
 
 	void Camera::RegisterCameraInRenderer()
 	{
-		renderer::cameras.push_back(this);
+		renderer::cameraVec.push_back(this);
 	}
 
 	void Camera::TurnLayerMask(eLayerType layer, bool enable)
@@ -116,17 +116,17 @@ namespace shr
 
 	void Camera::sortGameObjects()
 	{
-		mOpaqueGameObjects.clear();
-		mCutoutGameObjects.clear();
-		mTransparentGameObjects.clear();
+		mOpaqueGameObjectVec.clear();
+		mCutoutGameObjectVec.clear();
+		mTransparentGameObjectVec.clear();
 
 		Scene* scene = SceneManager::GetActiveScene();
 		for (size_t i = 0; i < (UINT)eLayerType::End; i++)
 		{
 			if (mLayerMasks[i] == true)
 			{
-				Layer& layer = scene->GetLayer((eLayerType)i);
-				GameObjects vecGameObj = layer.GetVecGameObjects();
+				Layer& layer = scene->GetLayerType((eLayerType)i);
+				GameObjectVec vecGameObj = layer.GetGameObjectVec();
 				if (vecGameObj.size() == 0)
 					continue;
 
@@ -140,7 +140,7 @@ namespace shr
 
 	void Camera::renderOpaque()
 	{
-		for (GameObject* obj : mOpaqueGameObjects)
+		for (GameObject* obj : mOpaqueGameObjectVec)
 		{
 			if (obj == nullptr)
 				continue;
@@ -151,7 +151,7 @@ namespace shr
 
 	void Camera::renderCutout()
 	{
-		for (GameObject* obj : mCutoutGameObjects)
+		for (GameObject* obj : mCutoutGameObjectVec)
 		{
 			if (obj == nullptr)
 				continue;
@@ -162,7 +162,7 @@ namespace shr
 
 	void Camera::renderTransparent()
 	{
-		for (GameObject* obj : mTransparentGameObjects)
+		for (GameObject* obj : mTransparentGameObjectVec)
 		{
 			if (obj == nullptr)
 				continue;
@@ -185,13 +185,13 @@ namespace shr
 		switch (mode)
 		{
 		case shr::graphics::eRenderingMode::Opaque:
-			mOpaqueGameObjects.push_back(gameObj);
+			mOpaqueGameObjectVec.push_back(gameObj);
 			break;
 		case shr::graphics::eRenderingMode::CutOut:
-			mCutoutGameObjects.push_back(gameObj);
+			mCutoutGameObjectVec.push_back(gameObj);
 			break;
 		case shr::graphics::eRenderingMode::Transparent:
-			mTransparentGameObjects.push_back(gameObj);
+			mTransparentGameObjectVec.push_back(gameObj);
 			break;
 		default:
 			break;

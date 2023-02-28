@@ -18,8 +18,8 @@ float4 main(VSOut In) : SV_TARGET
 {
     float4 Out = float4(1.f, 1.f, 1.f, 1.f);
     
-    const int Width = 100;
-    const int Height = 100;
+    const float Width = 100;
+    const float Height = 100;
     
     int worldX = (int) In.WorldPos.x;
     int worldY = (int) In.WorldPos.y;

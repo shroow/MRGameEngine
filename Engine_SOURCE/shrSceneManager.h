@@ -12,9 +12,11 @@ namespace shr
 		static void Render();
 		static void Release();
 
+		static void LoadScene(eSceneType type);
 		static Scene* GetActiveScene() { return mActiveScene; }
 
 	private:
+		static std::vector<Scene*> mSceneVec;
 		static Scene* mActiveScene;
 	};
 }
