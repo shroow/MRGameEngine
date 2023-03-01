@@ -176,12 +176,29 @@ namespace shr
 			material->SetTexture(texture);
 
 			Resources::Insert<Material>(L"Biker_Death2", material);
-			SR->SetMaterial(material);
+			SR->SetMaterial(material); 
 
 			//bikerObj->AddComponent<BikerScript>();
 		}
 
+		////Total Object Test Result : 500 < x < 600
+		//{
+		//	for (int i = 0; i < 500; i++)
+		//	{
+		//		int count = i * 5;
+		//		GameObject* bikerObj = object::Instantiate<GameObject>(eLayerType::Player);
+		//		bikerObj->SetName(L"LIGHT");
+		//		Transform* bikerTr = bikerObj->GetComponent<Transform>();
+		//		bikerTr->SetPosition(Vector3(-3.0f + (float)count, 2.0f, 10.0f));
+		//		bikerTr->SetScale(Vector3(4.0f, 1.0f, 1.0f));
 
+		//		SpriteRenderer* sr = bikerObj->AddComponent<SpriteRenderer>();
+		//		std::shared_ptr<Mesh> mesh = Resources::Find<Mesh>(L"RectMesh");
+		//		std::shared_ptr<Material> spriteMaterial = Resources::Find<Material>(L"Biker_Idle_Material");
+		//		sr->SetMaterial(spriteMaterial);
+		//		sr->SetMesh(mesh);
+		//	}
+		//}
 
 	}
 	void TitleScene::Update()

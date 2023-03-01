@@ -18,6 +18,7 @@ namespace shr
 
 		// Running main engine loop
 		void Run();
+		void Present();
 		void Release();
 
 		void SetWindow(HWND hwnd, UINT width, UINT height);

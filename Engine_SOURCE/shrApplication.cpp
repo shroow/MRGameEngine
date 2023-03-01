@@ -53,9 +53,6 @@ namespace shr
 
 		//SceneManager::Render();
 		renderer::Render();
-
-		//graphicDevice->Render();
-		graphicDevice->Present();
 	}
 
 	// Running main engine loop
@@ -64,6 +61,12 @@ namespace shr
 		Update();
 		FixedUpdate();
 		Render();
+	}
+
+	void Application::Present()
+	{
+		//graphicDevice->Render();
+		graphicDevice->Present();
 	}
 
 	void Application::Release()

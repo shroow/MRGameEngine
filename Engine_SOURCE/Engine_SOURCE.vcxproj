@@ -162,6 +162,10 @@
     <ClInclude Include="shrBikerScript.h" />
     <ClInclude Include="shrCamera.h" />
     <ClInclude Include="shrCameraScript.h" />
+    <ClInclude Include="shrCollider.h" />
+    <ClInclude Include="shrCollider2D.h" />
+    <ClInclude Include="shrCollider3D.h" />
+    <ClInclude Include="shrCollisionManager.h" />
     <ClInclude Include="shrComponent.h" />
     <ClInclude Include="shrConstantBuffer.h" />
     <ClInclude Include="shrEngine.h" />
@@ -182,6 +186,7 @@
     <ClInclude Include="shrObject.h" />
     <ClInclude Include="shrPlayerScript.h" />
     <ClInclude Include="shrPlayScene.h" />
+    <ClInclude Include="shrPrefab.h" />
     <ClInclude Include="shrRenderer.h" />
     <ClInclude Include="shrResource.h" />
     <ClInclude Include="shrResources.h" />
@@ -202,6 +207,10 @@
     <ClCompile Include="shrBikerScript.cpp" />
     <ClCompile Include="shrCamera.cpp" />
     <ClCompile Include="shrCameraScript.cpp" />
+    <ClCompile Include="shrCollider.cpp" />
+    <ClCompile Include="shrCollider2D.cpp" />
+    <ClCompile Include="shrCollider3D.cpp" />
+    <ClCompile Include="shrCollisionManager.cpp" />
     <ClCompile Include="shrComponent.cpp" />
     <ClCompile Include="shrConstantBuffer.cpp" />
     <ClCompile Include="shrEntity.cpp" />
@@ -218,6 +227,7 @@
     <ClCompile Include="shrMultiShaderRenderer.cpp" />
     <ClCompile Include="shrPlayerScript.cpp" />
     <ClCompile Include="shrPlayScene.cpp" />
+    <ClCompile Include="shrPrefab.cpp" />
     <ClCompile Include="shrRenderer.cpp" />
     <ClCompile Include="shrResource.cpp" />
     <ClCompile Include="shrResources.cpp" />

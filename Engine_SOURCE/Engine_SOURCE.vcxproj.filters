@@ -61,6 +61,18 @@
     <Filter Include="Scene\GameScenes">
       <UniqueIdentifier>{3f1c802d-00b4-46d6-a61f-9a100cb3d572}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Prefab">
+      <UniqueIdentifier>{26aa041c-44d0-4b41-a8ea-9f7053125ce3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Collider">
+      <UniqueIdentifier>{202dd30b-8ece-4281-9fc0-b3bf81380df5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Collider\2D">
+      <UniqueIdentifier>{c8bc396f-7ea8-43cf-8239-032b223a206d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Collider\3D">
+      <UniqueIdentifier>{24f935f2-31a2-48f6-b289-3ed9d97ecdeb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="shrApplication.cpp">
@@ -164,6 +176,21 @@
     </ClCompile>
     <ClCompile Include="shrMultiShaderRenderer.cpp">
       <Filter>Component\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="shrPrefab.cpp">
+      <Filter>Prefab</Filter>
+    </ClCompile>
+    <ClCompile Include="shrCollider2D.cpp">
+      <Filter>Collider\2D</Filter>
+    </ClCompile>
+    <ClCompile Include="shrCollider3D.cpp">
+      <Filter>Collider\3D</Filter>
+    </ClCompile>
+    <ClCompile Include="shrCollider.cpp">
+      <Filter>Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="shrCollisionManager.cpp">
+      <Filter>Collider</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -286,6 +313,21 @@
     </ClInclude>
     <ClInclude Include="shrMultiShaderRenderer.h">
       <Filter>Component\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="shrPrefab.h">
+      <Filter>Prefab</Filter>
+    </ClInclude>
+    <ClInclude Include="shrCollider2D.h">
+      <Filter>Collider\2D</Filter>
+    </ClInclude>
+    <ClInclude Include="shrCollider3D.h">
+      <Filter>Collider\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="shrCollider.h">
+      <Filter>Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="shrCollisionManager.h">
+      <Filter>Collider</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
