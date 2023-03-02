@@ -1,7 +1,8 @@
 #pragma once
-#include "..\Editor_SOURCE\shrDebugObject.h"
-#include "..\Editor_SOURCE\shrEditorObject.h"
-#include "..\Editor_SOURCE\shrWidget.h"
+#include "shrDebugObject.h"
+#include "shrEditorObject.h"
+#include "shrWidget.h"
+#include "shrGraphics.h"
 
 namespace shr
 {
@@ -15,11 +16,11 @@ namespace shr
 		void FixedUpdate();
 		void Render();
 		void Release();
-		void DebugRender();
+		void DebugRender(graphics::DebugMesh& mesh);
 
 	private:
 		std::vector<Widget> mWidgets;
 		std::vector<EditorObject> mEditorObjects;
-		std::vector<DebugObject> mDebugObjects;
+		std::vector<DebugObject*> mDebugObjects;
 	};
 }

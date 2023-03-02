@@ -52,4 +52,14 @@ namespace shr::enums
 		End,
 	};
 
+	enum class eColliderType
+	{
+		None,
+		Rect,
+		Circle,
+		Box,
+		Sphere,
+		End,
+	};
+
 }

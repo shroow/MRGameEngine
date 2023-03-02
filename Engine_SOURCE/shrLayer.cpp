@@ -87,7 +87,7 @@ namespace shr
 			if ((*iter)->IsDontDestroy())
 			{
 				donts.push_back(*iter);
-				mGameObjectVec.erase(iter);
+				iter = mGameObjectVec.erase(iter);
 			}
 			else
 			{

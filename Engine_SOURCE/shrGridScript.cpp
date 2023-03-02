@@ -23,7 +23,7 @@ namespace shr
 
 	void GridScript::Initialize()
 	{
-		mCamera = renderer::cameraVec[0];
+		mCamera = renderer::cameras[0];
 	}
 
 	void GridScript::Update()

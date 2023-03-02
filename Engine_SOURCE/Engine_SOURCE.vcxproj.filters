@@ -64,13 +64,13 @@
     <Filter Include="Prefab">
       <UniqueIdentifier>{26aa041c-44d0-4b41-a8ea-9f7053125ce3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Collider">
+    <Filter Include="Component\Collider">
       <UniqueIdentifier>{202dd30b-8ece-4281-9fc0-b3bf81380df5}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Collider\2D">
+    <Filter Include="Component\Collider\2D">
       <UniqueIdentifier>{c8bc396f-7ea8-43cf-8239-032b223a206d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Collider\3D">
+    <Filter Include="Component\Collider\3D">
       <UniqueIdentifier>{24f935f2-31a2-48f6-b289-3ed9d97ecdeb}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -181,16 +181,16 @@
       <Filter>Prefab</Filter>
     </ClCompile>
     <ClCompile Include="shrCollider2D.cpp">
-      <Filter>Collider\2D</Filter>
+      <Filter>Component\Collider\2D</Filter>
     </ClCompile>
     <ClCompile Include="shrCollider3D.cpp">
-      <Filter>Collider\3D</Filter>
+      <Filter>Component\Collider\3D</Filter>
     </ClCompile>
     <ClCompile Include="shrCollider.cpp">
-      <Filter>Collider</Filter>
+      <Filter>Component\Collider</Filter>
     </ClCompile>
     <ClCompile Include="shrCollisionManager.cpp">
-      <Filter>Collider</Filter>
+      <Filter>Component\Collider</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -318,16 +318,16 @@
       <Filter>Prefab</Filter>
     </ClInclude>
     <ClInclude Include="shrCollider2D.h">
-      <Filter>Collider\2D</Filter>
+      <Filter>Component\Collider\2D</Filter>
     </ClInclude>
     <ClInclude Include="shrCollider3D.h">
-      <Filter>Collider\3D</Filter>
+      <Filter>Component\Collider\3D</Filter>
     </ClInclude>
     <ClInclude Include="shrCollider.h">
-      <Filter>Collider</Filter>
+      <Filter>Component\Collider</Filter>
     </ClInclude>
     <ClInclude Include="shrCollisionManager.h">
-      <Filter>Collider</Filter>
+      <Filter>Component\Collider</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

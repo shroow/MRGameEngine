@@ -13,14 +13,4 @@
   <ItemGroup>
     <ProjectCapability Include="SourceItemsFromImports" />
   </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="$(MSBuildThisFileDirectory)shrDebugObject.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)shrEditorObject.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)shrWidget.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="$(MSBuildThisFileDirectory)shrDebugObject.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)shrEditorObject.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)shrWidget.cpp" />
-  </ItemGroup>
 </Project>

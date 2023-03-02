@@ -14,6 +14,12 @@
     <Filter Include="Editor">
       <UniqueIdentifier>{461c4351-49ea-43ba-a831-81724781027e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Editor\DebugObject">
+      <UniqueIdentifier>{3713f94e-e913-4a6b-a6b1-30d84c9df465}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Editor\Widget">
+      <UniqueIdentifier>{766ff17b-0aff-49dd-a17b-7df7c9cad85a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="44Engine.h">
@@ -30,6 +36,15 @@
     </ClInclude>
     <ClInclude Include="shrEditor.h">
       <Filter>Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="shrDebugObject.h">
+      <Filter>Editor\DebugObject</Filter>
+    </ClInclude>
+    <ClInclude Include="shrEditorObject.h">
+      <Filter>Editor\DebugObject</Filter>
+    </ClInclude>
+    <ClInclude Include="shrWidget.h">
+      <Filter>Editor\Widget</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -51,6 +66,15 @@
     </ClCompile>
     <ClCompile Include="shrEditor.cpp">
       <Filter>Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="shrDebugObject.cpp">
+      <Filter>Editor\DebugObject</Filter>
+    </ClCompile>
+    <ClCompile Include="shrEditorObject.cpp">
+      <Filter>Editor\DebugObject</Filter>
+    </ClCompile>
+    <ClCompile Include="shrWidget.cpp">
+      <Filter>Editor\Widget</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

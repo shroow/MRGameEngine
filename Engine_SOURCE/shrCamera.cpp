@@ -106,7 +106,7 @@ namespace shr
 
 	void Camera::RegisterCameraInRenderer()
 	{
-		renderer::cameraVec.push_back(this);
+		renderer::cameras.push_back(this);
 	}
 
 	void Camera::TurnLayerMask(eLayerType layer, bool enable)
