@@ -69,6 +69,36 @@ namespace shr
 		}
 	}
 
+	void Layer::Destroy()
+	{
+		std::set<GameObject*> deleteObjects;
+
+		for (GameObject* gameObj : mGameObjectVec)
+		{
+			if (gameObj->GetState() == GameObject::eState::Dead)
+				deleteObjects.insert(gameObj);
+		}
+
+		for (GameObjectIter iter = mGameObjectVec.begin()
+			; iter != mGameObjectVec.end()
+			; )
+		{
+			std::set<GameObject*>::iterator deleteIter
+				= deleteObjects.find(*iter);
+
+			if (deleteIter != deleteObjects.end())
+				mGameObjectVec.erase(iter);
+			else
+				iter++;
+		}	
+
+		for (GameObject* gameObj : deleteObjects)
+		{
+			delete gameObj;
+			gameObj = nullptr;
+		}
+	}
+
 	void Layer::AddGameObject(GameObject* gameObject)
 	{
 		if (gameObject == nullptr)
@@ -87,7 +117,7 @@ namespace shr
 			if ((*iter)->IsDontDestroy())
 			{
 				donts.push_back(*iter);
-				mGameObjectVec.erase(iter);
+				iter = mGameObjectVec.erase(iter);
 			}
 			else
 			{

@@ -1,6 +1,7 @@
 #include "shrRenderer.h"
 #include "shrResources.h"
 #include "shrMaterial.h"
+#include "shrSceneManager.h"
 
 // 애니메이션
 // Sprite Renderer
@@ -26,7 +27,7 @@ namespace shr::renderer
 	Microsoft::WRL::ComPtr<ID3D11DepthStencilState> depthstencilStates[(UINT)eDSType::End] = {};
 	Microsoft::WRL::ComPtr<ID3D11BlendState> blendStates[(UINT)eBSType::End] = {};
 
-	std::vector<Camera*> cameraVec;
+	std::vector<Camera*> cameraVec[(UINT)eSceneType::End];
 
 	void SetUpState()
 	{

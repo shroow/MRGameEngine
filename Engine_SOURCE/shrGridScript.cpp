@@ -4,6 +4,7 @@
 #include "shrApplication.h"
 #include "shrConstantBuffer.h"
 #include "shrRenderer.h"
+#include "shrSceneManager.h"
 
 extern shr::Application application;
 
@@ -23,7 +24,8 @@ namespace shr
 
 	void GridScript::Initialize()
 	{
-		mCamera = renderer::cameraVec[0];
+		eSceneType type = SceneManager::GetActiveScene()->GetSceneType();
+		mCamera = renderer::cameraVec[(UINT)type][0];
 	}
 
 	void GridScript::Update()

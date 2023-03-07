@@ -54,6 +54,11 @@ namespace shr
 		mActiveScene->Render();
 	}
 
+	void SceneManager::Destroy()
+	{
+		mActiveScene->Destroy();
+	}
+
 	void SceneManager::Release()
 	{
 		for (Scene* scene : mSceneVec)

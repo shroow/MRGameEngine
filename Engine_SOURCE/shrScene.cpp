@@ -3,7 +3,8 @@
 
 namespace shr
 {
-	Scene::Scene()
+	Scene::Scene(eSceneType type)
+		: mType(type)
 	{
 		mLayerVec.resize((UINT)eLayerType::End);
 	}
@@ -42,6 +43,14 @@ namespace shr
 		for (Layer& layer : mLayerVec)
 		{
 			layer.Render();
+		}
+	}
+
+	void Scene::Destroy()
+	{
+		for (Layer layer : mLayerVec)
+		{
+			layer.Destroy();
 		}
 	}
 

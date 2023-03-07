@@ -1,9 +1,9 @@
 #include "shrTitleScene.h"
 #include "shrResources.h"
+#include "shrInput.h"
 
 #include "shrObject.h"
 #include "shrGameObject.h"
-
 #include "shrTransform.h"
 
 #include "shrMeshRenderer.h"
@@ -19,7 +19,7 @@
 namespace shr
 {
 	TitleScene::TitleScene()
-		: Scene()
+		: Scene(eSceneType::Title)
 	{
 	}
 	TitleScene::~TitleScene()
@@ -34,9 +34,10 @@ namespace shr
 		// Main Camera Game Object
 		GameObject* cameraObj = object::Instantiate<GameObject>(eLayerType::Camera);
 		Camera* cameraComp = cameraObj->AddComponent<Camera>();
-		cameraComp->RegisterCameraInRenderer();
+		//cameraComp->RegisterCameraInRenderer();
 		cameraComp->TurnLayerMask(eLayerType::UI, false);
 		cameraObj->AddComponent<CameraScript>();
+		//renderer::cameraVec[0] = cameraComp;
 		
 
 		//UI CameraObj
@@ -88,6 +89,7 @@ namespace shr
 			mr->SetMaterial(mateiral);
 			mr->SetMesh(mesh);
 			obj->AddComponent<PlayerScript>();
+			object::DontDestroyOnLoad(obj);
 
 			//SMILE RECT CHild
 			GameObject* child = object::Instantiate<GameObject>(eLayerType::Player);
@@ -138,17 +140,17 @@ namespace shr
 
 		//Biker1
 		{
-			GameObject* bikerObj = object::Instantiate<GameObject>(eLayerType::Player);
-			bikerObj->SetName(L"LIGHT");
-			Transform* bikerTr = bikerObj->GetComponent<Transform>();
-			bikerTr->SetPosition(Vector3(-3.0f, 2.0f, 10.0f));
-			bikerTr->SetScale(Vector3(4.0f, 1.0f, 1.0f));
+			//GameObject* bikerObj = object::Instantiate<GameObject>(eLayerType::Player);
+			//bikerObj->SetName(L"LIGHT");
+			//Transform* bikerTr = bikerObj->GetComponent<Transform>();
+			//bikerTr->SetPosition(Vector3(-3.0f, 2.0f, 10.0f));
+			//bikerTr->SetScale(Vector3(4.0f, 1.0f, 1.0f));
 
-			SpriteRenderer* sr = bikerObj->AddComponent<SpriteRenderer>();
-			std::shared_ptr<Mesh> mesh = Resources::Find<Mesh>(L"RectMesh");
-			std::shared_ptr<Material> spriteMaterial = Resources::Find<Material>(L"Biker_Idle_Material");
-			sr->SetMaterial(spriteMaterial);
-			sr->SetMesh(mesh);
+			//SpriteRenderer* sr = bikerObj->AddComponent<SpriteRenderer>();
+			//std::shared_ptr<Mesh> mesh = Resources::Find<Mesh>(L"RectMesh");
+			//std::shared_ptr<Material> spriteMaterial = Resources::Find<Material>(L"Biker_Idle_Material");
+			//sr->SetMaterial(spriteMaterial);
+			//sr->SetMesh(mesh);
 
 
 			//bikerObj->AddComponent<BikerScript>();
@@ -178,14 +180,17 @@ namespace shr
 			Resources::Insert<Material>(L"Biker_Death2", material);
 			SR->SetMaterial(material);
 
-			//bikerObj->AddComponent<BikerScript>();
+			//bikerObj->AddComponent<FadeInScript>();
 		}
-
-
 
 	}
 	void TitleScene::Update()
 	{
+		if (Input::GetKeyDown(eKeyCode::N)
+		{
+			SceneManager::LoadScene(eSceneType::Play)
+		}
+
 		Scene::Update();
 	}
 	void TitleScene::FixedUpdate()

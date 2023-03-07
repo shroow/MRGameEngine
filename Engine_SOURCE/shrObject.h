@@ -19,6 +19,16 @@ namespace shr::object
 	}
 
 	template <typename T>
+	static T* Instantiate(enums::eLayerType type, Scene* scene)
+	{
+		T* gameObj = new T();
+		Layer& layer = scene->GetLayerType(type);
+		layer.AddGameObject(gameObj);
+
+		return gameObj;
+	}
+
+	template <typename T>
 	static T* Instantiate(enums::eLayerType type, Transform* parent)
 	{
 		T* gameObj = new T();
@@ -63,12 +73,12 @@ namespace shr::object
 		return gameObj;
 	}
 
-	void Destroy(GameObject* gameObject)
+	static void Destroy(GameObject* gameObject)
 	{
 		gameObject->Die();
 	}
 
-	void DontDestroyOnLoad(GameObject* gameObject)
+	static void DontDestroyOnLoad(GameObject* gameObject)
 	{
 		if (gameObject == nullptr)
 			return;

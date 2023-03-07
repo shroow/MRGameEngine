@@ -64,7 +64,7 @@ namespace shr
 
 		static __forceinline eKeyState GetKeyState(eKeyCode keyCode) 
 		{ 
-			return mKeyVec[static_cast<UINT>(keyCode)].eState; 
+			return mKeys[static_cast<UINT>(keyCode)].eState; 
 		}
 
 		static __forceinline Mouse GetMouse(Mouse& mouse)
@@ -82,12 +82,27 @@ namespace shr
 			return mMouse.mPos;
 		}
 
+		static __forceinline bool GetKey(eKeyCode keyCode)
+		{
+			return mKeys[static_cast<UINT>(keyCode)].eState == eKeyState::PRESSED;
+		}
+
+		static __forceinline bool GetKeyDown(eKeyCode keyCode)
+		{
+			return mKeys[static_cast<UINT>(keyCode)].eState == eKeyState::DOWN;
+		}
+
+		static __forceinline bool GetKeyUp(eKeyCode keyCode)
+		{
+			return mKeys[static_cast<UINT>(keyCode)].eState == eKeyState::UP;
+		}
+
 	private:
 		Input() = delete;
 		~Input() = delete;
 
 	private:
-		static std::vector<Key> mKeyVec;
+		static std::vector<Key> mKeys;
 		static Mouse mMouse;
 	};
 }

@@ -4,7 +4,7 @@ namespace shr::enums
 {
 	enum class eSceneType
 	{
-		Tilte,
+		Title,
 		Play,
 		End,
 	};

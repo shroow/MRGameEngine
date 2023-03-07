@@ -15,7 +15,7 @@ namespace shr
 	FadeInScript::FadeInScript()
 		: Script()
 		, mStart(true)
-		, mFadeIn(1)
+		, mFadeIn(true)
 		, mSpeed(2.f)
 		, mAlpha(0.f)
 		, mColor(Vector4(255.f, 255.f, 255.f, 1.f))
@@ -48,12 +48,28 @@ namespace shr
 				mFadeIn = true;
 		}
 
+		//if (mStart)
+		//{
+		//	if (mFadeIn && mAlpha < 1.f)
+		//		mAlpha += Time::DeltaTime() / mSpeed;
+		//	else if(!mFadeIn && mAlpha > -1.f)
+		//		mAlpha -= Time::DeltaTime() / mSpeed;
+		//}
+
 		if (mStart)
 		{
-			if (mFadeIn && mAlpha < 1.f)
+			if (mFadeIn)
+			{
 				mAlpha += Time::DeltaTime() / mSpeed;
-			else if(!mFadeIn && mAlpha > -1.f)
+				if (mAlpha > 1.f)
+					mFadeIn = false;
+			}
+			else 
+			{
 				mAlpha -= Time::DeltaTime() / mSpeed;
+				if (mAlpha < -1.f)
+					mFadeIn = true;
+			}
 		}
 
 		//Constant buffer
