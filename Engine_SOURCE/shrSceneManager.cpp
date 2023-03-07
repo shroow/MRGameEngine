@@ -28,10 +28,10 @@ namespace shr
 	{
 		mSceneVec.resize((UINT)eSceneType::End);
 
-		mSceneVec[(UINT)eSceneType::Tilte] = new TitleScene();
+		mSceneVec[(UINT)eSceneType::Title] = new TitleScene();
 		mSceneVec[(UINT)eSceneType::Play] = new PlayScene();
 		
-		mActiveScene = mSceneVec[(UINT)eSceneType::Tilte];
+		mActiveScene = mSceneVec[(UINT)eSceneType::Title];
 
 		for (Scene* scene : mSceneVec)
 		{

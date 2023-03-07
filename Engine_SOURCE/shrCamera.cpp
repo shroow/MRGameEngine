@@ -32,6 +32,7 @@ namespace shr
 
 	void Camera::Initialize()
 	{
+		RegisterCameraInRenderer();
 	}
 
 	void Camera::Update()
@@ -106,7 +107,8 @@ namespace shr
 
 	void Camera::RegisterCameraInRenderer()
 	{
-		renderer::cameraVec.push_back(this);
+		eSceneType type = SceneManager::GetActiveScene()->GetSceneType();
+		renderer::cameras[(UINT)type].push_back(this);
 	}
 
 	void Camera::TurnLayerMask(eLayerType layer, bool enable)

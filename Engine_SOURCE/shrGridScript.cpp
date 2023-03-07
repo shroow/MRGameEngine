@@ -25,7 +25,7 @@ namespace shr
 	void GridScript::Initialize()
 	{
 		eSceneType type = SceneManager::GetActiveScene()->GetSceneType();
-		mCamera = renderer::cameraVec[(UINT)type][0];
+		mCamera = renderer::cameras[(UINT)type][0];
 	}
 
 	void GridScript::Update()
@@ -50,8 +50,8 @@ namespace shr
 
 		RECT winRect;
 		GetClientRect(application.GetHwnd(), &winRect);
-		float width = winRect.right - winRect.left;
-		float height = winRect.bottom - winRect.top;
+		float width = (float)(winRect.right - winRect.left);
+		float height = (float)(winRect.bottom - winRect.top);
 		Vector2 resolution(width, height);
 
 		// Constant buffer

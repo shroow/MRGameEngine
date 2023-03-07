@@ -71,10 +71,12 @@ namespace shr
 		eLayerType GetLayerType() { return mLayerType; }
 		void SetLayerType(eLayerType type) { mLayerType = type; }
 
+	protected:
+		std::vector<Component*> mComponents; //private -> protected
+
 	private:
 		eState mState;
 		eLayerType mLayerType;
-		std::vector<Component*> mComponents;
 		std::vector<Component*> mScripts;
 		bool mDontDestroy;
 	};

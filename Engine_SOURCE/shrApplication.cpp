@@ -53,9 +53,6 @@ namespace shr
 
 		//SceneManager::Render();
 		renderer::Render();
-
-		//graphicDevice->Render();
-		graphicDevice->Present();
 	}
 
 	void Application::Destroy()
@@ -70,6 +67,11 @@ namespace shr
 		FixedUpdate();
 		Render();
 		Destroy();
+	}
+
+	void Application::Present()
+	{
+		graphicDevice->Present();
 	}
 
 	void Application::Release()

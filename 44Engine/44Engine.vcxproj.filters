@@ -5,15 +5,50 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="main">
+    <Filter Include="Client">
       <UniqueIdentifier>{9173a508-0e8e-47c5-a538-a4b61db55c55}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Client\Header">
+      <UniqueIdentifier>{74cc6c79-55d5-4c45-b631-cff6de707900}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Editor">
+      <UniqueIdentifier>{461c4351-49ea-43ba-a831-81724781027e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Editor\Widget">
+      <UniqueIdentifier>{766ff17b-0aff-49dd-a17b-7df7c9cad85a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Editor\EditorObject">
+      <UniqueIdentifier>{3713f94e-e913-4a6b-a6b1-30d84c9df465}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Editor\DebugObject">
+      <UniqueIdentifier>{cd0d20c9-1e17-449a-b27d-5b99a1dfb1c8}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="44Engine.h" />
-    <ClInclude Include="framework.h" />
-    <ClInclude Include="Resource.h" />
-    <ClInclude Include="targetver.h" />
+    <ClInclude Include="44Engine.h">
+      <Filter>Client\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="framework.h">
+      <Filter>Client\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>Client\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>Client\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="shrEditor.h">
+      <Filter>Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="shrEditorObject.h">
+      <Filter>Editor\EditorObject</Filter>
+    </ClInclude>
+    <ClInclude Include="shrWidget.h">
+      <Filter>Editor\Widget</Filter>
+    </ClInclude>
+    <ClInclude Include="shrDebugObject.h">
+      <Filter>Editor\DebugObject</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="44Engine.rc">
@@ -30,7 +65,19 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
-      <Filter>main</Filter>
+      <Filter>Client</Filter>
+    </ClCompile>
+    <ClCompile Include="shrEditor.cpp">
+      <Filter>Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="shrEditorObject.cpp">
+      <Filter>Editor\EditorObject</Filter>
+    </ClCompile>
+    <ClCompile Include="shrWidget.cpp">
+      <Filter>Editor\Widget</Filter>
+    </ClCompile>
+    <ClCompile Include="shrDebugObject.cpp">
+      <Filter>Editor\DebugObject</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

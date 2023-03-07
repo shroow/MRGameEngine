@@ -87,7 +87,7 @@ namespace shr
 				= deleteObjects.find(*iter);
 
 			if (deleteIter != deleteObjects.end())
-				mGameObjectVec.erase(iter);
+				iter = mGameObjectVec.erase(iter);
 			else
 				iter++;
 		}	

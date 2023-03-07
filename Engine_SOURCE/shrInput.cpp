@@ -80,8 +80,8 @@ namespace shr
 			//GetResolutionRatio
 			mMouse.mMove.x = mousePos.x - mMouse.mPos.x;
 			mMouse.mMove.y = mousePos.y - mMouse.mPos.y;
-			mMouse.mPos.x = mousePos.x;
-			mMouse.mPos.y = mousePos.y;
+			mMouse.mPos.x = (float)mousePos.x;
+			mMouse.mPos.y = (float)mousePos.y;
 
 			if (GetAsyncKeyState(VK_LBUTTON) & 0x8000)
 			{
