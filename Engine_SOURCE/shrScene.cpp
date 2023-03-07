@@ -83,4 +83,8 @@ namespace shr
 
 		return gameObjects;
 	}
+	const std::vector<GameObject*>& Scene::GetGameObjectVec(const eLayerType type)
+	{
+		return mLayerVec[(UINT)type].GetGameObjectVec(); //Watch Here!
+	}
 }

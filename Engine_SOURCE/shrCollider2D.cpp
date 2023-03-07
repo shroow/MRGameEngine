@@ -1,6 +1,7 @@
 #include "shrCollider2D.h"
 #include "shrGameObject.h"
 #include "shrRenderer.h"
+#include "shrScript.h"
 
 namespace shr
 {
@@ -50,7 +51,7 @@ namespace shr
 
 		DebugMesh meshAttribute = {};
 		meshAttribute.position = Vector3(colliderPos.x, colliderPos.y, colliderPos.z);
-		meshAttribute.radius = 1.0f;
+		meshAttribute.radius = mSize.x;
 		meshAttribute.rotatation = rotation;
 		meshAttribute.scale = scale;
 		meshAttribute.type = mType;
@@ -60,5 +61,59 @@ namespace shr
 
 	void Collider2D::Render()
 	{
+	}
+
+	void Collider2D::OnCollisionEnter(Collider2D* collider)
+	{
+		const std::vector<Script*>& scriptVec = GetOwner()->GetScriptVec();
+		for (Script* script : scriptVec)
+		{
+			script->OnCollisionEnter(collider);
+		}
+	}
+
+	void Collider2D::OnCollisionStay(Collider2D* collider)
+	{
+		const std::vector<Script*>& scriptVec = GetOwner()->GetScriptVec();
+		for (Script* script : scriptVec)
+		{
+			script->OnCollisionStay(collider);
+		}
+	}
+
+	void Collider2D::OnCollisionExit(Collider2D* collider)
+	{
+		const std::vector<Script*>& scriptVec = GetOwner()->GetScriptVec();
+		for (Script* script : scriptVec)
+		{
+			script->OnCollisionExit(collider);
+		}
+	}
+
+	void Collider2D::OnTriggerEnter(Collider2D* collider)
+	{
+		const std::vector<Script*>& scriptVec = GetOwner()->GetScriptVec();
+		for (Script* script : scriptVec)
+		{
+			script->OnTriggerEnter(collider);
+		}
+	}
+
+	void Collider2D::OnTriggerStay(Collider2D* collider)
+	{
+		const std::vector<Script*>& scriptVec = GetOwner()->GetScriptVec();
+		for (Script* script : scriptVec)
+		{
+			script->OnTriggerStay(collider);
+		}
+	}
+
+	void Collider2D::OnTriggerExit(Collider2D* collider)
+	{
+		const std::vector<Script*>& scriptVec = GetOwner()->GetScriptVec();
+		for (Script* script : scriptVec)
+		{
+			script->OnTriggerExit(collider);
+		}
 	}
 }

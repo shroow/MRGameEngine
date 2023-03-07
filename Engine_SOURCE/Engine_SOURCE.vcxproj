@@ -182,8 +182,10 @@
     <ClInclude Include="shrMath.h" />
     <ClInclude Include="shrMesh.h" />
     <ClInclude Include="shrMeshRenderer.h" />
+    <ClInclude Include="shrMonster.h" />
     <ClInclude Include="shrMultiShaderRenderer.h" />
     <ClInclude Include="shrObject.h" />
+    <ClInclude Include="shrPlayer.h" />
     <ClInclude Include="shrPlayerScript.h" />
     <ClInclude Include="shrPlayScene.h" />
     <ClInclude Include="shrPrefab.h" />
@@ -224,7 +226,9 @@
     <ClCompile Include="shrMath.cpp" />
     <ClCompile Include="shrMesh.cpp" />
     <ClCompile Include="shrMeshRenderer.cpp" />
+    <ClCompile Include="shrMonster.cpp" />
     <ClCompile Include="shrMultiShaderRenderer.cpp" />
+    <ClCompile Include="shrPlayer.cpp" />
     <ClCompile Include="shrPlayerScript.cpp" />
     <ClCompile Include="shrPlayScene.cpp" />
     <ClCompile Include="shrPrefab.cpp" />

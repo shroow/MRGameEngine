@@ -23,7 +23,7 @@ namespace shr
 			comp = nullptr;
 		}
 
-		for (Component* scrComp : mScripts)
+		for (Component* scrComp : mScriptVec)
 		{
 			if (scrComp == nullptr)
 				continue;
@@ -43,7 +43,7 @@ namespace shr
 			comp->Initialize();
 		}
 
-		for (Component* script : mScripts)
+		for (Component* script : mScriptVec)
 		{
 			if (script == nullptr)
 				continue;
@@ -62,7 +62,7 @@ namespace shr
 			comp->Update();
 		}
 
-		for (Component* script : mScripts)
+		for (Component* script : mScriptVec)
 		{
 			if (script == nullptr)
 				continue;
@@ -81,7 +81,7 @@ namespace shr
 			comp->FixedUpdate();
 		}
 
-		for (Component* script : mScripts)
+		for (Component* script : mScriptVec)
 		{
 			if (script == nullptr)
 				continue;
@@ -100,7 +100,7 @@ namespace shr
 			comp->Render();
 		}
 
-		for (Component* script : mScripts)
+		for (Component* script : mScriptVec)
 		{
 			if (script == nullptr)
 				continue;
@@ -120,7 +120,7 @@ namespace shr
 		}
 		else
 		{
-			mScripts.push_back(comp);
+			mScriptVec.push_back(dynamic_cast<Script*>(comp));
 			comp->SetOwner(this);
 		}
 	}

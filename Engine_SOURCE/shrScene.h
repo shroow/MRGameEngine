@@ -25,6 +25,7 @@ namespace shr
 		void AddGameObject(GameObject* gameObj, const eLayerType type);
 		Layer& GetLayerType(eLayerType type) { return mLayerVec[(UINT)type]; }
 		std::vector<GameObject*> GetDontDestroyGameObjects();
+		const std::vector<GameObject*>& GetGameObjectVec(const eLayerType type);
 
 	public:
 		virtual void LoadResources() {};

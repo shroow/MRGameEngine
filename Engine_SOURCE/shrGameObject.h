@@ -36,7 +36,7 @@ namespace shr
 			}
 			else
 			{
-				mScripts.push_back(comp);
+				mScriptVec.push_back(dynamic_cast<Script*>(comp));
 				comp->SetOwner(this);
 			}
 
@@ -60,6 +60,8 @@ namespace shr
 			return nullptr;
 		}
 
+		const std::vector<Script*>& GetScriptVec() { return mScriptVec; }
+
 		eState GetState() { return mState; }
 		bool IsPaused() { return mState == eState::Paused ? true : false; }
 		bool IsDead() { return mState == eState::Dead ? true : false; }
@@ -77,7 +79,7 @@ namespace shr
 	private:
 		eState mState;
 		eLayerType mLayerType;
-		std::vector<Component*> mScripts;
+		std::vector<Script*> mScriptVec;
 		bool mDontDestroy;
 	};
 }

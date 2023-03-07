@@ -73,6 +73,9 @@
     <Filter Include="Component\Collider\3D">
       <UniqueIdentifier>{24f935f2-31a2-48f6-b289-3ed9d97ecdeb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameObject\InGame">
+      <UniqueIdentifier>{c9007064-4c1b-44c2-9c61-2db4dbe84a7a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="shrApplication.cpp">
@@ -191,6 +194,12 @@
     </ClCompile>
     <ClCompile Include="shrCollisionManager.cpp">
       <Filter>Component\Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="shrMonster.cpp">
+      <Filter>GameObject\InGame</Filter>
+    </ClCompile>
+    <ClCompile Include="shrPlayer.cpp">
+      <Filter>GameObject\InGame</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -328,6 +337,12 @@
     </ClInclude>
     <ClInclude Include="shrCollisionManager.h">
       <Filter>Component\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="shrMonster.h">
+      <Filter>GameObject\InGame</Filter>
+    </ClInclude>
+    <ClInclude Include="shrPlayer.h">
+      <Filter>GameObject\InGame</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

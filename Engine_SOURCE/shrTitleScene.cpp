@@ -16,6 +16,8 @@
 #include "shrGridScript.h"
 #include "shrFadeInScript.h"
 #include "shrBikerScript.h"
+#include "shrPlayer.h"
+#include "shrMonster.h"
 
 namespace shr
 {
@@ -74,7 +76,7 @@ namespace shr
 		//SMILE RECT /SMILE RECT CHild
 		{
 			//SMILE RECT
-			GameObject* obj = object::Instantiate<GameObject>(eLayerType::Player);
+			Player* obj = object::Instantiate<Player>(eLayerType::Player);
 			obj->SetName(L"SMILE");
 			Transform* tr = obj->GetComponent<Transform>();
 			tr->SetPosition(Vector3(-3.0f, 0.0f, 11.0f));
@@ -82,6 +84,9 @@ namespace shr
 			//tr->SetScale(Vector3(1.0f, 1.0f, 1.0f));
 			Collider2D* collider = obj->AddComponent<Collider2D>();
 			collider->SetType(eColliderType::Rect);
+			//Fixed
+			collider->SetCenter(Vector2(0.2f, 0.2f));
+			collider->SetSize(Vector2(1.5f, 1.5f));
 
 			MeshRenderer* mr = obj->AddComponent<MeshRenderer>();
 			std::shared_ptr<Material> mateiral = Resources::Find<Material>(L"RectMaterial");
