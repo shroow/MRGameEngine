@@ -32,6 +32,6 @@ namespace shr
 
 	private:
 		std::vector<Layer> mLayerVec;
-		eSceneType mType;
+		eSceneType	mType;
 	};
 }

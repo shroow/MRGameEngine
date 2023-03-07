@@ -68,8 +68,8 @@ namespace shr
 		void Pause() { mState = eState::Paused; }
 		void Die() { mState = eState::Dead; }
 
-		bool IsDontDestroy() { return mDontDestroy; }
-		void DontDestroy(bool TF) { mDontDestroy = TF; }
+		bool IsDontDestroy() { return mbDontDestroy; }
+		void DontDestroy(bool TF) { mbDontDestroy = TF; }
 		eLayerType GetLayerType() { return mLayerType; }
 		void SetLayerType(eLayerType type) { mLayerType = type; }
 
@@ -80,6 +80,6 @@ namespace shr
 		eState mState;
 		eLayerType mLayerType;
 		std::vector<Script*> mScriptVec;
-		bool mDontDestroy;
+		bool mbDontDestroy;
 	};
 }

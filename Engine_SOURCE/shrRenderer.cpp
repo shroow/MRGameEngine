@@ -34,20 +34,20 @@ namespace shr::renderer
 	void LoadMesh()
 	{
 		//RECT
-		vertexes[0].pos = Vector4(-0.5f, 0.5f, 0.5f, 1.f);
+		vertexes[0].pos = Vector4(-0.5f, 0.5f, 0.f, 1.f);
 		vertexes[0].color = Vector4(0.f, 1.f, 0.f, 1.f);
 		vertexes[0].uv = Vector2(0.f, 0.f);
 
-		vertexes[1].pos = Vector4(0.5f, 0.5f, 0.5f, 1.f);
+		vertexes[1].pos = Vector4(0.5f, 0.5f, 0.f, 1.f);
 		vertexes[1].color = Vector4(1.f, 1.f, 1.f, 1.f);
 		vertexes[1].uv = Vector2(1.f, 0.f);
 
-		vertexes[2].pos = Vector4(0.5f, -0.5f, 0.5f, 1.f);
+		vertexes[2].pos = Vector4(0.5f, -0.5f, 0.f, 1.f);
 		vertexes[2].color = Vector4(1.f, 0.f, 0.f, 1.f);
 		vertexes[2].uv = Vector2(1.f, 1.f);
 
-		vertexes[3].pos = Vector4(-0.5f, -0.5f, 0.5f, 1.f);
-		vertexes[3].color = Vector4(0.f, 1.f, 0.f, 1.f);
+		vertexes[3].pos = Vector4(-0.5f, -0.5f, 0.f, 1.f);
+		vertexes[3].color = Vector4(0.f, 0.f, 1.f, 1.f);
 		vertexes[3].uv = Vector2(0.f, 1.f);
 
 		//Crate Mesh
@@ -94,7 +94,7 @@ namespace shr::renderer
 		//Circle Mesh
 		std::vector<Vertex> circleVertexes;
 		Vertex center = {};
-		center.pos = Vector4(0.f, 0.f, 0.f, 1.f);
+		center.pos = Vector4(0.f, 0.f, -0.00001f, 1.f);
 		center.color = Vector4(0.f, 1.f, 0.f, 1.f);
 		center.uv = Vector2::Zero;
 
@@ -111,7 +111,7 @@ namespace shr::renderer
 			(
 				fRadius * cosf(fTheta * (float)i)
 				, fRadius * sinf(fTheta * (float)i)
-				, 0.5f, 1.0f
+				, -0.00001f, 1.0f
 			);
 			vtx.color = center.color;
 

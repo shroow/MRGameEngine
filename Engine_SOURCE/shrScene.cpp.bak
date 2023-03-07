@@ -48,7 +48,7 @@ namespace shr
 
 	void Scene::Destroy()
 	{
-		for (Layer& layer : mLayerVec)
+		for (Layer layer : mLayerVec)
 		{
 			layer.Destroy();
 		}
