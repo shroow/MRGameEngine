@@ -15,8 +15,10 @@ namespace shr
         };
 
         //__inline 하면 함수형태로 타고 들어오지않고 컴파일과정에서 변환해준다 __forceinline은 강제성 또한 갖고 있다 
-        __forceinline static Matrix& GetViewMatrix() { return View; }
-        __forceinline static Matrix& GetProjectionMatrix() { return Projection; }
+        __forceinline static Matrix& GetGPUViewMatrix() { return View; }
+        __forceinline static Matrix& GetGPUProjectionMatrix() { return Projection; }
+        __forceinline static void SetGPUViewMatrix(Matrix view) { View = view; }
+        __forceinline static void SetGPUProjectionMatrix(Matrix projection) { Projection = projection; }
 
     public:
         Camera();
@@ -39,6 +41,9 @@ namespace shr
         void SetProjectionType(eProjectionType type) { mType = type; }
 
         float GetScale() { return mScale; }
+        Matrix& GetViewMatrix() { return mView; }
+        Matrix& GetProjectionMatrix() { return mProjection; }
+
 
     private:
         void sortGameObjects();

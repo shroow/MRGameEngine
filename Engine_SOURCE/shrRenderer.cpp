@@ -26,7 +26,7 @@ namespace shr::renderer
 	Microsoft::WRL::ComPtr<ID3D11DepthStencilState> depthstencilStates[(UINT)eDSType::End] = {};
 	Microsoft::WRL::ComPtr<ID3D11BlendState> blendStates[(UINT)eBSType::End] = {};
 
-	std::vector<Camera*> cameras;
+	std::vector<Camera*> cameras[(UINT)eSceneType::End];
 	std::vector<DebugMesh> debugMeshes;
 
 	void LoadMesh()
