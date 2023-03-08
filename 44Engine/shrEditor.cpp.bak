@@ -14,29 +14,29 @@ namespace shr
 {
 	void Editor::Initalize()
 	{
-// 충돌체의 종류 갯수만큼만 있으면 된다.
 		mDebugObjectVec.resize((UINT)eColliderType::End);
 
 		std::shared_ptr<Mesh> rectMesh = Resources::Find<Mesh>(L"DebugRectMesh");
 		std::shared_ptr<Material> material = Resources::Find<Material>(L"DebugMaterial");
 
 		mDebugObjectVec[(UINT)eColliderType::Rect] = new DebugObject();
-		MeshRenderer* renderer 
-			= mDebugObjectVec[(UINT)eColliderType::Rect]->AddComponent<MeshRenderer>();
-
+		
+		MeshRenderer* renderer = mDebugObjectVec[(UINT)eColliderType::Rect]->AddComponent<MeshRenderer>();
+		
 		renderer->SetMaterial(material);
 		renderer->SetMesh(rectMesh);
 
 		std::shared_ptr<Mesh> circleMesh = Resources::Find<Mesh>(L"CircleMesh");
 
 		mDebugObjectVec[(UINT)eColliderType::Circle] = new DebugObject();
-		renderer
-			= mDebugObjectVec[(UINT)eColliderType::Circle]->AddComponent<MeshRenderer>();
+
+		renderer = mDebugObjectVec[(UINT)eColliderType::Circle]->AddComponent<MeshRenderer>();
 
 		renderer->SetMaterial(material);
 		renderer->SetMesh(circleMesh);
 
-		// Grid Object Editor Object로 옮겨준다
+		
+		//Grid Object
 		{
 			EditorObject* gridObject = new EditorObject();
 			MeshRenderer* gridMr = gridObject->AddComponent<MeshRenderer>();
@@ -83,18 +83,17 @@ namespace shr
 		{
 			DebugRender(mesh);
 		}
-		renderer::debugMeshes.clear();
 	}
 
 	void Editor::Release()
 	{
-		for (auto obj : mWidgetVec)
+		for (Widget* obj : mWidgetVec)
 		{
 			delete obj;
 			obj = nullptr;
 		}
 
-		for (auto obj : mEditorObjectVec)
+		for (EditorObject* obj : mEditorObjectVec)
 		{
 			delete obj;
 			obj = nullptr;

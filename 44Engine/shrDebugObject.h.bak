@@ -13,7 +13,7 @@ namespace shr
         virtual void FixedUpdate() override;
 
     private:
-       
+        GameObject* mTest;
     };
 }
 
