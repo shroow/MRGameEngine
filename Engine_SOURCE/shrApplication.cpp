@@ -4,6 +4,7 @@
 #include "shrInput.h"
 #include "shrSceneManager.h"
 #include "shrResources.h"
+#include "shrCollisionManager.h"
 
 namespace shr
 {
@@ -23,6 +24,8 @@ namespace shr
 	{
 		Time::Initialize();
 		Input::Initialize();
+		
+		CollisionManager::Initialize();
 
 		renderer::Initialize();
 		SceneManager::Initialize();
@@ -35,12 +38,14 @@ namespace shr
 		Time::Update();
 		Input::Update();
 
+		CollisionManager::Update();
 		SceneManager::Update();
 	}
 
 	// GPU update
 	void Application::FixedUpdate()
 	{
+		CollisionManager::FixedUpdate();
 		SceneManager::FixedUpdate();
 	}
 
@@ -53,6 +58,7 @@ namespace shr
 
 		//SceneManager::Render();
 		renderer::Render();
+		CollisionManager::Render();
 	}
 
 	void Application::Destroy()

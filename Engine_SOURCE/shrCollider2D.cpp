@@ -5,6 +5,7 @@
 
 namespace shr
 {
+	UINT Collider2D::ColliderNumber = 0;
 	Collider2D::Collider2D()
 		: Component(eComponentType::Collider)
 		, mType(eColliderType::None)
@@ -12,7 +13,9 @@ namespace shr
 		, mSize(Vector2::One)
 		, mCenter(Vector2::Zero)
 		, mbTrigger(false)
+		, mID(0)
 	{
+		mID = ColliderNumber++;
 	}
 
 	Collider2D::~Collider2D()
@@ -37,6 +40,7 @@ namespace shr
 
 		Vector3 position = mTransform->GetPosition();
 		Vector3 colliderPos = position + Vector3(mCenter.x, mCenter.y, 0.0f);
+		mPosition = colliderPos;
 
 		Matrix scaleMatrix = Matrix::CreateScale(scale);
 		Matrix rotationMatrix;

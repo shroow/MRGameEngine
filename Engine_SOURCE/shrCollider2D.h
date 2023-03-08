@@ -31,12 +31,22 @@ namespace shr
 		void SetSize(Vector2 size) { mSize = size; }
 		void SetCenter(Vector2 center) { mCenter = center; }
 
+		eColliderType GetType() { return mType; }
+		Vector2 GetSize() { return mSize; }
+		Vector2 GetCenter() { return mCenter; }
+		UINT GetID() { return mID; }
+		Vector3 GetPosition() { return mPosition; }
+
 	private:
+		static UINT ColliderNumber;
+		UINT mID;
+
 		eColliderType mType;
 		Transform* mTransform;
 
 		Vector2 mSize;
 		Vector2 mCenter;
+		Vector3 mPosition;
 		bool mbTrigger;
 	};
 }

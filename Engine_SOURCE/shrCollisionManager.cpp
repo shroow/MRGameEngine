@@ -10,6 +10,7 @@ namespace shr
 	void CollisionManager::Initialize()
 	{
 	}
+
 	void CollisionManager::Update()
 	{
 		Scene* scene = SceneManager::GetActiveScene();
@@ -24,12 +25,15 @@ namespace shr
 			}
 		}
 	}
+
 	void CollisionManager::FixedUpdate()
 	{
 	}
+
 	void CollisionManager::Render()
 	{
 	}
+
 	void CollisionManager::CollisionLayerCheck(eLayerType left, eLayerType right, bool enable)
 	{
 		int row = 0;
@@ -48,6 +52,7 @@ namespace shr
 
 		mLayerCollisionMatrix[row][column] = enable;
 	}
+
 	void CollisionManager::LayerCollision(Scene* scene, eLayerType left, eLayerType right)
 	{
 		const std::vector<GameObject*>& lefts = scene->GetGameObjectVec(left);
@@ -81,8 +86,8 @@ namespace shr
 	{
 		// 두 충돌체 레이어로 구성된 ID 확인
 		ColliderID colliderID;
-		colliderID.left = (UINT)left;
-		colliderID.right = (UINT)right;
+		colliderID.left = (UINT)left->GetID();
+		colliderID.right = (UINT)right->GetID();
 
 		// 이전 충돌 정보를 검색한다.
 		// 만약에 충돌정보가 없는 상태라면
@@ -147,8 +152,88 @@ namespace shr
 
 	bool CollisionManager::Intersect(Collider2D* left, Collider2D* right)
 	{
+		// Rect vs Rect 
+		// 0 --- 1
+		// |     |
+		// 3 --- 2
 
+		eColliderType leftType = left->GetType();
+		eColliderType rightType = right->GetType();
 
+		if(leftType == eColliderType::Rect && rightType == eColliderType::Rect)
+		{
+
+			static const Vector3 arrLocalPos[4] =
+			{
+				Vector3{-0.5f, 0.5f, 0.0f}
+				,Vector3{0.5f, 0.5f, 0.0f}
+				,Vector3{0.5f, -0.5f, 0.0f}
+				,Vector3{-0.5f, -0.5f, 0.0f}
+			};
+
+			Transform* leftTr = left->GetOwner()->GetComponent<Transform>();
+			Transform* rightTr = right->GetOwner()->GetComponent<Transform>();
+
+			Matrix leftMat = leftTr->GetWorldMatrix();
+			Matrix rightMat = rightTr->GetWorldMatrix();
+
+			// 분리축 벡터 ( 투영 벡터 )
+			Vector3 Axis[4] = {};
+			Axis[0] = Vector3::Transform(arrLocalPos[1], leftMat);
+			Axis[1] = Vector3::Transform(arrLocalPos[3], leftMat);
+			Axis[2] = Vector3::Transform(arrLocalPos[1], rightMat);
+			Axis[3] = Vector3::Transform(arrLocalPos[3], rightMat);
+
+			Axis[0] -= Vector3::Transform(arrLocalPos[0], leftMat);
+			Axis[1] -= Vector3::Transform(arrLocalPos[0], leftMat);
+			Axis[2] -= Vector3::Transform(arrLocalPos[0], rightMat);
+			Axis[3] -= Vector3::Transform(arrLocalPos[0], rightMat);
+
+			for (size_t i = 0; i < 4; i++)
+			{
+				Axis[i].z = 0.0f;
+			}
+
+			Vector3 vc = left->GetPosition() - right->GetPosition();
+			vc.z = 0.0f;
+
+			Vector3 centerDir = vc;
+			for (size_t i = 0; i < 4; i++)
+			{
+				Vector3 vA = Axis[i];
+				vA.Normalize();
+
+				float projDist = 0.0f;
+				for (size_t j = 0; j < 4; j++)
+				{
+					projDist += fabsf(Axis[j].Dot(vA) / 2.0f);
+				}
+
+				if (projDist < fabsf(centerDir.Dot(vA)))
+				{
+					return false;
+				}
+			}
+		}
+		// 숙제 Circle vs Cirlce
+		else if (leftType == eColliderType::Circle && rightType == eColliderType::Circle)
+		{
+			Vector3 leftPos = left->GetPosition();
+			Vector3 rightPos = right->GetPosition();
+
+			float fRadius = 0.5f;
+
+			float distance = Vector2::Distance(Vector2(leftPos.x, leftPos.y), Vector2(rightPos.x, rightPos.y));
+
+			if (distance > fRadius*2)
+				return false;
+			else
+				return true;
+		}
+		else
+		{
+			return false;
+		}
 
 		return true;
 	}

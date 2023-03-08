@@ -1,23 +1,21 @@
 #include "shrTitleScene.h"
-#include "shrResources.h"
-#include "shrInput.h"
-
-#include "shrObject.h"
-#include "shrGameObject.h"
 #include "shrTransform.h"
-
 #include "shrMeshRenderer.h"
-#include "shrSpriteRenderer.h"
-#include "shrMultiShaderRenderer.h"
-#include "shrCollider2D.h"
-
+#include "shrRenderer.h"
+#include "shrResources.h"
+#include "shrTexture.h"
 #include "shrPlayerScript.h"
+#include "shrCamera.h"
 #include "shrCameraScript.h"
+#include "shrSpriteRenderer.h"
 #include "shrGridScript.h"
 #include "shrFadeInScript.h"
-#include "shrBikerScript.h"
+#include "shrObject.h"
+#include "shrInput.h"
+#include "shrCollider2D.h"
 #include "shrPlayer.h"
 #include "shrMonster.h"
+#include "shrCollisionManager.h"
 
 namespace shr
 {
@@ -73,9 +71,8 @@ namespace shr
 		//	sr->SetMesh(mesh);
 		//}
 
-		//SMILE RECT /SMILE RECT CHild
+		//SMILE RECT
 		{
-			//SMILE RECT
 			Player* obj = object::Instantiate<Player>(eLayerType::Player);
 			obj->SetName(L"SMILE");
 			Transform* tr = obj->GetComponent<Transform>();
@@ -83,19 +80,40 @@ namespace shr
 			//tr->SetRotation(Vector3(0.0f, 0.0f, XM_PIDIV2));
 			//tr->SetScale(Vector3(1.0f, 1.0f, 1.0f));
 			Collider2D* collider = obj->AddComponent<Collider2D>();
-			collider->SetType(eColliderType::Rect);
+			collider->SetType(eColliderType::Circle);
 			//collider->SetCenter(Vector2(0.2f, 0.2f));
 			//collider->SetSize(Vector2(1.5f, 1.5f));
 
-			MeshRenderer* mr = obj->AddComponent<MeshRenderer>();
+			SpriteRenderer* mr = obj->AddComponent<SpriteRenderer>();
 			std::shared_ptr<Material> mateiral = Resources::Find<Material>(L"RectMaterial");
 			mr->SetMaterial(mateiral);
 			std::shared_ptr<Mesh> mesh = Resources::Find<Mesh>(L"RectMesh");
 			mr->SetMesh(mesh);
 			obj->AddComponent<PlayerScript>();
 			object::DontDestroyOnLoad(obj);
+		}
 
-			////SMILE RECT CHild
+		//SMILE RECT
+		{
+			Player* obj = object::Instantiate<Player>(eLayerType::Monster);
+			obj->SetName(L"SMILE");
+			Transform* tr = obj->GetComponent<Transform>();
+			tr->SetPosition(Vector3(2.0f, 0.0f, 5.0f));
+			tr->SetRotation(Vector3(0.0f, 0.0f, XM_PIDIV2 / 2.0f));
+			//tr->SetScale(Vector3(1.0f, 1.0f, 1.0f));
+			Collider2D* collider = obj->AddComponent<Collider2D>();
+			collider->SetType(eColliderType::Circle);
+			//collider->SetCenter(Vector2(0.2f, 0.2f));
+			//collider->SetSize(Vector2(1.5f, 1.5f));
+
+			SpriteRenderer* mr = obj->AddComponent<SpriteRenderer>();
+			std::shared_ptr<Material> mateiral = Resources::Find<Material>(L"RectMaterial");
+			mr->SetMaterial(mateiral);
+			std::shared_ptr<Mesh> mesh = Resources::Find<Mesh>(L"RectMesh");
+			mr->SetMesh(mesh);
+			object::DontDestroyOnLoad(obj);
+		
+		////SMILE RECT CHild
 			//GameObject* child = object::Instantiate<GameObject>(eLayerType::Player);
 			//child->SetName(L"SMILE");
 			//Transform* childTr = child->GetComponent<Transform>();
@@ -186,6 +204,8 @@ namespace shr
 
 			//bikerObj->AddComponent<FadeInScript>();
 		}
+
+		CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::Monster, true);
 
 		Scene::Initialize();
 	}
