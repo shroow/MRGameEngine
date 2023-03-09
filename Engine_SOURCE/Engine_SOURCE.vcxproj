@@ -197,6 +197,7 @@
     <ClInclude Include="shrScript.h" />
     <ClInclude Include="shrShader.h" />
     <ClInclude Include="shrSpriteRenderer.h" />
+    <ClInclude Include="shrTestScene.h" />
     <ClInclude Include="shrTexture.h" />
     <ClInclude Include="shrTime.h" />
     <ClInclude Include="shrTitleScene.h" />
@@ -240,6 +241,7 @@
     <ClCompile Include="shrScript.cpp" />
     <ClCompile Include="shrShader.cpp" />
     <ClCompile Include="shrSpriteRenderer.cpp" />
+    <ClCompile Include="shrTestScene.cpp" />
     <ClCompile Include="shrTexture.cpp" />
     <ClCompile Include="shrTime.cpp" />
     <ClCompile Include="shrTitleScene.cpp" />

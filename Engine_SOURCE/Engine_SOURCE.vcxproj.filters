@@ -201,6 +201,9 @@
     <ClCompile Include="shrPlayer.cpp">
       <Filter>GameObject\InGame</Filter>
     </ClCompile>
+    <ClCompile Include="shrTestScene.cpp">
+      <Filter>Scene\GameScenes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CommonInclude.h">
@@ -343,6 +346,9 @@
     </ClInclude>
     <ClInclude Include="shrPlayer.h">
       <Filter>GameObject\InGame</Filter>
+    </ClInclude>
+    <ClInclude Include="shrTestScene.h">
+      <Filter>Scene\GameScenes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

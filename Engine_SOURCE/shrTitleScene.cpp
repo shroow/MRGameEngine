@@ -28,8 +28,6 @@ namespace shr
 	}
 	void TitleScene::Initialize()
 	{
-		LoadResources();
-
 		// Main Camera Game Object
 		GameObject* cameraObj = object::Instantiate<GameObject>(eLayerType::Camera);
 		Camera* cameraComp = cameraObj->AddComponent<Camera>();
@@ -143,68 +141,6 @@ namespace shr
 			hpsr->SetMaterial(hpspriteMaterial);
 		}
 
-		{//Fadein Obj
-			GameObject* fadeinObject = object::Instantiate<GameObject>(eLayerType::CameraEffect);
-			fadeinObject->SetName(L"FadeIn");
-			Transform* fadeinTR = fadeinObject->GetComponent<Transform>();
-			fadeinTR->SetPosition(Vector3(3.0f, 3.0f, 3.0f));
-			fadeinTR->SetScale(Vector3(3.0f, 3.0f, 3.0f));
-
-			SpriteRenderer* fadeinSR = fadeinObject->AddComponent<SpriteRenderer>();
-
-			std::shared_ptr<Mesh> fadeinMesh = Resources::Find<Mesh>(L"RectMesh");
-			std::shared_ptr<Material> fadeinMaterial = Resources::Find<Material>(L"FadeInMaterial");
-			fadeinSR->SetMesh(fadeinMesh);
-			fadeinSR->SetMaterial(fadeinMaterial);
-			fadeinObject->AddComponent<FadeInScript>();
-		}
-
-
-		//Biker1
-		{
-			//GameObject* bikerObj = object::Instantiate<GameObject>(eLayerType::Player);
-			//bikerObj->SetName(L"LIGHT");
-			//Transform* bikerTr = bikerObj->GetComponent<Transform>();
-			//bikerTr->SetPosition(Vector3(-3.0f, 2.0f, 10.0f));
-			//bikerTr->SetScale(Vector3(4.0f, 1.0f, 1.0f));
-
-			//SpriteRenderer* sr = bikerObj->AddComponent<SpriteRenderer>();
-			//std::shared_ptr<Mesh> mesh = Resources::Find<Mesh>(L"RectMesh");
-			//std::shared_ptr<Material> spriteMaterial = Resources::Find<Material>(L"Biker_Idle_Material");
-			//sr->SetMaterial(spriteMaterial);
-			//sr->SetMesh(mesh);
-
-
-			//bikerObj->AddComponent<BikerScript>();
-		}
-
-		//Biker2
-		{
-			GameObject* bikerObj = object::Instantiate<GameObject>(eLayerType::Monster);
-			bikerObj->SetName(L"Biker2");
-
-			Transform* bikerTr = bikerObj->GetComponent<Transform>();
-			bikerTr->SetPosition(Vector3(-3.0f, -2.0f, 10.0f));
-			bikerTr->SetScale(Vector3(1.0f, 1.0f, 1.0f));
-
-			SpriteRenderer* SR = bikerObj->AddComponent<SpriteRenderer>();
-
-			std::shared_ptr<Mesh> mesh = Resources::Find<Mesh>(L"RectMesh");
-			SR->SetMesh(mesh);
-
-			std::shared_ptr<Texture> texture = Resources::Find<Texture>(L"Biker_Death");
-			std::shared_ptr<Shader> fadeinShader = Resources::Find<Shader>(L"FadeInShader");
-
-			std::shared_ptr<Material> material = std::make_shared<Material>();
-			material->SetShader(fadeinShader);
-			material->SetTexture(texture);
-
-			Resources::Insert<Material>(L"Biker_Death2", material);
-			SR->SetMaterial(material); 
-
-			//bikerObj->AddComponent<FadeInScript>();
-		}
-
 		CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::Monster, true);
 
 		Scene::Initialize();
@@ -237,32 +173,5 @@ namespace shr
 	void TitleScene::LoadResources()
 	{
 		Scene::LoadResources();
-
-		//Biker_Idle
-		{
-			std::shared_ptr<Material> material = std::make_shared<Material>();
-			std::shared_ptr<Shader> shader = Resources::Find<Shader>(L"SpriteShader");
-			std::shared_ptr<Texture> texture 
-				= Resources::Load<Texture>(L"Biker_Idle", L"Biker\\Idle.png");
-
-			material->SetShader(shader);
-			material->SetTexture(texture);
-
-			Resources::Insert<Material>(L"Biker_Idle_Material", material);
-		}
-
-		//Biker_Death
-		{
-			std::shared_ptr<Material> material = std::make_shared<Material>();
-			std::shared_ptr<Shader> shader = Resources::Find<Shader>(L"FadeInShader");
-			
-			std::shared_ptr<Texture> texture
-				= Resources::Load<Texture>(L"Biker_Death", L"Biker\\Death.png");
-
-			material->SetShader(shader);
-			material->SetTexture(texture);
-
-			Resources::Insert<Material>(L"Biker_Death_Material", material);
-		}
 	}
 }
