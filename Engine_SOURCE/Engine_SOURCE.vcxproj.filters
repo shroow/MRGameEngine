@@ -201,8 +201,8 @@
     <ClCompile Include="shrPlayer.cpp">
       <Filter>GameObject\InGame</Filter>
     </ClCompile>
-    <ClCompile Include="shrTestScene.cpp">
-      <Filter>Scene\GameScenes</Filter>
+    <ClCompile Include="shrMonsterScript.cpp">
+      <Filter>Script</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -347,8 +347,8 @@
     <ClInclude Include="shrPlayer.h">
       <Filter>GameObject\InGame</Filter>
     </ClInclude>
-    <ClInclude Include="shrTestScene.h">
-      <Filter>Scene\GameScenes</Filter>
+    <ClInclude Include="shrMonsterScript.h">
+      <Filter>Script</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

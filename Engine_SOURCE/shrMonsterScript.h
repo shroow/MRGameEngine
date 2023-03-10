@@ -4,20 +4,20 @@
 
 namespace shr
 {
-    enum eState
-    {
-        Idle,
-        Attack,
-        Die,
-        End
-    };
-
-    class BikerScript :
+    class MonsterScript :
         public Script
     {
     public:
-        BikerScript();
-        ~BikerScript();
+        enum eState
+        {
+            Idle,
+            Attack,
+            Die,
+            End
+        };
+
+        MonsterScript();
+        ~MonsterScript();
 
         virtual void Initialize() override;
         virtual void Update() override;

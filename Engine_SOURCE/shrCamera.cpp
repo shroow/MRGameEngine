@@ -116,6 +116,11 @@ namespace shr
 		mLayerMasks.set((UINT)layer, enable);
 	}
 
+	Vector3 Camera::GetWorldPos()
+	{
+		return GetOwner()->GetComponent<Transform>()->GetPosition();
+	}
+
 	void Camera::sortGameObjects()
 	{
 		mOpaqueGameObjectVec.clear();

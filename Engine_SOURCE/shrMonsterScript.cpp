@@ -1,4 +1,4 @@
-#include "shrBikerScript.h"
+#include "shrMonsterScript.h"
 #include "shrGameObject.h"
 #include "shrTransform.h"
 #include "shrTime.h"
@@ -9,7 +9,7 @@
 
 namespace shr
 {
-	BikerScript::BikerScript()
+	MonsterScript::MonsterScript()
 		: Script()
 		, mOwnerTR(nullptr)
 		, mIdle(false)
@@ -21,12 +21,12 @@ namespace shr
 	{
 	}
 
-	BikerScript::~BikerScript()
+	MonsterScript::~MonsterScript()
 	{
 		mOwnerTR = nullptr;
 	}
 
-	void BikerScript::Initialize()
+	void MonsterScript::Initialize()
 	{
 		LoadResources();
 
@@ -38,7 +38,7 @@ namespace shr
 		mHP = mMaxHP;
 	}
 
-	void BikerScript::Update()
+	void MonsterScript::Update()
 	{
 		if (Input::GetKeyState(eKeyCode::T) == eKeyState::PRESSED)
 		{
@@ -48,40 +48,6 @@ namespace shr
 		}
 
 		Vector3 pos = mOwnerTR->GetPosition();
-
-		if (Input::GetKeyState(eKeyCode::RIGHT) == eKeyState::PRESSED)
-		{
-			pos.x += 3.0f * Time::DeltaTime();
-		}
-		else if (Input::GetKeyState(eKeyCode::LEFT) == eKeyState::PRESSED)
-		{
-			pos.x -= 3.0f * Time::DeltaTime();
-		}
-		else if (Input::GetKeyState(eKeyCode::DOWN) == eKeyState::PRESSED)
-		{
-			pos.y -= 3.0f * Time::DeltaTime();
-		}
-		else if (Input::GetKeyState(eKeyCode::UP) == eKeyState::PRESSED)
-		{
-			pos.y += 3.0f * Time::DeltaTime();
-		}
-
-		//if (Input::GetMouseLeftPressed())
-		//{
-		//	Vector2 mousePos = Input::GetMouseWorldPos();
-		//	
-		//	Vector2 myPos(pos.x, pos.y);
-		//	//myPos.Normalize();
-		//	//Vector2 movePos(mousePos.x, mousePos.y);
-		//	//movePos.Normalize();
-
-		//	float dot = myPos.Dot(mousePos);
-
-		//	float angle = acos(dot / (myPos.Length() * mousePos.Length()));
-		//	
-		//	pos.x += 3.0f * cos(angle) * Time::DeltaTime();
-		//	pos.y += 3.0f * sin(angle) * Time::DeltaTime();;
-		//}
 
 		if (mHP <= 0.f)
 		{
@@ -94,7 +60,7 @@ namespace shr
 		mOwnerTR->SetPosition(pos);
 	}
 
-	void BikerScript::FixedUpdate()
+	void MonsterScript::FixedUpdate()
 	{
 		if (!mChange)
 			return;
@@ -102,7 +68,7 @@ namespace shr
 		if (mIdle)
 		{
 			std::shared_ptr<Material> material
-				= Resources::Find<Material>(L"Biker_Idle_Material");
+				= Resources::Find<Material>(L"Monster_Idle_Material");
 			if (material == nullptr)
 				return;
 			GetOwner()->GetComponent<SpriteRenderer>()->SetMaterial(material);
@@ -112,7 +78,7 @@ namespace shr
 		else if (mAttack)
 		{
 			std::shared_ptr<Material> material
-				= Resources::Find<Material>(L"Biker_Attack3_Material");
+				= Resources::Find<Material>(L"Monster_Attack2_Material");
 			if (material == nullptr)
 				return;
 			GetOwner()->GetComponent<SpriteRenderer>()->SetMaterial(material);
@@ -122,7 +88,7 @@ namespace shr
 		else if (mDie)
 		{
 			std::shared_ptr<Material> material
-				= Resources::Find<Material>(L"Biker_Death_Material");
+				= Resources::Find<Material>(L"Monster_Death_Material");
 			if (material == nullptr)
 				return;
 			GetOwner()->GetComponent<SpriteRenderer>()->SetMaterial(material);
@@ -131,16 +97,16 @@ namespace shr
 		}
 	}
 
-	void BikerScript::Render()
+	void MonsterScript::Render()
 	{
 	}
 
-	void BikerScript::LoadResources()
+	void MonsterScript::LoadResources()
 	{
 		
 	}
 
-	void BikerScript::OnCollisionEnter(Collider2D* collider)
+	void MonsterScript::OnCollisionEnter(Collider2D* collider)
 	{
 		if (mDie)
 			return;
@@ -152,10 +118,11 @@ namespace shr
 			mChange = true;
 		}
 	}
-	void BikerScript::OnCollisionStay(Collider2D* collider)
+	void MonsterScript::OnCollisionStay(Collider2D* collider)
 	{
+		mHP -= 30.f * Time::DeltaTime();
 	}
-	void BikerScript::OnCollisionExit(Collider2D* collider)
+	void MonsterScript::OnCollisionExit(Collider2D* collider)
 	{
 		if (mDie)
 			return;
@@ -167,13 +134,13 @@ namespace shr
 			mChange = true;
 		}
 	}
-	void BikerScript::OnTriggerEnter(Collider2D* collider)
+	void MonsterScript::OnTriggerEnter(Collider2D* collider)
 	{
 	}
-	void BikerScript::OnTriggerStay(Collider2D* collider)
+	void MonsterScript::OnTriggerStay(Collider2D* collider)
 	{
 	}
-	void BikerScript::OnTriggerExit(Collider2D* collider)
+	void MonsterScript::OnTriggerExit(Collider2D* collider)
 	{
 	}
 }

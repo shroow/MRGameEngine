@@ -1,6 +1,6 @@
 #include "shrInput.h"
 #include "shrApplication.h"
-
+#include "shrRenderer.h"
 
 extern shr::Application application;
 namespace shr
@@ -82,6 +82,9 @@ namespace shr
 			mMouse.mMove.y = mousePos.y - mMouse.mPos.y;
 			mMouse.mPos.x = (float)mousePos.x;
 			mMouse.mPos.y = (float)mousePos.y;
+			Vector3 cameraPos = renderer::mainCamera->GetWorldPos();
+			mMouse.mWorldPos.x = cameraPos.x + mMouse.mPos.x;
+			mMouse.mWorldPos.y = cameraPos.y + mMouse.mPos.y;
 
 			if (GetAsyncKeyState(VK_LBUTTON) & 0x8000)
 			{

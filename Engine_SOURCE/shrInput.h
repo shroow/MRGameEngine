@@ -57,6 +57,7 @@ namespace shr
 
 			math::Vector2 mPos;
 			math::Vector2 mMove;
+			math::Vector2 mWorldPos;
 		};
 
 		static void Initialize();
@@ -65,21 +66,6 @@ namespace shr
 		static __forceinline eKeyState GetKeyState(eKeyCode keyCode) 
 		{ 
 			return mKeys[static_cast<UINT>(keyCode)].eState; 
-		}
-
-		static __forceinline Mouse GetMouse(Mouse& mouse)
-		{
-			mouse.bLPressed = mMouse.bLPressed;
-			mouse.bRPressed = mMouse.bRPressed;
-			mouse.eLState = mMouse.eLState;
-			mouse.eRState = mMouse.eRState;
-			mouse.mMove = mMouse.mMove;
-			mouse.mPos = mMouse.mPos;
-		}
-
-		static __forceinline math::Vector2 GetMousePosition()
-		{
-			return mMouse.mPos;
 		}
 
 		static __forceinline bool GetKey(eKeyCode keyCode)
@@ -95,6 +81,59 @@ namespace shr
 		static __forceinline bool GetKeyUp(eKeyCode keyCode)
 		{
 			return mKeys[static_cast<UINT>(keyCode)].eState == eKeyState::UP;
+		}
+
+		//Mouse Functions
+		static __forceinline Mouse GetMouse(Mouse& mouse)
+		{
+			mouse.bLPressed = mMouse.bLPressed;
+			mouse.bRPressed = mMouse.bRPressed;
+			mouse.eLState = mMouse.eLState;
+			mouse.eRState = mMouse.eRState;
+			mouse.mMove = mMouse.mMove;
+			mouse.mPos = mMouse.mPos;
+			mouse.mWorldPos = mMouse.mWorldPos;
+		}
+
+		static __forceinline math::Vector2 GetMousePos()
+		{
+			return mMouse.mPos;
+		}
+
+		static __forceinline math::Vector2 GetMouseWorldPos()
+		{
+			return mMouse.mWorldPos;
+		}
+
+		static __forceinline math::Vector2 GetMouseMove()
+		{
+			return mMouse.mMove;
+		}
+
+		static __forceinline bool GetMouseLeftPressed()
+		{
+			return mMouse.eLState == eKeyState::PRESSED;
+		}
+		static __forceinline bool GetMouseLeftDown()
+		{
+			return mMouse.eLState == eKeyState::DOWN;
+		}
+		static __forceinline bool GetMouseLeftUp()
+		{
+			return mMouse.eLState == eKeyState::UP;
+		}
+
+		static __forceinline bool GetMouseRightPressed()
+		{
+			return mMouse.eLState == eKeyState::PRESSED;
+		}
+		static __forceinline bool GetMouseRightDown()
+		{
+			return mMouse.eLState == eKeyState::DOWN;
+		}
+		static __forceinline bool GetMouseRightUp()
+		{
+			return mMouse.eLState == eKeyState::UP;
 		}
 
 	private:

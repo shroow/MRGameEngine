@@ -13,6 +13,7 @@ namespace shr::enums
 	{
 		None = 0,
 		Camera,
+		Background,
 		Grid,
 		Monster,
 		Player,

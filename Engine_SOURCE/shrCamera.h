@@ -44,6 +44,7 @@ namespace shr
         Matrix& GetViewMatrix() { return mView; }
         Matrix& GetProjectionMatrix() { return mProjection; }
 
+        Vector3 GetWorldPos();
 
     private:
         void sortGameObjects();

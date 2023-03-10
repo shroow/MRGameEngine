@@ -44,7 +44,7 @@
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
-    <EnableUnitySupport>false</EnableUnitySupport>
+    <EnableUnitySupport>true</EnableUnitySupport>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
@@ -183,6 +183,7 @@
     <ClInclude Include="shrMesh.h" />
     <ClInclude Include="shrMeshRenderer.h" />
     <ClInclude Include="shrMonster.h" />
+    <ClInclude Include="shrMonsterScript.h" />
     <ClInclude Include="shrMultiShaderRenderer.h" />
     <ClInclude Include="shrObject.h" />
     <ClInclude Include="shrPlayer.h" />
@@ -197,7 +198,6 @@
     <ClInclude Include="shrScript.h" />
     <ClInclude Include="shrShader.h" />
     <ClInclude Include="shrSpriteRenderer.h" />
-    <ClInclude Include="shrTestScene.h" />
     <ClInclude Include="shrTexture.h" />
     <ClInclude Include="shrTime.h" />
     <ClInclude Include="shrTitleScene.h" />
@@ -228,6 +228,7 @@
     <ClCompile Include="shrMesh.cpp" />
     <ClCompile Include="shrMeshRenderer.cpp" />
     <ClCompile Include="shrMonster.cpp" />
+    <ClCompile Include="shrMonsterScript.cpp" />
     <ClCompile Include="shrMultiShaderRenderer.cpp" />
     <ClCompile Include="shrPlayer.cpp" />
     <ClCompile Include="shrPlayerScript.cpp" />
@@ -241,7 +242,6 @@
     <ClCompile Include="shrScript.cpp" />
     <ClCompile Include="shrShader.cpp" />
     <ClCompile Include="shrSpriteRenderer.cpp" />
-    <ClCompile Include="shrTestScene.cpp" />
     <ClCompile Include="shrTexture.cpp" />
     <ClCompile Include="shrTime.cpp" />
     <ClCompile Include="shrTitleScene.cpp" />
