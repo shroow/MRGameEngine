@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include <Windows.h>
+#include <assert.h>
 
 #include <vector>
 #include <list>
@@ -13,7 +14,6 @@
 #include <limits>
 #include <memory>
 #include <filesystem>
-
 
 #include "CommonInclude.h"
 #include "shrEnums.h"

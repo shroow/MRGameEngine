@@ -1,6 +1,7 @@
 #include "shrSpriteRenderer.h"
 #include "shrGameObject.h"
 #include "shrTransform.h"
+#include "shrAnimator.h"
 
 namespace shr
 {
@@ -31,6 +32,12 @@ namespace shr
 
 		GetMaterial()->Bind();
 		GetMesh()->BindBuffer();
+
+		Animator* animator = GetOwner()->GetComponent<Animator>();
+		if (animator)
+		{
+			animator->Binds();
+		}
 
 		GetMesh()->Render();
 

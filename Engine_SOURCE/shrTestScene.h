@@ -3,12 +3,12 @@
 
 namespace shr
 {
-    class TitleScene :
+    class TestScene :
         public Scene
     {
     public:
-        TitleScene();
-        virtual ~TitleScene();
+        TestScene();
+        virtual ~TestScene();
 
         virtual void Initialize() override;
         virtual void Update() override;
@@ -17,6 +17,10 @@ namespace shr
 
         virtual void OnEnter() override;
         virtual void OnExit() override;
+
+    public:
+        virtual void LoadResources() override;
+
 
     private:
 

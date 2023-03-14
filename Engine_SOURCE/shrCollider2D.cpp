@@ -12,6 +12,7 @@ namespace shr
 		, mTransform(nullptr)
 		, mSize(Vector2::One)
 		, mCenter(Vector2::Zero)
+		, mRadius(0.f)
 		, mbTrigger(false)
 		, mID(0)
 	{
@@ -33,6 +34,13 @@ namespace shr
 
 	void Collider2D::FixedUpdate()
 	{
+		if (mTransform == nullptr)
+		{
+			mTransform = GetOwner()->GetComponent<Transform>();
+			if (mTransform == nullptr)
+				return;
+		}
+
 		Vector3 scale = mTransform->GetScale();
 		scale *= Vector3(mSize.x, mSize.y, 1.0f);
 
@@ -55,7 +63,7 @@ namespace shr
 
 		DebugMesh meshAttribute = {};
 		meshAttribute.position = Vector3(colliderPos.x, colliderPos.y, colliderPos.z);
-		meshAttribute.radius = mSize.x;
+		meshAttribute.radius = mRadius;	
 		meshAttribute.rotatation = rotation;
 		meshAttribute.scale = scale;
 		meshAttribute.type = mType;

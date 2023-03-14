@@ -76,6 +76,15 @@
     <Filter Include="GameObject\InGame">
       <UniqueIdentifier>{c9007064-4c1b-44c2-9c61-2db4dbe84a7a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Script\Scene">
+      <UniqueIdentifier>{ad06007e-5a76-4fa0-88ca-5a29f5e8a74f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script\Object">
+      <UniqueIdentifier>{428deec3-4a3f-48d3-93fc-40d42f5ef44b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource\Animation">
+      <UniqueIdentifier>{8332c39b-3ebc-499c-98a1-0dde489a887c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="shrApplication.cpp">
@@ -138,12 +147,6 @@
     <ClCompile Include="shrConstantBuffer.cpp">
       <Filter>Graphics</Filter>
     </ClCompile>
-    <ClCompile Include="shrScript.cpp">
-      <Filter>Script</Filter>
-    </ClCompile>
-    <ClCompile Include="shrPlayerScript.cpp">
-      <Filter>Script</Filter>
-    </ClCompile>
     <ClCompile Include="shrCamera.cpp">
       <Filter>Component</Filter>
     </ClCompile>
@@ -153,23 +156,11 @@
     <ClCompile Include="shrSpriteRenderer.cpp">
       <Filter>Component\Renderer</Filter>
     </ClCompile>
-    <ClCompile Include="shrCameraScript.cpp">
-      <Filter>Script</Filter>
-    </ClCompile>
     <ClCompile Include="shrBaseRenderer.cpp">
       <Filter>Component\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="shrUnitComponent.cpp">
       <Filter>Component\Object</Filter>
-    </ClCompile>
-    <ClCompile Include="shrGridScript.cpp">
-      <Filter>Script</Filter>
-    </ClCompile>
-    <ClCompile Include="shrFadeInScript.cpp">
-      <Filter>Script</Filter>
-    </ClCompile>
-    <ClCompile Include="shrBikerScript.cpp">
-      <Filter>Script</Filter>
     </ClCompile>
     <ClCompile Include="shrPlayScene.cpp">
       <Filter>Scene\GameScenes</Filter>
@@ -201,8 +192,35 @@
     <ClCompile Include="shrPlayer.cpp">
       <Filter>GameObject\InGame</Filter>
     </ClCompile>
+    <ClCompile Include="shrTestScene.cpp">
+      <Filter>Scene\GameScenes</Filter>
+    </ClCompile>
+    <ClCompile Include="shrBikerScript.cpp">
+      <Filter>Script\Scene</Filter>
+    </ClCompile>
     <ClCompile Include="shrMonsterScript.cpp">
+      <Filter>Script\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="shrPlayerScript.cpp">
+      <Filter>Script\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="shrCameraScript.cpp">
+      <Filter>Script\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="shrFadeInScript.cpp">
+      <Filter>Script\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="shrGridScript.cpp">
+      <Filter>Script\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="shrScript.cpp">
       <Filter>Script</Filter>
+    </ClCompile>
+    <ClCompile Include="shrAnimator.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
+    <ClCompile Include="shrAnimation.cpp">
+      <Filter>Resource\Animation</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -278,12 +296,6 @@
     <ClInclude Include="shrConstantBuffer.h">
       <Filter>Graphics</Filter>
     </ClInclude>
-    <ClInclude Include="shrScript.h">
-      <Filter>Script</Filter>
-    </ClInclude>
-    <ClInclude Include="shrPlayerScript.h">
-      <Filter>Script</Filter>
-    </ClInclude>
     <ClInclude Include="shrCamera.h">
       <Filter>Component</Filter>
     </ClInclude>
@@ -293,29 +305,17 @@
     <ClInclude Include="shrSpriteRenderer.h">
       <Filter>Component\Renderer</Filter>
     </ClInclude>
-    <ClInclude Include="shrCameraScript.h">
-      <Filter>Script</Filter>
-    </ClInclude>
     <ClInclude Include="shrBaseRenderer.h">
       <Filter>Component\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="shrUnitComponent.h">
       <Filter>Component\Object</Filter>
     </ClInclude>
-    <ClInclude Include="shrGridScript.h">
-      <Filter>Script</Filter>
-    </ClInclude>
     <ClInclude Include="shrObject.h">
       <Filter>GameObject</Filter>
     </ClInclude>
     <ClInclude Include="..\External\DirectXTex\Include\DirectXTex.h">
       <Filter>Resource\Texture</Filter>
-    </ClInclude>
-    <ClInclude Include="shrFadeInScript.h">
-      <Filter>Script</Filter>
-    </ClInclude>
-    <ClInclude Include="shrBikerScript.h">
-      <Filter>Script</Filter>
     </ClInclude>
     <ClInclude Include="shrPlayScene.h">
       <Filter>Scene\GameScenes</Filter>
@@ -347,8 +347,35 @@
     <ClInclude Include="shrPlayer.h">
       <Filter>GameObject\InGame</Filter>
     </ClInclude>
+    <ClInclude Include="shrTestScene.h">
+      <Filter>Scene\GameScenes</Filter>
+    </ClInclude>
+    <ClInclude Include="shrBikerScript.h">
+      <Filter>Script\Scene</Filter>
+    </ClInclude>
     <ClInclude Include="shrMonsterScript.h">
+      <Filter>Script\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="shrPlayerScript.h">
+      <Filter>Script\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="shrGridScript.h">
+      <Filter>Script\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="shrCameraScript.h">
+      <Filter>Script\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="shrFadeInScript.h">
+      <Filter>Script\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="shrScript.h">
       <Filter>Script</Filter>
+    </ClInclude>
+    <ClInclude Include="shrAnimator.h">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="shrAnimation.h">
+      <Filter>Resource\Animation</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

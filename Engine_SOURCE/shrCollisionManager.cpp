@@ -163,7 +163,7 @@ namespace shr
 		if(leftType == eColliderType::Rect && rightType == eColliderType::Rect)
 		{
 
-			static const Vector3 arrLocalPos[4] =
+			Vector3 arrLocalPos[4] =
 			{
 				Vector3{-0.5f, 0.5f, 0.0f}
 				,Vector3{0.5f, 0.5f, 0.0f}
@@ -177,7 +177,7 @@ namespace shr
 			Matrix leftMat = leftTr->GetWorldMatrix();
 			Matrix rightMat = rightTr->GetWorldMatrix();
 
-			// 분리축 벡터 ( 투영 벡터 )
+			// 분리축 벡터 4개 구하기( 투영 벡터 )
 			Vector3 Axis[4] = {};
 			Axis[0] = Vector3::Transform(arrLocalPos[1], leftMat);
 			Axis[1] = Vector3::Transform(arrLocalPos[3], leftMat);
@@ -189,19 +189,27 @@ namespace shr
 			Axis[2] -= Vector3::Transform(arrLocalPos[0], rightMat);
 			Axis[3] -= Vector3::Transform(arrLocalPos[0], rightMat);
 
+			Vector3 leftScale = Vector3(left->GetSize().x, left->GetSize().y, 1.0f);
+			Axis[0] = Axis[0] * leftScale;
+			Axis[1] = Axis[1] * leftScale;
+
+			Vector3 rightScale = Vector3(right->GetSize().x, right->GetSize().y, 1.0f);
+			Axis[2] = Axis[2] * rightScale;
+			Axis[3] = Axis[3] * rightScale;
+
 			for (size_t i = 0; i < 4; i++)
 			{
 				Axis[i].z = 0.0f;
 			}
 
-			Vector3 vc = left->GetPosition() - right->GetPosition();
+			Vector3 vc = leftTr->GetPosition() - rightTr->GetPosition();
 			vc.z = 0.0f;
 
 			Vector3 centerDir = vc;
 			for (size_t i = 0; i < 4; i++)
 			{
 				Vector3 vA = Axis[i];
-				vA.Normalize();
+				//vA.Normalize();
 
 				float projDist = 0.0f;
 				for (size_t j = 0; j < 4; j++)

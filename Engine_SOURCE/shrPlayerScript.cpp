@@ -22,9 +22,12 @@ namespace shr
 	void PlayerScript::Update()
 	{
 		Transform* tr = GetOwner()->GetComponent<Transform>();
+		if (tr == nullptr)
+			return;
 		//Vector3 rot = tr->GetRotation();
 		//rot.z += 10.0f * Time::DeltaTime();
 		//tr->SetRotation(rot);
+
 
 		if (Input::GetKeyState(eKeyCode::R) == eKeyState::PRESSED)
 		{
@@ -49,13 +52,13 @@ namespace shr
 		if (Input::GetKey(eKeyCode::DOWN))
 		{
 			Vector3 pos = tr->GetPosition();
-			pos.z += 6.0f * Time::DeltaTime();
+			pos.y += 6.0f * Time::DeltaTime();
 			tr->SetPosition(pos);
 		}
 		if (Input::GetKey(eKeyCode::UP))
 		{
 			Vector3 pos = tr->GetPosition();
-			pos.z -= 6.0f * Time::DeltaTime();
+			pos.y -= 6.0f * Time::DeltaTime();
 			tr->SetPosition(pos);
 		}
 

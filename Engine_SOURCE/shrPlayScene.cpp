@@ -33,7 +33,7 @@ namespace shr
 	{	
 		if (Input::GetKeyDown(eKeyCode::N))
 		{
-			SceneManager::LoadScene(eSceneType::Title);
+			SceneManager::LoadScene(eSceneType::Test);
 		}
 	}
 	void PlayScene::FixedUpdate()

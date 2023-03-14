@@ -157,6 +157,8 @@
   <ItemGroup>
     <ClInclude Include="..\External\DirectXTex\Include\DirectXTex.h" />
     <ClInclude Include="CommonInclude.h" />
+    <ClInclude Include="shrAnimation.h" />
+    <ClInclude Include="shrAnimator.h" />
     <ClInclude Include="shrApplication.h" />
     <ClInclude Include="shrBaseRenderer.h" />
     <ClInclude Include="shrBikerScript.h" />
@@ -198,6 +200,7 @@
     <ClInclude Include="shrScript.h" />
     <ClInclude Include="shrShader.h" />
     <ClInclude Include="shrSpriteRenderer.h" />
+    <ClInclude Include="shrTestScene.h" />
     <ClInclude Include="shrTexture.h" />
     <ClInclude Include="shrTime.h" />
     <ClInclude Include="shrTitleScene.h" />
@@ -205,6 +208,8 @@
     <ClInclude Include="shrUnitComponent.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="shrAnimation.cpp" />
+    <ClCompile Include="shrAnimator.cpp" />
     <ClCompile Include="shrApplication.cpp" />
     <ClCompile Include="shrBaseRenderer.cpp" />
     <ClCompile Include="shrBikerScript.cpp" />
@@ -242,6 +247,7 @@
     <ClCompile Include="shrScript.cpp" />
     <ClCompile Include="shrShader.cpp" />
     <ClCompile Include="shrSpriteRenderer.cpp" />
+    <ClCompile Include="shrTestScene.cpp" />
     <ClCompile Include="shrTexture.cpp" />
     <ClCompile Include="shrTime.cpp" />
     <ClCompile Include="shrTitleScene.cpp" />

@@ -18,6 +18,7 @@
 
 #include "shrTitleScene.h"
 #include "shrPlayScene.h"
+#include "shrTestScene.h"
 
 namespace shr
 {
@@ -30,6 +31,7 @@ namespace shr
 
 		mSceneVec[(UINT)eSceneType::Title] = new TitleScene();
 		mSceneVec[(UINT)eSceneType::Play] = new PlayScene();
+		mSceneVec[(UINT)eSceneType::Test] = new TestScene();
 		
 		mActiveScene = mSceneVec[(UINT)eSceneType::Title];
 

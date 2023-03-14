@@ -4,18 +4,18 @@
 
 namespace shr
 {
-    enum eState
-    {
-        Idle,
-        Attack,
-        Die,
-        End
-    };
-
     class BikerScript :
         public Script
     {
     public:
+        enum eState
+        {
+            Idle,
+            Attack,
+            Die,
+            End
+        };
+
         BikerScript();
         ~BikerScript();
 

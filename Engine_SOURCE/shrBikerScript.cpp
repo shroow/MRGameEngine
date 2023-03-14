@@ -40,6 +40,13 @@ namespace shr
 
 	void BikerScript::Update()
 	{
+		if (mOwnerTR == nullptr)
+		{
+			mOwnerTR = GetOwner()->GetComponent<Transform>();
+			if (mOwnerTR == nullptr)
+				return;
+		}
+
 		if (Input::GetKeyState(eKeyCode::T) == eKeyState::PRESSED)
 		{
 			Vector3 rot = mOwnerTR->GetRotation();

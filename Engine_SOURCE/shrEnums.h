@@ -6,6 +6,7 @@ namespace shr::enums
 	{
 		Title,
 		Play,
+		Test,
 		End,
 	};
 
@@ -13,8 +14,8 @@ namespace shr::enums
 	{
 		None = 0,
 		Camera,
-		Background,
 		Grid,
+		Background,
 		Monster,
 		Player,
 		CameraEffect,
@@ -33,6 +34,7 @@ namespace shr::enums
 		//Collider2,
 		MeshRenderer,
 		SpriteRenderer,
+		Animator,
 		UI,
 		Script,
 		End,
@@ -63,4 +65,17 @@ namespace shr::enums
 		End,
 	};
 
+	enum class eAnimationType
+	{
+		None,
+		SecondDimension,
+		ThirdDimension,
+		End,
+	};
+
+	//struct Ray
+	//{
+	//	Vector3 origin;
+	//	Vector3 dest;
+	//};
 }
