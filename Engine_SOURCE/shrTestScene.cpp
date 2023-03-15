@@ -40,7 +40,7 @@ namespace shr
 
 		//Biker1
 		{
-			Player* obj = object::Instantiate<Player>(eLayerType::Player);
+			Player* obj = object::Instantiate<Player>(eLayerType::Player, this);
 			obj->SetName(L"Biker1");
 			Transform* tr = obj->GetComponent<Transform>();
 			tr->SetPosition(Vector3(-4.0f, 0.0f, 10.0f));
@@ -60,12 +60,12 @@ namespace shr
 
 			obj->AddComponent<BikerScript>();
 
-			object::DontDestroyOnLoad(obj);
+			//object::DontDestroyOnLoad(obj);
 		}
 
 		//Monster
 		{
-			GameObject* obj = object::Instantiate<Player>(eLayerType::Monster);
+			GameObject* obj = object::Instantiate<Player>(eLayerType::Monster, this);
 			obj->SetName(L"Monster");
 			Transform* tr = obj->GetComponent<Transform>();
 			tr->SetPosition(Vector3(5.0f, 0.0f, 10.0f));
@@ -84,7 +84,7 @@ namespace shr
 
 			obj->AddComponent<MonsterScript>();
 
-			object::DontDestroyOnLoad(obj);
+			//object::DontDestroyOnLoad(obj);
 		}
 
 		////Background

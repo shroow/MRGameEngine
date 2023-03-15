@@ -73,6 +73,18 @@ namespace shr::enums
 		End,
 	};
 
+	enum class eUnitState
+	{
+		None = 0,
+		Idle,
+		Move,
+		Attack,
+		Skill,
+		Buff,
+		Debuff,
+		End = 16,
+	};
+
 	//struct Ray
 	//{
 	//	Vector3 origin;

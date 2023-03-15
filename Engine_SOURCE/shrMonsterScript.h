@@ -38,7 +38,10 @@ namespace shr
         Transform* mOwnerTR;
         float mHP;
         float mMaxHP;
+        float mMP;
+        float mMaxMP;
         bool mIdle;
+        bool mMove;
         bool mDie;
         bool mAttack;
         bool mChange;

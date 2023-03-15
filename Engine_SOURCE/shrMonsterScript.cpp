@@ -17,7 +17,9 @@ namespace shr
 		, mAttack(false)
 		, mChange(false)
 		, mHP(0.f)
-		, mMaxHP(100.f)
+		, mMaxHP(100.f)		
+		, mMP(0.f)
+		, mMaxMP(100.f)
 	{
 	}
 
@@ -137,7 +139,7 @@ namespace shr
 
 		if (!mIdle)
 		{
-			mIdle = true;
+			//mIdle = true;
 			mAttack = false;
 			mChange = true;
 		}
