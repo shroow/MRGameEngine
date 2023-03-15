@@ -32,12 +32,12 @@ namespace shr
         Animation();
         ~Animation();
 
-        void Update();
+        UINT Update();
         void FixedUpdate();
         void Render();
 
         void Create(const std::wstring& name, std::shared_ptr<Texture> atlas
-            , Vector2 leftTop, Vector2 size, Vector2 offset
+            , Vector2 leftTop, Vector2 spriteSize, Vector2 offset
             , UINT spriteLength, float duration);
 
         void BindShader();

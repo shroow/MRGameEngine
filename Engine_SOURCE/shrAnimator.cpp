@@ -34,18 +34,21 @@ namespace shr
 		if (mActiveAnimation == nullptr)
 			return;
 
-		if (mActiveAnimation->IsComplete() && mbLoop)
+		Events* events = FindEvents(mActiveAnimation->AnimationName());
+		if (mActiveAnimation->IsComplete())
 		{
-			Events* events
-				= FindEvents(mActiveAnimation->AnimationName());
-
 			if (events)
 				events->mCompleteEvent();
 
 			mActiveAnimation->Reset();
 		}
 
-		mActiveAnimation->Update();
+		UINT spriteIndex = mActiveAnimation->Update();
+		if(spriteIndex != -1 
+			&& events->mEvents[spriteIndex].mEvent)
+		{
+			events->mEvents[spriteIndex].mEvent();
+		}
 	}
 
 	void Animator::FixedUpdate()
@@ -57,7 +60,7 @@ namespace shr
 	}
 
 	bool Animator::Create(const std::wstring& name, std::shared_ptr<Texture> atlas
-						, Vector2 leftTop, Vector2 size, Vector2 offset
+						, Vector2 leftTop, Vector2 spriteSize, Vector2 offset
 						, UINT spriteLength, float duration)
 	{
 		if (atlas == nullptr)
@@ -69,11 +72,15 @@ namespace shr
 
 		animation = new Animation();
 		animation->Create(name, atlas,
-			leftTop, size, offset,
+			leftTop, spriteSize, offset,
 			spriteLength, duration);
 
 		mAnimations.insert(std::make_pair(name, animation));
 		
+		Events* events = new Events();
+		events->mEvents.resize(spriteLength);
+		mEvents.insert(std::make_pair(name, events));
+
 		return true;
 	}
 
@@ -102,7 +109,9 @@ namespace shr
 	void Animator::Play(const std::wstring& name, bool loop)
 	{
 		Animation* prevAnimation = mActiveAnimation;
-		Events* events = FindEvents(prevAnimation->AnimationName());
+		Events* events = nullptr;
+		if (prevAnimation)
+			events = FindEvents(prevAnimation->AnimationName());
 
 		if (events)
 			events->mEndEvent();
@@ -150,5 +159,11 @@ namespace shr
 		Events* events = FindEvents(name);
 
 		return events->mEndEvent.mEvent;
+	}
+	std::function<void()>& Animator::GetEvent(const std::wstring& name, UINT index)
+	{
+		Events* events = FindEvents(name);
+
+		return events->mEvents[index].mEvent;
 	}
 }

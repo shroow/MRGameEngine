@@ -28,6 +28,7 @@ namespace shr
             Event mStartEvent;
             Event mCompleteEvent;
             Event mEndEvent;
+            std::vector<Event> mEvents;
         };
 
         Animator();
@@ -39,7 +40,7 @@ namespace shr
         virtual void Render() override;
 
         bool Create(const std::wstring& name, std::shared_ptr<Texture> atlas
-            , Vector2 leftTop, Vector2 size, Vector2 offset
+            , Vector2 leftTop, Vector2 spriteSize, Vector2 offset
             , UINT spriteLength, float duration);
 
         Animation* FindAnimation(const std::wstring& name);
@@ -52,6 +53,7 @@ namespace shr
         std::function<void()>& GetStartEvent(const std::wstring& name);
         std::function<void()>& GetCompleteEvent(const std::wstring& name);
         std::function<void()>& GetEndEvent(const std::wstring& name);
+        std::function<void()>& GetEvent(const std::wstring& name, UINT index);
 
     private:
         std::map<std::wstring, Animation*> mAnimations;

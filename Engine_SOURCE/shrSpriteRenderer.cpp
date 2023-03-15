@@ -42,5 +42,10 @@ namespace shr
 		GetMesh()->Render();
 
 		GetMaterial()->Clear();
+
+		if (animator)
+		{
+			animator->Clear();
+		}
 	}
 }

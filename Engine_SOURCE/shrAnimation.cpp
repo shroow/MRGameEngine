@@ -18,10 +18,10 @@ namespace shr
 	{
 	}
 
-	void Animation::Update()
+	UINT Animation::Update()
 	{
 		if (mbComplete)
-			return;
+			return -1;
 
 		mTime += Time::DeltaTime();
 
@@ -35,7 +35,11 @@ namespace shr
 				mbComplete = true;
 				mIndex = mSpriteSheet.size() - 1;
 			}
+
+			return mIndex;
 		}
+	
+		return -1;
 	}
 
 	void Animation::FixedUpdate()
@@ -46,7 +50,7 @@ namespace shr
 	}
 
 	void Animation::Create(const std::wstring& name, std::shared_ptr<Texture> atlas
-						, Vector2 leftTop, Vector2 size, Vector2 offset
+						, Vector2 leftTop, Vector2 spriteSize, Vector2 offset
 						, UINT spriteLength, float duration)
 	{
 		mAnimationName = name;
@@ -58,9 +62,9 @@ namespace shr
 		for (size_t i = 0; i < spriteLength; i++)
 		{
 			Sprite sprite = {};
-			sprite.leftTop = Vector2(leftTop.x + (size.x * (float)i) / width
-									, leftTop.y / height);
-			sprite.spriteSize = Vector2(size.x / width, size.y / height);
+			sprite.leftTop = Vector2((leftTop.x + (spriteSize.x * (float)i)) / width
+									, (leftTop.y) / height);
+			sprite.spriteSize = Vector2(spriteSize.x / width, spriteSize.y / height);
 			sprite.offset = offset;
 			sprite.duration = duration;
 			sprite.atlasSize = Vector2(200.0f / width, 200.0f / height);
@@ -94,6 +98,16 @@ namespace shr
 	}
 	void Animation::Clear()
 	{
+		//Texture Clear
+		Texture::Clear(12);
 
+		ConstantBuffer* cb = renderer::constantBuffers[(UINT)eCBType::Animation];
+
+		renderer::AnimationCB info = {};
+
+		info.type = (UINT)eAnimationType::None;
+
+		cb->Bind(&info);
+		cb->SetPipline(eShaderStage::PS);
 	}
 }

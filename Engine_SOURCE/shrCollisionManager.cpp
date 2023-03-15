@@ -78,6 +78,8 @@ namespace shr
 				ColliderCollision(left->GetComponent<Collider2D>(), right->GetComponent<Collider2D>());
 			}
 
+			if ((UINT)left == (UINT)right)
+				break;
 		}
 
 	}
