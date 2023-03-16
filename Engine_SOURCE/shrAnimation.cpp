@@ -73,6 +73,52 @@ namespace shr
 		}
 	}
 
+	void Animation::Create(const std::wstring& name, std::shared_ptr<Texture> atlas, Vector2 leftTop, Vector2 spriteSize, Vector2 offset, UINT spriteLength, float duration, eAtlasType atlasType)
+	{
+		mAnimationName = name;
+
+		mAtlas = atlas;
+		float width = (float)atlas->GetWidth();
+		float height = (float)atlas->GetHeight();
+
+		if(atlasType == eAtlasType::Column)
+		{
+			for (size_t i = 0; i < spriteLength; i++)
+			{
+				Sprite sprite = {};
+				sprite.leftTop = Vector2((leftTop.x + (spriteSize.x * (float)i)) / width
+					, (leftTop.y) / height);
+				sprite.spriteSize = Vector2(spriteSize.x / width, spriteSize.y / height);
+				sprite.offset = offset;
+				sprite.duration = duration;
+				sprite.atlasSize = Vector2(200.0f / width, 200.0f / height);
+
+				mSpriteSheet.push_back(sprite);
+			}
+		}
+
+		else if (atlasType == eAtlasType::Row)
+		{
+			for (size_t i = 0; i < spriteLength; i++)
+			{
+				Sprite sprite = {};
+				sprite.leftTop = Vector2((leftTop.x) / width
+					, (leftTop.y + (spriteSize.y * (float)i)) / height);
+				sprite.spriteSize = Vector2(spriteSize.x / width, spriteSize.y / height);
+				sprite.offset = offset;
+				sprite.duration = duration;
+				sprite.atlasSize = Vector2(200.0f / width, 200.0f / height);
+
+				mSpriteSheet.push_back(sprite);
+			}
+		}
+
+		else if (atlasType == eAtlasType::Compound)
+		{
+			assert(false);
+		}
+	}
+
 	void Animation::BindShader()
 	{
 		mAtlas->BindShader(eShaderStage::PS, 12);

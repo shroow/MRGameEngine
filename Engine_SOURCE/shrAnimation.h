@@ -38,7 +38,11 @@ namespace shr
 
         void Create(const std::wstring& name, std::shared_ptr<Texture> atlas
             , Vector2 leftTop, Vector2 spriteSize, Vector2 offset
-            , UINT spriteLength, float duration);
+            , UINT spriteLength, float duration);      
+        
+        void Create(const std::wstring& name, std::shared_ptr<Texture> atlas
+            , Vector2 leftTop, Vector2 spriteSize, Vector2 offset
+            , UINT spriteLength, float duration, eAtlasType atlasType);
 
         void BindShader();
         void Reset();

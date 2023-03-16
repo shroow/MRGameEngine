@@ -6,6 +6,7 @@
 #include "shrSpriteRenderer.h"
 #include "shrFadeInScript.h"
 #include "shrResources.h"
+#include "shrAnimator.h"
 
 namespace shr
 {
@@ -16,10 +17,7 @@ namespace shr
 		, mDie(false)
 		, mAttack(false)
 		, mChange(false)
-		, mHP(0.f)
-		, mMaxHP(100.f)		
-		, mMP(0.f)
-		, mMaxMP(100.f)
+		, mStatus{}
 	{
 	}
 
@@ -33,11 +31,22 @@ namespace shr
 		LoadResources();
 
 		mOwnerTR = GetOwner()->GetComponent<Transform>();
-		//if(mOwnerTR)
-		//	mOwnerTR->SetScale(Vector3(4.0f, 1.0f, 1.0f));
+		mAnimator = GetOwner()->GetComponent<Animator>();
+
+		mStatus.maxHP = 100.f;
+		mStatus.HP = mStatus.maxHP;
+		mStatus.maxMP = 100.f;
+		mStatus.MP = mStatus.maxHP;
+
+		mStatus.attackDmg = 10.f;
+		mStatus.attackSpeed = 1.f;
+
+		mStatus.moveSpeed = 10.f;
+		mStatus.moveType = eMoveType::Ground;
 
 		mIdle = true;
-		mHP = mMaxHP;
+
+		mAnimator->Play(L"BallandChainBot_Attack");
 	}
 
 	void MonsterScript::Update()
@@ -48,7 +57,8 @@ namespace shr
 			if (mOwnerTR == nullptr)
 				return;
 		}
-
+		
+		Vector3 pos = mOwnerTR->GetPosition();
 
 		if (Input::GetKeyState(eKeyCode::T) == eKeyState::PRESSED)
 		{
@@ -57,9 +67,32 @@ namespace shr
 			mOwnerTR->SetRotation(rot);
 		}
 
-		Vector3 pos = mOwnerTR->GetPosition();
+		if (Input::GetKeyState(eKeyCode::DOWN) == eKeyState::PRESSED)
+		{
+			pos.y += -mOwnerTR->Up().y * mStatus.moveSpeed * Time::DeltaTime();
+			mOwnerTR->SetPosition(pos);
+		}
 
-		if (mHP <= 0.f)
+		if (Input::GetKeyState(eKeyCode::UP) == eKeyState::PRESSED)
+		{
+			pos.y += mOwnerTR->Up().y * mStatus.moveSpeed * Time::DeltaTime();
+			mOwnerTR->SetPosition(pos);
+		}
+
+		if (Input::GetKeyState(eKeyCode::LEFT) == eKeyState::PRESSED)
+		{
+			pos.x += -mOwnerTR->Right().x * mStatus.moveSpeed * Time::DeltaTime();
+			mOwnerTR->SetPosition(pos);
+		}
+
+		if (Input::GetKeyState(eKeyCode::RIGHT) == eKeyState::PRESSED)
+		{
+			pos.x += mOwnerTR->Right().x * mStatus.moveSpeed * Time::DeltaTime();
+			mOwnerTR->SetPosition(pos);
+		}
+
+
+		if (mStatus.HP <= 0.f)
 		{
 			mIdle = false;
 			mAttack = false;
@@ -130,7 +163,7 @@ namespace shr
 	}
 	void MonsterScript::OnCollisionStay(Collider2D* collider)
 	{
-		mHP -= 30.f * Time::DeltaTime();
+		mStatus.HP -= 30.f * Time::DeltaTime();
 	}
 	void MonsterScript::OnCollisionExit(Collider2D* collider)
 	{

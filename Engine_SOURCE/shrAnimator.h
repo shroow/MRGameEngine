@@ -43,6 +43,11 @@ namespace shr
             , Vector2 leftTop, Vector2 spriteSize, Vector2 offset
             , UINT spriteLength, float duration);
 
+        bool Create(const std::wstring& name, std::shared_ptr<Texture> atlas
+            , Vector2 leftTop, Vector2 spriteSize, Vector2 offset
+            , UINT spriteLength, float duration, eAtlasType atlasType);
+
+
         Animation* FindAnimation(const std::wstring& name);
         Events* FindEvents(const std::wstring& name);
         void Play(const std::wstring& name, bool loop = true);

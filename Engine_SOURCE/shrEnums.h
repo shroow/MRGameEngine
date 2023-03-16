@@ -85,6 +85,29 @@ namespace shr::enums
 		End = 16,
 	};
 
+	enum class eBuffType
+	{
+		None,
+		StatBuff,
+		StatDebuff,
+		Stun,
+		End = 16,
+	};
+
+	enum class eMoveType
+	{
+		Ground,
+		Fly,
+		Building,
+	};
+
+	enum class eAtlasType
+	{
+		Row,
+		Column,
+		Compound,
+	};
+
 	//struct Ray
 	//{
 	//	Vector3 origin;

@@ -16,6 +16,25 @@ namespace shr
             End
         };
 
+        struct Status
+        {
+            float HP;
+            float maxHP;
+            float MP;
+            float maxMP;
+
+            float attackDmg;
+            float attackSpeed;
+
+            float moveSpeed;
+            eMoveType moveType;
+
+            //Skill needed
+
+            std::vector<float> buffVec[(UINT)eBuffType::End];
+        };
+
+
         MonsterScript();
         ~MonsterScript();
 
@@ -36,15 +55,15 @@ namespace shr
 
     private:
         Transform* mOwnerTR;
-        float mHP;
-        float mMaxHP;
-        float mMP;
-        float mMaxMP;
+        class Animator* mAnimator;
+
         bool mIdle;
         bool mMove;
         bool mDie;
         bool mAttack;
         bool mChange;
+
+        Status mStatus;
     };
 }
 

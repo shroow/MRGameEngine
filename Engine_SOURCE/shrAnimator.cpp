@@ -84,6 +84,29 @@ namespace shr
 		return true;
 	}
 
+	bool Animator::Create(const std::wstring& name, std::shared_ptr<Texture> atlas, Vector2 leftTop, Vector2 spriteSize, Vector2 offset, UINT spriteLength, float duration, eAtlasType atlasType)
+	{
+		if (atlas == nullptr)
+			return false;
+
+		Animation* animation = FindAnimation(name);
+		if (animation != nullptr)
+			return false;
+
+		animation = new Animation();
+		animation->Create(name, atlas,
+			leftTop, spriteSize, offset,
+			spriteLength, duration, atlasType);
+
+		mAnimations.insert(std::make_pair(name, animation));
+
+		Events* events = new Events();
+		events->mEvents.resize(spriteLength);
+		mEvents.insert(std::make_pair(name, events));
+
+		return true;
+	}
+
 	Animation* Animator::FindAnimation(const std::wstring& name)
 	{
 		std::map<std::wstring, Animation*>::iterator iter
