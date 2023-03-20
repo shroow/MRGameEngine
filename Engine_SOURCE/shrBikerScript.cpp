@@ -6,18 +6,26 @@
 #include "shrSpriteRenderer.h"
 #include "shrFadeInScript.h"
 #include "shrResources.h"
+#include "shrAnimator.h"
+#include <functional>
+#include "shrApplication.h"
 
+
+extern shr::Application application;
 namespace shr
 {
 	BikerScript::BikerScript()
 		: Script()
 		, mOwnerTR(nullptr)
+		, mAnimator(nullptr)
 		, mIdle(false)
+		, mRun(false)
 		, mDie(false)
 		, mAttack(false)
 		, mChange(false)
-		, mHP(0.f)
-		, mMaxHP(100.f)
+		, mPrevPos{}
+		, mMove(0.f)
+		, mStatus{}
 	{
 	}
 
@@ -30,12 +38,29 @@ namespace shr
 	{
 		LoadResources();
 
+		if (GetOwner() == nullptr)
+			return;
+
 		mOwnerTR = GetOwner()->GetComponent<Transform>();
-		//if(mOwnerTR)
-		//	mOwnerTR->SetScale(Vector3(4.0f, 1.0f, 1.0f));
+		mAnimator = GetOwner()->GetComponent<Animator>();
+
+		mStatus.maxHP = 100.f;
+		mStatus.HP = mStatus.maxHP;
+		mStatus.maxMP = 100.f;
+		mStatus.MP = mStatus.maxHP;
+
+		mStatus.attackDmg = 10.f;
+		mStatus.attackSpeed = 1.f;
+
+		mStatus.moveSpeed = 10.f;
+		mStatus.moveType = eMoveType::Ground;
 
 		mIdle = true;
-		mHP = mMaxHP;
+
+		mAnimator->GetStartEvent(L"FreeKnightv1c1_Run") = std::bind(&BikerScript::Start, this);
+		mAnimator->GetCompleteEvent(L"FreeKnightv1c1_Idle") = std::bind(&BikerScript::Action, this);
+		mAnimator->GetEndEvent(L"FreeKnightv1c1_Idle") = std::bind(&BikerScript::End, this);
+		mAnimator->GetEvent(L"FreeKnightv1c1_Idle", 1) = std::bind(&BikerScript::End, this);
 	}
 
 	void BikerScript::Update()
@@ -73,30 +98,63 @@ namespace shr
 			pos.y += 3.0f * Time::DeltaTime();
 		}
 
-		//if (Input::GetMouseLeftPressed())
-		//{
-		//	Vector2 mousePos = Input::GetMouseWorldPos();
-		//	
-		//	Vector2 myPos(pos.x, pos.y);
-		//	//myPos.Normalize();
-		//	//Vector2 movePos(mousePos.x, mousePos.y);
-		//	//movePos.Normalize();
-
-		//	float dot = myPos.Dot(mousePos);
-
-		//	float angle = acos(dot / (myPos.Length() * mousePos.Length()));
-		//	
-		//	pos.x += 3.0f * cos(angle) * Time::DeltaTime();
-		//	pos.y += 3.0f * sin(angle) * Time::DeltaTime();;
-		//}
-
-		if (mHP <= 0.f)
+		if (Input::GetMouseLeftPressed())
 		{
+			Vector2 mouseWorldPos = Input::GetMouseWorldPos();
+			
+			Vector2 myPos(pos.x, pos.y);
+			
+				Vector2 mousePos = Input::GetMousePos();
+				Vector3 CameraPos = renderer::mainCamera->GetWorldPos();
+
+				float x = mousePos.x;
+				float y = mousePos.y;
+
+				float worldX = mouseWorldPos.x;
+				float worldY = mouseWorldPos.y;
+
+				float myPosX = pos.x;
+				float myPosY = pos.y;
+
+				CameraPos.x;
+				CameraPos.y;
+				CameraPos.z;
+
+			Vector2 dir;
+			dir.x = mouseWorldPos.x - myPos.x;
+			dir.y = mouseWorldPos.y - myPos.y;
+			float length = sqrt(dir.x * dir.x + dir.y * dir.y);
+			dir.x /= length;
+			dir.y /= length;
+
+			// Move object A towards object B
+			pos.x = myPos.x + dir.x * 3.0f * Time::DeltaTime();
+			pos.y = myPos.y + dir.y * 3.0f * Time::DeltaTime();
+
+			//Vector2 angle = Vector2::AngleBetweenVectors(myPos, mouseWorldPos);
+			//
+			//pos.x += 3.0f * cos(angle.x) * Time::DeltaTime();
+			//pos.y += 3.0f * sin(angle.x) * Time::DeltaTime();
+		}
+
+		if (mPrevPos != pos)
+		{
+			mMove = Vector2::Distance(Vector2(mPrevPos.x, mPrevPos.y), Vector2(pos.x, pos.y));
+
 			mIdle = false;
-			mAttack = false;
-			mDie = true;
+			mRun = true;
 			mChange = true;
 		}
+		else
+		{
+			mMove = 0.f;
+
+			mIdle = true;
+			mRun = false;
+			mChange = true;
+		}
+
+		mPrevPos = pos;
 
 		mOwnerTR->SetPosition(pos);
 	}
@@ -106,35 +164,35 @@ namespace shr
 		if (!mChange)
 			return;
 
-		if (mIdle)
+		if (mAnimator == nullptr)
 		{
-			std::shared_ptr<Material> material
-				= Resources::Find<Material>(L"Biker_Idle_Material");
-			if (material == nullptr)
+			mAnimator = GetOwner()->GetComponent<Animator>();
+			if (mAnimator == nullptr)
 				return;
-			GetOwner()->GetComponent<SpriteRenderer>()->SetMaterial(material);
+		}
 
-			mChange = false;
+		if (mDie)
+		{
+			mAnimator->Play(L"FreeKnightv1c1_Idle", true);
 		}
 		else if (mAttack)
 		{
-			std::shared_ptr<Material> material
-				= Resources::Find<Material>(L"Biker_Attack3_Material");
-			if (material == nullptr)
-				return;
-			GetOwner()->GetComponent<SpriteRenderer>()->SetMaterial(material);
-
-			mChange = false;
+			mAnimator->Play(L"FreeKnightv1c1_Attack", true);
 		}
-		else if (mDie)
+		else if (mRun)
 		{
-			std::shared_ptr<Material> material
-				= Resources::Find<Material>(L"Biker_Death_Material");
-			if (material == nullptr)
-				return;
-			GetOwner()->GetComponent<SpriteRenderer>()->SetMaterial(material);
+			mAnimator->Play(L"FreeKnightv1c1_Run", true);
+		}
+		else if (mIdle)
+		{
+			mAnimator->Play(L"FreeKnightv1c1_Idle", true);
+		}
 
-			mChange = false;
+
+		Animator* animator = GetOwner()->GetComponent<Animator>();
+		if (Input::GetKey(eKeyCode::N_1))
+		{
+			mAnimator->Play(L"FreeKnightv1c1_Attack");
 		}
 	}
 
@@ -156,6 +214,7 @@ namespace shr
 		{
 			mAttack = true;
 			mIdle = false;
+			mRun = false;
 			mChange = true;
 		}
 	}
@@ -183,4 +242,17 @@ namespace shr
 	void BikerScript::OnTriggerExit(Collider2D* collider)
 	{
 	}
+
+	void BikerScript::Start()
+	{
+	}
+
+	void BikerScript::Action()
+	{
+	}
+
+	void BikerScript::End()
+	{
+	}
+
 }

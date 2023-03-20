@@ -8,12 +8,22 @@ namespace shr
         public Script
     {
     public:
-        enum eState
+        struct Status
         {
-            Idle,
-            Attack,
-            Die,
-            End
+            float HP;
+            float maxHP;
+            float MP;
+            float maxMP;
+
+            float attackDmg;
+            float attackSpeed;
+
+            float moveSpeed;
+            eMoveType moveType;
+
+            //Skill needed
+
+            std::vector<float> buffVec[(UINT)eBuffType::End];
         };
 
         BikerScript();
@@ -34,14 +44,24 @@ namespace shr
         virtual void OnTriggerStay(Collider2D* collider) override;
         virtual void OnTriggerExit(Collider2D* collider) override;
 
+        void Start();
+        void Action();
+        void End();
+
     private:
         Transform* mOwnerTR;
-        float mHP;
-        float mMaxHP;
+        class Animator* mAnimator;
+
         bool mIdle;
+        bool mRun;
         bool mDie;
         bool mAttack;
         bool mChange;
+
+        Vector3 mPrevPos;
+        float mMove;
+
+        Status mStatus;
     };
 }
 

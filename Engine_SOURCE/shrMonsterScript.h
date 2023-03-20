@@ -8,14 +8,6 @@ namespace shr
         public Script
     {
     public:
-        enum eState
-        {
-            Idle,
-            Attack,
-            Die,
-            End
-        };
-
         struct Status
         {
             float HP;
@@ -53,15 +45,22 @@ namespace shr
         virtual void OnTriggerStay(Collider2D* collider) override;
         virtual void OnTriggerExit(Collider2D* collider) override;
 
+        void Start();
+        void Action();
+        void End();
+
     private:
         Transform* mOwnerTR;
         class Animator* mAnimator;
 
         bool mIdle;
-        bool mMove;
+        bool mRun;
         bool mDie;
         bool mAttack;
         bool mChange;
+
+        Vector3 mPrevPos;
+        float mMove;
 
         Status mStatus;
     };

@@ -44,7 +44,7 @@
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
-    <EnableUnitySupport>true</EnableUnitySupport>
+    <EnableUnitySupport>false</EnableUnitySupport>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
@@ -206,6 +206,7 @@
     <ClInclude Include="shrTitleScene.h" />
     <ClInclude Include="shrTransform.h" />
     <ClInclude Include="shrUnitComponent.h" />
+    <ClInclude Include="MouseMove.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="shrAnimation.cpp" />

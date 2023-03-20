@@ -716,6 +716,17 @@ inline void Vector2::TransformNormal(const Vector2* varray, size_t count, const 
     XMVector2TransformNormalStream(resultArray, sizeof(XMFLOAT2), varray, sizeof(XMFLOAT2), count, M);
 }
 
+inline Vector2 Vector2::AngleBetweenVectors(const Vector2& v1, const Vector2& v2) noexcept
+{
+    using namespace DirectX;
+    const XMVECTOR V1 = XMLoadFloat2(&v1);
+    const XMVECTOR V2 = XMLoadFloat2(&v2);
+    const XMVECTOR X = XMVector2AngleBetweenVectors(V1, V2);
+
+    Vector2 result;
+    XMStoreFloat2(&result, X);
+    return result;
+}
 
 /****************************************************************************
  *

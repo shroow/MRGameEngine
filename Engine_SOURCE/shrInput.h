@@ -55,13 +55,15 @@ namespace shr
 			bool	  bLPressed;
 			bool	  bRPressed;
 
-			math::Vector2 mPos;
-			math::Vector2 mMove;
-			math::Vector2 mWorldPos;
+			math::Vector2 pos;
+			math::Vector2 move;
+			math::Vector2 worldPos;
 		};
 
 		static void Initialize();
 		static void Update();
+
+		static void ComputeMousePos();
 
 		static __forceinline eKeyState GetKeyState(eKeyCode keyCode) 
 		{ 
@@ -90,24 +92,24 @@ namespace shr
 			mouse.bRPressed = mMouse.bRPressed;
 			mouse.eLState = mMouse.eLState;
 			mouse.eRState = mMouse.eRState;
-			mouse.mMove = mMouse.mMove;
-			mouse.mPos = mMouse.mPos;
-			mouse.mWorldPos = mMouse.mWorldPos;
+			mouse.move = mMouse.move;
+			mouse.pos = mMouse.pos;
+			mouse.worldPos = mMouse.worldPos;
 		}
 
 		static __forceinline math::Vector2 GetMousePos()
 		{
-			return mMouse.mPos;
+			return mMouse.pos;
 		}
 
 		static __forceinline math::Vector2 GetMouseWorldPos()
 		{
-			return mMouse.mWorldPos;
+			return mMouse.worldPos;
 		}
 
 		static __forceinline math::Vector2 GetMouseMove()
 		{
-			return mMouse.mMove;
+			return mMouse.move;
 		}
 
 		static __forceinline bool GetMouseLeftPressed()

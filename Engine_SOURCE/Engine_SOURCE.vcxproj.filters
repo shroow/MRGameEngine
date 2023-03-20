@@ -377,6 +377,9 @@
     <ClInclude Include="shrAnimation.h">
       <Filter>Resource\Animation</Filter>
     </ClInclude>
+    <ClInclude Include="MouseMove.h">
+      <Filter>Time</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="shrMath.inl">

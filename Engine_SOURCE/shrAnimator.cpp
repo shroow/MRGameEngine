@@ -84,7 +84,9 @@ namespace shr
 		return true;
 	}
 
-	bool Animator::Create(const std::wstring& name, std::shared_ptr<Texture> atlas, Vector2 leftTop, Vector2 spriteSize, Vector2 offset, UINT spriteLength, float duration, eAtlasType atlasType)
+	bool Animator::Create(const std::wstring& name, std::shared_ptr<Texture> atlas
+						, Vector2 leftTop, Vector2 spriteSize, Vector2 offset
+						, UINT spriteLength, float duration, eAtlasType atlasType)
 	{
 		if (atlas == nullptr)
 			return false;

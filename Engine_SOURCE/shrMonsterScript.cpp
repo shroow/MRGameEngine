@@ -13,10 +13,14 @@ namespace shr
 	MonsterScript::MonsterScript()
 		: Script()
 		, mOwnerTR(nullptr)
+		, mAnimator(nullptr)
 		, mIdle(false)
+		, mRun(false)
 		, mDie(false)
 		, mAttack(false)
 		, mChange(false)
+		, mPrevPos{}
+		, mMove(0.f)
 		, mStatus{}
 	{
 	}
@@ -46,7 +50,11 @@ namespace shr
 
 		mIdle = true;
 
-		mAnimator->Play(L"BallandChainBot_Attack");
+		Animator* animator = GetOwner()->GetComponent<Animator>();
+		animator->GetStartEvent(L"BallandChainBot_Run") = std::bind(&MonsterScript::Start, this);
+		animator->GetCompleteEvent(L"BallandChainBot_Idle") = std::bind(&MonsterScript::Action, this);
+		animator->GetEndEvent(L"BallandChainBot_Idle") = std::bind(&MonsterScript::End, this);
+		animator->GetEvent(L"BallandChainBot_Idle", 1) = std::bind(&MonsterScript::End, this);
 	}
 
 	void MonsterScript::Update()
@@ -60,37 +68,6 @@ namespace shr
 		
 		Vector3 pos = mOwnerTR->GetPosition();
 
-		if (Input::GetKeyState(eKeyCode::T) == eKeyState::PRESSED)
-		{
-			Vector3 rot = mOwnerTR->GetRotation();
-			rot.z += 10.0f * Time::DeltaTime();
-			mOwnerTR->SetRotation(rot);
-		}
-
-		if (Input::GetKeyState(eKeyCode::DOWN) == eKeyState::PRESSED)
-		{
-			pos.y += -mOwnerTR->Up().y * mStatus.moveSpeed * Time::DeltaTime();
-			mOwnerTR->SetPosition(pos);
-		}
-
-		if (Input::GetKeyState(eKeyCode::UP) == eKeyState::PRESSED)
-		{
-			pos.y += mOwnerTR->Up().y * mStatus.moveSpeed * Time::DeltaTime();
-			mOwnerTR->SetPosition(pos);
-		}
-
-		if (Input::GetKeyState(eKeyCode::LEFT) == eKeyState::PRESSED)
-		{
-			pos.x += -mOwnerTR->Right().x * mStatus.moveSpeed * Time::DeltaTime();
-			mOwnerTR->SetPosition(pos);
-		}
-
-		if (Input::GetKeyState(eKeyCode::RIGHT) == eKeyState::PRESSED)
-		{
-			pos.x += mOwnerTR->Right().x * mStatus.moveSpeed * Time::DeltaTime();
-			mOwnerTR->SetPosition(pos);
-		}
-
 
 		if (mStatus.HP <= 0.f)
 		{
@@ -100,6 +77,19 @@ namespace shr
 			mChange = true;
 		}
 
+		if (mPrevPos != pos)
+		{
+			mMove = Vector2::Distance(Vector2(mPrevPos.x, mPrevPos.y), Vector2(pos.x, pos.y));
+
+			mRun = true;
+			mChange = true;
+		}
+		else
+			mMove = 0.f;
+
+		mPrevPos = pos;
+
+
 		mOwnerTR->SetPosition(pos);
 	}
 
@@ -108,35 +98,34 @@ namespace shr
 		if (!mChange)
 			return;
 
-		if (mIdle)
+		if (mAnimator == nullptr)
 		{
-			std::shared_ptr<Material> material
-				= Resources::Find<Material>(L"Monster_Idle_Material");
-			if (material == nullptr)
+			mAnimator = GetOwner()->GetComponent<Animator>();
+			if (mAnimator == nullptr)
 				return;
-			GetOwner()->GetComponent<SpriteRenderer>()->SetMaterial(material);
+		}
 
-			mChange = false;
+		if (mDie)
+		{
+			mAnimator->Play(L"BallandChainBot_Death");
 		}
 		else if (mAttack)
 		{
-			std::shared_ptr<Material> material
-				= Resources::Find<Material>(L"Monster_Attack2_Material");
-			if (material == nullptr)
-				return;
-			GetOwner()->GetComponent<SpriteRenderer>()->SetMaterial(material);
-
-			mChange = false;
+			mAnimator->Play(L"BallandChainBot_Attack");
 		}
-		else if (mDie)
+		else if (mMove)
 		{
-			std::shared_ptr<Material> material
-				= Resources::Find<Material>(L"Monster_Death_Material");
-			if (material == nullptr)
-				return;
-			GetOwner()->GetComponent<SpriteRenderer>()->SetMaterial(material);
+			mAnimator->Play(L"BallandChainBot_Run");
+		}
+		else if (mIdle)
+		{
+			mAnimator->Play(L"BallandChainBot_Idle");
+		}
 
-			mChange = false;
+		Animator* animator = GetOwner()->GetComponent<Animator>();
+		if (Input::GetKey(eKeyCode::N_1))
+		{
+			mAnimator->Play(L"BallandChainBot_Attack");
 		}
 	}
 
@@ -172,7 +161,7 @@ namespace shr
 
 		if (!mIdle)
 		{
-			//mIdle = true;
+			mIdle = true;
 			mAttack = false;
 			mChange = true;
 		}
@@ -184,6 +173,15 @@ namespace shr
 	{
 	}
 	void MonsterScript::OnTriggerExit(Collider2D* collider)
+	{
+	}
+	void MonsterScript::Start()
+	{
+	}
+	void MonsterScript::Action()
+	{
+	}
+	void MonsterScript::End()
 	{
 	}
 }

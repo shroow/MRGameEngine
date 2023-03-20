@@ -73,7 +73,10 @@ namespace shr
 		}
 	}
 
-	void Animation::Create(const std::wstring& name, std::shared_ptr<Texture> atlas, Vector2 leftTop, Vector2 spriteSize, Vector2 offset, UINT spriteLength, float duration, eAtlasType atlasType)
+
+	void Animation::Create(const std::wstring& name, std::shared_ptr<Texture> atlas
+		, Vector2 leftTop, Vector2 spriteSize, Vector2 offset
+		, UINT spriteLength, float duration, eAtlasType atlasType)
 	{
 		mAnimationName = name;
 
@@ -91,7 +94,7 @@ namespace shr
 				sprite.spriteSize = Vector2(spriteSize.x / width, spriteSize.y / height);
 				sprite.offset = offset;
 				sprite.duration = duration;
-				sprite.atlasSize = Vector2(200.0f / width, 200.0f / height);
+				sprite.atlasSize = Vector2(50.f / width, 50.f / height);
 
 				mSpriteSheet.push_back(sprite);
 			}
@@ -107,7 +110,7 @@ namespace shr
 				sprite.spriteSize = Vector2(spriteSize.x / width, spriteSize.y / height);
 				sprite.offset = offset;
 				sprite.duration = duration;
-				sprite.atlasSize = Vector2(200.0f / width, 200.0f / height);
+				sprite.atlasSize = Vector2(50.f / width, 50.f / height);
 
 				mSpriteSheet.push_back(sprite);
 			}
@@ -144,13 +147,11 @@ namespace shr
 	}
 	void Animation::Clear()
 	{
-		//Texture Clear
+		//Texture clear
 		Texture::Clear(12);
 
 		ConstantBuffer* cb = renderer::constantBuffers[(UINT)eCBType::Animation];
-
 		renderer::AnimationCB info = {};
-
 		info.type = (UINT)eAnimationType::None;
 
 		cb->Bind(&info);

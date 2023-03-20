@@ -4,9 +4,9 @@ namespace shr::enums
 {
 	enum class eSceneType
 	{
+		Test,
 		Title,
 		Play,
-		Test,
 		End,
 	};
 
