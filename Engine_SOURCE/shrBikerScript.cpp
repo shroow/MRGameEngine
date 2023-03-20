@@ -57,10 +57,10 @@ namespace shr
 
 		mIdle = true;
 
-		mAnimator->GetStartEvent(L"FreeKnightv1c1_Run") = std::bind(&BikerScript::Start, this);
-		mAnimator->GetCompleteEvent(L"FreeKnightv1c1_Idle") = std::bind(&BikerScript::Action, this);
-		mAnimator->GetEndEvent(L"FreeKnightv1c1_Idle") = std::bind(&BikerScript::End, this);
-		mAnimator->GetEvent(L"FreeKnightv1c1_Idle", 1) = std::bind(&BikerScript::End, this);
+		mAnimator->GetStartEvent(L"FreeKnightv1c1_Run_anim") = std::bind(&BikerScript::Start, this);
+		mAnimator->GetCompleteEvent(L"FreeKnightv1c1_Idle_anim") = std::bind(&BikerScript::Action, this);
+		mAnimator->GetEndEvent(L"FreeKnightv1c1_Idle_anim") = std::bind(&BikerScript::End, this);
+		mAnimator->GetEvent(L"FreeKnightv1c1_Idle_anim", 1) = std::bind(&BikerScript::End, this);
 	}
 
 	void BikerScript::Update()
@@ -141,17 +141,23 @@ namespace shr
 		{
 			mMove = Vector2::Distance(Vector2(mPrevPos.x, mPrevPos.y), Vector2(pos.x, pos.y));
 
-			mIdle = false;
-			mRun = true;
-			mChange = true;
+			if (mIdle)
+			{
+				mIdle = false;
+				mRun = true;
+				mChange = true;
+			}
 		}
 		else
 		{
 			mMove = 0.f;
 
-			mIdle = true;
-			mRun = false;
-			mChange = true;
+			if (mRun)
+			{
+				mIdle = true;
+				mRun = false;
+				mChange = true;
+			}
 		}
 
 		mPrevPos = pos;
@@ -173,26 +179,30 @@ namespace shr
 
 		if (mDie)
 		{
-			mAnimator->Play(L"FreeKnightv1c1_Idle", true);
+			mAnimator->Play(L"FreeKnightv1c1_Idle_anim", true);
+			mChange = false;
 		}
 		else if (mAttack)
 		{
-			mAnimator->Play(L"FreeKnightv1c1_Attack", true);
+			mAnimator->Play(L"FreeKnightv1c1_Attack_anim", true);
+			mChange = false;
 		}
 		else if (mRun)
 		{
-			mAnimator->Play(L"FreeKnightv1c1_Run", true);
+			mAnimator->Play(L"FreeKnightv1c1_Run_anim", true);
+			mChange = false;
 		}
 		else if (mIdle)
 		{
-			mAnimator->Play(L"FreeKnightv1c1_Idle", true);
+			mAnimator->Play(L"FreeKnightv1c1_Idle_anim", true);
+			mChange = false;
 		}
 
 
 		Animator* animator = GetOwner()->GetComponent<Animator>();
 		if (Input::GetKey(eKeyCode::N_1))
 		{
-			mAnimator->Play(L"FreeKnightv1c1_Attack");
+			mAnimator->Play(L"FreeKnightv1c1_Attack_anim");
 		}
 	}
 

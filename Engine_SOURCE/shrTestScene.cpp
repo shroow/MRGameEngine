@@ -66,32 +66,32 @@ namespace shr
 			//collider->SetSize(Vector2(1.5f, 1.5f));
 			Animator* animator = obj->AddComponent<Animator>();
 			{
-				animator->Create(L"FreeKnightv1c1_Attack"
+				animator->Create(L"FreeKnightv1c1_Attack_anim"
 					, Resources::Find<Texture>(L"FreeKnightv1c1_AttackComboNoMovement")
 					, Vector2(0.f, 33.f), Vector2(120.f, 47.f)
 					, Vector2(0.0f, 0.0f), 10, 0.1f, eAtlasType::Column);
-				animator->Create(L"FreeKnightv1c1_Death"
+				animator->Create(L"FreeKnightv1c1_Death_anim"
 					, Resources::Find<Texture>(L"FreeKnightv1c1_DeathNoMovement")
 					, Vector2(0.f, 33.f), Vector2(120.f, 47.f)
 					, Vector2(0.0f, 0.0f), 10, 0.1f, eAtlasType::Column);
-				animator->Create(L"FreeKnightv1c1_Hit"
+				animator->Create(L"FreeKnightv1c1_Hit_anim"
 					, Resources::Find<Texture>(L"FreeKnightv1c1_Hit")
 					, Vector2(0.f, 33.f), Vector2(120.f, 47.f)
 					, Vector2(0.0f, 0.0f), 1, 0.1f, eAtlasType::Column);
-				animator->Create(L"FreeKnightv1c1_Idle"
+				animator->Create(L"FreeKnightv1c1_Idle_anim"
 					, Resources::Find<Texture>(L"FreeKnightv1c1_Idle")
 					, Vector2(0.f, 33.f), Vector2(120.f, 47.f)
 					, Vector2(0.0f, 0.0f), 10, 0.1f, eAtlasType::Column);
-				animator->Create(L"FreeKnightv1c1_Roll"
+				animator->Create(L"FreeKnightv1c1_Roll_anim"
 					, Resources::Find<Texture>(L"FreeKnightv1c1_Roll")
 					, Vector2(0.f, 33.f), Vector2(120.f, 47.f)
 					, Vector2(0.0f, 0.0f), 12, 0.1f, eAtlasType::Column);
-				animator->Create(L"FreeKnightv1c1_Run"
+				animator->Create(L"FreeKnightv1c1_Run_anim"
 					, Resources::Find<Texture>(L"FreeKnightv1c1_Run")
 					, Vector2(0.f, 33.f), Vector2(120.f, 47.f)
 					, Vector2(0.0f, 0.0f), 10, 0.1f, eAtlasType::Column);
 
-				animator->Play(L"FreeKnightv1c1_Idle", true);
+				animator->Play(L"FreeKnightv1c1_Idle_anim", true);
 			}
 
 			{
@@ -99,7 +99,7 @@ namespace shr
 				GameObject* hpBar = object::Instantiate<GameObject>(eLayerType::UI);
 				hpBar->SetName(L"HPBAR");
 				Transform* hpBarTR = hpBar->GetComponent<Transform>();
-				hpBarTR->SetPosition(Vector3(0.0f, -1.0f, 12.0f));
+				hpBarTR->SetPosition(Vector3(0.0f, -1.0f, 2.0f));
 				hpBarTR->SetScale(Vector3(1.0f, 1.0f, 1.0f));
 				hpBarTR->SetParent(tr);
 
@@ -110,6 +110,7 @@ namespace shr
 				hpsr->SetMesh(hpmesh);
 				hpsr->SetMaterial(hpspriteMaterial);
 			}
+
 
 			SpriteRenderer* mr = obj->AddComponent<SpriteRenderer>();
 			std::shared_ptr<Material> mateiral = Resources::Find<Material>(L"SpriteMaterial");
@@ -135,32 +136,32 @@ namespace shr
 			//collider->SetSize(Vector2(1.5f, 1.5f));
 			Animator* animator = obj->AddComponent<Animator>();
 			{
-				animator->Create(L"BallandChainBot_Idle",
+				animator->Create(L"BallandChainBot_Idle_anim",
 					Resources::Find<Texture>(L"BallandChainBot_Idle")
 					, Vector2(0.f, 0.f), Vector2(126.f, 39.f)
 					, Vector2::Zero, 5, 0.1f, eAtlasType::Row);
-				animator->Create(L"BallandChainBot_Attack",
+				animator->Create(L"BallandChainBot_Attack_anim",
 					Resources::Find<Texture>(L"BallandChainBot_Attack")
 					, Vector2(0.f, 0.f), Vector2(126.f, 39.f)
 					, Vector2(-0.1f, 0.f), 8, 0.1f, eAtlasType::Row);
-				animator->Create(L"BallandChainBot_Charge",
+				animator->Create(L"BallandChainBot_Charge_anim",
 					Resources::Find<Texture>(L"BallandChainBot_Charge")
 					, Vector2(0.f, 0.f), Vector2(126.f, 39.f)
 					, Vector2::Zero, 4, 0.1f, eAtlasType::Row);
-				animator->Create(L"BallandChainBot_Death",
+				animator->Create(L"BallandChainBot_Death_anim",
 					Resources::Find<Texture>(L"BallandChainBot_Death")
 					, Vector2(0.f, 0.f), Vector2(126.f, 39.f)
 					, Vector2::Zero, 5, 0.1f, eAtlasType::Row);
-				animator->Create(L"BallandChainBot_Hit",
+				animator->Create(L"BallandChainBot_Hit_anim",
 					Resources::Find<Texture>(L"BallandChainBot_Hit")
 					, Vector2(0.f, 0.f), Vector2(126.f, 39.f)
 					, Vector2::Zero, 2, 0.1f, eAtlasType::Row);
-				animator->Create(L"BallandChainBot_Run",
+				animator->Create(L"BallandChainBot_Run_anim",
 					Resources::Find<Texture>(L"BallandChainBot_Run")
 					, Vector2(0.f, 0.f), Vector2(126.f, 39.f)
 					, Vector2::Zero, 8, 0.1f, eAtlasType::Row);
 
-				animator->Play(L"BallandChainBot_Idle", true);
+				animator->Play(L"BallandChainBot_Idle_anim", true);
 			}
 
 			{
@@ -168,7 +169,7 @@ namespace shr
 				GameObject* hpBar = object::Instantiate<GameObject>(eLayerType::UI);
 				hpBar->SetName(L"HPBAR");
 				Transform* hpBarTR = hpBar->GetComponent<Transform>();
-				hpBarTR->SetPosition(Vector3(0.0f, -1.0f, 12.0f));
+				hpBarTR->SetPosition(Vector3(0.0f, -1.0f, 2.0f));
 				hpBarTR->SetScale(Vector3(1.0f, 1.0f, 1.0f));
 				hpBarTR->SetParent(tr);
 
@@ -179,6 +180,59 @@ namespace shr
 				hpsr->SetMesh(hpmesh);
 				hpsr->SetMaterial(hpspriteMaterial);
 			}
+
+			SpriteRenderer* mr = obj->AddComponent<SpriteRenderer>();
+			std::shared_ptr<Material> mateiral = Resources::Find<Material>(L"SpriteMaterial");
+			mr->SetMaterial(mateiral);
+			std::shared_ptr<Mesh> mesh = Resources::Find<Mesh>(L"RectMesh");
+			mr->SetMesh(mesh);
+			obj->AddComponent<MonsterScript>();
+			object::DontDestroyOnLoad(obj);
+		}
+
+		//Monster
+		{
+			GameObject* obj = object::Instantiate<Player>(eLayerType::Monster);
+			obj->SetName(L"BallandChainBot");
+			Transform* tr = obj->GetComponent<Transform>();
+			tr->SetPosition(Vector3(2.0f, 0.0f, 5.0f));
+			//tr->SetRotation(Vector3(0.0f, 0.0f, XM_PIDIV2));
+			//tr->SetScale(Vector3(3.5f, 1.0f, 1.0f));
+			tr->SetScale(Vector3(1.0f, 1.0f, 1.0f));
+			Collider2D* collider = obj->AddComponent<Collider2D>();
+			collider->SetType(eColliderType::Rect);
+			//collider->SetCenter(Vector2(0.2f, 0.2f));
+			//collider->SetSize(Vector2(1.5f, 1.5f));
+			Animator* animator = obj->AddComponent<Animator>();
+			{
+				animator->Create(L"BallandChainBot_Idle_anim",
+					Resources::Find<Texture>(L"BallandChainBot_Idle")
+					, Vector2(0.f, 0.f), Vector2(126.f, 39.f)
+					, Vector2::Zero, 5, 0.1f, eAtlasType::Row);
+				animator->Create(L"BallandChainBot_Attack_anim",
+					Resources::Find<Texture>(L"BallandChainBot_Attack")
+					, Vector2(0.f, 0.f), Vector2(126.f, 39.f)
+					, Vector2(-0.1f, 0.f), 8, 0.1f, eAtlasType::Row);
+				animator->Create(L"BallandChainBot_Charge_anim",
+					Resources::Find<Texture>(L"BallandChainBot_Charge")
+					, Vector2(0.f, 0.f), Vector2(126.f, 39.f)
+					, Vector2::Zero, 4, 0.1f, eAtlasType::Row);
+				animator->Create(L"BallandChainBot_Death_anim",
+					Resources::Find<Texture>(L"BallandChainBot_Death")
+					, Vector2(0.f, 0.f), Vector2(126.f, 39.f)
+					, Vector2::Zero, 5, 0.1f, eAtlasType::Row);
+				animator->Create(L"BallandChainBot_Hit_anim",
+					Resources::Find<Texture>(L"BallandChainBot_Hit")
+					, Vector2(0.f, 0.f), Vector2(126.f, 39.f)
+					, Vector2::Zero, 2, 0.1f, eAtlasType::Row);
+				animator->Create(L"BallandChainBot_Run_anim",
+					Resources::Find<Texture>(L"BallandChainBot_Run")
+					, Vector2(0.f, 0.f), Vector2(126.f, 39.f)
+					, Vector2::Zero, 8, 0.1f, eAtlasType::Row);
+
+				animator->Play(L"BallandChainBot_Idle_anim", true);
+			}
+
 
 			SpriteRenderer* mr = obj->AddComponent<SpriteRenderer>();
 			std::shared_ptr<Material> mateiral = Resources::Find<Material>(L"SpriteMaterial");

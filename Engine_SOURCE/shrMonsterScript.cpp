@@ -51,10 +51,10 @@ namespace shr
 		mIdle = true;
 
 		Animator* animator = GetOwner()->GetComponent<Animator>();
-		animator->GetStartEvent(L"BallandChainBot_Run") = std::bind(&MonsterScript::Start, this);
-		animator->GetCompleteEvent(L"BallandChainBot_Idle") = std::bind(&MonsterScript::Action, this);
-		animator->GetEndEvent(L"BallandChainBot_Idle") = std::bind(&MonsterScript::End, this);
-		animator->GetEvent(L"BallandChainBot_Idle", 1) = std::bind(&MonsterScript::End, this);
+		animator->GetStartEvent(L"BallandChainBot_Run_anim") = std::bind(&MonsterScript::Start, this);
+		animator->GetCompleteEvent(L"BallandChainBot_Idle_anim") = std::bind(&MonsterScript::Action, this);
+		animator->GetEndEvent(L"BallandChainBot_Idle_anim") = std::bind(&MonsterScript::End, this);
+		animator->GetEvent(L"BallandChainBot_Idle_anim", 1) = std::bind(&MonsterScript::End, this);
 	}
 
 	void MonsterScript::Update()
@@ -77,17 +77,20 @@ namespace shr
 			mChange = true;
 		}
 
-		if (mPrevPos != pos)
-		{
-			mMove = Vector2::Distance(Vector2(mPrevPos.x, mPrevPos.y), Vector2(pos.x, pos.y));
+		//if (mPrevPos != pos)
+		//{
+		//	mMove = Vector2::Distance(Vector2(mPrevPos.x, mPrevPos.y), Vector2(pos.x, pos.y));
 
-			mRun = true;
-			mChange = true;
-		}
-		else
-			mMove = 0.f;
+		//	mRun = true;
+		//	mChange = true;
+		//}
+		//else
+		//{
+		//	mChange = false;
+		//	mMove = 0.f;
+		//}
 
-		mPrevPos = pos;
+		//mPrevPos = pos;
 
 
 		mOwnerTR->SetPosition(pos);
@@ -107,25 +110,29 @@ namespace shr
 
 		if (mDie)
 		{
-			mAnimator->Play(L"BallandChainBot_Death");
+			mAnimator->Play(L"BallandChainBot_Death_anim");
+			mChange = false;
 		}
 		else if (mAttack)
 		{
-			mAnimator->Play(L"BallandChainBot_Attack");
+			mAnimator->Play(L"BallandChainBot_Attack_anim");
+			mChange = false;
 		}
 		else if (mMove)
 		{
-			mAnimator->Play(L"BallandChainBot_Run");
+			mAnimator->Play(L"BallandChainBot_Run_anim");
+			mChange = false;
 		}
 		else if (mIdle)
 		{
-			mAnimator->Play(L"BallandChainBot_Idle");
+			mAnimator->Play(L"BallandChainBot_Idle_anim");
+			mChange = false;
 		}
 
 		Animator* animator = GetOwner()->GetComponent<Animator>();
 		if (Input::GetKey(eKeyCode::N_1))
 		{
-			mAnimator->Play(L"BallandChainBot_Attack");
+			mAnimator->Play(L"BallandChainBot_Attack_anim");
 		}
 	}
 
