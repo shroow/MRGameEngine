@@ -7,6 +7,7 @@
 #include "shrFadeInScript.h"
 #include "shrResources.h"
 #include "shrAnimator.h"
+#include "shrResource.h"
 
 namespace shr
 {
@@ -32,29 +33,12 @@ namespace shr
 
 	void MonsterScript::Initialize()
 	{
-		LoadResources();
-
-		mOwnerTR = GetOwner()->GetComponent<Transform>();
-		mAnimator = GetOwner()->GetComponent<Animator>();
-
-		mStatus.maxHP = 100.f;
-		mStatus.HP = mStatus.maxHP;
-		mStatus.maxMP = 100.f;
-		mStatus.MP = mStatus.maxHP;
-
-		mStatus.attackDmg = 10.f;
-		mStatus.attackSpeed = 1.f;
-
-		mStatus.moveSpeed = 10.f;
-		mStatus.moveType = eMoveType::Ground;
-
-		mIdle = true;
-
-		Animator* animator = GetOwner()->GetComponent<Animator>();
-		animator->GetStartEvent(L"BallandChainBot_Run_anim") = std::bind(&MonsterScript::Start, this);
-		animator->GetCompleteEvent(L"BallandChainBot_Idle_anim") = std::bind(&MonsterScript::Action, this);
-		animator->GetEndEvent(L"BallandChainBot_Idle_anim") = std::bind(&MonsterScript::End, this);
-		animator->GetEvent(L"BallandChainBot_Idle_anim", 1) = std::bind(&MonsterScript::End, this);
+		if (mAnimator == nullptr)
+			return;
+		mAnimator->GetStartEvent(L"Run_Anim") = std::bind(&MonsterScript::Start, this);
+		mAnimator->GetCompleteEvent(L"Idle_Anim") = std::bind(&MonsterScript::Action, this);
+		mAnimator->GetEndEvent(L"Idle_Anim") = std::bind(&MonsterScript::End, this);
+		mAnimator->GetEvent(L"Idle_Anim", 1) = std::bind(&MonsterScript::End, this);
 	}
 
 	void MonsterScript::Update()
@@ -69,29 +53,30 @@ namespace shr
 		Vector3 pos = mOwnerTR->GetPosition();
 
 
-		if (mStatus.HP <= 0.f)
+		if (mPrevPos != pos)
 		{
-			mIdle = false;
-			mAttack = false;
-			mDie = true;
-			mChange = true;
+			mMove = Vector2::Distance(Vector2(mPrevPos.x, mPrevPos.y), Vector2(pos.x, pos.y));
+
+			if (mIdle)
+			{
+				mIdle = false;
+				mRun = true;
+				mChange = true;
+			}
+		}
+		else
+		{
+			mMove = 0.f;
+
+			if (mRun)
+			{
+				mIdle = true;
+				mRun = false;
+				mChange = true;
+			}
 		}
 
-		//if (mPrevPos != pos)
-		//{
-		//	mMove = Vector2::Distance(Vector2(mPrevPos.x, mPrevPos.y), Vector2(pos.x, pos.y));
-
-		//	mRun = true;
-		//	mChange = true;
-		//}
-		//else
-		//{
-		//	mChange = false;
-		//	mMove = 0.f;
-		//}
-
-		//mPrevPos = pos;
-
+		mPrevPos = pos;
 
 		mOwnerTR->SetPosition(pos);
 	}
@@ -102,37 +87,33 @@ namespace shr
 			return;
 
 		if (mAnimator == nullptr)
-		{
-			mAnimator = GetOwner()->GetComponent<Animator>();
-			if (mAnimator == nullptr)
-				return;
-		}
+			return;
 
 		if (mDie)
 		{
-			mAnimator->Play(L"BallandChainBot_Death_anim");
+			mAnimator->Play(L"Death_Anim");
 			mChange = false;
 		}
 		else if (mAttack)
 		{
-			mAnimator->Play(L"BallandChainBot_Attack_anim");
+			mAnimator->Play(L"Attack_Anim");
 			mChange = false;
 		}
 		else if (mMove)
 		{
-			mAnimator->Play(L"BallandChainBot_Run_anim");
+			mAnimator->Play(L"Run_Anim");
 			mChange = false;
 		}
 		else if (mIdle)
 		{
-			mAnimator->Play(L"BallandChainBot_Idle_anim");
+			mAnimator->Play(L"Idle_Anim");
 			mChange = false;
 		}
 
 		Animator* animator = GetOwner()->GetComponent<Animator>();
 		if (Input::GetKey(eKeyCode::N_1))
 		{
-			mAnimator->Play(L"BallandChainBot_Attack_anim");
+			mAnimator->Play(L"Attack_Anim");
 		}
 	}
 
@@ -140,9 +121,115 @@ namespace shr
 	{
 	}
 
-	void MonsterScript::LoadResources()
+	void MonsterScript::SetChar(const std::wstring& name, Status status)
 	{
-		
+		if (GetOwner() == nullptr)
+			return;
+
+		mOwnerTR = GetOwner()->GetComponent<Transform>();
+		mAnimator = GetOwner()->AddComponent<Animator>();
+
+		mCharName = name;
+
+		mStatus.maxHP = status.maxHP;
+		mStatus.HP = status.HP;
+		mStatus.maxMP = status.maxMP;
+		mStatus.MP = status.MP;
+
+		mStatus.attackDmg = status.attackDmg;
+		mStatus.attackSpeed = status.attackSpeed;
+
+		mStatus.moveSpeed = status.moveSpeed;
+		mStatus.moveType = status.moveType;
+
+		mIdle = true;
+	}
+
+	void MonsterScript::LoadCharAnim(eAnimState animState, Vector2 offset
+		, Vector2 leftTop, Vector2 spriteSize
+		, UINT spriteLength, float duration, eAtlasType atlasType)
+	{
+		std::wstring textureName;
+		std::wstring animName;
+
+		textureName = mCharName;
+
+		switch (animState)
+		{
+		case shr::enums::eAnimState::Idle:
+			textureName.append(L"_Idle");
+			animName = L"Idle_Anim";
+			break;
+		case shr::enums::eAnimState::Run:
+			textureName.append(L"_Run");
+			animName = L"Run_Anim";
+			break;
+		case shr::enums::eAnimState::Attack:
+			textureName.append(L"_Attack");
+			animName = L"Attack_Anim";
+			break;
+		case shr::enums::eAnimState::Attack2:
+			textureName.append(L"_Attack2");
+			animName = L"Attack2_Anim";
+			break;
+		case shr::enums::eAnimState::Skill:
+			textureName.append(L"_Skill");
+			animName = L"Skill_Anim";
+			break;
+		case shr::enums::eAnimState::Skill2:
+			textureName.append(L"_Skill2");
+			animName = L"Skill2_Anim";
+			break;
+		case shr::enums::eAnimState::Hit:
+			textureName.append(L"_Hit");
+			animName = L"Hit_Anim";
+			break;
+		case shr::enums::eAnimState::Death:
+			textureName.append(L"_Death");
+			animName = L"Death_Anim";
+			break;
+		case shr::enums::eAnimState::End:
+			return;
+		default:
+			return;
+		}
+
+		bool isSuccess = mAnimator->Create(animName, Resources::Find<Texture>(textureName)
+			, leftTop, spriteSize, offset
+			, spriteLength, duration, atlasType);
+	}
+
+	void MonsterScript::PlayCharAnim(eAnimState animState)
+	{
+		switch (animState)
+		{
+		case shr::enums::eAnimState::Idle:
+			mAnimator->Play(L"Idle_Anim");
+			break;
+		case shr::enums::eAnimState::Run:
+			mAnimator->Play(L"Run_Anim");
+			break;
+		case shr::enums::eAnimState::Attack:
+			mAnimator->Play(L"Attack_Anim");
+			break;
+		case shr::enums::eAnimState::Attack2:
+			mAnimator->Play(L"Attack2_Anim");
+			break;
+		case shr::enums::eAnimState::Skill:
+			mAnimator->Play(L"Skill_Anim");
+			break;
+		case shr::enums::eAnimState::Skill2:
+			mAnimator->Play(L"Skill2_Anim");
+			break;
+		case shr::enums::eAnimState::Hit:
+			mAnimator->Play(L"Hit_Anim");
+			break;
+		case shr::enums::eAnimState::Death:
+			mAnimator->Play(L"Death_Anim");
+			break;
+		default:
+			break;
+		}
 	}
 
 	void MonsterScript::OnCollisionEnter(Collider2D* collider)

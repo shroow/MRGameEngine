@@ -222,6 +222,9 @@
     <ClCompile Include="shrAnimation.cpp">
       <Filter>Resource\Animation</Filter>
     </ClCompile>
+    <ClCompile Include="shrUnitControlScript.cpp">
+      <Filter>Script\Object</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CommonInclude.h">
@@ -379,6 +382,9 @@
     </ClInclude>
     <ClInclude Include="MouseMove.h">
       <Filter>Time</Filter>
+    </ClInclude>
+    <ClInclude Include="shrUnitControlScript.h">
+      <Filter>Script\Object</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

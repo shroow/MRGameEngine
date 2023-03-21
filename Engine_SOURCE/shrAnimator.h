@@ -51,6 +51,7 @@ namespace shr
         Animation* FindAnimation(const std::wstring& name);
         Events* FindEvents(const std::wstring& name);
         void Play(const std::wstring& name, bool loop = true);
+        void ChangeDuration(const std::wstring& name, float duration);
 
         void Binds();
         void Clear();

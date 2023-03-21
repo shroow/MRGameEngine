@@ -1,6 +1,7 @@
 #pragma once
 #include "shrScript.h"
 #include "shrResources.h"
+#include "shrAnimator.h"
 
 namespace shr
 {
@@ -10,10 +11,10 @@ namespace shr
     public:
         struct Status
         {
-            float HP;
             float maxHP;
-            float MP;
+            float HP;
             float maxMP;
+            float MP;
 
             float attackDmg;
             float attackSpeed;
@@ -24,6 +25,15 @@ namespace shr
             //Skill needed
 
             std::vector<float> buffVec[(UINT)eBuffType::End];
+
+            Status() : maxHP{ 100.f }, HP{ 100.f }, maxMP{ 100.f }, MP{ 0.f }
+                , attackDmg{ 10.f }, attackSpeed{ 1.f }, moveSpeed{ 5.f }, moveType{ eMoveType::Ground } {}
+
+            Status(float hp, float MaxHP, float mp, float MaxMP, float AttackDmg, float AttackSpeed
+                , float MoveSpeed, eMoveType MoveType)
+                : maxHP{ MaxHP }, HP{ hp }, maxMP{ MaxMP }, MP{ mp }
+                , attackDmg{ AttackDmg }, attackSpeed{ AttackSpeed }
+                , moveSpeed{ MoveSpeed }, moveType{ MoveType } {}
         };
 
 
@@ -35,7 +45,11 @@ namespace shr
         virtual void FixedUpdate() override;
         virtual void Render() override;
 
-        void LoadResources();
+        void SetChar(const std::wstring& name, Status status = {});
+        void LoadCharAnim(eAnimState animState, Vector2 offset
+            , Vector2 leftTop, Vector2 spriteSize
+            , UINT spriteLength, float duration, eAtlasType atlasType = eAtlasType::Column);
+        void PlayCharAnim(eAnimState animState);
 
         virtual void OnCollisionEnter(Collider2D* collider) override;
         virtual void OnCollisionStay(Collider2D* collider) override;
@@ -49,10 +63,13 @@ namespace shr
         void Action();
         void End();
 
+        void SetCharName(const std::wstring& name) { mCharName = name; }
+
     private:
         Transform* mOwnerTR;
-        class Animator* mAnimator;
+        Animator* mAnimator;
 
+        std::wstring mCharName;
         bool mIdle;
         bool mRun;
         bool mDie;

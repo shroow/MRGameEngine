@@ -25,7 +25,8 @@ namespace shr
 
 		mTime += Time::DeltaTime();
 
-		if (mSpriteSheet[mIndex].duration < mTime)
+		//if (mSpriteSheet[mIndex].duration < mTime)
+		if(mDuration < mTime)
 		{
 			mTime = 0.f;
 			++mIndex;
@@ -66,11 +67,12 @@ namespace shr
 									, (leftTop.y) / height);
 			sprite.spriteSize = Vector2(spriteSize.x / width, spriteSize.y / height);
 			sprite.offset = offset;
-			sprite.duration = duration;
+			//sprite.duration = duration;
 			sprite.atlasSize = Vector2(200.0f / width, 200.0f / height);
 
 			mSpriteSheet.push_back(sprite);
 		}
+		mDuration = duration;
 	}
 
 
@@ -93,7 +95,7 @@ namespace shr
 					, (leftTop.y) / height);
 				sprite.spriteSize = Vector2(spriteSize.x / width, spriteSize.y / height);
 				sprite.offset = offset;
-				sprite.duration = duration;
+				//sprite.duration = duration;
 				sprite.atlasSize = Vector2(50.f / width, 50.f / height);
 
 				mSpriteSheet.push_back(sprite);
@@ -109,7 +111,7 @@ namespace shr
 					, (leftTop.y + (spriteSize.y * (float)i)) / height);
 				sprite.spriteSize = Vector2(spriteSize.x / width, spriteSize.y / height);
 				sprite.offset = offset;
-				sprite.duration = duration;
+				//sprite.duration = duration;
 				sprite.atlasSize = Vector2(50.f / width, 50.f / height);
 
 				mSpriteSheet.push_back(sprite);
@@ -120,6 +122,8 @@ namespace shr
 		{
 			assert(false);
 		}
+
+		mDuration = duration;
 	}
 
 	void Animation::BindShader()

@@ -151,6 +151,16 @@ namespace shr
 			events->mStartEvent();
 	}
 
+	void Animator::ChangeDuration(const std::wstring& name, float duration)
+	{
+		Animation* animation = FindAnimation(name);
+
+		if (animation == nullptr)
+			return;
+
+		animation->SetDuration(duration);
+	}
+
 	void Animator::Binds()
 	{
 		if (mActiveAnimation == nullptr)

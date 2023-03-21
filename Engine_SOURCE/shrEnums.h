@@ -108,6 +108,18 @@ namespace shr::enums
 		Compound,
 	};
 
+	enum class eAnimState
+	{
+		Idle,
+		Run,
+		Attack,
+		Attack2,
+		Skill,
+		Skill2,
+		Hit,
+		Death,
+		End
+	};
 	//struct Ray
 	//{
 	//	Vector3 origin;

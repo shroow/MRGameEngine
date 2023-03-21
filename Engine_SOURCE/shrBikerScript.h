@@ -10,10 +10,10 @@ namespace shr
     public:
         struct Status
         {
-            float HP;
             float maxHP;
-            float MP;
+            float HP;
             float maxMP;
+            float MP;
 
             float attackDmg;
             float attackSpeed;
@@ -24,7 +24,17 @@ namespace shr
             //Skill needed
 
             std::vector<float> buffVec[(UINT)eBuffType::End];
+
+            Status() : maxHP{ 100.f }, HP{ 100.f }, maxMP{ 100.f }, MP{ 0.f }
+                , attackDmg{ 10.f }, attackSpeed{ 1.f }, moveSpeed{ 5.f }, moveType{ eMoveType::Ground } {}
+
+            Status(float hp, float MaxHP, float mp, float MaxMP, float AttackDmg, float AttackSpeed
+                , float MoveSpeed, eMoveType MoveType)
+                : maxHP{ MaxHP }, HP{ hp }, maxMP{ MaxMP }, MP{ mp }
+                , attackDmg{ AttackDmg }, attackSpeed{ AttackSpeed }
+                , moveSpeed{ MoveSpeed }, moveType{ MoveType } {}
         };
+
 
         BikerScript();
         ~BikerScript();

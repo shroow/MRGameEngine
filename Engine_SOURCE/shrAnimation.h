@@ -16,14 +16,14 @@ namespace shr
             Vector2 spriteSize;       //좌측상단부터 잘라낼 가로 세로 픽셀 크기
             Vector2 offset;     //렌더링 위치 조정하기 위한 좌표
             Vector2 atlasSize;
-            float duration;     //프레임간에 시간 간격
+            //float duration;     //프레임간에 시간 간격
 
             Sprite()
                 : leftTop(0.f, 0.f)
                 , spriteSize(0.f, 0.f)
                 , offset(0.f, 0.f)
                 , atlasSize(0.f, 0.f)
-                , duration(0.1f)
+                //, duration(0.1f)
             {
 
             }
@@ -51,6 +51,8 @@ namespace shr
         bool IsComplete() { return mbComplete; }
         std::wstring& AnimationName() { return mAnimationName; }
 
+        void SetDuration(float duration) { mDuration = duration; }
+
     private:
         class Animator* mAnimator;
         std::wstring mAnimationName;
@@ -58,6 +60,8 @@ namespace shr
         std::vector<Sprite> mSpriteSheet;
         int mIndex;
         float mTime;
+        float mDuration;
+        Vector2 mOffset;
         bool mbComplete;
     };
 }
