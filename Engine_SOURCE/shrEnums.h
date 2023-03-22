@@ -58,6 +58,7 @@ namespace shr::enums
 	enum class eColliderType
 	{
 		None,
+		Point,
 		Rect,
 		Circle,
 		Box,

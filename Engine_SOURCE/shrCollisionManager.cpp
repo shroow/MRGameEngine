@@ -1,11 +1,14 @@
 #include "shrCollisionManager.h"
 #include "shrScene.h"
 #include "shrSceneManager.h"
+#include "shrInput.h"
 
 namespace shr
 {
 	std::bitset<(UINT)eLayerType::End> CollisionManager::mLayerCollisionMatrix[(UINT)eLayerType::End] = {};
 	std::map<UINT64, bool> CollisionManager::mCollisionMap;
+	std::bitset<(UINT)eLayerType::End> CollisionManager::mMouseLayerCollisionBit = {};
+	std::optional<UINT> CollisionManager::mPrevMouseCollision;
 
 	void CollisionManager::Initialize()
 	{
@@ -24,6 +27,7 @@ namespace shr
 				}
 			}
 		}
+		MouseCollision(scene);
 	}
 
 	void CollisionManager::FixedUpdate()
@@ -231,14 +235,53 @@ namespace shr
 			Vector3 leftPos = left->GetPosition();
 			Vector3 rightPos = right->GetPosition();
 
-			float fRadius = 0.5f;
+			//float fRadius = 0.5f;
+			float leftRadius = left->GetRadius();
+			float rightRadius = right->GetRadius();
 
 			float distance = Vector2::Distance(Vector2(leftPos.x, leftPos.y), Vector2(rightPos.x, rightPos.y));
 
-			if (distance > fRadius*2)
+			if (distance > leftRadius + rightRadius)
 				return false;
 			else
 				return true;
+		}
+		//Point 
+		//Rotation collide needed
+		else if (leftType == eColliderType::Point && rightType == eColliderType::Rect)
+		{
+			Vector3 pointPos = left->GetPosition();
+
+			Vector3 rectPos = right->GetPosition();
+
+			if ((right->GetSize().x * 0.5f) >= abs(pointPos.x - rectPos.x)
+				&& (right->GetSize().y * 0.5f) >= abs(pointPos.y - rectPos.y))
+			{
+				return true;
+			}
+			else
+				return false;
+
+			////Rotation
+			//Vector2	CenterLine = left - right.Center;
+
+			//Vector2	Axis = right.Axis[AXIS2D_X];
+
+			//float CenterProjDist = abs(Axis.Dot(CenterLine));
+
+			//if (CenterProjDist > right.Length[AXIS2D_X])
+			//	return false;
+
+			//Axis = right.Axis[AXIS2D_Y];
+
+			//CenterProjDist = abs(Axis.Dot(CenterLine));
+
+			//if (CenterProjDist > right.Length[AXIS2D_Y])
+			//	return false;
+
+			//HitPoint = Src;
+
+			//return true;
 		}
 		else
 		{
@@ -246,5 +289,124 @@ namespace shr
 		}
 
 		return true;
+	}
+
+	void CollisionManager::MouseCollision(Scene* scene)
+	{
+		Collider2D* mostFront = nullptr;
+
+		for (UINT type; type < (UINT)eLayerType::End; type++)
+		{
+			if (!mMouseLayerCollisionBit[type])
+				continue;
+
+			const std::vector<GameObject*>& objs = scene->GetGameObjectVec((eLayerType)type);
+
+			for (GameObject* obj : objs)
+			{
+				if (obj->GetState() != GameObject::Active)
+					continue;
+				if (obj->GetComponent<Collider2D>() == nullptr)
+					continue;
+
+				Collider2D* objCol = obj->GetComponent<Collider2D>();
+
+				if (MouseIntersect(objCol))
+				{
+					if (mostFront == nullptr)
+						mostFront = objCol;
+					else
+					{
+						Vector3 mostFrontPos = objCol->GetPosition();
+						Vector3 objPos = objCol->GetPosition();
+
+						if (mostFrontPos.z > objPos.z)
+						{
+							mostFront = objCol;
+						}
+						else if (mostFrontPos.z == objPos.z)
+						{
+							if (mostFrontPos.y > objPos.y)
+								mostFront = objCol;
+							else if (mostFrontPos.y == objPos.y)
+								mostFront = objCol;
+						}
+					}
+				}
+				else
+					continue;
+			}
+		}
+
+		if (mostFront == nullptr)
+			return;
+
+		std::optional<UINT32> colliderID;
+		colliderID = (std::optional<UINT32>)mostFront->GetID();
+
+		// 충돌체크를 해준다.
+		if (mPrevMouseCollision != std::nullopt) // 충돌을 한 상태
+		{
+			// 최초 충돌중 Enter
+			if (colliderID != mPrevMouseCollision)
+			{
+				if (mostFront->IsTrigger())
+					mostFront->OnTriggerEnter();
+				else
+					mostFront->OnCollisionEnter();
+
+				mPrevMouseCollision = colliderID;
+			}
+			else // 이미 충돌한 물체 Stay
+			{
+				if (mostFront->IsTrigger())
+					mostFront->OnTriggerStay();
+				else
+					mostFront->OnCollisionStay();
+
+				mPrevMouseCollision = colliderID;
+			}
+		}
+		else //충돌 안한 상태
+		{
+			// 충돌 중인상태 Exit
+			if (colliderID != mPrevMouseCollision)
+			{
+				if (left->IsTrigger())
+					left->OnTriggerExit(right);
+				else
+					left->OnCollisionExit(right);
+
+				if (right->IsTrigger())
+					right->OnTriggerExit(left);
+				else
+					right->OnCollisionExit(left);
+
+				iter->second = false;
+			}
+		}
+	}
+	bool CollisionManager::MouseIntersect(Collider2D* collider)
+	{
+		eColliderType cType = collider->GetType();
+
+		if (cType == eColliderType::Box)
+		{
+			Vector2 pointPos = Input::GetMouseWorldPos();
+
+			Vector3 rectPos = collider->GetPosition();
+
+			if ((collider->GetSize().x * 0.5f) >= abs(pointPos.x - rectPos.x)
+				&& (collider->GetSize().y * 0.5f) >= abs(pointPos.y - rectPos.y))
+			{
+				return true;
+			}
+		}
+
+		return false;
+	}
+	void CollisionManager::MouseCollisionLayerCheck(eLayerType type, bool enable)
+	{
+		mMouseCollisionBit[(UINT)type] = enable;
 	}
 }

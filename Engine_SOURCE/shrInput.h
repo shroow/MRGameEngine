@@ -145,5 +145,6 @@ namespace shr
 	private:
 		static std::vector<Key> mKeys;
 		static Mouse mMouse;
+		class GameObject* mMouseObj;
 	};
 }

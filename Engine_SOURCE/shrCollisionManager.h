@@ -29,8 +29,14 @@ namespace shr
 		static void ColliderCollision(Collider2D* left, Collider2D* right);
 		static bool Intersect(Collider2D* left, Collider2D* right);
 
+		static void MouseCollision(class Scene* scene);
+		static bool MouseIntersect(Collider2D* collider);
+		static void MouseCollisionLayerCheck(eLayerType type, bool enable = true);
+
 	private:
 		static std::bitset<(UINT)eLayerType::End> mLayerCollisionMatrix[(UINT)eLayerType::End];
 		static std::map<UINT64, bool> mCollisionMap;
+		static std::bitset<(UINT)eLayerType::End> mMouseLayerCollisionBit;
+		static std::optional<UINT> mPrevMouseCollision;
 	};
 }

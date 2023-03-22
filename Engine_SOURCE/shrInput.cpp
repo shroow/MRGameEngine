@@ -2,6 +2,7 @@
 #include "shrApplication.h"
 #include "shrRenderer.h"
 
+
 extern shr::Application application;
 namespace shr
 {
@@ -42,6 +43,7 @@ namespace shr
 
 			mKeys.push_back(key);
 		}
+
 	}
 
 	void Input::Update()

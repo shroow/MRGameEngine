@@ -44,7 +44,7 @@
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
-    <EnableUnitySupport>false</EnableUnitySupport>
+    <EnableUnitySupport>true</EnableUnitySupport>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
@@ -186,6 +186,7 @@
     <ClInclude Include="shrMeshRenderer.h" />
     <ClInclude Include="shrMonster.h" />
     <ClInclude Include="shrMonsterScript.h" />
+    <ClInclude Include="shrMouseObject.h" />
     <ClInclude Include="shrMultiShaderRenderer.h" />
     <ClInclude Include="shrObject.h" />
     <ClInclude Include="shrPlayer.h" />
@@ -236,6 +237,7 @@
     <ClCompile Include="shrMeshRenderer.cpp" />
     <ClCompile Include="shrMonster.cpp" />
     <ClCompile Include="shrMonsterScript.cpp" />
+    <ClCompile Include="shrMouseObject.cpp" />
     <ClCompile Include="shrMultiShaderRenderer.cpp" />
     <ClCompile Include="shrPlayer.cpp" />
     <ClCompile Include="shrPlayerScript.cpp" />

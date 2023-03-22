@@ -225,6 +225,9 @@
     <ClCompile Include="shrUnitControlScript.cpp">
       <Filter>Script\Object</Filter>
     </ClCompile>
+    <ClCompile Include="shrMouseObject.cpp">
+      <Filter>GameObject\InGame</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CommonInclude.h">
@@ -385,6 +388,9 @@
     </ClInclude>
     <ClInclude Include="shrUnitControlScript.h">
       <Filter>Script\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="shrMouseObject.h">
+      <Filter>GameObject\InGame</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
