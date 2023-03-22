@@ -8,7 +8,7 @@ namespace shr
 	std::bitset<(UINT)eLayerType::End> CollisionManager::mLayerCollisionMatrix[(UINT)eLayerType::End] = {};
 	std::map<UINT64, bool> CollisionManager::mCollisionMap;
 	std::bitset<(UINT)eLayerType::End> CollisionManager::mMouseLayerCollisionBit = {};
-	std::optional<UINT> CollisionManager::mPrevMouseCollision;
+	Collider2D* CollisionManager::mPrevMouseCollision;
 
 	void CollisionManager::Initialize()
 	{
@@ -338,51 +338,34 @@ namespace shr
 			}
 		}
 
-		if (mostFront == nullptr)
+		if (mostFront == nullptr) //충돌 안 한상태
+		{
+			// 충돌 중인상태 Exit
+			if (mPrevMouseCollision != nullptr)
+			{
+				mPrevMouseCollision->OnMouseCollisionExit();
+
+				mPrevMouseCollision = nullptr;
+			}
 			return;
+		}
 
-		std::optional<UINT32> colliderID;
-		colliderID = (std::optional<UINT32>)mostFront->GetID();
-
-		// 충돌체크를 해준다.
-		if (mPrevMouseCollision != std::nullopt) // 충돌을 한 상태
+		if (mPrevMouseCollision != nullptr) // 충돌을 한 상태
 		{
 			// 최초 충돌중 Enter
-			if (colliderID != mPrevMouseCollision)
+			if (mPrevMouseCollision != mostFront)
 			{
-				if (mostFront->IsTrigger())
-					mostFront->OnTriggerEnter();
-				else
-					mostFront->OnCollisionEnter();
+				mostFront->OnMouseCollisionEnter();
 
-				mPrevMouseCollision = colliderID;
+				mPrevMouseCollision->OnMouseCollisionExit();
+
+				mPrevMouseCollision = mostFront;
 			}
 			else // 이미 충돌한 물체 Stay
 			{
-				if (mostFront->IsTrigger())
-					mostFront->OnTriggerStay();
-				else
-					mostFront->OnCollisionStay();
+				mostFront->OnMouseCollisionStay();
 
-				mPrevMouseCollision = colliderID;
-			}
-		}
-		else //충돌 안한 상태
-		{
-			// 충돌 중인상태 Exit
-			if (colliderID != mPrevMouseCollision)
-			{
-				if (left->IsTrigger())
-					left->OnTriggerExit(right);
-				else
-					left->OnCollisionExit(right);
-
-				if (right->IsTrigger())
-					right->OnTriggerExit(left);
-				else
-					right->OnCollisionExit(left);
-
-				iter->second = false;
+				mPrevMouseCollision = mostFront;
 			}
 		}
 	}

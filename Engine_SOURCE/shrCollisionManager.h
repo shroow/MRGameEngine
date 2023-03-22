@@ -37,6 +37,6 @@ namespace shr
 		static std::bitset<(UINT)eLayerType::End> mLayerCollisionMatrix[(UINT)eLayerType::End];
 		static std::map<UINT64, bool> mCollisionMap;
 		static std::bitset<(UINT)eLayerType::End> mMouseLayerCollisionBit;
-		static std::optional<UINT> mPrevMouseCollision;
+		static class Collider2D* mPrevMouseCollision;
 	};
 }
