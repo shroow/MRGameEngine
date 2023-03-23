@@ -127,15 +127,15 @@ namespace shr
 
 		static __forceinline bool GetMouseRightPressed()
 		{
-			return mMouse.eLState == eKeyState::PRESSED;
+			return mMouse.eRState == eKeyState::PRESSED;
 		}
 		static __forceinline bool GetMouseRightDown()
 		{
-			return mMouse.eLState == eKeyState::DOWN;
+			return mMouse.eRState == eKeyState::DOWN;
 		}
 		static __forceinline bool GetMouseRightUp()
 		{
-			return mMouse.eLState == eKeyState::UP;
+			return mMouse.eRState == eKeyState::UP;
 		}
 
 	private:

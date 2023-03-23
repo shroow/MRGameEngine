@@ -11,7 +11,7 @@ extern shr::Application application;
 namespace shr
 {
 	GridScript::GridScript()
-		: Script()
+		: Script(eScriptType::ObjectScript)
 		, mCamera(nullptr)
 	{
 

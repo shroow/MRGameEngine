@@ -8,7 +8,7 @@ namespace shr
         public Component
     {
     public:
-        Script();
+        Script(eScriptType type);
         virtual ~Script();
 
         virtual void Initialize();
@@ -24,10 +24,19 @@ namespace shr
         virtual void OnTriggerStay(Collider2D* collider) {};
         virtual void OnTriggerExit(Collider2D* collider) {};
 
+        virtual void OnMouseCollisionEnter() {};
+        virtual void OnMouseCollisionStay() {};
+        virtual void OnMouseCollisionExit() {};
+
+        virtual void UnitSelected(bool tf) {};
+
+        eScriptType GetScriptType() { return mScriptType; }
+
     private:
         //std::vector<Script*> mScripts;
         //state jump;
         //state Attack;
         //Version 1.1
+        const eScriptType mScriptType;
     };
 }

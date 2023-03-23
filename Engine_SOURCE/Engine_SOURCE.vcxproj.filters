@@ -76,14 +76,14 @@
     <Filter Include="GameObject\InGame">
       <UniqueIdentifier>{c9007064-4c1b-44c2-9c61-2db4dbe84a7a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Script\Scene">
-      <UniqueIdentifier>{ad06007e-5a76-4fa0-88ca-5a29f5e8a74f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Script\Object">
       <UniqueIdentifier>{428deec3-4a3f-48d3-93fc-40d42f5ef44b}</UniqueIdentifier>
     </Filter>
     <Filter Include="Resource\Animation">
       <UniqueIdentifier>{8332c39b-3ebc-499c-98a1-0dde489a887c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script\Unit">
+      <UniqueIdentifier>{ad06007e-5a76-4fa0-88ca-5a29f5e8a74f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -196,13 +196,13 @@
       <Filter>Scene\GameScenes</Filter>
     </ClCompile>
     <ClCompile Include="shrBikerScript.cpp">
-      <Filter>Script\Scene</Filter>
+      <Filter>Script\Unit</Filter>
     </ClCompile>
     <ClCompile Include="shrMonsterScript.cpp">
-      <Filter>Script\Scene</Filter>
+      <Filter>Script\Unit</Filter>
     </ClCompile>
     <ClCompile Include="shrPlayerScript.cpp">
-      <Filter>Script\Scene</Filter>
+      <Filter>Script\Unit</Filter>
     </ClCompile>
     <ClCompile Include="shrCameraScript.cpp">
       <Filter>Script\Object</Filter>
@@ -357,13 +357,13 @@
       <Filter>Scene\GameScenes</Filter>
     </ClInclude>
     <ClInclude Include="shrBikerScript.h">
-      <Filter>Script\Scene</Filter>
+      <Filter>Script\Unit</Filter>
     </ClInclude>
     <ClInclude Include="shrMonsterScript.h">
-      <Filter>Script\Scene</Filter>
+      <Filter>Script\Unit</Filter>
     </ClInclude>
     <ClInclude Include="shrPlayerScript.h">
-      <Filter>Script\Scene</Filter>
+      <Filter>Script\Unit</Filter>
     </ClInclude>
     <ClInclude Include="shrGridScript.h">
       <Filter>Script\Object</Filter>

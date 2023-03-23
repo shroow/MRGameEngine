@@ -54,7 +54,7 @@ namespace shr
 
 		//Biker1
 		{
-			Player* obj = object::Instantiate<Player>(eLayerType::Player);
+			Player* obj = object::Instantiate<Player>(eLayerType::Monster);
 			obj->SetName(L"FreeKnightv1c1");
 			Transform* tr = obj->GetComponent<Transform>();
 			tr->SetPosition(Vector3(-2.0f, 0.0f, 5.0f));
@@ -93,26 +93,26 @@ namespace shr
 			MonsterScript* script = obj->AddComponent<MonsterScript>();
 			script->SetChar(L"FreeKnightv1c1");
 
-			script->LoadCharAnim(eAnimState::Idle, Vector2::Zero
+			script->LoadCharAnim(eCharState::Idle, Vector2::Zero
 				, Vector2(0.f, 33.f), Vector2(120.f, 47.f)
 				, 10, 0.1f, eAtlasType::Column);
-			script->LoadCharAnim(eAnimState::Attack, Vector2::Zero
+			script->LoadCharAnim(eCharState::Attack, Vector2::Zero
 				, Vector2(0.f, 33.f), Vector2(120.f, 47.f)
 				, 10, 0.1f, eAtlasType::Column);
-			script->LoadCharAnim(eAnimState::Skill, Vector2::Zero
+			script->LoadCharAnim(eCharState::Skill, Vector2::Zero
 				, Vector2(0.f, 33.f), Vector2(120.f, 47.f)
 				, 12, 0.1f, eAtlasType::Column);
-			script->LoadCharAnim(eAnimState::Death, Vector2::Zero
+			script->LoadCharAnim(eCharState::Death, Vector2::Zero
 				, Vector2(0.f, 33.f), Vector2(120.f, 47.f)
 				, 10, 0.1f, eAtlasType::Column);
-			script->LoadCharAnim(eAnimState::Run, Vector2::Zero
+			script->LoadCharAnim(eCharState::Run, Vector2::Zero
 				, Vector2(0.f, 33.f), Vector2(120.f, 47.f)
 				, 10, 0.1f, eAtlasType::Column);
-			script->LoadCharAnim(eAnimState::Hit, Vector2::Zero
+			script->LoadCharAnim(eCharState::Hit, Vector2::Zero
 				, Vector2(0.f, 33.f), Vector2(120.f, 47.f)
 				, 1, 0.1f, eAtlasType::Column);
 
-			script->PlayCharAnim(eAnimState::Idle);
+			script->PlayCharAnim(eCharState::Idle);
 
 			//Add UnitComponent->UnitControlScript
 
@@ -159,26 +159,26 @@ namespace shr
 			MonsterScript* script = obj->AddComponent<MonsterScript>();
 			script->SetChar(L"BallandChainBot");
 			
-			script->LoadCharAnim(eAnimState::Idle, Vector2::Zero
+			script->LoadCharAnim(eCharState::Idle, Vector2::Zero
 				, Vector2(0.f, 0.f), Vector2(126.f, 39.f)
 				, 5, 0.1f, eAtlasType::Row);
-			script->LoadCharAnim(eAnimState::Attack, Vector2(-0.1f, 0.f)
+			script->LoadCharAnim(eCharState::Attack, Vector2(-0.1f, 0.f)
 				, Vector2(0.f, 0.f), Vector2(126.f, 39.f)
 				, 8, 0.1f, eAtlasType::Row);
-			script->LoadCharAnim(eAnimState::Skill, Vector2::Zero
+			script->LoadCharAnim(eCharState::Skill, Vector2::Zero
 				, Vector2(0.f, 0.f), Vector2(126.f, 39.f)
 				, 4, 0.1f, eAtlasType::Row);
-			script->LoadCharAnim(eAnimState::Death, Vector2::Zero
+			script->LoadCharAnim(eCharState::Death, Vector2::Zero
 				, Vector2(0.f, 0.f), Vector2(126.f, 39.f)
 				, 5, 0.1f, eAtlasType::Row);
-			script->LoadCharAnim(eAnimState::Run, Vector2::Zero
+			script->LoadCharAnim(eCharState::Run, Vector2::Zero
 				, Vector2(0.f, 0.f), Vector2(126.f, 39.f)
 				, 8, 0.1f, eAtlasType::Row);
-			script->LoadCharAnim(eAnimState::Hit, Vector2::Zero
+			script->LoadCharAnim(eCharState::Hit, Vector2::Zero
 				, Vector2(0.f, 0.f), Vector2(126.f, 39.f)
 				, 2, 0.1f, eAtlasType::Row);
 
-			script->PlayCharAnim(eAnimState::Idle);
+			script->PlayCharAnim(eCharState::Idle);
 
 			object::DontDestroyOnLoad(obj);
 		}
@@ -186,7 +186,9 @@ namespace shr
 
 		CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::Player, true);
 		CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::Monster, true);
-
+		CollisionManager::CollisionLayerCheck(eLayerType::Monster, eLayerType::Monster, true);
+		CollisionManager::MouseCollisionLayerCheck(eLayerType::Player);
+		CollisionManager::MouseCollisionLayerCheck(eLayerType::Monster);
 
 		Scene::Initialize();
 	}

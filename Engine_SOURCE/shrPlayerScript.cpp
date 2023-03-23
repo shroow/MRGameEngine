@@ -8,7 +8,7 @@
 namespace shr
 {
 	PlayerScript::PlayerScript() 
-		: Script()
+		: Script(eScriptType::UnitScript)
 	{
 	}
 

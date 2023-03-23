@@ -295,7 +295,7 @@ namespace shr
 	{
 		Collider2D* mostFront = nullptr;
 
-		for (UINT type; type < (UINT)eLayerType::End; type++)
+		for (UINT type = 0; type < (UINT)eLayerType::End; type++)
 		{
 			if (!mMouseLayerCollisionBit[type])
 				continue;
@@ -368,12 +368,20 @@ namespace shr
 				mPrevMouseCollision = mostFront;
 			}
 		}
+		else
+		{
+			mostFront->OnMouseCollisionEnter();
+
+			mPrevMouseCollision = mostFront;
+		}
 	}
 	bool CollisionManager::MouseIntersect(Collider2D* collider)
 	{
 		eColliderType cType = collider->GetType();
 
-		if (cType == eColliderType::Box)
+		GameObject* objg = collider->GetOwner();
+
+		if (cType == eColliderType::Rect)
 		{
 			Vector2 pointPos = Input::GetMouseWorldPos();
 
@@ -390,6 +398,6 @@ namespace shr
 	}
 	void CollisionManager::MouseCollisionLayerCheck(eLayerType type, bool enable)
 	{
-		mMouseCollisionBit[(UINT)type] = enable;
+		mMouseLayerCollisionBit[(UINT)type] = enable;
 	}
 }

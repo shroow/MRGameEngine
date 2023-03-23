@@ -7,7 +7,7 @@
 namespace shr
 {
 	CameraScript::CameraScript()
-		: Script()
+		: Script(eScriptType::ObjectScript)
 	{
 	}
 

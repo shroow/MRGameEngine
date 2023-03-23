@@ -26,7 +26,7 @@ namespace shr
 
             std::vector<float> buffVec[(UINT)eBuffType::End];
 
-            Status() : maxHP{ 100.f }, HP{ 100.f }, maxMP{ 100.f }, MP{ 0.f }
+            Status() : maxHP{ 100.f }, HP{ 100.f }, maxMP{ 100.f }, MP{ 20.f }
                 , attackDmg{ 10.f }, attackSpeed{ 1.f }, moveSpeed{ 5.f }, moveType{ eMoveType::Ground } {}
 
             Status(float hp, float MaxHP, float mp, float MaxMP, float AttackDmg, float AttackSpeed
@@ -45,12 +45,6 @@ namespace shr
         virtual void FixedUpdate() override;
         virtual void Render() override;
 
-        void SetChar(const std::wstring& name, Status status = {});
-        void LoadCharAnim(eAnimState animState, Vector2 offset
-            , Vector2 leftTop, Vector2 spriteSize
-            , UINT spriteLength, float duration, eAtlasType atlasType = eAtlasType::Column);
-        void PlayCharAnim(eAnimState animState);
-
         virtual void OnCollisionEnter(Collider2D* collider) override;
         virtual void OnCollisionStay(Collider2D* collider) override;
         virtual void OnCollisionExit(Collider2D* collider) override;
@@ -59,14 +53,28 @@ namespace shr
         virtual void OnTriggerStay(Collider2D* collider) override;
         virtual void OnTriggerExit(Collider2D* collider) override;
 
+        virtual void OnMouseCollisionEnter() override;
+        virtual void OnMouseCollisionStay() override;
+        virtual void OnMouseCollisionExit() override;
+
+        virtual void UnitSelected(bool tf) override;
+
+        bool CharStateChanged();
+        void SetChar(const std::wstring& name, Status status = {});
+        void LoadCharAnim(eCharState animState, Vector2 offset
+            , Vector2 leftTop, Vector2 spriteSize
+            , UINT spriteLength, float duration, eAtlasType atlasType = eAtlasType::Column);
+        void PlayCharAnim(eCharState animState);
+
         void Start();
         void Action();
         void End();
 
         void SetCharName(const std::wstring& name) { mCharName = name; }
+        void SetCharState(eCharState state) { mState = state; mPrevState = eCharState::None; }
+        eCharState GetCharState() { return mState; }
 
     private:
-        Transform* mOwnerTR;
         Animator* mAnimator;
 
         std::wstring mCharName;
@@ -74,12 +82,20 @@ namespace shr
         bool mRun;
         bool mDie;
         bool mAttack;
-        bool mChange;
+        bool mHit;
+
+        bool mbCursorOn;
+        bool mbSelected;
+        bool mbStartMove;
+        Vector2 mMovetoPos;
 
         Vector3 mPrevPos;
         float mMove;
+        Vector2 mDir;
 
         Status mStatus;
+        eCharState mState;
+        eCharState mPrevState;
     };
 }
 

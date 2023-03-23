@@ -109,8 +109,9 @@ namespace shr::enums
 		Compound,
 	};
 
-	enum class eAnimState
+	enum class eCharState
 	{
+		None,
 		Idle,
 		Run,
 		Attack,
@@ -120,6 +121,14 @@ namespace shr::enums
 		Hit,
 		Death,
 		End
+	};
+
+	enum class eScriptType
+	{
+		None,
+		UnitScript,
+		ObjectScript,
+		End,
 	};
 	//struct Ray
 	//{

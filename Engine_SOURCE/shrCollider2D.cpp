@@ -128,4 +128,29 @@ namespace shr
 			script->OnTriggerExit(collider);
 		}
 	}
+
+	void Collider2D::OnMouseCollisionEnter()
+	{
+		const std::vector<Script*>& scriptVec = GetOwner()->GetScriptVec();
+		for (Script* script : scriptVec)
+		{
+			script->OnMouseCollisionEnter();
+		}
+	}
+	void Collider2D::OnMouseCollisionStay()
+	{
+		const std::vector<Script*>& scriptVec = GetOwner()->GetScriptVec();
+		for (Script* script : scriptVec)
+		{
+			script->OnMouseCollisionStay();
+		}
+	}
+	void Collider2D::OnMouseCollisionExit()
+	{
+		const std::vector<Script*>& scriptVec = GetOwner()->GetScriptVec();
+		for (Script* script : scriptVec)
+		{
+			script->OnMouseCollisionExit();
+		}
+	}
 }

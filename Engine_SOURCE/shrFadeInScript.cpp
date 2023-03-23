@@ -13,7 +13,7 @@ extern shr::Application application;
 namespace shr
 {
 	FadeInScript::FadeInScript()
-		: Script()
+		: Script(eScriptType::ObjectScript)
 		, mStart(true)
 		, mFadeIn(true)
 		, mSpeed(2.f)

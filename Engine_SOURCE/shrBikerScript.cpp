@@ -15,7 +15,7 @@ extern shr::Application application;
 namespace shr
 {
 	BikerScript::BikerScript()
-		: Script()
+		: Script(eScriptType::UnitScript)
 		, mOwnerTR(nullptr)
 		, mAnimator(nullptr)
 		, mIdle(false)
@@ -101,35 +101,17 @@ namespace shr
 		if (Input::GetMouseLeftPressed())
 		{
 			Vector2 mouseWorldPos = Input::GetMouseWorldPos();
-			
-			Vector2 myPos(pos.x, pos.y);
-			
-				Vector2 mousePos = Input::GetMousePos();
-				Vector3 CameraPos = renderer::mainCamera->GetWorldPos();
-
-				float x = mousePos.x;
-				float y = mousePos.y;
-
-				float worldX = mouseWorldPos.x;
-				float worldY = mouseWorldPos.y;
-
-				float myPosX = pos.x;
-				float myPosY = pos.y;
-
-				CameraPos.x;
-				CameraPos.y;
-				CameraPos.z;
 
 			Vector2 dir;
-			dir.x = mouseWorldPos.x - myPos.x;
-			dir.y = mouseWorldPos.y - myPos.y;
+			dir.x = mouseWorldPos.x - pos.x;
+			dir.y = mouseWorldPos.y - pos.y;
 			float length = sqrt(dir.x * dir.x + dir.y * dir.y);
 			dir.x /= length;
 			dir.y /= length;
 
 			// Move object A towards object B
-			pos.x = myPos.x + dir.x * 3.0f * Time::DeltaTime();
-			pos.y = myPos.y + dir.y * 3.0f * Time::DeltaTime();
+			pos.x += dir.x * 3.0f * Time::DeltaTime();
+			pos.y += dir.y * 3.0f * Time::DeltaTime();
 
 			//Vector2 angle = Vector2::AngleBetweenVectors(myPos, mouseWorldPos);
 			//

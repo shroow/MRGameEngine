@@ -2,8 +2,9 @@
 
 namespace shr
 {
-	Script::Script()
+	Script::Script(eScriptType scriptType)
 		: Component(eComponentType::Script)
+		, mScriptType(scriptType)
 	{
 	}
 	Script::~Script()

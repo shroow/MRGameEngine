@@ -13,6 +13,7 @@ namespace shr::object
 		T* gameObj = new T();
 		Scene* scene = SceneManager::GetActiveScene();
 		Layer& layer = scene->GetLayerType(type);
+		gameObj->SetLayerType(type);
 		layer.AddGameObject(gameObj);
 
 		return gameObj;
@@ -23,6 +24,7 @@ namespace shr::object
 	{
 		T* gameObj = new T();
 		Layer& layer = scene->GetLayerType(type);
+		gameObj->SetLayerType(type);
 		layer.AddGameObject(gameObj);
 
 		return gameObj;
@@ -34,6 +36,7 @@ namespace shr::object
 		T* gameObj = new T();
 		Scene* scene = SceneManager::GetActiveScene();
 		Layer& layer = scene->GetLayerType(type);
+		gameObj->SetLayerType(type);
 		layer.AddGameObject(gameObj);
 
 		Transform* tr = gameObj->GameObject::GetComponent<Transform>();
@@ -48,6 +51,7 @@ namespace shr::object
 		T* gameObj = new T();
 		Scene* scene = SceneManager::GetActiveScene();
 		Layer& layer = scene->GetLayerType(type);
+		gameObj->SetLayerType(type);
 		layer.AddGameObject(gameObj);
 
 		Transform* tr = gameObj->GameObject::GetComponent<Transform>();
@@ -63,6 +67,7 @@ namespace shr::object
 		T* gameObj = new T();
 		Scene* scene = SceneManager::GetActiveScene();
 		Layer& layer = scene->GetLayerType(type);
+		gameObj->SetLayerType(type);
 		layer.AddGameObject(gameObj);
 
 		Transform* tr = gameObj->GameObject::GetComponent<Transform>();

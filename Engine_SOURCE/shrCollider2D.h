@@ -39,6 +39,10 @@ namespace shr
 		Vector3 GetPosition() { return mPosition; }
 		float GetRadius() { return mRadius; }
 
+		virtual void OnMouseCollisionEnter();
+		virtual void OnMouseCollisionStay();
+		virtual void OnMouseCollisionExit();
+
 	private:
 		static UINT ColliderNumber;
 		UINT mID;
