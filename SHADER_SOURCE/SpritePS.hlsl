@@ -10,6 +10,7 @@ struct VSIn
 struct VSOut
 {
     float4 Pos : SV_POSITION;
+    float3 WorldPos : POSITION;
     float4 Color : COLOR;
     float2 UV : TEXCOORD;
 };
@@ -35,6 +36,20 @@ float4 main(VSOut In) : SV_TARGET
 	    //기존 스프라이트
         color = defaultTexture.Sample(anisotropicSampler, In.UV);
     }
+
+    LightColor lightColor = (LightColor)0.0f;
+    for (int i = 0; i < numberOfLight; i++)
+    {
+        CalculateLight(lightColor, In.WorldPos.xyz, i);
+    }
+
+    //if (numberOfLight <= 0)
+    //{
+    //    lightColor = (LightColor) 1.0f;
+    //}
+
+    color *= lightColor.diffuse;
+    //color = defaultTexture.Sample(anisotropicSampler, In.UV);
 
 	return color;
 }

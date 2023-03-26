@@ -35,6 +35,7 @@ namespace shr::enums
 		MeshRenderer,
 		SpriteRenderer,
 		Animator,
+		Light,
 		UI,
 		Script,
 		End,
@@ -74,6 +75,14 @@ namespace shr::enums
 		End,
 	};
 
+	enum class eLightType
+	{
+		Directional,
+		Point,
+		Spot,
+		End,
+	};
+
 	enum class eUnitState
 	{
 		None = 0,
@@ -94,6 +103,7 @@ namespace shr::enums
 		Stun,
 		End = 16,
 	};
+
 
 	enum class eMoveType
 	{

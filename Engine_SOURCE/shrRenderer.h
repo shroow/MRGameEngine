@@ -7,6 +7,8 @@
 #include "shrShader.h"
 #include "shrConstantBuffer.h"
 #include "shrCamera.h"
+#include "shrLight.h"
+#include "shrStructedBuffer.h"
 
 using namespace shr::math;
 using namespace shr::graphics;
@@ -54,10 +56,17 @@ namespace shr::renderer
 		UINT type;
 	};
 
+	//CBSLOT_NUMBEROFLIGHT
+	CBUFFER(LightCB, CBSLOT_NUMBEROFLIGHT)
+	{
+		UINT numberOfLight;
+	};
+
 	CBUFFER(FadeInCB, CBSLOT_FADEIN)
 	{
 		float fAlpha;
 	};
+
 
 	extern Vertex vertexes[4];
 	extern Camera* mainCamera;
@@ -69,9 +78,15 @@ namespace shr::renderer
 
 	extern std::vector<Camera*> cameras[];
 	extern std::vector<DebugMesh> debugMeshes;
+	extern std::vector<LightAttribute> lights;
+	extern StructedBuffer* lightsBuffer;
 	
 	void Initialize();
 	void Render();
 	void Release();
+
+	//Renderer
+	void PushLightAttribute(LightAttribute lightAttribute);
+	void BindLights();
 }
 

@@ -28,8 +28,6 @@ namespace shr
         virtual void OnMouseCollisionStay() {};
         virtual void OnMouseCollisionExit() {};
 
-        virtual void UnitSelected(bool tf) {};
-
         eScriptType GetScriptType() { return mScriptType; }
 
     private:

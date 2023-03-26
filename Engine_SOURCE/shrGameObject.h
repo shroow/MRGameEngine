@@ -60,6 +60,24 @@ namespace shr
 			return nullptr;
 		}
 
+		template <typename T>
+		std::vector<T*> GetComponents()
+		{
+			std::vector<T*> components = {};
+
+			T* comp;
+			for (auto c : mComponents)
+			{
+				comp = dynamic_cast<T*>(c);
+
+				if (comp != nullptr)
+					components.push_back(comp);
+			}
+
+			return components;
+		}
+
+
 		const std::vector<Script*>& GetScriptVec() { return mScriptVec; }
 
 		eState GetState() { return mState; }

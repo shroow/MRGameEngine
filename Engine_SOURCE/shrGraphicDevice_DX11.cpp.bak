@@ -93,7 +93,7 @@ namespace shr::graphics
 
 		// Depth Stencil Buffer View
 		if (FAILED(mDevice->CreateDepthStencilView
-			(mDepthStencilBufferTexture->GetTexture().Get(), nullptr, mDepthStencilBufferTexture->GetDSV().GetAddressOf())))
+		(mDepthStencilBufferTexture->GetTexture().Get(), nullptr, mDepthStencilBufferTexture->GetDSV().GetAddressOf())))
 			return;
 
 		RECT winRect;

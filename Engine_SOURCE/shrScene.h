@@ -23,7 +23,7 @@ namespace shr
 
 		eSceneType GetSceneType() { return mType; }
 		void AddGameObject(GameObject* gameObj, const eLayerType type);
-		Layer& GetLayerType(eLayerType type) { return mLayerVec[(UINT)type]; }
+		Layer& GetLayer(eLayerType type) { return mLayerVec[(UINT)type]; }
 		std::vector<GameObject*> GetDontDestroyGameObjects();
 		const std::vector<GameObject*>& GetGameObjectVec(const eLayerType type);
 

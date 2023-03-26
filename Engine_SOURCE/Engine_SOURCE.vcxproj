@@ -44,7 +44,7 @@
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
-    <EnableUnitySupport>true</EnableUnitySupport>
+    <EnableUnitySupport>false</EnableUnitySupport>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
@@ -169,6 +169,7 @@
     <ClInclude Include="shrCollider3D.h" />
     <ClInclude Include="shrCollisionManager.h" />
     <ClInclude Include="shrComponent.h" />
+    <ClInclude Include="shrComputeShader.h" />
     <ClInclude Include="shrConstantBuffer.h" />
     <ClInclude Include="shrEngine.h" />
     <ClInclude Include="shrEntity.h" />
@@ -180,6 +181,7 @@
     <ClInclude Include="shrGridScript.h" />
     <ClInclude Include="shrInput.h" />
     <ClInclude Include="shrLayer.h" />
+    <ClInclude Include="shrLight.h" />
     <ClInclude Include="shrMaterial.h" />
     <ClInclude Include="shrMath.h" />
     <ClInclude Include="shrMesh.h" />
@@ -189,6 +191,7 @@
     <ClInclude Include="shrMouseObject.h" />
     <ClInclude Include="shrMultiShaderRenderer.h" />
     <ClInclude Include="shrObject.h" />
+    <ClInclude Include="shrPaintShader.h" />
     <ClInclude Include="shrPlayer.h" />
     <ClInclude Include="shrPlayerScript.h" />
     <ClInclude Include="shrPlayScene.h" />
@@ -201,6 +204,7 @@
     <ClInclude Include="shrScript.h" />
     <ClInclude Include="shrShader.h" />
     <ClInclude Include="shrSpriteRenderer.h" />
+    <ClInclude Include="shrStructedBuffer.h" />
     <ClInclude Include="shrTestScene.h" />
     <ClInclude Include="shrTexture.h" />
     <ClInclude Include="shrTime.h" />
@@ -208,7 +212,6 @@
     <ClInclude Include="shrTransform.h" />
     <ClInclude Include="shrUnitComponent.h" />
     <ClInclude Include="MouseMove.h" />
-    <ClInclude Include="shrUnitControlScript.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="shrAnimation.cpp" />
@@ -223,6 +226,7 @@
     <ClCompile Include="shrCollider3D.cpp" />
     <ClCompile Include="shrCollisionManager.cpp" />
     <ClCompile Include="shrComponent.cpp" />
+    <ClCompile Include="shrComputeShader.cpp" />
     <ClCompile Include="shrConstantBuffer.cpp" />
     <ClCompile Include="shrEntity.cpp" />
     <ClCompile Include="shrFadeInScript.cpp" />
@@ -231,6 +235,7 @@
     <ClCompile Include="shrGridScript.cpp" />
     <ClCompile Include="shrInput.cpp" />
     <ClCompile Include="shrLayer.cpp" />
+    <ClCompile Include="shrLight.cpp" />
     <ClCompile Include="shrMaterial.cpp" />
     <ClCompile Include="shrMath.cpp" />
     <ClCompile Include="shrMesh.cpp" />
@@ -239,6 +244,7 @@
     <ClCompile Include="shrMonsterScript.cpp" />
     <ClCompile Include="shrMouseObject.cpp" />
     <ClCompile Include="shrMultiShaderRenderer.cpp" />
+    <ClCompile Include="shrPaintShader.cpp" />
     <ClCompile Include="shrPlayer.cpp" />
     <ClCompile Include="shrPlayerScript.cpp" />
     <ClCompile Include="shrPlayScene.cpp" />
@@ -251,13 +257,13 @@
     <ClCompile Include="shrScript.cpp" />
     <ClCompile Include="shrShader.cpp" />
     <ClCompile Include="shrSpriteRenderer.cpp" />
+    <ClCompile Include="shrStructedBuffer.cpp" />
     <ClCompile Include="shrTestScene.cpp" />
     <ClCompile Include="shrTexture.cpp" />
     <ClCompile Include="shrTime.cpp" />
     <ClCompile Include="shrTitleScene.cpp" />
     <ClCompile Include="shrTransform.cpp" />
     <ClCompile Include="shrUnitComponent.cpp" />
-    <ClCompile Include="shrUnitControlScript.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\External\DirectXTex\Include\DirectXTex.inl" />

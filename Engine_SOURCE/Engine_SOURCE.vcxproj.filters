@@ -16,12 +16,6 @@
     <Filter Include="Resource">
       <UniqueIdentifier>{767d4264-e56a-430c-8c2d-f49d85c35b59}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Time">
-      <UniqueIdentifier>{d5cea299-11de-49f8-9c0c-c110056dd303}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Input">
-      <UniqueIdentifier>{cd4b9eba-c6cf-46a9-a814-89a620c95213}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Renderer">
       <UniqueIdentifier>{f2d38e5b-5248-43e0-b712-e484a165f414}</UniqueIdentifier>
     </Filter>
@@ -85,6 +79,21 @@
     <Filter Include="Script\Unit">
       <UniqueIdentifier>{ad06007e-5a76-4fa0-88ca-5a29f5e8a74f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Input">
+      <UniqueIdentifier>{cd4b9eba-c6cf-46a9-a814-89a620c95213}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Time">
+      <UniqueIdentifier>{d5cea299-11de-49f8-9c0c-c110056dd303}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Animator">
+      <UniqueIdentifier>{b1527e3a-156c-4417-81e7-b95f53a08b69}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Transform">
+      <UniqueIdentifier>{960b415c-9c83-489a-b35e-1e43d36a052e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Camera">
+      <UniqueIdentifier>{18e76ba4-e4d9-4557-a877-1c644899ddab}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="shrApplication.cpp">
@@ -138,17 +147,11 @@
     <ClCompile Include="shrMaterial.cpp">
       <Filter>Resource\Material</Filter>
     </ClCompile>
-    <ClCompile Include="shrTransform.cpp">
-      <Filter>Component</Filter>
-    </ClCompile>
     <ClCompile Include="shrTexture.cpp">
       <Filter>Resource\Texture</Filter>
     </ClCompile>
     <ClCompile Include="shrConstantBuffer.cpp">
       <Filter>Graphics</Filter>
-    </ClCompile>
-    <ClCompile Include="shrCamera.cpp">
-      <Filter>Component</Filter>
     </ClCompile>
     <ClCompile Include="shrMeshRenderer.cpp">
       <Filter>Component\Renderer</Filter>
@@ -158,9 +161,6 @@
     </ClCompile>
     <ClCompile Include="shrBaseRenderer.cpp">
       <Filter>Component\Renderer</Filter>
-    </ClCompile>
-    <ClCompile Include="shrUnitComponent.cpp">
-      <Filter>Component\Object</Filter>
     </ClCompile>
     <ClCompile Include="shrPlayScene.cpp">
       <Filter>Scene\GameScenes</Filter>
@@ -216,18 +216,28 @@
     <ClCompile Include="shrScript.cpp">
       <Filter>Script</Filter>
     </ClCompile>
-    <ClCompile Include="shrAnimator.cpp">
-      <Filter>Component</Filter>
-    </ClCompile>
     <ClCompile Include="shrAnimation.cpp">
       <Filter>Resource\Animation</Filter>
-    </ClCompile>
-    <ClCompile Include="shrUnitControlScript.cpp">
-      <Filter>Script\Object</Filter>
     </ClCompile>
     <ClCompile Include="shrMouseObject.cpp">
       <Filter>GameObject\InGame</Filter>
     </ClCompile>
+    <ClCompile Include="shrCamera.cpp">
+      <Filter>Component\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="shrAnimator.cpp">
+      <Filter>Component\Animator</Filter>
+    </ClCompile>
+    <ClCompile Include="shrTransform.cpp">
+      <Filter>Component\Transform</Filter>
+    </ClCompile>
+    <ClCompile Include="shrUnitComponent.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
+    <ClCompile Include="shrLight.cpp" />
+    <ClCompile Include="shrPaintShader.cpp" />
+    <ClCompile Include="shrComputeShader.cpp" />
+    <ClCompile Include="shrStructedBuffer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CommonInclude.h">
@@ -293,17 +303,11 @@
     <ClInclude Include="shrMaterial.h">
       <Filter>Resource\Material</Filter>
     </ClInclude>
-    <ClInclude Include="shrTransform.h">
-      <Filter>Component</Filter>
-    </ClInclude>
     <ClInclude Include="shrTexture.h">
       <Filter>Resource\Texture</Filter>
     </ClInclude>
     <ClInclude Include="shrConstantBuffer.h">
       <Filter>Graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="shrCamera.h">
-      <Filter>Component</Filter>
     </ClInclude>
     <ClInclude Include="shrMeshRenderer.h">
       <Filter>Component\Renderer</Filter>
@@ -313,9 +317,6 @@
     </ClInclude>
     <ClInclude Include="shrBaseRenderer.h">
       <Filter>Component\Renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="shrUnitComponent.h">
-      <Filter>Component\Object</Filter>
     </ClInclude>
     <ClInclude Include="shrObject.h">
       <Filter>GameObject</Filter>
@@ -377,21 +378,31 @@
     <ClInclude Include="shrScript.h">
       <Filter>Script</Filter>
     </ClInclude>
-    <ClInclude Include="shrAnimator.h">
-      <Filter>Component</Filter>
-    </ClInclude>
     <ClInclude Include="shrAnimation.h">
       <Filter>Resource\Animation</Filter>
     </ClInclude>
     <ClInclude Include="MouseMove.h">
       <Filter>Time</Filter>
     </ClInclude>
-    <ClInclude Include="shrUnitControlScript.h">
-      <Filter>Script\Object</Filter>
-    </ClInclude>
     <ClInclude Include="shrMouseObject.h">
       <Filter>GameObject\InGame</Filter>
     </ClInclude>
+    <ClInclude Include="shrCamera.h">
+      <Filter>Component\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="shrAnimator.h">
+      <Filter>Component\Animator</Filter>
+    </ClInclude>
+    <ClInclude Include="shrTransform.h">
+      <Filter>Component\Transform</Filter>
+    </ClInclude>
+    <ClInclude Include="shrUnitComponent.h">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="shrLight.h" />
+    <ClInclude Include="shrPaintShader.h" />
+    <ClInclude Include="shrComputeShader.h" />
+    <ClInclude Include="shrStructedBuffer.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="shrMath.inl">

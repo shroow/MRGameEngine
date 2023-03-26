@@ -36,6 +36,7 @@
 *.app
 
 # Folders
+/.svn
 /.vs
 /x64
 /44Engine/x64/Debug

@@ -116,7 +116,7 @@ namespace shr
 		{
 			if ((*iter)->IsDontDestroy())
 			{
-				donts.push_back(*iter);
+				donts.push_back((*iter));
 				iter = mGameObjectVec.erase(iter);
 			}
 			else

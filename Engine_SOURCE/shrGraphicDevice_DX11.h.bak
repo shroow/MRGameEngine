@@ -4,7 +4,6 @@
 using namespace shr::enums;
 namespace shr::graphics
 {
-	
 	class GraphicDevice_DX11
 	{
 	public:

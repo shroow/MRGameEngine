@@ -7,8 +7,8 @@
     <Filter Include="PS">
       <UniqueIdentifier>{05dfe299-0ec7-45a3-b6f2-b0f424c08f82}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Debug">
-      <UniqueIdentifier>{f4274011-073b-4a4f-ba60-768af959d24c}</UniqueIdentifier>
+    <Filter Include="CS">
+      <UniqueIdentifier>{aa2611d2-b18b-4803-8d0d-e633709078cb}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -42,14 +42,18 @@
     <FxCompile Include="$(MSBuildThisFileDirectory)FadeInVS.hlsl">
       <Filter>VS</Filter>
     </FxCompile>
-    <FxCompile Include="$(MSBuildThisFileDirectory)DebugVS.hlsl">
-      <Filter>Debug</Filter>
-    </FxCompile>
     <FxCompile Include="$(MSBuildThisFileDirectory)DebugPS.hlsl">
-      <Filter>Debug</Filter>
+      <Filter>PS</Filter>
+    </FxCompile>
+    <FxCompile Include="$(MSBuildThisFileDirectory)DebugVS.hlsl">
+      <Filter>VS</Filter>
+    </FxCompile>
+    <FxCompile Include="$(MSBuildThisFileDirectory)PaintCS.hlsl">
+      <Filter>CS</Filter>
     </FxCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="$(MSBuildThisFileDirectory)globals.hlsli" />
+    <None Include="$(MSBuildThisFileDirectory)Light.hlsli" />
   </ItemGroup>
 </Project>

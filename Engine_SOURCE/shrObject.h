@@ -12,7 +12,7 @@ namespace shr::object
 	{
 		T* gameObj = new T();
 		Scene* scene = SceneManager::GetActiveScene();
-		Layer& layer = scene->GetLayerType(type);
+		Layer& layer = scene->GetLayer(type);
 		gameObj->SetLayerType(type);
 		layer.AddGameObject(gameObj);
 
@@ -23,7 +23,7 @@ namespace shr::object
 	static T* Instantiate(enums::eLayerType type, Scene* scene)
 	{
 		T* gameObj = new T();
-		Layer& layer = scene->GetLayerType(type);
+		Layer& layer = scene->GetLayer(type);
 		gameObj->SetLayerType(type);
 		layer.AddGameObject(gameObj);
 
@@ -35,7 +35,7 @@ namespace shr::object
 	{
 		T* gameObj = new T();
 		Scene* scene = SceneManager::GetActiveScene();
-		Layer& layer = scene->GetLayerType(type);
+		Layer& layer = scene->GetLayer(type);
 		gameObj->SetLayerType(type);
 		layer.AddGameObject(gameObj);
 
@@ -50,7 +50,7 @@ namespace shr::object
 	{
 		T* gameObj = new T();
 		Scene* scene = SceneManager::GetActiveScene();
-		Layer& layer = scene->GetLayerType(type);
+		Layer& layer = scene->GetLayer(type);
 		gameObj->SetLayerType(type);
 		layer.AddGameObject(gameObj);
 
@@ -66,7 +66,7 @@ namespace shr::object
 	{
 		T* gameObj = new T();
 		Scene* scene = SceneManager::GetActiveScene();
-		Layer& layer = scene->GetLayerType(type);
+		Layer& layer = scene->GetLayer(type);
 		gameObj->SetLayerType(type);
 		layer.AddGameObject(gameObj);
 

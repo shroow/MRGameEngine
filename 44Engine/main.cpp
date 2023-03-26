@@ -13,6 +13,9 @@
 #pragma comment(lib, "..\\x64\\Release\\Lib\\Engine_SOURCE.lib")
 #endif // _DEBUG
 
+//#using <system.dll>
+//using System.Diagnostics;
+
 #define MAX_LOADSTRING 100
 
 // 전역 변수:

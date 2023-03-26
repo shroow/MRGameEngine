@@ -190,11 +190,6 @@ namespace shr
 		mbCursorOn = false;
 	}
 
-	void MonsterScript::UnitSelected(bool tf)
-	{
-		mbSelected = tf;
-	}
-
 	bool MonsterScript::CharStateChanged()
 	{
 		if (mDie)

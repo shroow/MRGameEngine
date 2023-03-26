@@ -39,7 +39,6 @@ namespace shr
 		{
 			if (events)
 				events->mCompleteEvent();
-		
 		if (mbLoop)
 			mActiveAnimation->Reset();
 		}

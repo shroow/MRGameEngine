@@ -16,6 +16,8 @@
 #include "shrMonster.h"
 #include "shrCollisionManager.h"
 #include "shrAnimator.h"
+#include "shrLight.h"
+#include "shrPaintShader.h"
 
 namespace shr
 {
@@ -28,6 +30,30 @@ namespace shr
 	}
 	void TitleScene::Initialize()
 	{
+		////paint shader
+		//std::shared_ptr<PaintShader> paintShader = Resources::Find<PaintShader>(L"PaintShader");
+		////L"SmileTexture"
+		//std::shared_ptr<Texture> paintTex = Resources::Find<Texture>(L"PaintTexture");
+		//paintShader->SetTarget(paintTex);
+		//paintShader->OnExcute();
+
+		{
+			GameObject* directionalLight = object::Instantiate<GameObject>(eLayerType::Player);
+			directionalLight->GetComponent<Transform>()->SetPosition(Vector3(0.0f, 0.0f, -100.0f));
+			Light* lightComp = directionalLight->AddComponent<Light>();
+			lightComp->SetType(eLightType::Directional);
+			lightComp->SetDiffuse(Vector4(1.0f, 1.0f, 1.0f, 1.0f));
+		}
+
+		{
+			GameObject* directionalLight = object::Instantiate<GameObject>(eLayerType::Player);
+			directionalLight->GetComponent<Transform>()->SetPosition(Vector3(3.0f, 0.0f, 0.0f));
+			Light* lightComp = directionalLight->AddComponent<Light>();
+			lightComp->SetType(eLightType::Point);
+			lightComp->SetRadius(10.0f);
+			lightComp->SetDiffuse(Vector4(1.0f, 0.0f, 0.0f, 1.0f));
+		}
+
 
 		GameObject* cameraObj = object::Instantiate<GameObject>(eLayerType::Camera, this);
 		Camera* cameraComp = cameraObj->AddComponent<Camera>();

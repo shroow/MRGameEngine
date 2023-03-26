@@ -1,3 +1,5 @@
+#include "Light.hlsli"
+
 cbuffer Transform : register(b0)
 {
     row_major matrix world;
@@ -32,16 +34,52 @@ cbuffer Animation : register(b3)
     uint animationType;
 }
 
-cbuffer FadeIn : register(b4)
+cbuffer NumberOfLight : register(b4)
+{
+    uint numberOfLight;
+}
+
+cbuffer FadeIn : register(b5)
 {
     float alpha;
 }
+
 
 SamplerState pointSampler : register(s0);
 SamplerState linearSampler : register(s1);
 SamplerState anisotropicSampler : register(s2);
 
+StructuredBuffer<LightAttribute> lightAttributes : register(t13);
+
+
 Texture2D defaultTexture : register(t0);
+//Texture2D defaultTexture2 : register(t1);
+//Texture2D defaultTexture3 : register(t2);
 
-
+//Atlas texture
 Texture2D atlasTexture : register(t12);
+
+
+void CalculateLight(in out LightColor pLightColor, float3 position, int idx)
+{
+    if (0 == lightAttributes[idx].type)
+    {
+        pLightColor.diffuse += lightAttributes[idx].color.diffuse;
+    }
+    else if (1 == lightAttributes[idx].type)
+    {
+        float length = distance(lightAttributes[idx].position.xy, position.xy);
+
+        if (length < lightAttributes[idx].radius)
+        {
+            float ratio = 1.0f - (length / lightAttributes[idx].radius);
+            pLightColor.diffuse += lightAttributes[idx].color.diffuse * ratio; //* cos(time)
+
+        }
+
+    }
+    else
+    {
+
+    }
+}

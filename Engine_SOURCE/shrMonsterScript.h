@@ -57,8 +57,6 @@ namespace shr
         virtual void OnMouseCollisionStay() override;
         virtual void OnMouseCollisionExit() override;
 
-        virtual void UnitSelected(bool tf) override;
-
         bool CharStateChanged();
         void SetChar(const std::wstring& name, Status status = {});
         void LoadCharAnim(eCharState animState, Vector2 offset

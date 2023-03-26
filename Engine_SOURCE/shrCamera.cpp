@@ -132,7 +132,7 @@ namespace shr
 		{
 			if (mLayerMasks[i] == true)
 			{
-				Layer& layer = scene->GetLayerType((eLayerType)i);
+				Layer& layer = scene->GetLayer((eLayerType)i);
 				GameObjectVec vecGameObj = layer.GetGameObjectVec();
 				if (vecGameObj.size() == 0)
 					continue;

@@ -34,11 +34,11 @@ namespace shr::graphics
 	{
 		//ConstantBuffer->Create를 안해주면 
 		//D3D11_MAPPED_SUBRESOURCE memcpy 시 에러
-		GetDevice()->BindConstantBuffer(buffer.Get(), data, desc.ByteWidth);
+		GetDevice()->BindBuffer(buffer.Get(), data, desc.ByteWidth);
 	}
 
 	void ConstantBuffer::SetPipline(eShaderStage stage)
 	{
-		GetDevice()->SetConstantBuffer(stage, mType, buffer.Get());
+		GetDevice()->BindConstantBuffer(stage, mType, buffer.Get());
 	}
 }

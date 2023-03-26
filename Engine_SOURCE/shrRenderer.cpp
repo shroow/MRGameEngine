@@ -2,21 +2,8 @@
 #include "shrResources.h"
 #include "shrMaterial.h"
 #include "shrSceneManager.h"
+#include "shrPaintShader.h"
 
-// 애니메이션
-// Sprite Renderer
-
-// Rasterrizer state
-// Depth Stencil state
-// Blend State
-
-
-
-// 셰이더 효과 
-
-// 툴 ( imgui )
-
-// 한달 일찍 게임만들면 // 2 ~ 3달 
 
 namespace shr::renderer
 {
@@ -30,27 +17,30 @@ namespace shr::renderer
 	Camera* mainCamera = nullptr;
 	std::vector<Camera*> cameras[(UINT)eSceneType::End];
 	std::vector<DebugMesh> debugMeshes;
+	std::vector<LightAttribute> lights;
+	StructedBuffer* lightsBuffer = nullptr;
+
 
 	void LoadMesh()
 	{
 		//RECT
-		vertexes[0].pos = Vector4(-0.5f, 0.5f, 0.f, 1.f);
+		vertexes[0].pos = Vector4(-0.5f, 0.5f, 0.0f, 1.0f);
 		vertexes[0].color = Vector4(0.f, 1.f, 0.f, 1.f);
 		vertexes[0].uv = Vector2(0.f, 0.f);
 
-		vertexes[1].pos = Vector4(0.5f, 0.5f, 0.f, 1.f);
+		vertexes[1].pos = Vector4(0.5f, 0.5f, 0.0f, 1.0f);
 		vertexes[1].color = Vector4(1.f, 1.f, 1.f, 1.f);
-		vertexes[1].uv = Vector2(1.f, 0.f);
+		vertexes[1].uv = Vector2(1.0f, 0.0f);
 
-		vertexes[2].pos = Vector4(0.5f, -0.5f, 0.f, 1.f);
+		vertexes[2].pos = Vector4(0.5f, -0.5f, 0.0f, 1.0f);
 		vertexes[2].color = Vector4(1.f, 0.f, 0.f, 1.f);
-		vertexes[2].uv = Vector2(1.f, 1.f);
+		vertexes[2].uv = Vector2(1.0f, 1.0f);
 
-		vertexes[3].pos = Vector4(-0.5f, -0.5f, 0.f, 1.f);
+		vertexes[3].pos = Vector4(-0.5f, -0.5f, 0.0f, 1.0f);
 		vertexes[3].color = Vector4(0.f, 0.f, 1.f, 1.f);
-		vertexes[3].uv = Vector2(0.f, 1.f);
+		vertexes[3].uv = Vector2(0.0f, 1.0f);
 
-		//Crate Mesh
+		// Crate Mesh
 		std::shared_ptr<Mesh> mesh = std::make_shared<Mesh>();
 		Resources::Insert<Mesh>(L"RectMesh", mesh);
 		mesh->CreateVertexBuffer(vertexes, 4);
@@ -59,12 +49,10 @@ namespace shr::renderer
 		indexes.push_back(0);
 		indexes.push_back(1);
 		indexes.push_back(2);
-
 		indexes.push_back(0);
 		indexes.push_back(2);
 		indexes.push_back(3);
 		indexes.push_back(0);
-
 		mesh->CreateIndexBuffer(indexes.data(), indexes.size());
 
 		//Debug Rect Mesh
@@ -72,15 +60,15 @@ namespace shr::renderer
 		vertexes[0].color = Vector4(0.f, 1.f, 0.f, 1.f);
 		vertexes[0].uv = Vector2(0.f, 0.f);
 
-		vertexes[1].pos = Vector4(0.5f, 0.5f, -0.00001f, 1.0f);
+		vertexes[1].pos = Vector4(0.5f, 0.5f, -0.00001, 1.0f);
 		vertexes[1].color = Vector4(1.f, 1.f, 1.f, 1.f);
 		vertexes[1].uv = Vector2(1.0f, 0.0f);
 
-		vertexes[2].pos = Vector4(0.5f, -0.5f, -0.00001f, 1.0f);
+		vertexes[2].pos = Vector4(0.5f, -0.5f, -0.00001, 1.0f);
 		vertexes[2].color = Vector4(1.f, 0.f, 0.f, 1.f);
 		vertexes[2].uv = Vector2(1.0f, 1.0f);
 
-		vertexes[3].pos = Vector4(-0.5f, -0.5f, -0.00001f, 1.0f);
+		vertexes[3].pos = Vector4(-0.5f, -0.5f, -0.00001, 1.0f);
 		vertexes[3].color = Vector4(0.f, 0.f, 1.f, 1.f);
 		vertexes[3].uv = Vector2(0.0f, 1.0f);
 
@@ -90,21 +78,21 @@ namespace shr::renderer
 		debugmesh->CreateVertexBuffer(vertexes, 4);
 		debugmesh->CreateIndexBuffer(indexes.data(), indexes.size());
 
-
-		//Circle Mesh
-		std::vector<Vertex> circleVertexes;
+		// Circle Mesh
+		std::vector<Vertex> circleVtxes;
 		Vertex center = {};
-		center.pos = Vector4(0.f, 0.f, -0.00001f, 1.f);
-		center.color = Vector4(0.f, 1.f, 0.f, 1.f);
+		center.pos = Vector4(0.0f, 0.0f, -0.00001f, 1.0f);
+		center.color = Vector4(0.0f, 1.0f, 0.0f, 1.0f);
 		center.uv = Vector2::Zero;
 
-		circleVertexes.push_back(center);
+		circleVtxes.push_back(center);
 
 		int iSlice = 80;
 		float fRadius = 0.5f;
 		float fTheta = XM_2PI / (float)iSlice;
 
-		for (int i = 0; i < iSlice; i++)
+
+		for (size_t i = 0; i < iSlice; i++)
 		{
 			Vertex vtx = {};
 			vtx.pos = Vector4
@@ -115,11 +103,10 @@ namespace shr::renderer
 			);
 			vtx.color = center.color;
 
-			circleVertexes.push_back(vtx);
+			circleVtxes.push_back(vtx);
 		}
-
 		indexes.clear();
-		for (int i = 0; i < iSlice - 2; i++)
+		for (size_t i = 0; i < iSlice - 2; i++)
 		{
 			indexes.push_back(i + 1);
 		}
@@ -128,7 +115,7 @@ namespace shr::renderer
 		// Crate Mesh
 		std::shared_ptr<Mesh> cirlceMesh = std::make_shared<Mesh>();
 		Resources::Insert<Mesh>(L"CircleMesh", cirlceMesh);
-		cirlceMesh->CreateVertexBuffer(circleVertexes.data(), circleVertexes.size());
+		cirlceMesh->CreateVertexBuffer(circleVtxes.data(), circleVtxes.size());
 		cirlceMesh->CreateIndexBuffer(indexes.data(), indexes.size());
 	}
 
@@ -158,6 +145,7 @@ namespace shr::renderer
 		arrLayoutDesc[2].SemanticName = "TEXCOORD";
 		arrLayoutDesc[2].SemanticIndex = 0;
 
+
 		std::shared_ptr<Shader> shader = Resources::Find<Shader>(L"RectShader");
 		GetDevice()->CreateInputLayout(arrLayoutDesc, 3
 			, shader->GetVSBlobBufferPointer()
@@ -169,7 +157,6 @@ namespace shr::renderer
 			, spriteShader->GetVSBlobBufferPointer()
 			, spriteShader->GetVSBlobBufferSize()
 			, spriteShader->GetInputLayoutAddressOf());
-
 
 		std::shared_ptr<Shader> uiShader = Resources::Find<Shader>(L"UIShader");
 		GetDevice()->CreateInputLayout(arrLayoutDesc, 3
@@ -183,39 +170,49 @@ namespace shr::renderer
 			, gridShader->GetVSBlobBufferSize()
 			, gridShader->GetInputLayoutAddressOf());
 
-		std::shared_ptr<Shader> fadeInShader = Resources::Find<Shader>(L"FadeInShader");
-		GetDevice()->CreateInputLayout(arrLayoutDesc, 3
-			, fadeInShader->GetVSBlobBufferPointer()
-			, fadeInShader->GetVSBlobBufferSize()
-			, fadeInShader->GetInputLayoutAddressOf());
 
 		std::shared_ptr<Shader> debugShader = Resources::Find<Shader>(L"DebugShader");
 		GetDevice()->CreateInputLayout(arrLayoutDesc, 3
 			, debugShader->GetVSBlobBufferPointer()
 			, debugShader->GetVSBlobBufferSize()
 			, debugShader->GetInputLayoutAddressOf());
-#pragma endregion
 
+		std::shared_ptr<Shader> fadeInShader = Resources::Find<Shader>(L"FadeInShader");
+		GetDevice()->CreateInputLayout(arrLayoutDesc, 3
+			, fadeInShader->GetVSBlobBufferPointer()
+			, fadeInShader->GetVSBlobBufferSize()
+			, fadeInShader->GetInputLayoutAddressOf());
+
+#pragma endregion
 #pragma region sampler state
 		D3D11_SAMPLER_DESC samplerDesc = {};
 		samplerDesc.AddressU = D3D11_TEXTURE_ADDRESS_MODE::D3D11_TEXTURE_ADDRESS_WRAP;
 		samplerDesc.AddressV = D3D11_TEXTURE_ADDRESS_MODE::D3D11_TEXTURE_ADDRESS_WRAP;
 		samplerDesc.AddressW = D3D11_TEXTURE_ADDRESS_MODE::D3D11_TEXTURE_ADDRESS_WRAP;
-
 		//D3D11_FILTER_MIN_POINT_MAG_MIP_LINEAR = 0x5,
 		//D3D11_FILTER_MIN_LINEAR_MAG_MIP_POINT = 0x10,
-
 		samplerDesc.Filter = D3D11_FILTER::D3D11_FILTER_MIN_LINEAR_MAG_MIP_POINT;
-		GetDevice()->CreateSamplerState(&samplerDesc,
-			samplerStates[(UINT)eSamplerType::Point].GetAddressOf());
+
+
+		GetDevice()->CreateSamplerState
+		(
+			&samplerDesc
+			, samplerStates[(UINT)eSamplerType::Point].GetAddressOf()
+		);
 
 		samplerDesc.Filter = D3D11_FILTER::D3D11_FILTER_MIN_POINT_MAG_MIP_LINEAR;
-		GetDevice()->CreateSamplerState(&samplerDesc,
-			samplerStates[(UINT)eSamplerType::Linear].GetAddressOf());
+		GetDevice()->CreateSamplerState
+		(
+			&samplerDesc
+			, samplerStates[(UINT)eSamplerType::Linear].GetAddressOf()
+		);
 
 		samplerDesc.Filter = D3D11_FILTER::D3D11_FILTER_ANISOTROPIC;
-		GetDevice()->CreateSamplerState(&samplerDesc,
-			samplerStates[(UINT)eSamplerType::Anisotropic].GetAddressOf());
+		GetDevice()->CreateSamplerState
+		(
+			&samplerDesc
+			, samplerStates[(UINT)eSamplerType::Anisotropic].GetAddressOf()
+		);
 
 		GetDevice()->BindsSamplers((UINT)eSamplerType::Point
 			, 1, samplerStates[(UINT)eSamplerType::Point].GetAddressOf());
@@ -226,7 +223,6 @@ namespace shr::renderer
 		GetDevice()->BindsSamplers((UINT)eSamplerType::Anisotropic
 			, 1, samplerStates[(UINT)eSamplerType::Anisotropic].GetAddressOf());
 #pragma endregion
-
 #pragma region Rasterizer state
 		D3D11_RASTERIZER_DESC rsDesc = {};
 		rsDesc.FillMode = D3D11_FILL_MODE::D3D11_FILL_SOLID;
@@ -325,24 +321,7 @@ namespace shr::renderer
 
 	void LoadBuffer()
 	{
-		//{ Move to LoadMesh()
-		//	// Crate Mesh  //std::shared_ptr<T> 사용시 new T 대신 std::make_shared<T>
-		//	std::shared_ptr<Mesh> mesh = std::make_shared<Mesh>();
-		//	Resources::Insert<Mesh>(L"RectMesh", mesh);
-
-		//	mesh->CreateVertexBuffer(vertexes, 4);
-
-		//	std::vector<UINT> indexes;
-		//	indexes.push_back(0);
-		//	indexes.push_back(1);
-		//	indexes.push_back(2);
-
-		//	indexes.push_back(0);
-		//	indexes.push_back(2);
-		//	indexes.push_back(3);
-		//	mesh->CreateIndexBuffer(indexes.data(), indexes.size());
-		//}
-
+		// Constant Buffer
 		constantBuffers[(UINT)eCBType::Transform] = new ConstantBuffer(eCBType::Transform);
 		constantBuffers[(UINT)eCBType::Transform]->Create(sizeof(TransformCB));
 
@@ -355,8 +334,15 @@ namespace shr::renderer
 		constantBuffers[(UINT)eCBType::Animation] = new ConstantBuffer(eCBType::Animation);
 		constantBuffers[(UINT)eCBType::Animation]->Create(sizeof(AnimationCB));
 
+		constantBuffers[(UINT)eCBType::Light] = new ConstantBuffer(eCBType::Light);
+		constantBuffers[(UINT)eCBType::Light]->Create(sizeof(LightCB));
+
 		constantBuffers[(UINT)eCBType::FadeIn] = new ConstantBuffer(eCBType::FadeIn);
 		constantBuffers[(UINT)eCBType::FadeIn]->Create(sizeof(FadeInCB));
+
+		//Structed buffer
+		lightsBuffer = new StructedBuffer();
+		lightsBuffer->Create(sizeof(LightAttribute), 128, eSRVType::None, nullptr);
 	}
 
 	void LoadShader()
@@ -392,13 +378,6 @@ namespace shr::renderer
 
 		Resources::Insert<Shader>(L"GridShader", gridShader);
 
-		// FadeIn
-		std::shared_ptr<Shader> fadeInShader = std::make_shared<Shader>();
-		fadeInShader->Create(eShaderStage::VS, L"FadeInVS.hlsl", "main");
-		fadeInShader->Create(eShaderStage::PS, L"FadeInPS.hlsl", "main");
-
-		Resources::Insert<Shader>(L"FadeInShader", fadeInShader);
-
 		// Debug Shader
 		std::shared_ptr<Shader> debugShader = std::make_shared<Shader>();
 		debugShader->Create(eShaderStage::VS, L"DebugVS.hlsl", "main");
@@ -409,6 +388,20 @@ namespace shr::renderer
 		debugShader->SetTopology(D3D11_PRIMITIVE_TOPOLOGY::D3D11_PRIMITIVE_TOPOLOGY_LINESTRIP);
 
 		Resources::Insert<Shader>(L"DebugShader", debugShader);
+
+		// FadeIn
+		std::shared_ptr<Shader> fadeInShader = std::make_shared<Shader>();
+		fadeInShader->Create(eShaderStage::VS, L"FadeInVS.hlsl", "main");
+		fadeInShader->Create(eShaderStage::PS, L"FadeInPS.hlsl", "main");
+
+		Resources::Insert<Shader>(L"FadeInShader", fadeInShader);
+
+
+		// PaintShader
+		std::shared_ptr<PaintShader> paintShader = std::make_shared<PaintShader>();
+		paintShader->Create(L"PaintCS.hlsl", "main");
+		Resources::Insert<PaintShader>(L"PaintShader", paintShader);
+
 	}
 
 	void LoadTexture()
@@ -416,25 +409,27 @@ namespace shr::renderer
 		Resources::Load<Texture>(L"SmileTexture", L"Smile.png");
 		Resources::Load<Texture>(L"DefaultSprite", L"Light.png");
 		Resources::Load<Texture>(L"HPBarTexture", L"HPBar.png");
-		Resources::Load<Texture>(L"FadeInTexture", L"Fade.png");
-		//Resources::Load<Texture>(L"Biker_Idle", L"Biker\\Idle.png");
-		//Resources::Load<Texture>(L"Biker_Death", L"Biker\\Death.png");
+
+		//Create
+		std::shared_ptr<Texture> uavTexture = std::make_shared<Texture>();
+		uavTexture->Create(1024, 1024, DXGI_FORMAT_R8G8B8A8_UNORM, D3D11_BIND_SHADER_RESOURCE
+			| D3D11_BIND_UNORDERED_ACCESS);
+		Resources::Insert<Texture>(L"PaintTexture", uavTexture);
 	}
 
 	void LoadMaterial()
 	{
-		std::shared_ptr<Texture> texture = Resources::Find<Texture>(L"SmileTexture");
 
+		// Default
+		std::shared_ptr <Texture> texture = Resources::Find<Texture>(L"PaintTexture");
 		std::shared_ptr<Shader> shader = Resources::Find<Shader>(L"RectShader");
 		std::shared_ptr<Material> material = std::make_shared<Material>();
 		material->SetShader(shader);
 		material->SetTexture(texture);
-
 		Resources::Insert<Material>(L"RectMaterial", material);
 
 		// Sprite
 		std::shared_ptr <Texture> spriteTexture = Resources::Find<Texture>(L"DefaultSprite");
-
 		std::shared_ptr<Shader> spriteShader = Resources::Find<Shader>(L"SpriteShader");
 		std::shared_ptr<Material> spriteMaterial = std::make_shared<Material>();
 		spriteMaterial->SetRenderingMode(eRenderingMode::Transparent);
@@ -444,7 +439,6 @@ namespace shr::renderer
 
 		// UI
 		std::shared_ptr <Texture> uiTexture = Resources::Find<Texture>(L"HPBarTexture");
-
 		std::shared_ptr<Shader> uiShader = Resources::Find<Shader>(L"UIShader");
 		std::shared_ptr<Material> uiMaterial = std::make_shared<Material>();
 		uiMaterial->SetRenderingMode(eRenderingMode::Transparent);
@@ -458,6 +452,13 @@ namespace shr::renderer
 		gridMaterial->SetShader(gridShader);
 		Resources::Insert<Material>(L"GridMaterial", gridMaterial);
 
+		// Debug
+		std::shared_ptr<Shader> debugShader = Resources::Find<Shader>(L"DebugShader");
+		std::shared_ptr<Material> debugMaterial = std::make_shared<Material>();
+		debugMaterial->SetRenderingMode(eRenderingMode::Transparent);
+		debugMaterial->SetShader(debugShader);
+		Resources::Insert<Material>(L"DebugMaterial", debugMaterial);
+
 		//FadeIn
 		std::shared_ptr <Texture> fadeInTexture = Resources::Find<Texture>(L"FadeInTexture");
 
@@ -467,38 +468,11 @@ namespace shr::renderer
 		fadeInMaterial->SetShader(fadeInShader);
 		fadeInMaterial->SetTexture(fadeInTexture);
 		Resources::Insert<Material>(L"FadeInMaterial", fadeInMaterial);
-
-		// Debug
-		std::shared_ptr<Shader> debugShader = Resources::Find<Shader>(L"DebugShader");
-		std::shared_ptr<Material> debugMaterial = std::make_shared<Material>();
-		debugMaterial->SetRenderingMode(eRenderingMode::Transparent);
-		debugMaterial->SetShader(debugShader);
-		Resources::Insert<Material>(L"DebugMaterial", debugMaterial);
 	}
 
 	void Initialize()
 	{
-		//{ Move to LoadMesh()
-		//	//RECT
-		//	vertexes[0].pos = Vector4(-0.5f, 0.5f, 0.5f, 1.0f);
-		//	vertexes[0].color = Vector4(0.f, 1.f, 0.f, 1.f);
-		//	vertexes[0].uv = Vector2(0.f, 0.f);
-
-		//	vertexes[1].pos = Vector4(0.5f, 0.5f, 0.5f, 1.0f);
-		//	vertexes[1].color = Vector4(1.f, 1.f, 1.f, 1.f);
-		//	vertexes[1].uv = Vector2(1.0f, 0.0f);
-
-		//	vertexes[2].pos = Vector4(0.5f, -0.5f, 0.5f, 1.0f);
-		//	vertexes[2].color = Vector4(1.f, 0.f, 0.f, 1.f);
-		//	vertexes[2].uv = Vector2(1.0f, 1.0f);
-
-		//	vertexes[3].pos = Vector4(-0.5f, -0.5f, 0.5f, 1.0f);
-		//	vertexes[3].color = Vector4(0.f, 0.f, 1.f, 1.f);
-		//	vertexes[3].uv = Vector2(0.0f, 1.0f);
-		//}
-
 		LoadMesh();
-
 		LoadShader();
 		SetUpState();
 		LoadBuffer();
@@ -508,6 +482,8 @@ namespace shr::renderer
 
 	void Render()
 	{
+		BindLights();
+
 		eSceneType type = SceneManager::GetActiveScene()->GetSceneType();
 		for (Camera* cam : cameras[(UINT)type])
 		{
@@ -518,6 +494,7 @@ namespace shr::renderer
 		}
 
 		cameras[(UINT)type].clear();
+		renderer::lights.clear();
 	}
 
 	void Release()
@@ -527,5 +504,28 @@ namespace shr::renderer
 			delete constantBuffers[i];
 			constantBuffers[i] = nullptr;
 		}
+
+		delete lightsBuffer;
+		lightsBuffer = nullptr;
+	}
+
+	void PushLightAttribute(LightAttribute lightAttribute)
+	{
+		lights.push_back(lightAttribute);
+	}
+
+	void BindLights()
+	{
+		lightsBuffer->Bind(lights.data(), lights.size());
+		lightsBuffer->SetPipeline(eShaderStage::VS, 13);
+		lightsBuffer->SetPipeline(eShaderStage::PS, 13);
+
+		renderer::LightCB trCb = {};
+		trCb.numberOfLight = lights.size();
+
+		ConstantBuffer* cb = renderer::constantBuffers[(UINT)eCBType::Light];
+		cb->Bind(&trCb);
+		cb->SetPipline(eShaderStage::VS);
+		cb->SetPipline(eShaderStage::PS);
 	}
 }

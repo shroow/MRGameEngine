@@ -1,5 +1,6 @@
 #include "shrLayer.h"
-
+#include "shrRenderer.h"
+#include "shrTransform.h"
 
 namespace shr
 {
