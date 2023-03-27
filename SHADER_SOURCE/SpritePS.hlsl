@@ -33,7 +33,7 @@ float4 main(VSOut In) : SV_TARGET
     }
     else
     {
-	    //±âÁ¸ ½ºÇÁ¶óÀÌÆ®
+	    //ê¸°ì¡´ ìŠ¤í”„ë¼ì´íŠ¸
         color = defaultTexture.Sample(anisotropicSampler, In.UV);
     }
 

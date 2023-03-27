@@ -76,7 +76,7 @@ namespace shr
 				}
 			}
 			
-			ComputeMousePos();
+			//ComputeMousePos();
 
 			if (GetAsyncKeyState(VK_LBUTTON) & 0x8000)
 			{
@@ -149,28 +149,12 @@ namespace shr
 		float x = (mousePos.x / screenWidth) * 2.0f - 1.f;
 		float y = ((screenHeight - mousePos.y) / screenHeight) * 2.0f - 1.f;
 
-
 		mMouse.pos.x = (float)mousePos.x;
 		mMouse.pos.y = (float)mousePos.y;
 		mMouse.move.x = mMouse.pos.x - mousePos.x;
 		mMouse.move.y = mMouse.pos.y - mousePos.y;
 
-		//{
-		//	Matrix view = renderer::mainCamera->GetGPUViewMatrix();
-		//	Matrix proj = renderer::mainCamera->GetGPUProjectionMatrix();
 
-		//	Matrix viewProj = view * proj;
-
-		//	// 월드 매트릭스
-		//	Matrix world = XMMatrixIdentity();
-
-		//	// 뷰-프로젝션-월드 변환행렬
-		//	XMFLOAT4X4 transform;
-		//	XMStoreFloat4x4(&transform, world * viewProj);
-
-		//	mMouse.worldPos.x = x * transform._11 + y * transform._21 + transform._31 + transform._41;
-		//	mMouse.worldPos.y = x * transform._12 + y * transform._22 + transform._32 + transform._42;
-		//}
 
 		Matrix view = renderer::mainCamera->GetViewMatrix();
 		Matrix proj = renderer::mainCamera->GetProjectionMatrix();
@@ -178,11 +162,35 @@ namespace shr
 		Matrix invViewProj = XMMatrixInverse(nullptr, view * proj);
 
 		// Transform the mouse position from NDC space to world space
-		XMVECTOR mouseTr = XMVectorSet(x, y, 0.0f, 1.0f);
+		XMVECTOR mouseTr = XMVectorSet(x, y, 0.f, 1.f);
 		mouseTr = XMVector3TransformCoord(mouseTr, invViewProj);
+
+		float x1 = XMVectorGetX(mouseTr);
+		float y1 = XMVectorGetY(mouseTr);
+		float z1 = XMVectorGetZ(mouseTr);
+		float w1 = XMVectorGetW(mouseTr);
 
 		// Extract the position of the mouse in world space
 		mMouse.worldPos.x = XMVectorGetX(mouseTr);
 		mMouse.worldPos.y = XMVectorGetY(mouseTr);
+
+
+		//Matrix invView = XMMatrixInverse(nullptr, view);
+		//Matrix invProj = XMMatrixInverse(nullptr, proj);
+
+		//Matrix mouseProj = {};
+		//mouseProj._11 = 1.f;
+		//mouseProj._22 = 1.f;
+		//mouseProj._33 = 1.f;
+		//mouseProj._44 = 1.f;
+		//mouseProj._41 = x;
+		//mouseProj._42 = y;
+		//mouseProj._43 = 1.f;
+
+		//Matrix mouseView = mouseProj * invProj;
+		//Matrix mouseWorld = mouseView * invView;
+
+		//mMouse.worldPos.x = mouseWorld._11;
+		//mMouse.worldPos.y = mouseWorld._22;
 	}
 }

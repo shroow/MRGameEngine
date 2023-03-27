@@ -37,14 +37,14 @@ namespace shr
 
 	void Camera::Update()
 	{
-	}
-
-	void Camera::FixedUpdate()
-	{
 		CreateViewMatrix();
 		CreateProjectionMatrix();
 
 		RegisterCameraInRenderer();
+	}
+
+	void Camera::FixedUpdate()
+	{
 	}
 
 	void Camera::Render()

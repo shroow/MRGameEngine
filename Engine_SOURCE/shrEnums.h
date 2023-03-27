@@ -14,6 +14,7 @@ namespace shr::enums
 	{
 		None = 0,
 		Camera,
+		Mouse,
 		Grid,
 		Background,
 		Monster,

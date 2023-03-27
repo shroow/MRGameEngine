@@ -20,6 +20,9 @@
 #include "shrPlayScene.h"
 #include "shrTestScene.h"
 
+#include "shrObject.h"
+#include "shrMouseScript.h"
+
 namespace shr
 {
 	std::vector<Scene*> SceneManager::mSceneVec = {};

@@ -81,7 +81,7 @@ namespace shr::graphics
 		depthBuffer.SampleDesc.Count = 1;
 		depthBuffer.SampleDesc.Quality = 0;
 
-		depthBuffer.MipLevels = 0;
+		depthBuffer.MipLevels = 1;
 		depthBuffer.MiscFlags = 0;
 
 		mDepthStencilBufferTexture = std::make_shared<Texture>();

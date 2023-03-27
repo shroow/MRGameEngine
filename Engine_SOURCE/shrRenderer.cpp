@@ -3,7 +3,7 @@
 #include "shrMaterial.h"
 #include "shrSceneManager.h"
 #include "shrPaintShader.h"
-
+#include "shrNoiseShader.h"
 
 namespace shr::renderer
 {
@@ -402,6 +402,10 @@ namespace shr::renderer
 		paintShader->Create(L"PaintCS.hlsl", "main");
 		Resources::Insert<PaintShader>(L"PaintShader", paintShader);
 
+		// NoiseShader
+		std::shared_ptr<NoiseShader> noiseShader = std::make_shared<NoiseShader>();
+		noiseShader->Create(L"NoiseCS.hlsl", "main");
+		Resources::Insert<NoiseShader>(L"NoiseShader", noiseShader);
 	}
 
 	void LoadTexture()
@@ -409,12 +413,20 @@ namespace shr::renderer
 		Resources::Load<Texture>(L"SmileTexture", L"Smile.png");
 		Resources::Load<Texture>(L"DefaultSprite", L"Light.png");
 		Resources::Load<Texture>(L"HPBarTexture", L"HPBar.png");
+		Resources::Load<Texture>(L"Noise1Texture", L"noise1.png");
+		Resources::Load<Texture>(L"Noise2Texture", L"noise2.jpg");
 
 		//Create
 		std::shared_ptr<Texture> uavTexture = std::make_shared<Texture>();
 		uavTexture->Create(1024, 1024, DXGI_FORMAT_R8G8B8A8_UNORM, D3D11_BIND_SHADER_RESOURCE
 			| D3D11_BIND_UNORDERED_ACCESS);
 		Resources::Insert<Texture>(L"PaintTexture", uavTexture);
+
+		//Create 
+		std::shared_ptr<Texture> noiseTexture = std::make_shared<Texture>();
+		noiseTexture->Create(1024, 1024, DXGI_FORMAT_R8G8B8A8_UNORM, D3D11_BIND_SHADER_RESOURCE
+			| D3D11_BIND_UNORDERED_ACCESS);
+		Resources::Insert<Texture>(L"NoiseTexture", noiseTexture);
 	}
 
 	void LoadMaterial()

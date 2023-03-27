@@ -238,6 +238,8 @@
     <ClCompile Include="shrPaintShader.cpp" />
     <ClCompile Include="shrComputeShader.cpp" />
     <ClCompile Include="shrStructedBuffer.cpp" />
+    <ClCompile Include="shrMouseScript.cpp" />
+    <ClCompile Include="shrNoiseShader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CommonInclude.h">
@@ -403,6 +405,8 @@
     <ClInclude Include="shrPaintShader.h" />
     <ClInclude Include="shrComputeShader.h" />
     <ClInclude Include="shrStructedBuffer.h" />
+    <ClInclude Include="shrMouseScript.h" />
+    <ClInclude Include="shrNoiseShader.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="shrMath.inl">

@@ -23,11 +23,13 @@ namespace shr
 	}
 	void PlayScene::Initialize()
 	{
-		GameObject* cameraObj = object::Instantiate<GameObject>(eLayerType::Camera, this);
-		Camera* cameraComp = cameraObj->AddComponent<Camera>();
-		//cameraComp->RegisterCameraInRenderer();
-		cameraComp->TurnLayerMask(eLayerType::UI, false);
-		cameraObj->AddComponent<CameraScript>();
+		//GameObject* cameraObj = object::Instantiate<GameObject>(eLayerType::Camera, this);
+		//Camera* cameraComp = cameraObj->AddComponent<Camera>();
+		////cameraComp->RegisterCameraInRenderer();
+		//cameraComp->TurnLayerMask(eLayerType::UI, false);
+		//cameraObj->AddComponent<CameraScript>();
+
+		Scene::Initialize();
 	}
 	void PlayScene::Update()
 	{	

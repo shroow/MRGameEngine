@@ -13,7 +13,9 @@
 #include "shrCameraScript.h"
 #include "shrAnimator.h"
 #include "shrCollisionManager.h"
+
 #include "shrUnitComponent.h"
+#include "shrMouseScript.h"
 
 namespace shr
 {
@@ -43,6 +45,7 @@ namespace shr
 		cameraObj->AddComponent<CameraScript>();
 		mainCamera = cameraComp;
 
+		object::DontDestroyOnLoad(cameraObj);
 
 		////UI Camera
 		//GameObject* cameraUIObj = object::Instantiate<GameObject>(eLayerType::Camera);
@@ -51,6 +54,20 @@ namespace shr
 		//cameraUIComp->DisableLayerMasks();
 		//cameraUIComp->TurnLayerMask(eLayerType::UI, true);
 
+		//Directional Light
+		{
+			GameObject* directionalLight = object::Instantiate<GameObject>(eLayerType::Player);
+			directionalLight->GetComponent<Transform>()->SetPosition(Vector3(0.0f, 0.0f, -100.0f));
+			Light* lightComp = directionalLight->AddComponent<Light>();
+			lightComp->SetType(eLightType::Directional);
+			lightComp->SetDiffuse(Vector4(1.0f, 1.0f, 1.0f, 1.0f));
+		}
+
+		//Mouse
+		{
+			GameObject* obj = object::Instantiate<GameObject>(eLayerType::Mouse);
+			obj->AddComponent<MouseScript>();
+		}
 
 		//Biker1
 		{

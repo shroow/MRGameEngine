@@ -72,23 +72,18 @@ namespace shr
 
 		//if (Input::GetMouseLeftPressed())
 		//{
-		//	Vector2 mouseWorldPos = Input::GetMouseWorldPos();
-
+		//	Vector2 mousePos = Input::GetMouseWorldPos();
 		//	Vector2 dir;
-		//	dir.x = mouseWorldPos.x - pos.x;
-		//	dir.y = mouseWorldPos.y - pos.y;
+		//	dir.x = mousePos.x - pos.x;
+		//	dir.y = mousePos.y - pos.y;
 		//	float length = sqrt(dir.x * dir.x + dir.y * dir.y);
 		//	dir.x /= length;
 		//	dir.y /= length;
 
-		//	pos.x += dir.x * 3.0f * Time::DeltaTime();
-		//	pos.y += dir.y * 3.0f * Time::DeltaTime();
-
-		//	//Vector2 angle = Vector2::AngleBetweenVectors(myPos, mouseWorldPos);
-		//	//
-		//	//pos.x += 3.0f * cos(angle.x) * Time::DeltaTime();
-		//	//pos.y += 3.0f * sin(angle.x) * Time::DeltaTime();
+		//	pos.x += dir.x * mStatus.moveSpeed * Time::DeltaTime();
+		//	pos.y += dir.y * mStatus.moveSpeed * Time::DeltaTime();
 		//}
+
 		if (mbStartMove)
 		{
 			Vector2 dir;

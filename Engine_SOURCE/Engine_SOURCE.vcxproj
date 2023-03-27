@@ -189,7 +189,9 @@
     <ClInclude Include="shrMonster.h" />
     <ClInclude Include="shrMonsterScript.h" />
     <ClInclude Include="shrMouseObject.h" />
+    <ClInclude Include="shrMouseScript.h" />
     <ClInclude Include="shrMultiShaderRenderer.h" />
+    <ClInclude Include="shrNoiseShader.h" />
     <ClInclude Include="shrObject.h" />
     <ClInclude Include="shrPaintShader.h" />
     <ClInclude Include="shrPlayer.h" />
@@ -243,7 +245,9 @@
     <ClCompile Include="shrMonster.cpp" />
     <ClCompile Include="shrMonsterScript.cpp" />
     <ClCompile Include="shrMouseObject.cpp" />
+    <ClCompile Include="shrMouseScript.cpp" />
     <ClCompile Include="shrMultiShaderRenderer.cpp" />
+    <ClCompile Include="shrNoiseShader.cpp" />
     <ClCompile Include="shrPaintShader.cpp" />
     <ClCompile Include="shrPlayer.cpp" />
     <ClCompile Include="shrPlayerScript.cpp" />
