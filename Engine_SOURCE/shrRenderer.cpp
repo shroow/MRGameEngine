@@ -3,7 +3,7 @@
 #include "shrMaterial.h"
 #include "shrSceneManager.h"
 #include "shrPaintShader.h"
-#include "shrNoiseShader.h"
+//#include "shrNoiseShader.h"
 
 namespace shr::renderer
 {
@@ -23,6 +23,13 @@ namespace shr::renderer
 
 	void LoadMesh()
 	{
+		//POINT
+		Vertex v = {};
+		std::shared_ptr<Mesh> pointMesh = std::make_shared<Mesh>();
+		Resources::Insert<Mesh>(L"PointMesh", pointMesh);
+		pointMesh->CreateVertexBuffer(&v, 1);
+		UINT pointIndex = 0;
+		pointMesh->CreateIndexBuffer(&pointIndex, 1);
 		//RECT
 		vertexes[0].pos = Vector4(-0.5f, 0.5f, 0.0f, 1.0f);
 		vertexes[0].color = Vector4(0.f, 1.f, 0.f, 1.f);
@@ -183,6 +190,12 @@ namespace shr::renderer
 			, fadeInShader->GetVSBlobBufferSize()
 			, fadeInShader->GetInputLayoutAddressOf());
 
+		std::shared_ptr<Shader> particleShader = Resources::Find<Shader>(L"ParticleShader");
+		GetDevice()->CreateInputLayout(arrLayoutDesc, 3
+			, particleShader->GetVSBlobBufferPointer()
+			, particleShader->GetVSBlobBufferSize()
+			, particleShader->GetInputLayoutAddressOf());
+
 #pragma endregion
 #pragma region sampler state
 		D3D11_SAMPLER_DESC samplerDesc = {};
@@ -340,6 +353,9 @@ namespace shr::renderer
 		constantBuffers[(UINT)eCBType::FadeIn] = new ConstantBuffer(eCBType::FadeIn);
 		constantBuffers[(UINT)eCBType::FadeIn]->Create(sizeof(FadeInCB));
 
+		constantBuffers[(UINT)eCBType::ParticleSystem] = new ConstantBuffer(eCBType::ParticleSystem);
+		constantBuffers[(UINT)eCBType::ParticleSystem]->Create(sizeof(ParticleSystemCB));
+
 		//Structed buffer
 		lightsBuffer = new StructedBuffer();
 		lightsBuffer->Create(sizeof(LightAttribute), 128, eSRVType::None, nullptr);
@@ -402,10 +418,19 @@ namespace shr::renderer
 		paintShader->Create(L"PaintCS.hlsl", "main");
 		Resources::Insert<PaintShader>(L"PaintShader", paintShader);
 
-		// NoiseShader
-		std::shared_ptr<NoiseShader> noiseShader = std::make_shared<NoiseShader>();
-		noiseShader->Create(L"NoiseCS.hlsl", "main");
-		Resources::Insert<NoiseShader>(L"NoiseShader", noiseShader);
+		//// NoiseShader
+		//std::shared_ptr<NoiseShader> noiseShader = std::make_shared<NoiseShader>();
+		//noiseShader->Create(L"NoiseCS.hlsl", "main");
+		//Resources::Insert<NoiseShader>(L"NoiseShader", noiseShader);
+
+		//ParticleShader
+		std::shared_ptr<Shader> particleShader = std::make_shared<Shader>();
+		particleShader->Create(eShaderStage::VS, L"ParticleVS.hlsl", "main");
+		particleShader->Create(eShaderStage::PS, L"ParticlePS.hlsl", "main");
+		particleShader->SetRSState(eRSType::SolidNone);
+		particleShader->SetDSState(eDSType::NoWrite);
+		particleShader->SetBSState(eBSType::AlphaBlend);
+		Resources::Insert<Shader>(L"ParticleShader", particleShader);
 	}
 
 	void LoadTexture()
@@ -422,11 +447,11 @@ namespace shr::renderer
 			| D3D11_BIND_UNORDERED_ACCESS);
 		Resources::Insert<Texture>(L"PaintTexture", uavTexture);
 
-		//Create 
-		std::shared_ptr<Texture> noiseTexture = std::make_shared<Texture>();
-		noiseTexture->Create(1024, 1024, DXGI_FORMAT_R8G8B8A8_UNORM, D3D11_BIND_SHADER_RESOURCE
-			| D3D11_BIND_UNORDERED_ACCESS);
-		Resources::Insert<Texture>(L"NoiseTexture", noiseTexture);
+		////Create 
+		//std::shared_ptr<Texture> noiseTexture = std::make_shared<Texture>();
+		//noiseTexture->Create(1024, 1024, DXGI_FORMAT_R8G8B8A8_UNORM, D3D11_BIND_SHADER_RESOURCE
+		//	| D3D11_BIND_UNORDERED_ACCESS);
+		//Resources::Insert<Texture>(L"NoiseTexture", noiseTexture);
 	}
 
 	void LoadMaterial()
@@ -480,6 +505,13 @@ namespace shr::renderer
 		fadeInMaterial->SetShader(fadeInShader);
 		fadeInMaterial->SetTexture(fadeInTexture);
 		Resources::Insert<Material>(L"FadeInMaterial", fadeInMaterial);
+
+		//Particle
+		std::shared_ptr<Shader> particleShader = Resources::Find<Shader>(L"ParticleShader");
+		std::shared_ptr<Material> particleMaterial = std::make_shared<Material>();
+		particleMaterial->SetRenderingMode(eRenderingMode::Transparent);
+		particleMaterial->SetShader(particleShader);
+		Resources::Insert<Material>(L"ParticleMaterial", particleMaterial);
 	}
 
 	void Initialize()
@@ -528,16 +560,16 @@ namespace shr::renderer
 
 	void BindLights()
 	{
-		lightsBuffer->Bind(lights.data(), lights.size());
-		lightsBuffer->SetPipeline(eShaderStage::VS, 13);
-		lightsBuffer->SetPipeline(eShaderStage::PS, 13);
+		lightsBuffer->SetData(lights.data(), lights.size());
+		lightsBuffer->Bind(eShaderStage::VS, 13);
+		lightsBuffer->Bind(eShaderStage::PS, 13);
 
 		renderer::LightCB trCb = {};
 		trCb.numberOfLight = lights.size();
 
 		ConstantBuffer* cb = renderer::constantBuffers[(UINT)eCBType::Light];
-		cb->Bind(&trCb);
-		cb->SetPipline(eShaderStage::VS);
-		cb->SetPipline(eShaderStage::PS);
+		cb->SetData(&trCb);
+		cb->Bind(eShaderStage::VS);
+		cb->Bind(eShaderStage::PS);
 	}
 }

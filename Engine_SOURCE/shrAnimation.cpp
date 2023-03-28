@@ -139,8 +139,8 @@ namespace shr
 		info.spriteSize = mSpriteSheet[mIndex].spriteSize;
 		info.atlasSize = mSpriteSheet[mIndex].atlasSize;
 
-		cb->Bind(&info);
-		cb->SetPipline(eShaderStage::PS);
+		cb->SetData(&info);
+		cb->Bind(eShaderStage::PS);
 	}
 
 	void Animation::Reset()
@@ -158,7 +158,7 @@ namespace shr
 		renderer::AnimationCB info = {};
 		info.type = (UINT)eAnimationType::None;
 
-		cb->Bind(&info);
-		cb->SetPipline(eShaderStage::PS);
+		cb->SetData(&info);
+		cb->Bind(eShaderStage::PS);
 	}
 }

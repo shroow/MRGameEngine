@@ -23,9 +23,9 @@ namespace shr
 	void MeshRenderer::Render()
 	{
 		GetOwner()->GetComponent<Transform>()->SetConstantBuffer();
-
-		GetMaterial()->Bind();
+			
 		GetMesh()->BindBuffer();
+		GetMaterial()->Bind();
 
 		GetMesh()->Render();
 

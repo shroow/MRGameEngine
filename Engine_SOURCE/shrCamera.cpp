@@ -187,6 +187,8 @@ namespace shr
 			return;
 
 		std::shared_ptr<Material> material = renderer->GetMaterial();
+
+		std::wstring DebugName = gameObj->GetName();
 		eRenderingMode mode = material->GetRenderingMode();
 
 		switch (mode)

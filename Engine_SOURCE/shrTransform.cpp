@@ -70,7 +70,6 @@ namespace shr
 
 	void Transform::SetConstantBuffer()
 	{
-
 		//ConstantBuffer* cb = renderer::constantBuffers[(UINT)eCBType::Transform];
 		//
 		//Vector4 pos(mPosition.x, mPosition.y, mPosition.z, 0.0f);
@@ -81,8 +80,7 @@ namespace shr
 		trCb.projection = Camera::GetGPUProjectionMatrix();
 
 		ConstantBuffer* cb = renderer::constantBuffers[(UINT)eCBType::Transform];
-		cb->Bind(&trCb);
-
-		cb->SetPipline(eShaderStage::VS);
+		cb->SetData(&trCb);
+		cb->Bind(eShaderStage::VS);
 	}
 }

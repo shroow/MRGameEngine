@@ -77,9 +77,9 @@ namespace shr
 		renderer::FadeInCB data;
 		data.fAlpha = mAlpha;
 
-		cb->Bind(&data);
-		cb->SetPipline(eShaderStage::VS);
-		cb->SetPipline(eShaderStage::PS);
+		cb->SetData(&data);
+		cb->Bind(eShaderStage::VS);
+		cb->Bind(eShaderStage::PS);
 	}
 
 	void FadeInScript::FixedUpdate()

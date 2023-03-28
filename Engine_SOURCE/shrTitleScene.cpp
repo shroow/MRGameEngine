@@ -19,6 +19,7 @@
 #include "shrLight.h"
 #include "shrPaintShader.h"
 #include "shrMonsterScript.h"
+#include "shrParticleSystem.h"
 
 namespace shr
 {
@@ -55,6 +56,14 @@ namespace shr
 			lightComp->SetDiffuse(Vector4(1.0f, 0.0f, 0.0f, 1.0f));
 		}
 
+		//Particle
+		{
+			Player* obj = object::Instantiate<Player>(eLayerType::Particle);
+			obj->SetName(L"PARTICLE");
+			Transform* tr = obj->GetComponent<Transform>();
+			tr->SetPosition(Vector3(0.0f, 0.0f, 100.0f));
+			obj->AddComponent<ParticleSystem>();
+		}
 
 		//GameObject* cameraObj = object::Instantiate<GameObject>(eLayerType::Camera, this);
 		//Camera* cameraComp = cameraObj->AddComponent<Camera>();
@@ -71,8 +80,6 @@ namespace shr
 		//cameraObj->AddComponent<CameraScript>();
 		//mainCamera = cameraComp;
 
-		//renderer::cameras[0] = cameraComp;
-
 		// UI Camera
 		//GameObject* cameraUIObj = object::Instantiate<GameObject>(eLayerType::Camera);
 		//Camera* cameraUIComp = cameraUIObj->AddComponent<Camera>();
@@ -87,25 +94,6 @@ namespace shr
 		//gridMr->SetMaterial(Resources::Find<Material>(L"GridMaterial"));
 		//GridScript* gridScript = gridObject->AddComponent<GridScript>();
 		//gridScript->SetCamera(cameraComp);
-
-
-
-
-		// Light Object
-		//GameObject* spriteObj = object::Instantiate<GameObject>(eLayerType::Player);
-		//spriteObj->SetName(L"LIGHT");
-		//Transform* spriteTr = spriteObj->GetComponent<Transform>();
-		//spriteTr->SetPosition(Vector3(0.0f, 0.0f, 10.0f));
-		//spriteTr->SetScale(Vector3(1.0f, 1.0f, 1.0f));
-
-		//SpriteRenderer* sr = spriteObj->AddComponent<SpriteRenderer>();
-		//std::shared_ptr<Mesh> mesh = Resources::Find<Mesh>(L"RectMesh");
-		//std::shared_ptr<Material> spriteMaterial = Resources::Find<Material>(L"SpriteMaterial");
-		//sr->SetMaterial(spriteMaterial);
-		//sr->SetMesh(mesh);
-
-
-
 
 		//SMILE RECT
 		{

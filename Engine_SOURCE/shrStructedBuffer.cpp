@@ -54,7 +54,7 @@ namespace shr::graphics
 		return true;
 	}
 
-	void StructedBuffer::Bind(void* data, UINT bufferCount)
+	void StructedBuffer::SetData(void* data, UINT bufferCount)
 	{
 		if (mStride < bufferCount)
 		{
@@ -66,7 +66,7 @@ namespace shr::graphics
 		}
 	}
 
-	void StructedBuffer::SetPipeline(eShaderStage stage, UINT slot)
+	void StructedBuffer::Bind(eShaderStage stage, UINT slot)
 	{
 		GetDevice()->BindShaderResource(stage, slot, mSRV.GetAddressOf());
 	}

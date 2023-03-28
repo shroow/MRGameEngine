@@ -18,7 +18,7 @@ namespace shr
 
 	Shader::~Shader()
 	{
-
+		std::wstring DebugName = this->GetName();
 	}
 
 	HRESULT Shader::Load(const std::wstring& path)

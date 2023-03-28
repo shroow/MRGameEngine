@@ -30,14 +30,14 @@ namespace shr::graphics
 		return true;
 	}
 
-	void ConstantBuffer::Bind(void* data)
+	void ConstantBuffer::SetData(void* data)
 	{
 		//ConstantBuffer->Create를 안해주면 
 		//D3D11_MAPPED_SUBRESOURCE memcpy 시 에러
 		GetDevice()->BindBuffer(buffer.Get(), data, desc.ByteWidth);
 	}
 
-	void ConstantBuffer::SetPipline(eShaderStage stage)
+	void ConstantBuffer::Bind(eShaderStage stage)
 	{
 		GetDevice()->BindConstantBuffer(stage, mType, buffer.Get());
 	}

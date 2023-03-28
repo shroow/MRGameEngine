@@ -17,7 +17,7 @@
 #define CBSLOT_ANIMATION 3
 #define CBSLOT_NUMBEROFLIGHT 4
 #define CBSLOT_FADEIN 5
-
+#define CBSLOT_PARTICLESYSTEM 6
 using namespace shr::math;
 namespace shr::graphics
 {
@@ -105,6 +105,7 @@ namespace shr::graphics
 		Animation,
 		Light,
 		FadeIn,
+		ParticleSystem,
 		End,
 	};
 
@@ -148,5 +149,16 @@ namespace shr::graphics
 		float radius;
 		float angle;
 		int padding;
+	};
+
+	struct Particle
+	{
+		Vector4 position;
+		Vector4 direction;
+
+		float lifeTime;
+		float time;
+		float speed;
+		UINT active;
 	};
 }

@@ -53,7 +53,7 @@ namespace shr::graphics
 
 		void Draw();
 		void DrawIndexed(UINT indexCount, UINT StartIndexLocation, UINT BaseVertexLocation);
-
+		void DrawIndexedInstanced(UINT indexCountPerInstance, UINT InstanceCount, UINT StartIndexLocation, INT BaseVertexLocation, UINT StartInstanceLocation);
 		void Present();
 
 		ID3D11Device* GetID3D11Device() { return mDevice.Get(); }

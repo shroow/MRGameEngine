@@ -44,7 +44,7 @@
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
-    <EnableUnitySupport>false</EnableUnitySupport>
+    <EnableUnitySupport>true</EnableUnitySupport>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
@@ -194,6 +194,7 @@
     <ClInclude Include="shrNoiseShader.h" />
     <ClInclude Include="shrObject.h" />
     <ClInclude Include="shrPaintShader.h" />
+    <ClInclude Include="shrParticleSystem.h" />
     <ClInclude Include="shrPlayer.h" />
     <ClInclude Include="shrPlayerScript.h" />
     <ClInclude Include="shrPlayScene.h" />
@@ -249,6 +250,7 @@
     <ClCompile Include="shrMultiShaderRenderer.cpp" />
     <ClCompile Include="shrNoiseShader.cpp" />
     <ClCompile Include="shrPaintShader.cpp" />
+    <ClCompile Include="shrParticleSystem.cpp" />
     <ClCompile Include="shrPlayer.cpp" />
     <ClCompile Include="shrPlayerScript.cpp" />
     <ClCompile Include="shrPlayScene.cpp" />

@@ -11,7 +11,7 @@ namespace shr::graphics
 
     Material::~Material()
     {
-
+        std::wstring DebugName = this->GetName();
     }
 
     HRESULT Material::Load(const std::wstring& path)
@@ -56,9 +56,9 @@ namespace shr::graphics
             mTexture->BindShader(eShaderStage::PS, 0);
 
         ConstantBuffer* pCB = renderer::constantBuffers[(UINT)eCBType::Material];
-        pCB->Bind(&mCB);
-        pCB->SetPipline(eShaderStage::VS);
-        pCB->SetPipline(eShaderStage::PS);
+        pCB->SetData(&mCB);
+        pCB->Bind(eShaderStage::VS);
+        pCB->Bind(eShaderStage::PS);
 
         mShader->Binds();
     }

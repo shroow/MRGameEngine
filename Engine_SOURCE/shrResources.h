@@ -51,6 +51,7 @@ namespace shr
 		template <typename T>
 		static void Insert(const std::wstring& key, std::shared_ptr<T> resource)
 		{
+			resource->SetName(key);
 			mResources.insert(std::make_pair(key, std::dynamic_pointer_cast<Resource>(resource)));
 		}
 

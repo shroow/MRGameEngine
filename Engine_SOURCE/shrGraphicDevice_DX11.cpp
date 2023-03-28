@@ -4,6 +4,7 @@
 #include "shrConstantBuffer.h"
 #include "shrMesh.h"
 #include "shrTexture.h"
+#include "shrResources.h"
 
 extern shr::Application application;
 
@@ -58,6 +59,7 @@ namespace shr::graphics
 			return;
 
 		mRenderTargetTexture = std::make_shared<Texture>();
+		//Resources::Insert<Texture>(L"RenderTarget", mRenderTargetTexture);
 		Microsoft::WRL::ComPtr<ID3D11Texture2D> renderTarget;
 		// Get rendertarget for swapchain
 		hr = mSwapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), (void**)renderTarget.GetAddressOf());
@@ -133,8 +135,6 @@ namespace shr::graphics
 	{
 		if (FAILED(mDevice->CreateTexture2D(desc, nullptr, ppTexture2D)))
 			return false;
-
-
 
 		return true;
 	}
@@ -438,6 +438,11 @@ namespace shr::graphics
 	void GraphicDevice_DX11::DrawIndexed(UINT indexCount, UINT StartIndexLocation, UINT BaseVertexLocation)
 	{
 		mContext->DrawIndexed(indexCount, StartIndexLocation, BaseVertexLocation);
+	}
+
+	void GraphicDevice_DX11::DrawIndexedInstanced(UINT indexCountPerInstance, UINT InstanceCount, UINT StartIndexLocation, INT BaseVertexLocation, UINT StartInstanceLocation)
+	{
+		mContext->DrawIndexedInstanced(indexCountPerInstance, InstanceCount, StartIndexLocation, BaseVertexLocation, StartInstanceLocation);
 	}
 
 	void GraphicDevice_DX11::Present()

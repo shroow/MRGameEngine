@@ -12,8 +12,8 @@ namespace shr::graphics
 		virtual ~ConstantBuffer();
 
 		bool Create(size_t size);
-		void Bind(void* data);
-		void SetPipline(eShaderStage stage);
+		void SetData(void* data); //Bind
+		void Bind(eShaderStage stage); //SetPipeline
 
 	private:
 		const eCBType mType;
