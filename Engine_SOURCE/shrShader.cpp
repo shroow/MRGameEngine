@@ -18,7 +18,6 @@ namespace shr
 
 	Shader::~Shader()
 	{
-		std::wstring DebugName = this->GetName();
 	}
 
 	HRESULT Shader::Load(const std::wstring& path)
@@ -44,11 +43,11 @@ namespace shr
 								, mVSBlob.GetAddressOf()
 								, mErrorBlob.GetAddressOf());
 			
-			if (mErrorBlob)
-			{
-				OutputDebugStringA((char*)mErrorBlob->GetBufferPointer());
-				mErrorBlob->Release();
-			}
+			//if (mErrorBlob)
+			//{
+			//	OutputDebugStringA((char*)mErrorBlob->GetBufferPointer());
+			//	mErrorBlob->Release();
+			//}
 
 			GetDevice()->CreateVertexShader(mVSBlob->GetBufferPointer()
 														, mVSBlob->GetBufferSize()
@@ -62,11 +61,11 @@ namespace shr
 				, mPSBlob.GetAddressOf()
 				, mErrorBlob.GetAddressOf());
 
-			if (mErrorBlob)
-			{
-				OutputDebugStringA((char*)mErrorBlob->GetBufferPointer());
-				mErrorBlob->Release();
-			}
+			//if (mErrorBlob)
+			//{
+			//	OutputDebugStringA((char*)mErrorBlob->GetBufferPointer());
+			//	mErrorBlob->Release();
+			//}
 
 			GetDevice()->CreatePixelShader(mPSBlob->GetBufferPointer()
 				, mPSBlob->GetBufferSize()
