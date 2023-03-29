@@ -57,3 +57,41 @@ void MoveObjectOnMouseDown(XMFLOAT2 mousePos, float screenWidth, float screenHei
 	worldMatrix._42 = mousePosWorld.y;
 	worldMatrix._43 = mousePosWorld.z;
 }
+
+D3DXVECTOR3 ScreenToWorld(D3DXVECTOR3 vScreenPos, D3DXMATRIX matView, D3DXMATRIX matProj, int nScreenWidth, int nScreenHeight)
+{
+	D3DXVECTOR4 v;
+	v.x = (((2.0f * vScreenPos.x) / nScreenWidth) - 1) / matProj._11;
+	v.y = -(((2.0f * vScreenPos.y) / nScreenHeight) - 1) / matProj._22;
+	v.z = 1.0f;
+	v.w = 1.0f;
+
+	D3DXMATRIX m;
+	D3DXMatrixInverse(&m, NULL, &matView);
+
+	D3DXVECTOR3 vWorldPos;
+	vWorldPos.x = v.x * m._11 + v.y * m._21 + v.z * m._31;
+	vWorldPos.y = v.x * m._12 + v.y * m._22 + v.z * m._32;
+	vWorldPos.z = v.x * m._13 + v.y * m._23 + v.z * m._33;
+
+	return vWorldPos;
+}
+
+void ScreenToWorld()
+{
+	// 마우스 위치를 스크린 좌표계에서 NDC 좌표계로 변환합니다.
+	float x = (2.0f * mouseX) / screenWidth - 1.0f;
+	float y = 1.0f - (2.0f * mouseY) / screenHeight;
+
+	// NDC 좌표계에서 카메라뷰 좌표계로 변환합니다.
+	XMMATRIX invViewProj = XMMatrixInverse(nullptr, viewProjMatrix);
+	XMVECTOR rayOrigin = XMVectorSet(x, y, 0.0f, 1.0f);
+	XMVECTOR rayDir = XMVectorSet(x, y, 1.0f, 1.0f);
+	rayOrigin = XMVector3TransformCoord(rayOrigin, invViewProj);
+	rayDir = XMVector3TransformNormal(rayDir, invViewProj);
+
+	// 카메라뷰 좌표계에서 월드 좌표계로 변환합니다.
+	XMMATRIX invWorld = XMMatrixInverse(nullptr, worldMatrix);
+	rayOrigin = XMVector3TransformCoord(rayOrigin, invWorld);
+	rayDir = XMVector3TransformNormal(rayDir, invWorld);
+}

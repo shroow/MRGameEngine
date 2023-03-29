@@ -145,6 +145,10 @@ namespace shr
 		float screenHeight = (float)winRect.bottom - (float)winRect.top;
 		float resolutionRatio = screenWidth / screenHeight;
 
+		Matrix view = renderer::mainCamera->GetViewMatrix();
+		Matrix proj = renderer::mainCamera->GetProjectionMatrix();
+		Matrix invViewProj = XMMatrixInverse(nullptr, view * proj);
+
 		//마우스 위치 뷰포트 크기로 정규화
 		float x = (mousePos.x / screenWidth) * 2.0f - 1.f;
 		float y = ((screenHeight - mousePos.y) / screenHeight) * 2.0f - 1.f;
@@ -154,15 +158,8 @@ namespace shr
 		mMouse.move.x = mMouse.pos.x - mousePos.x;
 		mMouse.move.y = mMouse.pos.y - mousePos.y;
 
-
-
-		Matrix view = renderer::mainCamera->GetViewMatrix();
-		Matrix proj = renderer::mainCamera->GetProjectionMatrix();
-
-		Matrix invViewProj = XMMatrixInverse(nullptr, view * proj);
-
 		// Transform the mouse position from NDC space to world space
-		XMVECTOR mouseTr = XMVectorSet(x, y, 0.f, 1.f);
+		XMVECTOR mouseTr = XMVectorSet(x, y, 1.f, 0.f);
 		mouseTr = XMVector3TransformCoord(mouseTr, invViewProj);
 
 		float x1 = XMVectorGetX(mouseTr);
@@ -170,27 +167,14 @@ namespace shr
 		float z1 = XMVectorGetZ(mouseTr);
 		float w1 = XMVectorGetW(mouseTr);
 
+		std::wstring message;
+		message = message + L"X:" + std::to_wstring(x1) + L", Y:" + std::to_wstring(y1)
+			+ L", Z:" + std::to_wstring(z1) + L", W:" + std::to_wstring(w1) + L"\n";
+		OutputDebugString(message.c_str());
+
+
 		// Extract the position of the mouse in world space
 		mMouse.worldPos.x = XMVectorGetX(mouseTr);
 		mMouse.worldPos.y = XMVectorGetY(mouseTr);
-
-
-		//Matrix invView = XMMatrixInverse(nullptr, view);
-		//Matrix invProj = XMMatrixInverse(nullptr, proj);
-
-		//Matrix mouseProj = {};
-		//mouseProj._11 = 1.f;
-		//mouseProj._22 = 1.f;
-		//mouseProj._33 = 1.f;
-		//mouseProj._44 = 1.f;
-		//mouseProj._41 = x;
-		//mouseProj._42 = y;
-		//mouseProj._43 = 1.f;
-
-		//Matrix mouseView = mouseProj * invProj;
-		//Matrix mouseWorld = mouseView * invView;
-
-		//mMouse.worldPos.x = mouseWorld._11;
-		//mMouse.worldPos.y = mouseWorld._22;
 	}
 }

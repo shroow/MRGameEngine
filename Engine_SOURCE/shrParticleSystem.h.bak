@@ -20,7 +20,7 @@ namespace shr
 
         UINT mCount;
         Vector4 mStartSize;
-        Vector4 mEndSize;
+        Vector4 mEndtSize;
         Vector4 mStartColor;
         Vector4 mEndColor;
         float mLifeTime;

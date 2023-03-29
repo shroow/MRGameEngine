@@ -11,7 +11,6 @@ namespace shr::graphics
 
     Material::~Material()
     {
-        std::wstring DebugName = this->GetName();
     }
 
     HRESULT Material::Load(const std::wstring& path)

@@ -16,8 +16,6 @@ namespace shr
 		virtual void Render();
 
 	private:
-		//GameObject* head;
-		//GameObject* body;
     };
 }
 

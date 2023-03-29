@@ -17,7 +17,7 @@ namespace shr
 
 		void SetConstantBuffer();
 
-		void SetParent(Transform* parent) { mParent = parent; }
+		void SetParent(Transform* tr) { mParent = tr; }
 		Transform* GetParent() { return mParent; }
 
 		Vector3 GetPosition() { return mPosition; };

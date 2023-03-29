@@ -4,6 +4,20 @@
 
 namespace shr
 {
+	// z값 정렬 작성중
+	//static bool CompareGameObjectByZAxis(GameObject* a, GameObject* b)
+	//{
+	//	Transform* aTr = a->GetComponent<Transform>();
+	//	Transform* bTr = b->GetComponent<Transform>();
+
+	//	if (aTr->GetPosition().z <= bTr->GetPosition().z)
+	//	{
+	//		return true;
+	//	}
+
+	//	return false;
+	//}
+	
 	Layer::Layer()
 	{
 	}
@@ -55,6 +69,10 @@ namespace shr
 
 			obj->FixedUpdate();
 		}
+
+		// sort z axis
+		//std::vector<GameObject*> mGameObjects;
+		//std::sort(mGameObjects.begin(), mGameObjects.end(), CompareGameObjectByZAxis);
 	}
 
 	void Layer::Render()
@@ -115,7 +133,7 @@ namespace shr
 			; iter != mGameObjectVec.end()
 			;)
 		{
-			if ((*iter)->IsDontDestroy())
+			if ((*iter)->IsDontDestroy() == true)
 			{
 				donts.push_back((*iter));
 				iter = mGameObjectVec.erase(iter);
