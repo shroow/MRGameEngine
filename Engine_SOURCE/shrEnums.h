@@ -63,6 +63,7 @@ namespace shr::enums
 	{
 		None,
 		Point,
+		Line,
 		Rect,
 		Circle,
 		Box,

@@ -60,23 +60,38 @@ namespace shr
 			Light* lightComp = directionalLight->AddComponent<Light>();
 			lightComp->SetType(eLightType::Directional);
 			lightComp->SetDiffuse(Vector4(1.0f, 1.0f, 1.0f, 1.0f));
+			object::DontDestroyOnLoad(directionalLight);
 		}
 
 		//Mouse
 		{
 			GameObject* obj = object::Instantiate<GameObject>(eLayerType::Mouse);
 			obj->AddComponent<MouseScript>();
+			object::DontDestroyOnLoad(obj);
 		}
 
-		//Biker1
+		//Line
+		{
+			GameObject* line = object::Instantiate<Player>(eLayerType::Monster);
+			line->SetName(L"CenterLine");
+			Transform* tr = line->GetComponent<Transform>();
+			tr->SetPosition(Vector3(1.0f, 0.0f, 5.0f));
+			tr->SetRotation(Vector3(0.0f, 0.0f, XM_PIDIV2 + 0.2f));
+			Collider2D* collider = line->AddComponent<Collider2D>();
+			collider->SetType(eColliderType::Line);
+			//±×¸®µå ÇÑÄ­ 4.f
+			collider->SetRadius(20.f);
+		}
+
+		//Knight1
 		{
 			Player* obj = object::Instantiate<Player>(eLayerType::Monster);
 			obj->SetName(L"FreeKnightv1c1");
 			Transform* tr = obj->GetComponent<Transform>();
-			tr->SetPosition(Vector3(-2.0f, 0.0f, 5.0f));
+			tr->SetPosition(Vector3(-3.0f, -0.5f, 5.0f));
 			//tr->SetRotation(Vector3(0.0f, 0.0f, XM_PIDIV2));
 			//tr->SetScale(Vector3(1.5f, 1.0f, 1.0f));
-			tr->SetScale(Vector3(1.0f, 1.0f, 1.0f));
+			tr->SetScale(Vector3(2.0f, 2.0f, 1.0f));
 			Collider2D* collider = obj->AddComponent<Collider2D>();
 			collider->SetType(eColliderType::Rect);
 			//collider->SetCenter(Vector2(0.2f, 0.2f));
@@ -87,16 +102,39 @@ namespace shr
 				GameObject* hpBar = object::Instantiate<GameObject>(eLayerType::Monster);
 				hpBar->SetName(L"HPBAR");
 				Transform* hpBarTR = hpBar->GetComponent<Transform>();
-				hpBarTR->SetPosition(Vector3(0.0f, -1.0f, 2.0f));
-				hpBarTR->SetScale(Vector3(1.0f, 1.0f, 1.0f));
+				hpBarTR->SetPosition(Vector3(0.0f, -0.65f, 2.0f));
+				hpBarTR->SetScale(Vector3(1.0f, 0.2f, 1.0f));
 				hpBarTR->SetParent(tr);
 
 				SpriteRenderer* hpsr = hpBar->AddComponent<SpriteRenderer>();
 				hpBar->AddComponent(hpsr);
 				std::shared_ptr<Mesh> hpmesh = Resources::Find<Mesh>(L"RectMesh");
-				std::shared_ptr<Material> hpspriteMaterial = Resources::Find<Material>(L"UIMaterial");
+				std::shared_ptr<Material> hpspriteMaterial = std::make_shared<Material>();
+				std::shared_ptr<Texture> hpTex = Resources::Find<Texture>(L"RedBarTexture");
+				std::shared_ptr<Shader> hpShader = Resources::Find<Shader>(L"UIShader");
+				hpspriteMaterial->SetTexture(hpTex);
+				hpspriteMaterial->SetShader(hpShader);
 				hpsr->SetMesh(hpmesh);
 				hpsr->SetMaterial(hpspriteMaterial);
+
+				// MPBAR
+				GameObject* mpBar = object::Instantiate<GameObject>(eLayerType::Monster);
+				mpBar->SetName(L"MPBAR");
+				Transform* mpBarTR = mpBar->GetComponent<Transform>();
+				mpBarTR->SetPosition(Vector3(0.0f, -0.8f, 2.0f));
+				mpBarTR->SetScale(Vector3(1.0f, 0.2f, 1.0f));
+				mpBarTR->SetParent(tr);
+
+				SpriteRenderer* mpSR = mpBar->AddComponent<SpriteRenderer>();
+				mpBar->AddComponent(mpSR);
+				std::shared_ptr<Mesh> mpMesh = Resources::Find<Mesh>(L"RectMesh");
+				std::shared_ptr<Material> mpSpriteMaterial = std::make_shared<Material>();;
+				std::shared_ptr<Texture> mpTex = Resources::Find<Texture>(L"BlueBarTexture");
+				std::shared_ptr<Shader> mpShader = Resources::Find<Shader>(L"UIShader");
+				mpSpriteMaterial->SetTexture(mpTex);
+				mpSpriteMaterial->SetShader(mpShader);
+				mpSR->SetMesh(mpMesh);
+				mpSR->SetMaterial(mpSpriteMaterial);
 			}
 
 
@@ -140,10 +178,10 @@ namespace shr
 			GameObject* obj = object::Instantiate<Player>(eLayerType::Monster);
 			obj->SetName(L"BallandChainBot");
 			Transform* tr = obj->GetComponent<Transform>();
-			tr->SetPosition(Vector3(2.0f, 0.0f, 5.0f));
+			tr->SetPosition(Vector3(3.0f, -0.5f, 5.0f));
 			//tr->SetRotation(Vector3(0.0f, 0.0f, XM_PIDIV2));
 			//tr->SetScale(Vector3(3.5f, 1.0f, 1.0f));
-			tr->SetScale(Vector3(1.0f, 1.0f, 1.0f));
+			tr->SetScale(Vector3(2.0f, 2.0f, 1.0f));
 			Collider2D* collider = obj->AddComponent<Collider2D>();
 			collider->SetType(eColliderType::Rect);
 			//collider->SetCenter(Vector2(0.2f, 0.2f));
@@ -151,19 +189,43 @@ namespace shr
 			
 			// HPBAR
 			{
+				// HPBAR
 				GameObject* hpBar = object::Instantiate<GameObject>(eLayerType::Monster);
 				hpBar->SetName(L"HPBAR");
 				Transform* hpBarTR = hpBar->GetComponent<Transform>();
-				hpBarTR->SetPosition(Vector3(0.0f, -1.0f, 2.0f));
-				hpBarTR->SetScale(Vector3(1.0f, 1.0f, 1.0f));
+				hpBarTR->SetPosition(Vector3(0.0f, -0.65f, 2.0f));
+				hpBarTR->SetScale(Vector3(1.0f, 0.2f, 1.0f));
 				hpBarTR->SetParent(tr);
 
 				SpriteRenderer* hpsr = hpBar->AddComponent<SpriteRenderer>();
 				hpBar->AddComponent(hpsr);
 				std::shared_ptr<Mesh> hpmesh = Resources::Find<Mesh>(L"RectMesh");
-				std::shared_ptr<Material> hpspriteMaterial = Resources::Find<Material>(L"UIMaterial");
+				std::shared_ptr<Material> hpspriteMaterial = std::make_shared<Material>();
+				std::shared_ptr<Texture> hpTex = Resources::Find<Texture>(L"RedBarTexture");
+				std::shared_ptr<Shader> hpShader = Resources::Find<Shader>(L"UIShader");
+				hpspriteMaterial->SetTexture(hpTex);
+				hpspriteMaterial->SetShader(hpShader);
 				hpsr->SetMesh(hpmesh);
 				hpsr->SetMaterial(hpspriteMaterial);
+
+				// MPBAR
+				GameObject* mpBar = object::Instantiate<GameObject>(eLayerType::Monster);
+				mpBar->SetName(L"MPBAR");
+				Transform* mpBarTR = mpBar->GetComponent<Transform>();
+				mpBarTR->SetPosition(Vector3(0.0f, -0.8f, 2.0f));
+				mpBarTR->SetScale(Vector3(1.0f, 0.2f, 1.0f));
+				mpBarTR->SetParent(tr);
+
+				SpriteRenderer* mpSR = mpBar->AddComponent<SpriteRenderer>();
+				mpBar->AddComponent(mpSR);
+				std::shared_ptr<Mesh> mpMesh = Resources::Find<Mesh>(L"RectMesh");
+				std::shared_ptr<Material> mpSpriteMaterial = std::make_shared<Material>();;
+				std::shared_ptr<Texture> mpTex = Resources::Find<Texture>(L"BlueBarTexture");
+				std::shared_ptr<Shader> mpShader = Resources::Find<Shader>(L"UIShader");
+				mpSpriteMaterial->SetTexture(mpTex);
+				mpSpriteMaterial->SetShader(mpShader);
+				mpSR->SetMesh(mpMesh);
+				mpSR->SetMaterial(mpSpriteMaterial);
 			}
 
 			SpriteRenderer* mr = obj->AddComponent<SpriteRenderer>();

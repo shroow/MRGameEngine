@@ -153,24 +153,26 @@ namespace shr
 		float x = (mousePos.x / screenWidth) * 2.0f - 1.f;
 		float y = ((screenHeight - mousePos.y) / screenHeight) * 2.0f - 1.f;
 
-		mMouse.pos.x = (float)mousePos.x;
-		mMouse.pos.y = (float)mousePos.y;
 		mMouse.move.x = mMouse.pos.x - mousePos.x;
 		mMouse.move.y = mMouse.pos.y - mousePos.y;
+		mMouse.pos.x = (float)mousePos.x;
+		mMouse.pos.y = (float)mousePos.y;
 
 		// Transform the mouse position from NDC space to world space
 		XMVECTOR mouseTr = XMVectorSet(x, y, 1.f, 0.f);
 		mouseTr = XMVector3TransformCoord(mouseTr, invViewProj);
 
-		float x1 = XMVectorGetX(mouseTr);
-		float y1 = XMVectorGetY(mouseTr);
-		float z1 = XMVectorGetZ(mouseTr);
-		float w1 = XMVectorGetW(mouseTr);
+		{
+			//float x1 = XMVectorGetX(mouseTr);
+			//float y1 = XMVectorGetY(mouseTr);
+			//float z1 = XMVectorGetZ(mouseTr);
+			//float w1 = XMVectorGetW(mouseTr);
 
-		std::wstring message;
-		message = message + L"X:" + std::to_wstring(x1) + L", Y:" + std::to_wstring(y1)
-			+ L", Z:" + std::to_wstring(z1) + L", W:" + std::to_wstring(w1) + L"\n";
-		OutputDebugString(message.c_str());
+			//std::wstring message;
+			//message = message + L"X:" + std::to_wstring(x1) + L", Y:" + std::to_wstring(y1)
+			//	+ L", Z:" + std::to_wstring(z1) + L", W:" + std::to_wstring(w1) + L"\n";
+			//OutputDebugString(message.c_str());
+		}
 
 
 		// Extract the position of the mouse in world space

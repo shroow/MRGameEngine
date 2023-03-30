@@ -37,6 +37,7 @@ namespace shr
 		Vector2 GetCenter() { return mCenter; }
 		UINT GetID() { return mID; }
 		Vector3 GetPosition() { return mPosition; }
+		Vector3 GetRotation() { return mRotation; }
 		float GetRadius() { return mRadius; }
 
 		virtual void OnMouseCollisionEnter();
@@ -53,6 +54,7 @@ namespace shr
 		Vector2 mSize;
 		Vector2 mCenter;
 		Vector3 mPosition;
+		Vector3 mRotation;
 		float mRadius;
 		bool mbTrigger;
 	};

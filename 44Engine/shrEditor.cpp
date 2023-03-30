@@ -36,6 +36,15 @@ namespace shr
 		renderer->SetMaterial(material);
 		renderer->SetMesh(circleMesh);
 
+		std::shared_ptr<Mesh> lineMesh = Resources::Find<Mesh>(L"LineMesh");
+
+		mDebugObjectVec[(UINT)eColliderType::Line] = new DebugObject();
+		renderer
+			= mDebugObjectVec[(UINT)eColliderType::Line]->AddComponent<MeshRenderer>();
+
+		renderer->SetMaterial(material);
+		renderer->SetMesh(lineMesh);
+
 		// Grid Object Editor Object로 옮겨준다
 		{
 			EditorObject* gridObject = new EditorObject();
@@ -102,6 +111,7 @@ namespace shr
 
 		delete mDebugObjectVec[(UINT)eColliderType::Rect];
 		delete mDebugObjectVec[(UINT)eColliderType::Circle];
+		delete mDebugObjectVec[(UINT)eColliderType::Line];
 	}
 
 	void Editor::DebugRender(graphics::DebugMesh& mesh)

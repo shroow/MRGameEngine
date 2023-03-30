@@ -44,7 +44,7 @@ namespace shr
 		Vector3 scale = mTransform->GetScale();
 		scale *= Vector3(mSize.x, mSize.y, 1.0f);
 
-		Vector3 rotation = mTransform->GetRotation();
+		mRotation = mTransform->GetRotation();
 
 		Vector3 position = mTransform->GetPosition();
 		Vector3 colliderPos = position + Vector3(mCenter.x, mCenter.y, 0.0f);
@@ -52,9 +52,9 @@ namespace shr
 
 		Matrix scaleMatrix = Matrix::CreateScale(scale);
 		Matrix rotationMatrix;
-		rotationMatrix = Matrix::CreateRotationX(rotation.x);
-		rotationMatrix *= Matrix::CreateRotationY(rotation.y);
-		rotationMatrix *= Matrix::CreateRotationZ(rotation.z);
+		rotationMatrix = Matrix::CreateRotationX(mRotation.x);
+		rotationMatrix *= Matrix::CreateRotationY(mRotation.y);
+		rotationMatrix *= Matrix::CreateRotationZ(mRotation.z);
 
 		Matrix positionMatrix;
 		positionMatrix.Translation(Vector3(colliderPos.x, colliderPos.y, colliderPos.z));
@@ -64,7 +64,7 @@ namespace shr
 		DebugMesh meshAttribute = {};
 		meshAttribute.position = Vector3(colliderPos.x, colliderPos.y, colliderPos.z);
 		meshAttribute.radius = mRadius;	
-		meshAttribute.rotatation = rotation;
+		meshAttribute.rotatation = mRotation;
 		meshAttribute.scale = scale;
 		meshAttribute.type = mType;
 

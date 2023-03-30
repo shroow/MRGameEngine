@@ -30,6 +30,22 @@ namespace shr::renderer
 		pointMesh->CreateVertexBuffer(&v, 1);
 		UINT pointIndex = 0;
 		pointMesh->CreateIndexBuffer(&pointIndex, 1);
+		//Debug Line
+		Vertex v2[2] = {};
+		v2[0].pos = Vector4(0.0f, 0.0f, -0.00001f, 1.0f);
+		v2[0].color = Vector4(0.f, 1.f, 0.f, 1.f);
+		v2[0].uv = Vector2(0.f, 0.f);
+
+		v2[1].pos = Vector4(0.5f, 0.0f, -0.00001f, 1.0f);
+		v2[1].color = Vector4(1.f, 1.f, 1.f, 1.f);
+		v2[1].uv = Vector2(1.0f, 0.0f);
+
+		std::shared_ptr<Mesh> lineMesh = std::make_shared<Mesh>();
+		Resources::Insert<Mesh>(L"LineMesh", lineMesh);
+		lineMesh->CreateVertexBuffer(v2, 2);
+		UINT lineIndexes[2] = { 0, 1 };
+		lineMesh->CreateIndexBuffer(lineIndexes, 2);
+
 		//RECT
 		vertexes[0].pos = Vector4(-0.5f, 0.5f, 0.0f, 1.0f);
 		vertexes[0].color = Vector4(0.f, 1.f, 0.f, 1.f);
@@ -438,8 +454,11 @@ namespace shr::renderer
 		Resources::Load<Texture>(L"SmileTexture", L"Smile.png");
 		Resources::Load<Texture>(L"DefaultSprite", L"Light.png");
 		Resources::Load<Texture>(L"HPBarTexture", L"HPBar.png");
+
 		Resources::Load<Texture>(L"Noise1Texture", L"noise1.png");
 		Resources::Load<Texture>(L"Noise2Texture", L"noise2.jpg");
+		Resources::Load<Texture>(L"RedBarTexture", L"UnitUI\\RedBar.png");
+		Resources::Load<Texture>(L"BlueBarTexture", L"UnitUI\\BlueBar.png");
 
 		//Create
 		std::shared_ptr<Texture> uavTexture = std::make_shared<Texture>();

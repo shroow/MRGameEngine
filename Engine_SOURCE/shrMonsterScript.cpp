@@ -61,7 +61,16 @@ namespace shr
 				mbSelected = false;
 		}
 
-		if (mbSelected)
+		if (mbSelected && mbCursorOn)
+		{
+			if (Input::GetMouseLeftPressed())
+			{
+				Vector2 mousePos = Input::GetMouseWorldPos();
+				pos.x = mousePos.x;
+				pos.y = mousePos.y;
+			}
+		}
+		else if (mbSelected)
 		{
 			if(Input::GetMouseRightDown() || Input::GetMouseRightPressed())
 			{
@@ -70,19 +79,18 @@ namespace shr
 			}
 		}
 
-		if (Input::GetMouseLeftPressed())
-		{
-			Vector2 mousePos = Input::GetMouseWorldPos();
-			Vector2 dir;
-			dir.x = mousePos.x - pos.x;
-			dir.y = mousePos.y - pos.y;
-			float length = sqrt(dir.x * dir.x + dir.y * dir.y);
-			dir.x /= length;
-			dir.y /= length;
-
-			pos.x += dir.x * mStatus.moveSpeed * Time::DeltaTime();
-			pos.y += dir.y * mStatus.moveSpeed * Time::DeltaTime();
-		}
+		//if (Input::GetMouseLeftPressed())
+		//{
+		//	Vector2 mousePos = Input::GetMouseWorldPos();
+		//	Vector2 dir;
+		//	dir.x = mousePos.x - pos.x;
+		//	dir.y = mousePos.y - pos.y;
+		//	float length = sqrt(dir.x * dir.x + dir.y * dir.y);
+		//	dir.x /= length;
+		//	dir.y /= length;
+		//	pos.x += dir.x * mStatus.moveSpeed * Time::DeltaTime();
+		//	pos.y += dir.y * mStatus.moveSpeed * Time::DeltaTime();
+		//}
 
 		if (mbStartMove)
 		{

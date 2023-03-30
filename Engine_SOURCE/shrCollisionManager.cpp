@@ -283,6 +283,71 @@ namespace shr
 
 			//return true;
 		}
+		else if (leftType == eColliderType::Line && rightType == eColliderType::Rect)
+		{
+			Vector3 linePos = left->GetPosition(); 
+			Vector3 lineRPos = linePos; 
+			float radius = left->GetRadius();
+			Vector3 lineRotation = left->GetRotation();
+			lineRPos += Vector3(radius * cosf(lineRotation.z), radius * sinf(lineRotation.z), 0.f);
+
+			Vector3 rectPos = right->GetPosition();
+			Vector3 rectRotation = right->GetRotation();
+			Vector3 rectScale = right->GetOwner()->GetComponent<Transform>()->GetScale();
+			Vector2 rectSize = right->GetSize();
+			rectScale *= Vector3(rectSize.x, rectSize.y, 1.0f);
+
+			Vector3 arrLocalPos[4] =
+			{
+				Vector3{-0.5f, 0.5f, 0.0f}
+				,Vector3{0.5f, 0.5f, 0.0f}
+				,Vector3{0.5f, -0.5f, 0.0f}
+				,Vector3{-0.5f, -0.5f, 0.0f}
+			};
+
+			for (size_t i = 0; i < 4; i++)
+			{
+				arrLocalPos[i] += Vector3(cosf(rectRotation.z),sinf(rectRotation.z), 0.f);
+				arrLocalPos[i] *= rectScale;
+				arrLocalPos[i] += rectPos;
+			}
+
+			for (size_t i = 0; i < 4; i++)
+			{
+				size_t j = i + 1;
+				if (j == 4)
+					j = 0;
+
+				//float x1 = linePos.x;
+				//float y1 = linePos.y;
+				//float x2 = lineRPos.x;
+				//float y2 = lineRPos.y;
+				// 
+				//float x3 = arrLocalPos[i].x;
+				//float y3 = arrLocalPos[i].y;
+				//float x4 = arrLocalPos[j].x;
+				//float y4 = arrLocalPos[j].y;
+				//
+				//// calculate the direction of the lines
+				//float uA = ((x4 - x3) * (y1 - y3) - (y4 - y3) * (x1 - x3)) 
+				//			/ ((y4 - y3) * (x2 - x1) - (x4 - x3) * (y2 - y1));
+				//float uB = ((x2 - x1) * (y1 - y3) - (y2 - y1) * (x1 - x3))
+				//			/ ((y4 - y3) * (x2 - x1) - (x4 - x3) * (y2 - y1));
+				
+				// calculate the direction of the lines
+				float uA = ((arrLocalPos[j].x - arrLocalPos[i].x) * (linePos.y - arrLocalPos[i].y) - (arrLocalPos[j].y - arrLocalPos[i].y) * (linePos.x - arrLocalPos[i].x))
+					/ ((arrLocalPos[j].y - arrLocalPos[i].y) * (lineRPos.x - linePos.x) - (arrLocalPos[j].x - arrLocalPos[i].x) * (lineRPos.y - linePos.y));
+				float uB = ((lineRPos.x - linePos.x) * (linePos.y - arrLocalPos[i].y) - (lineRPos.y - linePos.y) * (linePos.x - arrLocalPos[i].x))
+					/ ((arrLocalPos[j].y - arrLocalPos[i].y) * (lineRPos.x - linePos.x) - (arrLocalPos[j].x - arrLocalPos[i].x) * (lineRPos.y - linePos.y));
+
+				// if uA and uB are between 0-1, lines are colliding
+				if (uA >= 0 && uA <= 1 && uB >= 0 && uB <= 1)
+					return true;
+			}
+
+			return false;
+
+		}
 		else
 		{
 			return false;
