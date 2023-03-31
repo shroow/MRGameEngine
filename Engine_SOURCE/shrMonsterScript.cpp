@@ -68,6 +68,7 @@ namespace shr
 				Vector2 mousePos = Input::GetMouseWorldPos();
 				pos.x = mousePos.x;
 				pos.y = mousePos.y;
+				mbStartMove = false;
 			}
 		}
 		else if (mbSelected)
@@ -79,6 +80,12 @@ namespace shr
 			}
 		}
 
+		//if (Input::GetKeyState(eKeyCode::R) == eKeyState::PRESSED)
+		//{
+		//	Vector3 rot = tr->GetRotation();
+		//	rot.z += 10.0f * Time::DeltaTime();
+		//	tr->SetRotation(rot);
+		//}
 		//if (Input::GetMouseLeftPressed())
 		//{
 		//	Vector2 mousePos = Input::GetMouseWorldPos();
@@ -91,6 +98,43 @@ namespace shr
 		//	pos.x += dir.x * mStatus.moveSpeed * Time::DeltaTime();
 		//	pos.y += dir.y * mStatus.moveSpeed * Time::DeltaTime();
 		//}
+
+		//방향키 컨트롤
+		if(mbSelected)
+		{
+			if (Input::GetKeyState(eKeyCode::R) == eKeyState::PRESSED)
+			{
+				Vector3 rot = tr->GetRotation();
+				rot.z += 10.0f * Time::DeltaTime();
+				tr->SetRotation(rot);
+			}
+
+			if (Input::GetKey(eKeyCode::RIGHT))
+			{
+				Vector3 pos = tr->GetPosition();
+				pos.x += 6.0f * Time::DeltaTime();
+				tr->SetPosition(pos);
+			}
+			if (Input::GetKey(eKeyCode::LEFT))
+			{
+				Vector3 pos = tr->GetPosition();
+				pos.x -= 6.0f * Time::DeltaTime();
+				tr->SetPosition(pos);
+			}
+
+			if (Input::GetKey(eKeyCode::DOWN))
+			{
+				Vector3 pos = tr->GetPosition();
+				pos.y += 6.0f * Time::DeltaTime();
+				tr->SetPosition(pos);
+			}
+			if (Input::GetKey(eKeyCode::UP))
+			{
+				Vector3 pos = tr->GetPosition();
+				pos.y -= 6.0f * Time::DeltaTime();
+				tr->SetPosition(pos);
+			}
+		}
 
 		if (mbStartMove)
 		{

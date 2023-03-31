@@ -76,7 +76,7 @@ namespace shr
 				}
 			}
 			
-			//ComputeMousePos();
+			ComputeMousePos();
 
 			if (GetAsyncKeyState(VK_LBUTTON) & 0x8000)
 			{
@@ -145,18 +145,13 @@ namespace shr
 		float screenHeight = (float)winRect.bottom - (float)winRect.top;
 		float resolutionRatio = screenWidth / screenHeight;
 
-		Matrix view = renderer::mainCamera->GetViewMatrix();
-		Matrix proj = renderer::mainCamera->GetProjectionMatrix();
+		Matrix view = Camera::GetGPUViewMatrix();
+		Matrix proj = Camera::GetGPUProjectionMatrix();
 		Matrix invViewProj = XMMatrixInverse(nullptr, view * proj);
 
 		//마우스 위치 뷰포트 크기로 정규화
 		float x = (mousePos.x / screenWidth) * 2.0f - 1.f;
 		float y = ((screenHeight - mousePos.y) / screenHeight) * 2.0f - 1.f;
-
-		mMouse.move.x = mMouse.pos.x - mousePos.x;
-		mMouse.move.y = mMouse.pos.y - mousePos.y;
-		mMouse.pos.x = (float)mousePos.x;
-		mMouse.pos.y = (float)mousePos.y;
 
 		// Transform the mouse position from NDC space to world space
 		XMVECTOR mouseTr = XMVectorSet(x, y, 1.f, 0.f);
@@ -174,9 +169,22 @@ namespace shr
 			//OutputDebugString(message.c_str());
 		}
 
-
-		// Extract the position of the mouse in world space
+		mMouse.move.x = mMouse.pos.x - mousePos.x;
+		mMouse.move.y = mMouse.pos.y - mousePos.y;
+		mMouse.pos.x = (float)mousePos.x;
+		mMouse.pos.y = (float)mousePos.y;
 		mMouse.worldPos.x = XMVectorGetX(mouseTr);
 		mMouse.worldPos.y = XMVectorGetY(mouseTr);
+
+
+		{
+			float x1 = mMouse.worldPos.x;
+			float y1 = mMouse.worldPos.y;
+
+			std::wstring message;
+			message = message + L"X:" + std::to_wstring(x1) + L", Y:" + std::to_wstring(y1)
+				+ L"\n";
+			OutputDebugString(message.c_str());
+		}
 	}
 }

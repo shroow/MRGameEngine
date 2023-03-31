@@ -78,7 +78,7 @@ namespace shr
 		trCb.world = mWorld;
 		trCb.view = Camera::GetGPUViewMatrix();
 		trCb.projection = Camera::GetGPUProjectionMatrix();
-
+		
 		ConstantBuffer* cb = renderer::constantBuffers[(UINT)eCBType::Transform];
 		cb->SetData(&trCb);
 		cb->Bind(eShaderStage::VS);

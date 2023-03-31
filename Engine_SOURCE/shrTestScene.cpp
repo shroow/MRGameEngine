@@ -66,7 +66,7 @@ namespace shr
 		//Mouse
 		{
 			GameObject* obj = object::Instantiate<GameObject>(eLayerType::Mouse);
-			obj->AddComponent<MouseScript>();
+			//obj->AddComponent<MouseScript>();
 			object::DontDestroyOnLoad(obj);
 		}
 
@@ -97,14 +97,15 @@ namespace shr
 			//collider->SetCenter(Vector2(0.2f, 0.2f));
 			//collider->SetSize(Vector2(1.5f, 1.5f));
 
+			//HPBar
 			{
 				// HPBAR
 				GameObject* hpBar = object::Instantiate<GameObject>(eLayerType::Monster);
 				hpBar->SetName(L"HPBAR");
 				Transform* hpBarTR = hpBar->GetComponent<Transform>();
-				hpBarTR->SetPosition(Vector3(0.0f, -0.65f, 2.0f));
-				hpBarTR->SetScale(Vector3(1.0f, 0.2f, 1.0f));
 				hpBarTR->SetParent(tr);
+				hpBarTR->SetPosition(Vector3(0.0f, -0.65f, 0.0f));
+				hpBarTR->SetScale(Vector3(1.0f, 0.2f, 1.0f));
 
 				SpriteRenderer* hpsr = hpBar->AddComponent<SpriteRenderer>();
 				hpBar->AddComponent(hpsr);
@@ -121,9 +122,9 @@ namespace shr
 				GameObject* mpBar = object::Instantiate<GameObject>(eLayerType::Monster);
 				mpBar->SetName(L"MPBAR");
 				Transform* mpBarTR = mpBar->GetComponent<Transform>();
-				mpBarTR->SetPosition(Vector3(0.0f, -0.8f, 2.0f));
-				mpBarTR->SetScale(Vector3(1.0f, 0.2f, 1.0f));
 				mpBarTR->SetParent(tr);
+				mpBarTR->SetPosition(Vector3(0.0f, -0.8f, 0.0f));
+				mpBarTR->SetScale(Vector3(1.0f, 0.2f, 1.0f));
 
 				SpriteRenderer* mpSR = mpBar->AddComponent<SpriteRenderer>();
 				mpBar->AddComponent(mpSR);
@@ -137,34 +138,37 @@ namespace shr
 				mpSR->SetMaterial(mpSpriteMaterial);
 			}
 
-
 			SpriteRenderer* mr = obj->AddComponent<SpriteRenderer>();
 			std::shared_ptr<Material> mateiral = Resources::Find<Material>(L"SpriteMaterial");
 			mr->SetMaterial(mateiral);
 			std::shared_ptr<Mesh> mesh = Resources::Find<Mesh>(L"RectMesh");
 			mr->SetMesh(mesh);
 
+			//Script
 			MonsterScript* script = obj->AddComponent<MonsterScript>();
 			script->SetChar(L"FreeKnightv1c1");
 
-			script->LoadCharAnim(eCharState::Idle, Vector2::Zero
-				, Vector2(0.f, 33.f), Vector2(120.f, 47.f)
-				, 10, 0.1f, eAtlasType::Column);
-			script->LoadCharAnim(eCharState::Attack, Vector2::Zero
-				, Vector2(0.f, 33.f), Vector2(120.f, 47.f)
-				, 10, 0.1f, eAtlasType::Column);
-			script->LoadCharAnim(eCharState::Skill, Vector2::Zero
-				, Vector2(0.f, 33.f), Vector2(120.f, 47.f)
-				, 12, 0.1f, eAtlasType::Column);
-			script->LoadCharAnim(eCharState::Death, Vector2::Zero
-				, Vector2(0.f, 33.f), Vector2(120.f, 47.f)
-				, 10, 0.1f, eAtlasType::Column);
-			script->LoadCharAnim(eCharState::Run, Vector2::Zero
-				, Vector2(0.f, 33.f), Vector2(120.f, 47.f)
-				, 10, 0.1f, eAtlasType::Column);
-			script->LoadCharAnim(eCharState::Hit, Vector2::Zero
-				, Vector2(0.f, 33.f), Vector2(120.f, 47.f)
-				, 1, 0.1f, eAtlasType::Column);
+			//Animation add(using script)
+			{
+				script->LoadCharAnim(eCharState::Idle, Vector2::Zero
+					, Vector2(0.f, 33.f), Vector2(120.f, 47.f)
+					, 10, 0.1f, eAtlasType::Column);
+				script->LoadCharAnim(eCharState::Attack, Vector2::Zero
+					, Vector2(0.f, 33.f), Vector2(120.f, 47.f)
+					, 10, 0.1f, eAtlasType::Column);
+				script->LoadCharAnim(eCharState::Skill, Vector2::Zero
+					, Vector2(0.f, 33.f), Vector2(120.f, 47.f)
+					, 12, 0.1f, eAtlasType::Column);
+				script->LoadCharAnim(eCharState::Death, Vector2::Zero
+					, Vector2(0.f, 33.f), Vector2(120.f, 47.f)
+					, 10, 0.1f, eAtlasType::Column);
+				script->LoadCharAnim(eCharState::Run, Vector2::Zero
+					, Vector2(0.f, 33.f), Vector2(120.f, 47.f)
+					, 10, 0.1f, eAtlasType::Column);
+				script->LoadCharAnim(eCharState::Hit, Vector2::Zero
+					, Vector2(0.f, 33.f), Vector2(120.f, 47.f)
+					, 1, 0.1f, eAtlasType::Column);
+			}
 
 			script->PlayCharAnim(eCharState::Idle);
 
@@ -193,9 +197,9 @@ namespace shr
 				GameObject* hpBar = object::Instantiate<GameObject>(eLayerType::Monster);
 				hpBar->SetName(L"HPBAR");
 				Transform* hpBarTR = hpBar->GetComponent<Transform>();
-				hpBarTR->SetPosition(Vector3(0.0f, -0.65f, 2.0f));
-				hpBarTR->SetScale(Vector3(1.0f, 0.2f, 1.0f));
 				hpBarTR->SetParent(tr);
+				hpBarTR->SetPosition(Vector3(0.0f, -0.65f, 0.0f));
+				hpBarTR->SetScale(Vector3(1.0f, 0.2f, 1.0f));
 
 				SpriteRenderer* hpsr = hpBar->AddComponent<SpriteRenderer>();
 				hpBar->AddComponent(hpsr);
@@ -212,9 +216,9 @@ namespace shr
 				GameObject* mpBar = object::Instantiate<GameObject>(eLayerType::Monster);
 				mpBar->SetName(L"MPBAR");
 				Transform* mpBarTR = mpBar->GetComponent<Transform>();
-				mpBarTR->SetPosition(Vector3(0.0f, -0.8f, 2.0f));
-				mpBarTR->SetScale(Vector3(1.0f, 0.2f, 1.0f));
 				mpBarTR->SetParent(tr);
+				mpBarTR->SetPosition(Vector3(0.0f, -0.8f, 0.0f));
+				mpBarTR->SetScale(Vector3(1.0f, 0.2f, 1.0f));
 
 				SpriteRenderer* mpSR = mpBar->AddComponent<SpriteRenderer>();
 				mpBar->AddComponent(mpSR);
@@ -234,27 +238,31 @@ namespace shr
 			std::shared_ptr<Mesh> mesh = Resources::Find<Mesh>(L"RectMesh");
 			mr->SetMesh(mesh);
 			
+			//Script
 			MonsterScript* script = obj->AddComponent<MonsterScript>();
 			script->SetChar(L"BallandChainBot");
-			
-			script->LoadCharAnim(eCharState::Idle, Vector2::Zero
-				, Vector2(0.f, 0.f), Vector2(126.f, 39.f)
-				, 5, 0.1f, eAtlasType::Row);
-			script->LoadCharAnim(eCharState::Attack, Vector2(-0.1f, 0.f)
-				, Vector2(0.f, 0.f), Vector2(126.f, 39.f)
-				, 8, 0.1f, eAtlasType::Row);
-			script->LoadCharAnim(eCharState::Skill, Vector2::Zero
-				, Vector2(0.f, 0.f), Vector2(126.f, 39.f)
-				, 4, 0.1f, eAtlasType::Row);
-			script->LoadCharAnim(eCharState::Death, Vector2::Zero
-				, Vector2(0.f, 0.f), Vector2(126.f, 39.f)
-				, 5, 0.1f, eAtlasType::Row);
-			script->LoadCharAnim(eCharState::Run, Vector2::Zero
-				, Vector2(0.f, 0.f), Vector2(126.f, 39.f)
-				, 8, 0.1f, eAtlasType::Row);
-			script->LoadCharAnim(eCharState::Hit, Vector2::Zero
-				, Vector2(0.f, 0.f), Vector2(126.f, 39.f)
-				, 2, 0.1f, eAtlasType::Row);
+
+			//Animation add(using script)
+			{
+				script->LoadCharAnim(eCharState::Idle, Vector2::Zero
+					, Vector2(0.f, 0.f), Vector2(126.f, 39.f)
+					, 5, 0.1f, eAtlasType::Row);
+				script->LoadCharAnim(eCharState::Attack, Vector2(-0.1f, 0.f)
+					, Vector2(0.f, 0.f), Vector2(126.f, 39.f)
+					, 8, 0.1f, eAtlasType::Row);
+				script->LoadCharAnim(eCharState::Skill, Vector2::Zero
+					, Vector2(0.f, 0.f), Vector2(126.f, 39.f)
+					, 4, 0.1f, eAtlasType::Row);
+				script->LoadCharAnim(eCharState::Death, Vector2::Zero
+					, Vector2(0.f, 0.f), Vector2(126.f, 39.f)
+					, 5, 0.1f, eAtlasType::Row);
+				script->LoadCharAnim(eCharState::Run, Vector2::Zero
+					, Vector2(0.f, 0.f), Vector2(126.f, 39.f)
+					, 8, 0.1f, eAtlasType::Row);
+				script->LoadCharAnim(eCharState::Hit, Vector2::Zero
+					, Vector2(0.f, 0.f), Vector2(126.f, 39.f)
+					, 2, 0.1f, eAtlasType::Row);
+			}
 
 			script->PlayCharAnim(eCharState::Idle);
 

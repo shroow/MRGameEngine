@@ -252,7 +252,7 @@ namespace shr
 		{
 			Vector3 pointPos = left->GetPosition();
 
-			Vector3 rectPos = right->GetPosition();
+			Vector3 rectPos = right->GetPosition() + right->GetCenter();
 
 			if ((right->GetSize().x * 0.5f) >= abs(pointPos.x - rectPos.x)
 				&& (right->GetSize().y * 0.5f) >= abs(pointPos.y - rectPos.y))
@@ -285,17 +285,20 @@ namespace shr
 		}
 		else if (leftType == eColliderType::Line && rightType == eColliderType::Rect)
 		{
-			Vector3 linePos = left->GetPosition(); 
+			Vector3 linePos = left->GetPosition() + right->GetCenter();
 			Vector3 lineRPos = linePos; 
-			float radius = left->GetRadius();
+			float radius = left->GetRadius() * 0.5f;
 			Vector3 lineRotation = left->GetRotation();
 			lineRPos += Vector3(radius * cosf(lineRotation.z), radius * sinf(lineRotation.z), 0.f);
 
-			Vector3 rectPos = right->GetPosition();
+			Vector3 rectPos = right->GetPosition() + right->GetCenter();
 			Vector3 rectRotation = right->GetRotation();
+
 			Vector3 rectScale = right->GetOwner()->GetComponent<Transform>()->GetScale();
 			Vector2 rectSize = right->GetSize();
 			rectScale *= Vector3(rectSize.x, rectSize.y, 1.0f);
+
+
 
 			Vector3 arrLocalPos[4] =
 			{
@@ -305,12 +308,22 @@ namespace shr
 				,Vector3{-0.5f, -0.5f, 0.0f}
 			};
 
+
+			if (rectRotation.z != 0.f)
+				int a = 0;
+
 			for (size_t i = 0; i < 4; i++)
 			{
-				arrLocalPos[i] += Vector3(cosf(rectRotation.z),sinf(rectRotation.z), 0.f);
-				arrLocalPos[i] *= rectScale;
-				arrLocalPos[i] += rectPos;
+				arrLocalPos[i] = rectPos + rectScale * arrLocalPos[i];
+				
+				//Vector3 vertexPos = rectScale * arrLocalPos[i];
+				//float x = 0.5f * sinf(rectRotation.z);
+				//float y = 0.5f * cosf(rectRotation.z);
+				//vertexPos.x += sinf(rectRotation.z);
+				//vertexPos.y += cosf(rectRotation.z);
+				//arrLocalPos[i] = rectPos + Vector3(vertexPos.x, vertexPos.y, 0.f);			
 			}
+
 
 			for (size_t i = 0; i < 4; i++)
 			{

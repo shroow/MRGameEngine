@@ -21,11 +21,11 @@ namespace shr
 
 	void MouseScript::Update()
 	{
-		Input::ComputeMousePos();
 	}
 
 	void MouseScript::FixedUpdate()
 	{
+		Input::ComputeMousePos();
 	}
 
 	void MouseScript::Render()
