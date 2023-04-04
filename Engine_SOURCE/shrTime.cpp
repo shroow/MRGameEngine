@@ -29,6 +29,10 @@ namespace shr
 
         mDeltaTime = differenceInFrequancy / static_cast<float>(mCpuFrequency.QuadPart);
         mPrevFrequency.QuadPart = mCurFrequency.QuadPart;
+
+        //Debug
+        if (mDeltaTime > 1.f)
+            mDeltaTime = 1.f;
     }
 
     void Time::Render(HDC hdc)

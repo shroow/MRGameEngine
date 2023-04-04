@@ -19,7 +19,9 @@ float4 main(VSOut In) : SV_TARGET
 {
 	float4 color = (float)0.f;
 	
-    if(animationType == 1) //2D
+    int ij = 1;
+    if(ij == 1) //2D
+    //if(animationType == 1) //2D
     {
         float2 diff = (atlasSize - spriteSize) / 2.0f;
         float2 UV = (leftTop - diff - offset) + (atlasSize * In.UV);
@@ -29,10 +31,10 @@ float4 main(VSOut In) : SV_TARGET
             || UV.y > leftTop.y + spriteSize.y)
             discard;
         
-        if(direction == 1)
+        if (animationDir == 1)
             color = atlasTexture.Sample(anisotropicSampler, float2(1.f - UV.x, UV.y));
-        
-        color = atlasTexture.Sample(anisotropicSampler, UV);
+        else
+            color = atlasTexture.Sample(anisotropicSampler, UV);
     }
     else
     {

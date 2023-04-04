@@ -140,7 +140,7 @@ namespace shr
 		info.offset = mSpriteSheet[mIndex].offset;
 		info.spriteSize = mSpriteSheet[mIndex].spriteSize;
 		info.atlasSize = mSpriteSheet[mIndex].atlasSize;
-		info.direction = mDirection;
+		info.animationDir = (UINT)mDirection;
 
 		cb->SetData(&info);
 		cb->Bind(eShaderStage::PS);

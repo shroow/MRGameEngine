@@ -195,7 +195,7 @@ namespace shr
 
 			script->PlayCharAnim(eCharState::Idle);
 
-			//object::DontDestroyOnLoad(obj);
+			object::DontDestroyOnLoad(obj);
 		}
 
 		//Monster
@@ -203,7 +203,7 @@ namespace shr
 			GameObject* obj = object::Instantiate<Player>(eLayerType::Monster);
 			obj->SetName(L"BallandChainBot");
 			Transform* tr = obj->GetComponent<Transform>();
-			tr->SetPosition(Vector3(3.0f, -0.5f, 5.0f));
+			tr->SetPosition(Vector3(6.0f, -0.5f, 5.0f));
 			//tr->SetRotation(Vector3(0.0f, 0.0f, XM_PIDIV2));
 			//tr->SetScale(Vector3(3.5f, 1.0f, 1.0f));
 			tr->SetScale(Vector3(1.5f, 1.5f, 1.0f));
@@ -288,7 +288,7 @@ namespace shr
 			script->PlayCharAnim(eCharState::Idle);
 
 			script->SetIsStore(true);
-			//object::DontDestroyOnLoad(obj);
+			object::DontDestroyOnLoad(obj);
 		}
 
 		{
@@ -296,14 +296,14 @@ namespace shr
 			GameObject* hpBar = object::Instantiate<GameObject>(eLayerType:: UI);
 			hpBar->SetName(L"CoinUI");
 			Transform* hpBarTR = hpBar->GetComponent<Transform>();
-			hpBarTR->SetPosition(Vector3(-11.0f, -4.0f, 12.0f));
-			hpBarTR->SetScale(Vector3(1.0f, 1.0f, 1.0f));
+			hpBarTR->SetPosition(Vector3(-10.2f, -3.9f, 12.0f));
+			hpBarTR->SetScale(Vector3(2.5f, 1.5f, 1.0f));
 
 			SpriteRenderer* hpsr = hpBar->AddComponent<SpriteRenderer>();
 			hpBar->AddComponent(hpsr);
 			std::shared_ptr<Mesh> hpmesh = Resources::Find<Mesh>(L"RectMesh");
 			std::shared_ptr<Material> hpspriteMaterial = std::make_shared<Material>();
-			hpspriteMaterial->SetTexture(Resources::Find<Texture>(L"CoinTexture"));
+			hpspriteMaterial->SetTexture(Resources::Find<Texture>(L"MoneyPanelTexture"));
 			hpspriteMaterial->SetShader(Resources::Find<Shader>(L"UIShader"));
 			hpsr->SetMesh(hpmesh);
 			hpsr->SetMaterial(hpspriteMaterial);
@@ -314,8 +314,8 @@ namespace shr
 			GameObject* hpBar = object::Instantiate<GameObject>(eLayerType::UI);
 			hpBar->SetName(L"CoinUI");
 			Transform* hpBarTR = hpBar->GetComponent<Transform>();
-			hpBarTR->SetPosition(Vector3(-10.0f, -4.0f, 12.0f));
-			hpBarTR->SetScale(Vector3(1.0f, 1.0f, 1.0f));
+			hpBarTR->SetPosition(Vector3(-9.7f, -4.0f, 12.0f));
+			hpBarTR->SetScale(Vector3(0.8f, 0.8f, 1.0f));
 
 			SpriteRenderer* hpsr = hpBar->AddComponent<SpriteRenderer>();
 			hpBar->AddComponent(hpsr);
@@ -328,8 +328,8 @@ namespace shr
 		}
 
 		CreateMonster(1, Vector3(-4.5f, 2.f, 5.0f));
-		CreateMonster(2, Vector3(4.0f, 1.5f, 5.0f));
-		CreateMonster(2, Vector3(3.f, 4.f, 5.0f));
+		CreateMonster(2, Vector3(8.0f, 1.5f, 5.0f));
+		CreateMonster(2, Vector3(7.f, 4.f, 5.0f));
 
 		CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::Player, true);
 		CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::Monster, true);
@@ -372,11 +372,10 @@ namespace shr
 		//Test1 Texture
 		{
 			//Biker
-			Resources::Load<Texture>(L"Biker_Idle", L"Biker\\Idle.png");
-			Resources::Load<Texture>(L"Biker_Death", L"Biker\\Death.png");
-			Resources::Load<Texture>(L"Biker_Attack1", L"Biker\\Attack1.png");
-			Resources::Load<Texture>(L"Biker_Attack2", L"Biker\\Attack2.png");
-			Resources::Load<Texture>(L"Biker_Attack3", L"Biker\\Attack3.png");
+			Resources::Load<Texture>(L"Biker_Idle", L"Monsters\\Cyberpunk\\Biker\\Biker_idle.png");
+			Resources::Load<Texture>(L"Biker_Death", L"Monsters\\Cyberpunk\\Biker\\Biker_death.png");
+			Resources::Load<Texture>(L"Biker_Attack", L"Monsters\\Cyberpunk\\Biker\\Biker_attack1.png");
+			Resources::Load<Texture>(L"Biker_Run", L"Monsters\\Cyberpunk\\Biker\\Biker_run.png");
 
 
 			//Monster
@@ -389,6 +388,7 @@ namespace shr
 		Resources::Load<Texture>(L"NightBorne_Atlas", L"Monsters\\NightBorne\\NightBorne.png");
 		
 		Resources::Load<Texture>(L"CoinTexture", L"UI\\Coin.png");
+		Resources::Load<Texture>(L"MoneyPanelTexture", L"UI\\MoneyPanel.png");
 		Resources::Load<Texture>(L"BuyUITexture", L"UI\\BuyUI.png");
 		Resources::Load<Texture>(L"SellUITexture", L"UI\\SellUI.png");
 		Resources::Load<Texture>(L"TempNumTexture", L"UI\\tempNum.png");
@@ -472,7 +472,7 @@ namespace shr
 		if (num == 1)
 		{
 			Player* obj = object::Instantiate<Player>(eLayerType::Monster);
-			obj->SetName(L"FreeKnightv1c1");
+			obj->SetName(L"Biker");
 			Transform* tr = obj->GetComponent<Transform>();
 			tr->SetPosition(pos);
 			//tr->SetRotation(Vector3(0.0f, 0.0f, XM_PIDIV2));
@@ -532,28 +532,28 @@ namespace shr
 
 			//Script
 			MonsterScript* script = obj->AddComponent<MonsterScript>();
-			script->SetChar(L"FreeKnightv1c1");
+			script->SetChar(L"Biker");
 
 			//Animation add(using script)
 			{
 				script->LoadCharAnim(eCharState::Idle, Vector2::Zero
-					, Vector2(0.f, 33.f), Vector2(120.f, 47.f)
-					, 10, 0.1f, eAtlasType::Column);
+					, Vector2(0.f, 0.f), Vector2(48.f, 48.f)
+					, 4, 0.2f, eAtlasType::Column);
 				script->LoadCharAnim(eCharState::Attack, Vector2::Zero
-					, Vector2(0.f, 33.f), Vector2(120.f, 47.f)
-					, 10, 0.1f, eAtlasType::Column);
-				script->LoadCharAnim(eCharState::Skill, Vector2::Zero
-					, Vector2(0.f, 33.f), Vector2(120.f, 47.f)
-					, 12, 0.1f, eAtlasType::Column);
+					, Vector2(0.f, 0.f), Vector2(48.f, 48.f)
+					, 6, 0.2f, eAtlasType::Column);
+				//script->LoadCharAnim(eCharState::Skill, Vector2::Zero
+				//	, Vector2(0.f, 0.f), Vector2(48.f, 48.f)
+				//	, 12, 0.1f, eAtlasType::Column);
 				script->LoadCharAnim(eCharState::Death, Vector2::Zero
-					, Vector2(0.f, 33.f), Vector2(120.f, 47.f)
-					, 10, 0.1f, eAtlasType::Column);
+					, Vector2(0.f, 0.f), Vector2(48.f, 48.f)
+					, 6, 0.2f, eAtlasType::Column);
 				script->LoadCharAnim(eCharState::Run, Vector2::Zero
-					, Vector2(0.f, 33.f), Vector2(120.f, 47.f)
-					, 10, 0.1f, eAtlasType::Column);
-				script->LoadCharAnim(eCharState::Hit, Vector2::Zero
-					, Vector2(0.f, 33.f), Vector2(120.f, 47.f)
-					, 1, 0.1f, eAtlasType::Column);
+					, Vector2(0.f, 0.f), Vector2(48.f, 48.f)
+					, 6, 0.2f, eAtlasType::Column);
+				//script->LoadCharAnim(eCharState::Hit, Vector2::Zero
+				//	, Vector2(0.f, 0.f), Vector2(48.f, 48.f)
+				//	, 1, 0.1f, eAtlasType::Column);
 			}
 
 			script->PlayCharAnim(eCharState::Idle);

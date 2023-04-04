@@ -49,6 +49,7 @@ namespace shr
 		mAnimator->GetCompleteEvent(L"Idle_Anim") = std::bind(&MonsterScript::Action, this);
 		mAnimator->GetEndEvent(L"Idle_Anim") = std::bind(&MonsterScript::End, this);
 		mAnimator->GetEvent(L"Idle_Anim", 1) = std::bind(&MonsterScript::End, this);
+
 	}
 
 	void MonsterScript::Update()
@@ -82,7 +83,7 @@ namespace shr
 				mbStartMove = false;
 			}
 
-			if (Input::GetMouseLeftPressed())
+			else if (Input::GetMouseLeftPressed())
 			{
 				Vector2 mousePos = Input::GetMouseWorldPos();
 				pos.x = mousePos.x;
@@ -90,7 +91,7 @@ namespace shr
 				mbStartMove = false;
 			}
 
-			if (Input::GetMouseLeftUp())
+			else if (Input::GetMouseLeftUp())
 			{
 				if (mIsTraded && mIsStore)
 				{
@@ -144,44 +145,7 @@ namespace shr
 		//	pos.y += dir.y * mStatus.moveSpeed * Time::DeltaTime();
 		//}
 
-		//방향키 컨트롤
-		if(mbSelected)
-		{
-			if (Input::GetKeyState(eKeyCode::R) == eKeyState::PRESSED)
-			{
-				Vector3 rot = tr->GetRotation();
-				rot.z += 10.0f * Time::DeltaTime();
-				tr->SetRotation(rot);
-			}
-
-			if (Input::GetKey(eKeyCode::RIGHT))
-			{
-				Vector3 pos = tr->GetPosition();
-				pos.x += 6.0f * Time::DeltaTime();
-				tr->SetPosition(pos);
-			}
-			if (Input::GetKey(eKeyCode::LEFT))
-			{
-				Vector3 pos = tr->GetPosition();
-				pos.x -= 6.0f * Time::DeltaTime();
-				tr->SetPosition(pos);
-			}
-
-			if (Input::GetKey(eKeyCode::DOWN))
-			{
-				Vector3 pos = tr->GetPosition();
-				pos.y += 6.0f * Time::DeltaTime();
-				tr->SetPosition(pos);
-			}
-			if (Input::GetKey(eKeyCode::UP))
-			{
-				Vector3 pos = tr->GetPosition();
-				pos.y -= 6.0f * Time::DeltaTime();
-				tr->SetPosition(pos);
-			}
-		}
-
-		if (mbStartMove)
+		if (mbStartMove && !mIsStore)
 		{
 			Vector2 dir;
 			float disX = mMovetoPos.x - pos.x;
@@ -195,9 +159,12 @@ namespace shr
 
 			mMoveDir = dir;
 
-			if (disX < 0.001f && disX > -0.001f && disY < 0.001f && disY > -0.001f)
+			disX = mMovetoPos.x - pos.x;
+			disY = mMovetoPos.y - pos.y;
+			if (disX < 0.002f && disX > -0.002f && disY < 0.002f && disY > -0.002f)
 			{
 				mbStartMove = false;
+				mMoveDir = Vector2(0.f, 0.f);
 			}
 		}
 
@@ -274,6 +241,20 @@ namespace shr
 		eLayerType type = collider->GetOwner()->GetLayerType();
 		if (type == eLayerType::Monster || type == eLayerType::Player)
 			mAttack = false;
+
+		if (mIsTraded)
+		{
+			if (mIsStore)
+			{
+				if (collider->GetName() == L"PlayerFieldCollider")
+					mIsTraded = false;
+			}
+			else
+			{
+				if (collider->GetName() == L"MonsterFieldCollider")
+					mIsTraded = false;
+			}
+		}
 	}
 	void MonsterScript::OnTriggerEnter(Collider2D* collider)
 	{
@@ -306,7 +287,7 @@ namespace shr
 		{
 			mState = eCharState::Attack;
 		}
-		else if (mRun && mMove != 0.f)
+		else if (mRun)
 		{
 			mState = eCharState::Run;
 		}
@@ -320,8 +301,29 @@ namespace shr
 
 		}
 
+
+
 		if (mPrevState == mState)
-			return false;
+		{
+			if (mMoveDir.x < 0.f)
+			{
+				if (mCharDir == 1)
+					return false;
+
+				mCharDir = 1;
+				return true;
+			}
+			else if (mMoveDir.x > 0.f)
+			{
+				if (mCharDir == 0)
+					return false;
+
+				mCharDir = 0;
+				return true;
+			}
+			else if (mMoveDir.x == 0.f)
+				return false;
+		}
 
 		return true;
 	}
@@ -405,11 +407,6 @@ namespace shr
 
 	void MonsterScript::PlayCharAnim(eCharState animState, bool loop)
 	{
-		if (mMoveDir.x < 0.f)
-			mCharDir = 1;
-		else if (mMoveDir.x > 0.f)
-			mCharDir = 0;
-
 		switch (animState)
 		{
 		case shr::enums::eCharState::None:
