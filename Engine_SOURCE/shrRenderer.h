@@ -54,6 +54,7 @@ namespace shr::renderer
 		Vector2 atlasSize;
 
 		UINT type;
+		UINT direction;
 	};
 
 	//CBSLOT_NUMBEROFLIGHT

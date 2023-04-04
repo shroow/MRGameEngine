@@ -29,6 +29,9 @@ float4 main(VSOut In) : SV_TARGET
             || UV.y > leftTop.y + spriteSize.y)
             discard;
         
+        if(direction == 1)
+            color = atlasTexture.Sample(anisotropicSampler, float2(1.f - UV.x, UV.y));
+        
         color = atlasTexture.Sample(anisotropicSampler, UV);
     }
     else

@@ -62,7 +62,7 @@ namespace shr
         void LoadCharAnim(eCharState animState, Vector2 offset
             , Vector2 leftTop, Vector2 spriteSize
             , UINT spriteLength, float duration, eAtlasType atlasType = eAtlasType::Column);
-        void PlayCharAnim(eCharState animState);
+        void PlayCharAnim(eCharState animState, bool loop = true);
 
         void Start();
         void Action();
@@ -89,7 +89,8 @@ namespace shr
 
         Vector3 mPrevPos;
         float mMove;
-        Vector2 mDir;
+        Vector2 mMoveDir;
+        int mCharDir;
 
         Status mStatus;
         eCharState mState;

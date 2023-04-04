@@ -21,7 +21,8 @@ namespace shr
 		, mHit(false)
 		, mPrevPos{}
 		, mMove(0.f)
-		, mDir{}
+		, mMoveDir{}
+		, mCharDir(0)
 		, mStatus{}
 		, mState(eCharState::None)
 		, mPrevState(eCharState::None)
@@ -148,7 +149,7 @@ namespace shr
 			pos.x += dir.x * mStatus.moveSpeed * Time::DeltaTime();
 			pos.y += dir.y * mStatus.moveSpeed * Time::DeltaTime();
 
-			mDir = dir;
+			mMoveDir = dir;
 
 			if (disX < 0.001f && disX > -0.001f && disY < 0.001f && disY > -0.001f)
 			{
@@ -344,35 +345,40 @@ namespace shr
 			, spriteLength, duration, atlasType);
 	}
 
-	void MonsterScript::PlayCharAnim(eCharState animState)
+	void MonsterScript::PlayCharAnim(eCharState animState, bool loop)
 	{
+		if (mMoveDir.x < 0.f)
+			mCharDir = 1;
+		else if (mMoveDir.x > 0.f)
+			mCharDir = 0;
+
 		switch (animState)
 		{
 		case shr::enums::eCharState::None:
 			break;
 		case shr::enums::eCharState::Idle:
-			mAnimator->Play(L"Idle_Anim");
+			mAnimator->Play(L"Idle_Anim", mCharDir, loop);
 			break;
 		case shr::enums::eCharState::Run:
-			mAnimator->Play(L"Run_Anim");
+			mAnimator->Play(L"Run_Anim", mCharDir, loop);
 			break;
 		case shr::enums::eCharState::Attack:
-			mAnimator->Play(L"Attack_Anim");
+			mAnimator->Play(L"Attack_Anim", mCharDir, loop);
 			break;
 		case shr::enums::eCharState::Attack2:
-			mAnimator->Play(L"Attack2_Anim");
+			mAnimator->Play(L"Attack2_Anim", mCharDir, loop);
 			break;
 		case shr::enums::eCharState::Skill:
-			mAnimator->Play(L"Skill_Anim");
+			mAnimator->Play(L"Skill_Anim", mCharDir, loop);
 			break;
 		case shr::enums::eCharState::Skill2:
-			mAnimator->Play(L"Skill2_Anim");
+			mAnimator->Play(L"Skill2_Anim", mCharDir, loop);
 			break;
 		case shr::enums::eCharState::Hit:
-			mAnimator->Play(L"Hit_Anim");
+			mAnimator->Play(L"Hit_Anim", mCharDir, loop);
 			break;
 		case shr::enums::eCharState::Death:
-			mAnimator->Play(L"Death_Anim");
+			mAnimator->Play(L"Death_Anim", mCharDir, loop);
 			break;
 		default:
 			break;

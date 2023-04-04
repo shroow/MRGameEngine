@@ -132,7 +132,7 @@ namespace shr
 		return iter->second;
 	}
 
-	void Animator::Play(const std::wstring& name, bool loop)
+	void Animator::Play(const std::wstring& name, int dir, bool loop)
 	{
 		Animation* prevAnimation = mActiveAnimation;
 		Events* events = nullptr;
@@ -144,6 +144,7 @@ namespace shr
 
 		mActiveAnimation = FindAnimation(name);
 		mActiveAnimation->Reset();
+		mActiveAnimation->SetDirection(dir);
 		mbLoop = loop;
 
 		events = FindEvents(mActiveAnimation->AnimationName());
