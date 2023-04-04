@@ -32,6 +32,8 @@ namespace shr
 	}
 	void TitleScene::Initialize()
 	{
+		return;
+
 		//paint shader
 		std::shared_ptr<PaintShader> paintShader = Resources::Find<PaintShader>(L"PaintShader");
 		//L"SmileTexture"
@@ -173,7 +175,7 @@ namespace shr
 		//std::shared_ptr<Material> hpspriteMaterial = Resources::Find<Material>(L"UIMaterial");
 		//hpsr->SetMesh(hpmesh);
 		//hpsr->SetMaterial(hpspriteMaterial);
-
+		 
 		//CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::Monster, true);
 		CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::Player, true);
 

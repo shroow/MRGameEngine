@@ -14,7 +14,6 @@
 #include "shrGridScript.h"
 #include "shrFadeInScript.h"
 #include "shrPlayerScript.h"
-#include "shrBikerScript.h"
 
 #include "shrTitleScene.h"
 #include "shrPlayScene.h"

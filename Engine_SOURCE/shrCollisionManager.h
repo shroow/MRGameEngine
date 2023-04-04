@@ -33,6 +33,8 @@ namespace shr
 		static bool MouseIntersect(Collider2D* collider);
 		static void MouseCollisionLayerCheck(eLayerType type, bool enable = true);
 
+		static void PrevMouseCollisionSetNull() { mPrevMouseCollision = nullptr; }
+
 	private:
 		static std::bitset<(UINT)eLayerType::End> mLayerCollisionMatrix[(UINT)eLayerType::End];
 		static std::map<UINT64, bool> mCollisionMap;

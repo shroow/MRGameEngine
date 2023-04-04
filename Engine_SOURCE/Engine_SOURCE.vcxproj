@@ -161,7 +161,6 @@
     <ClInclude Include="shrAnimator.h" />
     <ClInclude Include="shrApplication.h" />
     <ClInclude Include="shrBaseRenderer.h" />
-    <ClInclude Include="shrBikerScript.h" />
     <ClInclude Include="shrCamera.h" />
     <ClInclude Include="shrCameraScript.h" />
     <ClInclude Include="shrCollider.h" />
@@ -221,7 +220,6 @@
     <ClCompile Include="shrAnimator.cpp" />
     <ClCompile Include="shrApplication.cpp" />
     <ClCompile Include="shrBaseRenderer.cpp" />
-    <ClCompile Include="shrBikerScript.cpp" />
     <ClCompile Include="shrCamera.cpp" />
     <ClCompile Include="shrCameraScript.cpp" />
     <ClCompile Include="shrCollider.cpp" />

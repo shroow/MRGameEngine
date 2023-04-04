@@ -8,6 +8,7 @@
 #include "shrResources.h"
 #include "shrAnimator.h"
 #include "shrResource.h"
+#include "shrCollisionManager.h"
 
 namespace shr
 {
@@ -19,6 +20,11 @@ namespace shr
 		, mDie(false)
 		, mAttack(false)
 		, mHit(false)
+		, mbCursorOn(false)
+		, mbSelected(false)
+		, mbStartMove(false)
+		, mMovetoPos{}
+		, mSelectedPos{}
 		, mPrevPos{}
 		, mMove(0.f)
 		, mMoveDir{}
@@ -26,6 +32,8 @@ namespace shr
 		, mStatus{}
 		, mState(eCharState::None)
 		, mPrevState(eCharState::None)
+		, mIsStore(false)
+		, mIsTraded(false)
 	{
 	}
 
@@ -57,19 +65,55 @@ namespace shr
 
 		if (mbSelected && !mbCursorOn)
 		{
-
 			if (Input::GetMouseLeftDown())
 				mbSelected = false;
 		}
 
 		if (mbSelected && mbCursorOn)
 		{
+			if (Input::GetMouseLeftDown())
+			{
+				mSelectedPos.x = pos.x;
+				mSelectedPos.y = pos.y;
+
+				Vector2 mousePos = Input::GetMouseWorldPos();
+				pos.x = mousePos.x;
+				pos.y = mousePos.y;
+				mbStartMove = false;
+			}
+
 			if (Input::GetMouseLeftPressed())
 			{
 				Vector2 mousePos = Input::GetMouseWorldPos();
 				pos.x = mousePos.x;
 				pos.y = mousePos.y;
 				mbStartMove = false;
+			}
+
+			if (Input::GetMouseLeftUp())
+			{
+				if (mIsTraded && mIsStore)
+				{
+					Vector2 mousePos = Input::GetMouseWorldPos();
+					pos.x = mousePos.x;
+					pos.y = mousePos.y;
+
+					mIsStore = false;
+					mIsTraded = false;
+					mbStartMove = false;
+				}
+				else if (mIsTraded)
+				{
+					GetOwner()->Die();
+					CollisionManager::PrevMouseCollisionSetNull();
+				}
+				else
+				{
+					pos.x = mSelectedPos.x;
+					pos.y = mSelectedPos.y;
+
+					mbStartMove = false;
+				}
 			}
 		}
 		else if (mbSelected)
@@ -205,8 +249,22 @@ namespace shr
 	void MonsterScript::OnCollisionEnter(Collider2D* collider)
 	{
 		eLayerType type = collider->GetOwner()->GetLayerType();
-		if(type == eLayerType::Monster || type == eLayerType::Player)
+		if(type == eLayerType::Monster)
 			mAttack = true;
+
+		if (mbCursorOn)
+		{
+			if (mIsStore)
+			{
+				if (collider->GetName() == L"PlayerFieldCollider")
+					mIsTraded = true;
+			}
+			else
+			{
+				if (collider->GetName() == L"MonsterFieldCollider")
+					mIsTraded = true;
+			}
+		}
 	}
 	void MonsterScript::OnCollisionStay(Collider2D* collider)
 	{

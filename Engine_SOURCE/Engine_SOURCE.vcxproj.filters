@@ -195,9 +195,6 @@
     <ClCompile Include="shrTestScene.cpp">
       <Filter>Scene\GameScenes</Filter>
     </ClCompile>
-    <ClCompile Include="shrBikerScript.cpp">
-      <Filter>Script\Unit</Filter>
-    </ClCompile>
     <ClCompile Include="shrMonsterScript.cpp">
       <Filter>Script\Unit</Filter>
     </ClCompile>
@@ -238,9 +235,11 @@
     <ClCompile Include="shrPaintShader.cpp" />
     <ClCompile Include="shrComputeShader.cpp" />
     <ClCompile Include="shrStructedBuffer.cpp" />
-    <ClCompile Include="shrMouseScript.cpp" />
     <ClCompile Include="shrNoiseShader.cpp" />
     <ClCompile Include="shrParticleSystem.cpp" />
+    <ClCompile Include="shrMouseScript.cpp">
+      <Filter>Script\Object</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CommonInclude.h">
@@ -360,9 +359,6 @@
     <ClInclude Include="shrTestScene.h">
       <Filter>Scene\GameScenes</Filter>
     </ClInclude>
-    <ClInclude Include="shrBikerScript.h">
-      <Filter>Script\Unit</Filter>
-    </ClInclude>
     <ClInclude Include="shrMonsterScript.h">
       <Filter>Script\Unit</Filter>
     </ClInclude>
@@ -406,9 +402,11 @@
     <ClInclude Include="shrPaintShader.h" />
     <ClInclude Include="shrComputeShader.h" />
     <ClInclude Include="shrStructedBuffer.h" />
-    <ClInclude Include="shrMouseScript.h" />
     <ClInclude Include="shrNoiseShader.h" />
     <ClInclude Include="shrParticleSystem.h" />
+    <ClInclude Include="shrMouseScript.h">
+      <Filter>Script\Object</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="shrMath.inl">
