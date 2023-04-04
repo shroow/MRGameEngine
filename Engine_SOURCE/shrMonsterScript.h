@@ -69,8 +69,11 @@ namespace shr
         void End();
 
         void SetCharName(const std::wstring& name) { mCharName = name; }
-        void SetCharState(eCharState state) { mState = state; mPrevState = eCharState::None; }
         eCharState GetCharState() { return mState; }
+        void SetCharState(eCharState state) { mState = state; mPrevState = eCharState::None; }
+
+        bool GetIsStore() { return mIsStore; }
+        void SetIsStore(bool tf) { mIsStore = tf; }
 
     private:
         Animator* mAnimator;
@@ -86,6 +89,7 @@ namespace shr
         bool mbSelected;
         bool mbStartMove;
         Vector2 mMovetoPos;
+        Vector2 mSelectedPos;
 
         Vector3 mPrevPos;
         float mMove;
@@ -94,6 +98,9 @@ namespace shr
         Status mStatus;
         eCharState mState;
         eCharState mPrevState;
+
+        bool mIsStore;
+        bool mIsTraded;
     };
 }
 
