@@ -20,8 +20,8 @@ namespace shr::enums
 		Monster,
 		Player,
 		Particle,
-		CameraEffect,
 		UI,
+		SystemUI,
 		End = 16,
 	};
 

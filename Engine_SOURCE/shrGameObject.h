@@ -40,6 +40,8 @@ namespace shr
 				comp->SetOwner(this);
 			}
 
+			comp->Initialize();
+
 			return comp;
 		}
 

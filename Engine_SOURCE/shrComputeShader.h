@@ -7,6 +7,7 @@ namespace shr::graphics
 	class ComputeShader : public Resource
 	{
 	public:
+		ComputeShader(UINT threadGroupX, UINT threadGroupY, UINT threadGroupZ);
 		ComputeShader();
 		~ComputeShader();
 

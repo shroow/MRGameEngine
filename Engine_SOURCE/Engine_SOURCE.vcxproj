@@ -193,6 +193,7 @@
     <ClInclude Include="shrNoiseShader.h" />
     <ClInclude Include="shrObject.h" />
     <ClInclude Include="shrPaintShader.h" />
+    <ClInclude Include="shrParticleShader.h" />
     <ClInclude Include="shrParticleSystem.h" />
     <ClInclude Include="shrPlayer.h" />
     <ClInclude Include="shrPlayerScript.h" />
@@ -248,6 +249,7 @@
     <ClCompile Include="shrMultiShaderRenderer.cpp" />
     <ClCompile Include="shrNoiseShader.cpp" />
     <ClCompile Include="shrPaintShader.cpp" />
+    <ClCompile Include="shrParticleShader.cpp" />
     <ClCompile Include="shrParticleSystem.cpp" />
     <ClCompile Include="shrPlayer.cpp" />
     <ClCompile Include="shrPlayerScript.cpp" />

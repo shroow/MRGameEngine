@@ -34,7 +34,7 @@ namespace shr
 		mSceneVec[(UINT)eSceneType::Test] = new TestScene();
 		mSceneVec[(UINT)eSceneType::Title] = new TitleScene();
 		mSceneVec[(UINT)eSceneType::Play] = new PlayScene();
-		
+
 		mActiveScene = mSceneVec[(UINT)eSceneType::Test];
 
 		for (Scene* scene : mSceneVec)
@@ -76,7 +76,7 @@ namespace shr
 		if (mActiveScene)
 			mActiveScene->OnExit();
 
-		//dontDestroyObject들 넘겨주기
+		// 바뀔때 dontDestory 오브젝트는 다음씬으로 같이 넘겨줘야한다.
 		std::vector<GameObject*> gameObjs
 			= mActiveScene->GetDontDestroyGameObjects();
 		mActiveScene = mSceneVec[(UINT)type];
@@ -86,6 +86,8 @@ namespace shr
 			eLayerType type = obj->GetLayerType();
 			mActiveScene->AddGameObject(obj, type);
 		}
+
+		mainCamera = mActiveScene->GetMainCamera();
 
 		mActiveScene->OnEnter();
 	}

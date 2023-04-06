@@ -15,6 +15,8 @@ namespace shr::object
 		Layer& layer = scene->GetLayer(type);
 		gameObj->SetLayerType(type);
 		layer.AddGameObject(gameObj);
+		//?
+		gameObj->Initialize();
 
 		return gameObj;
 	}

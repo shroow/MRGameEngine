@@ -49,6 +49,8 @@ cbuffer FadeIn : register(b5)
 cbuffer ParticleSystem : register(b6)
 {
     float4 particleColor;
+    uint elementCount;
+    float deltaTime;
 }
 
 SamplerState pointSampler : register(s0);

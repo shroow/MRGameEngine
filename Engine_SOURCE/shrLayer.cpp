@@ -36,13 +36,13 @@ namespace shr
 
 	void Layer::Initialize()
 	{
-		for (GameObject* obj : mGameObjectVec)
+		/*for (GameObject* obj : mGameObjectVec)
 		{
 			if (obj == nullptr)
 				continue;
 
 			obj->Initialize();
-		}
+		}*/
 	}
 
 	void Layer::Update()

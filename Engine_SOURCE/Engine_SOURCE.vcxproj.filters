@@ -240,6 +240,7 @@
     <ClCompile Include="shrMouseScript.cpp">
       <Filter>Script\Object</Filter>
     </ClCompile>
+    <ClCompile Include="shrParticleShader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CommonInclude.h">
@@ -407,6 +408,7 @@
     <ClInclude Include="shrMouseScript.h">
       <Filter>Script\Object</Filter>
     </ClInclude>
+    <ClInclude Include="shrParticleShader.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="shrMath.inl">

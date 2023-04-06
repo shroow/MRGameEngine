@@ -25,6 +25,7 @@ namespace shr
 {
 	TitleScene::TitleScene()
 		: Scene(eSceneType::Title)
+		, mMainCamera(nullptr)
 	{
 	}
 	TitleScene::~TitleScene()
@@ -32,7 +33,6 @@ namespace shr
 	}
 	void TitleScene::Initialize()
 	{
-		return;
 
 		//paint shader
 		std::shared_ptr<PaintShader> paintShader = Resources::Find<PaintShader>(L"PaintShader");
@@ -58,14 +58,14 @@ namespace shr
 			lightComp->SetDiffuse(Vector4(1.0f, 0.0f, 0.0f, 1.0f));
 		}
 
-		//Particle
-		{
-			Player* obj = object::Instantiate<Player>(eLayerType::Particle);
-			obj->SetName(L"PARTICLE");
-			Transform* tr = obj->GetComponent<Transform>();
-			tr->SetPosition(Vector3(0.0f, 0.0f, 100.0f));
-			obj->AddComponent<ParticleSystem>();
-		}
+		////Particle
+		//{
+		//	Player* obj = object::Instantiate<Player>(eLayerType::Particle);
+		//	obj->SetName(L"PARTICLE");
+		//	Transform* tr = obj->GetComponent<Transform>();
+		//	tr->SetPosition(Vector3(0.0f, 0.0f, 100.0f));
+		//	obj->AddComponent<ParticleSystem>();
+		//}
 
 		//GameObject* cameraObj = object::Instantiate<GameObject>(eLayerType::Camera, this);
 		//Camera* cameraComp = cameraObj->AddComponent<Camera>();
@@ -73,13 +73,13 @@ namespace shr
 		//cameraComp->TurnLayerMask(eLayerType::UI, false);
 		//cameraObj->AddComponent<CameraScript>();
 
-		//// Main Camera Game Object
-		//GameObject* cameraObj = object::Instantiate<GameObject>(eLayerType::Camera);
-		//Camera* cameraComp = cameraObj->AddComponent<Camera>();
-		//cameraComp->SetProjectionType(Camera::eProjectionType::Orthographic);
-		////cameraComp->RegisterCameraInRenderer();
-		//cameraComp->TurnLayerMask(eLayerType::UI, false);
-		//cameraObj->AddComponent<CameraScript>();
+		// Main Camera Game Object
+		GameObject* cameraObj = object::Instantiate<GameObject>(eLayerType::Camera);
+		Camera* cameraComp = cameraObj->AddComponent<Camera>();
+		cameraComp->SetProjectionType(Camera::eProjectionType::Orthographic);
+		//cameraComp->RegisterCameraInRenderer();
+		cameraComp->TurnLayerMask(eLayerType::UI, false);
+		cameraObj->AddComponent<CameraScript>();
 		//mainCamera = cameraComp;
 
 		// UI Camera
@@ -108,7 +108,7 @@ namespace shr
 			Collider2D* collider = obj->AddComponent<Collider2D>();
 			collider->SetType(eColliderType::Rect);
 			//collider->SetCenter(Vector2(0.2f, 0.2f));
-			//collider->SetSize(Vector2(1.5f, 1.5f));
+			//collider->SetSize(Vector2(1.5f, 1.5f)); 
 			Animator* animator = obj->AddComponent<Animator>();
 			std::shared_ptr<Texture> texture = Resources::Load<Texture>(L"Zelda", L"Zelda.png");
 			animator->Create(L"Idle", texture, Vector2(0.0f, 0.0f), Vector2(120.0f, 130.0f), Vector2::Zero, 3, 0.1f);
@@ -200,8 +200,16 @@ namespace shr
 	}
 	void TitleScene::OnEnter()
 	{
+		Initialize();
 	}
 	void TitleScene::OnExit()
+	{
+		Scene::Destroy();
+	}
+	void TitleScene::LoadResources()
+	{
+	}
+	void TitleScene::CreateMonster(int num, Vector3 pos)
 	{
 	}
 }

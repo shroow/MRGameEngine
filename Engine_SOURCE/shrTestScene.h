@@ -21,8 +21,10 @@ namespace shr
     public:
         virtual void LoadResources() override;
         void CreateMonster(int num, Vector3 pos);
+        virtual Camera* GetMainCamera() { return mMainCamera; }
 
     private:
+        Camera* mMainCamera;
 
     };
 }
