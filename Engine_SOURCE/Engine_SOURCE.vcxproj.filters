@@ -94,6 +94,12 @@
     <Filter Include="Component\Camera">
       <UniqueIdentifier>{18e76ba4-e4d9-4557-a877-1c644899ddab}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Component\Light">
+      <UniqueIdentifier>{0ac8513f-481e-4c22-b0bd-6ffcc62b0d78}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource\Compute Shader">
+      <UniqueIdentifier>{606d8442-3eb2-4405-b3cb-aaaa089d5c1b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="shrApplication.cpp">
@@ -231,16 +237,28 @@
     <ClCompile Include="shrUnitComponent.cpp">
       <Filter>Component</Filter>
     </ClCompile>
-    <ClCompile Include="shrLight.cpp" />
-    <ClCompile Include="shrPaintShader.cpp" />
-    <ClCompile Include="shrComputeShader.cpp" />
-    <ClCompile Include="shrStructedBuffer.cpp" />
     <ClCompile Include="shrNoiseShader.cpp" />
-    <ClCompile Include="shrParticleSystem.cpp" />
     <ClCompile Include="shrMouseScript.cpp">
       <Filter>Script\Object</Filter>
     </ClCompile>
-    <ClCompile Include="shrParticleShader.cpp" />
+    <ClCompile Include="shrStructedBuffer.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="shrParticleSystem.cpp">
+      <Filter>Component\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="shrLight.cpp">
+      <Filter>Component\Light</Filter>
+    </ClCompile>
+    <ClCompile Include="shrComputeShader.cpp">
+      <Filter>Resource\Compute Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="shrParticleShader.cpp">
+      <Filter>Resource\Compute Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="shrPaintShader.cpp">
+      <Filter>Resource\Compute Shader</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CommonInclude.h">
@@ -399,16 +417,28 @@
     <ClInclude Include="shrUnitComponent.h">
       <Filter>Component</Filter>
     </ClInclude>
-    <ClInclude Include="shrLight.h" />
-    <ClInclude Include="shrPaintShader.h" />
-    <ClInclude Include="shrComputeShader.h" />
-    <ClInclude Include="shrStructedBuffer.h" />
     <ClInclude Include="shrNoiseShader.h" />
-    <ClInclude Include="shrParticleSystem.h" />
     <ClInclude Include="shrMouseScript.h">
       <Filter>Script\Object</Filter>
     </ClInclude>
-    <ClInclude Include="shrParticleShader.h" />
+    <ClInclude Include="shrStructedBuffer.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="shrParticleSystem.h">
+      <Filter>Component\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="shrLight.h">
+      <Filter>Component\Light</Filter>
+    </ClInclude>
+    <ClInclude Include="shrComputeShader.h">
+      <Filter>Resource\Compute Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="shrParticleShader.h">
+      <Filter>Resource\Compute Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="shrPaintShader.h">
+      <Filter>Resource\Compute Shader</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="shrMath.inl">

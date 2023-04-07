@@ -14,10 +14,12 @@ namespace shr::graphics
         virtual void Binds() override;
         virtual void Clear() override;
 
-        void SetStructedBuffer(StructedBuffer* buffer);
+        void SetStructedBuffer(StructedBuffer* buffer) { mBuffer = buffer; }
+        void SetSharedStructedBuffer(StructedBuffer* buffer) { mSharedBuffer = buffer; }
 
     private:
         StructedBuffer* mBuffer;
+        StructedBuffer* mSharedBuffer;
     };
 }
 

@@ -33,6 +33,7 @@ namespace shr
 	}
 	void TitleScene::Initialize()
 	{
+		return;
 
 		//paint shader
 		std::shared_ptr<PaintShader> paintShader = Resources::Find<PaintShader>(L"PaintShader");

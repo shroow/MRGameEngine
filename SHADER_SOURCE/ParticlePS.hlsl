@@ -3,7 +3,7 @@
 struct GSOutput
 {
     float4 Pos : SV_POSITION;
-    uint UV : TEXCOORD;
+    float2 UV : TEXCOORD;
 };
 
 struct VSOut

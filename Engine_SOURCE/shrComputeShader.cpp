@@ -14,9 +14,6 @@ namespace shr::graphics
 		, mGroupY(0)
 		, mGroupZ(0)
 	{
-		mThreadGroupCountX = 32;
-		mThreadGroupCountY = 32;
-		mThreadGroupCountZ = 1;
 	}
 	ComputeShader::ComputeShader()
 		: Resource(eResourceType::ComputeShader)

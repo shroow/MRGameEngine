@@ -3,7 +3,7 @@
 #include "shrMaterial.h"
 #include "shrSceneManager.h"
 #include "shrPaintShader.h"
-//#include "shrNoiseShader.h"
+#include "shrParticleShader.h"
 
 namespace shr::renderer
 {
@@ -220,6 +220,10 @@ namespace shr::renderer
 		particleShader->SetBSState(eBSType::AlphaBlend);
 		particleShader->SetTopology(D3D11_PRIMITIVE_TOPOLOGY::D3D11_PRIMITIVE_TOPOLOGY_POINTLIST);
 		Resources::Insert<Shader>(L"ParticleShader", particleShader);
+
+		std::shared_ptr<ParticleShader> particleCS = std::make_shared<ParticleShader>();
+		Resources::Insert<ParticleShader>(L"ParticleCS", particleCS);
+		particleCS->Create(L"ParticleCS.hlsl", "main");
 #pragma endregion
 	}
 
@@ -455,7 +459,7 @@ namespace shr::renderer
 
 		//Structed buffer
 		lightsBuffer = new StructedBuffer();
-		lightsBuffer->Create(sizeof(LightAttribute), 128, eSRVType::SRV, nullptr);
+		lightsBuffer->Create(sizeof(LightAttribute), 128, eSRVType::SRV, nullptr, true);
 	}
 
 

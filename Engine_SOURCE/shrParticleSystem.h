@@ -18,6 +18,8 @@ namespace shr
 
     private:
         class StructedBuffer* mBuffer;
+        class StructedBuffer* mSharedBuffer;
+
         std::shared_ptr<graphics::ParticleShader> mCS;
 
         UINT mCount;
@@ -26,5 +28,7 @@ namespace shr
         Vector4 mStartColor;
         Vector4 mEndColor;
         float mLifeTime;
+        float mFrequency;
+        float mTime;
     };
 }

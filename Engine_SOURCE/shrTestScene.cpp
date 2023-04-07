@@ -13,6 +13,7 @@
 #include "shrAnimator.h"
 #include "shrCollisionManager.h"
 #include "shrParticleSystem.h"
+#include "shrPaintShader.h"
 
 #include "shrUnitComponent.h"
 #include "shrMouseScript.h"
@@ -37,31 +38,69 @@ namespace shr
 		//cameraComp->TurnLayerMask(eLayerType::UI, false);
 		//cameraObj->AddComponent<CameraScript>();
 
-		// Main Camera Game Object
-		GameObject* cameraObj = object::Instantiate<GameObject>(eLayerType::Camera);
-		Camera* mMainCamera = cameraObj->AddComponent<Camera>();
-		//mMainCamera->SetProjectionType(Camera::eProjectionType::Orthographic);
-		//cameraComp->RegisterCameraInRenderer();
-		mMainCamera->TurnLayerMask(eLayerType::SystemUI, false);
-		cameraObj->AddComponent<CameraScript>();
-		mainCamera = mMainCamera;
+		//Mouse
+		{
+			GameObject* obj = object::Instantiate<GameObject>(eLayerType::Mouse);
+			//obj->AddComponent<MouseScript>();
+			object::DontDestroyOnLoad(obj);
+		}
 
-		//UI Camera
-		GameObject* cameraUIObj = object::Instantiate<GameObject>(eLayerType::Camera);
-		Camera* cameraUIComp = cameraUIObj->AddComponent<Camera>();
-		cameraUIComp->SetProjectionType(Camera::eProjectionType::Orthographic);
-		cameraUIComp->DisableLayerMasks();
-		cameraUIComp->TurnLayerMask(eLayerType::SystemUI, true);
+		// Main Camera Game Object
+		mMainCamera = object::Instantiate<GameObject>(eLayerType::Camera);
+		Camera* cameraComp = mMainCamera->AddComponent<Camera>();
+		//cameraComp->SetProjectionType(Camera::eProjectionType::Orthographic);
+		//cameraComp->RegisterCameraInRenderer();
+		cameraComp->TurnLayerMask(eLayerType::SystemUI, false);
+		mMainCamera->AddComponent<CameraScript>();
+		mainCamera = GetMainCamera();
+		
+		////UI Camera
+		//GameObject* cameraUIObj = object::Instantiate<GameObject>(eLayerType::Camera);
+		//Camera* cameraUIComp = cameraUIObj->AddComponent<Camera>();
+		//cameraUIComp->SetProjectionType(Camera::eProjectionType::Orthographic);
+		//cameraUIComp->DisableLayerMasks();
+		//cameraUIComp->TurnLayerMask(eLayerType::SystemUI, true);
+
+		//paint shader
+		{
+			std::shared_ptr<PaintShader> paintShader = Resources::Find<PaintShader>(L"PaintShader");
+			//L"SmileTexture"
+			std::shared_ptr<Texture> paintTex = Resources::Find<Texture>(L"PaintTexture");
+			paintShader->SetTarget(paintTex);
+			paintShader->OnExcute();
+		}
 
 		//Particle
 		{
-			Player* obj = object::Instantiate<Player>(eLayerType::Particle);
+			GameObject* obj = object::Instantiate<Player>(eLayerType::Particle);
 			obj->SetName(L"PARTICLE");
 			Transform* tr = obj->GetComponent<Transform>();
 			tr->SetPosition(Vector3(0.0f, 0.0f, 100.0f));
 			obj->AddComponent<ParticleSystem>();
 		}
+		 
+		//SMILE RECT
+		{
+			Player* obj = object::Instantiate<Player>(eLayerType::Player);
+			obj->SetName(L"SMILE");
+			Transform* tr = obj->GetComponent<Transform>();
+			tr->SetPosition(Vector3(-2.0f, 2.0f, 5.0f));
+			//tr->SetScale(Vector3(2.0f, 1.0f, 1.0f));
+			//tr->SetRotation(Vector3(0.0f, 0.0f, XM_PIDIV2 / 2.0f));
+			//tr->SetScale(Vector3(1.0f, 1.0f, 1.0f));
+			Collider2D* collider = obj->AddComponent<Collider2D>();
+			collider->SetSize(Vector2(2.0f, 2.0f));
+			collider->SetType(eColliderType::Rect);
+			//collider->SetCenter(Vector2(0.2f, 0.2f));
+			//collider->SetSize(Vector2(1.5f, 1.5f));
 
+			SpriteRenderer* mr = obj->AddComponent<SpriteRenderer>();
+			std::shared_ptr<Material> mateiral = Resources::Find<Material>(L"RectMaterial");
+			mr->SetMaterial(mateiral);
+			std::shared_ptr<Mesh> mesh = Resources::Find<Mesh>(L"RectMesh");
+			mr->SetMesh(mesh);
+			object::DontDestroyOnLoad(obj);
+		}
 
 		//Line
 		{
@@ -317,10 +356,6 @@ namespace shr
 			hpsr->SetMesh(hpmesh);
 			hpsr->SetMaterial(hpspriteMaterial);
 		}
-
-		CreateMonster(1, Vector3(-4.5f, 2.f, 5.0f));
-		CreateMonster(2, Vector3(8.0f, 1.5f, 5.0f));
-		CreateMonster(2, Vector3(7.f, 4.f, 5.0f));
 
 
 		Scene::Initialize();
