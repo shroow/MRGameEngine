@@ -302,7 +302,6 @@ namespace shr
 		}
 
 
-
 		if (mPrevState == mState)
 		{
 			if (mMoveDir.x < 0.f)

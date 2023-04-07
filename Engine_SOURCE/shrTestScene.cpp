@@ -48,7 +48,7 @@ namespace shr
 		// Main Camera Game Object
 		mMainCamera = object::Instantiate<GameObject>(eLayerType::Camera);
 		Camera* cameraComp = mMainCamera->AddComponent<Camera>();
-		//cameraComp->SetProjectionType(Camera::eProjectionType::Orthographic);
+		cameraComp->SetProjectionType(Camera::eProjectionType::Orthographic);
 		//cameraComp->RegisterCameraInRenderer();
 		cameraComp->TurnLayerMask(eLayerType::SystemUI, false);
 		mMainCamera->AddComponent<CameraScript>();
@@ -60,6 +60,16 @@ namespace shr
 		//cameraUIComp->SetProjectionType(Camera::eProjectionType::Orthographic);
 		//cameraUIComp->DisableLayerMasks();
 		//cameraUIComp->TurnLayerMask(eLayerType::SystemUI, true);
+
+		//Directional Light
+		{
+			GameObject* directionalLight = object::Instantiate<GameObject>(eLayerType::Player);
+			directionalLight->GetComponent<Transform>()->SetPosition(Vector3(0.0f, 0.0f, -100.0f));
+			Light* lightComp = directionalLight->AddComponent<Light>();
+			lightComp->SetType(eLightType::Directional);
+			lightComp->SetDiffuse(Vector4(1.0f, 1.0f, 1.0f, 1.0f));
+			object::DontDestroyOnLoad(directionalLight);
+		}
 
 		//paint shader
 		{
@@ -357,6 +367,12 @@ namespace shr
 			hpsr->SetMaterial(hpspriteMaterial);
 		}
 
+		CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::Monster);
+		CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::Background);
+		CollisionManager::CollisionLayerCheck(eLayerType::Monster, eLayerType::Monster);
+		CollisionManager::CollisionLayerCheck(eLayerType::Monster, eLayerType::Background);
+		CollisionManager::MouseCollisionLayerCheck(eLayerType::Player);
+		CollisionManager::MouseCollisionLayerCheck(eLayerType::Monster);
 
 		Scene::Initialize();
 	}

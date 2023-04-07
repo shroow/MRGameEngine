@@ -56,7 +56,7 @@ namespace shr
 				Vector4(cosf((float)i * (XM_2PI / (float)mCount))
 					, sin((float)i * (XM_2PI / (float)mCount)), 0.0f, 1.0f);
 
-			particles[i].speed = 100.0f;
+			particles[i].speed = 30.0f;
 		}
 
 		mBuffer = new StructedBuffer();
