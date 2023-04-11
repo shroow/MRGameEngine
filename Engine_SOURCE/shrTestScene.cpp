@@ -47,6 +47,7 @@ namespace shr
 
 		// Main Camera Game Object
 		mMainCamera = object::Instantiate<GameObject>(eLayerType::Camera);
+		mMainCamera->GetComponent<Transform>()->SetPosition(Vector3(0.f, 0.f, 0.f));
 		Camera* cameraComp = mMainCamera->AddComponent<Camera>();
 		cameraComp->SetProjectionType(Camera::eProjectionType::Orthographic);
 		//cameraComp->RegisterCameraInRenderer();
@@ -71,6 +72,15 @@ namespace shr
 			object::DontDestroyOnLoad(directionalLight);
 		}
 
+		////Particle
+		//{
+		//	GameObject* obj = object::Instantiate<Player>(eLayerType::Particle);
+		//	obj->SetName(L"PARTICLE");
+		//	Transform* tr = obj->GetComponent<Transform>();
+		//	tr->SetPosition(Vector3(0.0f, 0.0f, 100.0f));
+		//	obj->AddComponent<ParticleSystem>();
+		//}
+
 		//paint shader
 		{
 			std::shared_ptr<PaintShader> paintShader = Resources::Find<PaintShader>(L"PaintShader");
@@ -79,15 +89,6 @@ namespace shr
 			paintShader->SetTarget(paintTex);
 			paintShader->OnExcute();
 		}
-
-		//Particle
-		{
-			GameObject* obj = object::Instantiate<Player>(eLayerType::Particle);
-			obj->SetName(L"PARTICLE");
-			Transform* tr = obj->GetComponent<Transform>();
-			tr->SetPosition(Vector3(0.0f, 0.0f, 100.0f));
-			obj->AddComponent<ParticleSystem>();
-		}
 		 
 		//SMILE RECT
 		{
@@ -95,9 +96,8 @@ namespace shr
 			obj->SetName(L"SMILE");
 			Transform* tr = obj->GetComponent<Transform>();
 			tr->SetPosition(Vector3(-2.0f, 2.0f, 5.0f));
-			//tr->SetScale(Vector3(2.0f, 1.0f, 1.0f));
+			tr->SetScale(Vector3(2.0f, 2.0f, 1.0f));
 			//tr->SetRotation(Vector3(0.0f, 0.0f, XM_PIDIV2 / 2.0f));
-			//tr->SetScale(Vector3(1.0f, 1.0f, 1.0f));
 			Collider2D* collider = obj->AddComponent<Collider2D>();
 			collider->SetSize(Vector2(2.0f, 2.0f));
 			collider->SetType(eColliderType::Rect);
@@ -117,12 +117,13 @@ namespace shr
 			GameObject* line = object::Instantiate<Player>(eLayerType::Monster);
 			line->SetName(L"CenterLine");
 			Transform* tr = line->GetComponent<Transform>();
-			tr->SetPosition(Vector3(1.0f, 0.0f, 5.0f));
-			tr->SetRotation(Vector3(0.0f, 0.0f, 30.f));
+			tr->SetPosition(Vector3(0.0f, 0.0f, 5.0f));
+			//tr->SetRotation(Vector3(0.0f, 0.0f, 30.f));
+			tr->SetScale(Vector3(1.0f, 1.0f, 1.0f));
 			Collider2D* collider = line->AddComponent<Collider2D>();
 			collider->SetType(eColliderType::Line);
-			//그리드(2.f) 한칸당 반지름 4.f
-			collider->SetRadius(20.f);
+			//그리드(10.f) 한칸당 반지름 20.f
+			collider->SetRadius(90.f);
 		}
 
 		//Field(Player)
@@ -130,11 +131,11 @@ namespace shr
 			GameObject* obj = object::Instantiate<GameObject>(eLayerType::Background);
 			obj->SetName(L"PlayerField");
 			Transform* tr = obj->GetComponent<Transform>();
-			tr->SetPosition(Vector3(-4.5f, 1.5f, 10.f));
+			tr->SetPosition(Vector3(-25.f, 0.f, 100.f));
 			Collider2D* collider = obj->AddComponent<Collider2D>();
 			collider->SetName(L"PlayerFieldCollider");
 			collider->SetType(eColliderType::Rect);
-			collider->SetSize(Vector2(8.5f, 10.5f));
+			collider->SetSize(Vector2(40.0f, 40.0f));
 		}
 
 		//Field(Monster)
@@ -142,11 +143,11 @@ namespace shr
 			GameObject* obj = object::Instantiate<GameObject>(eLayerType::Background);
 			obj->SetName(L"MonsterField");
 			Transform* tr = obj->GetComponent<Transform>();
-			tr->SetPosition(Vector3(6.5f, 1.5f, 10.f));
+			tr->SetPosition(Vector3(25.f, 0.f, 100.f));
 			Collider2D* collider = obj->AddComponent<Collider2D>();
 			collider->SetName(L"MonsterFieldCollider");
 			collider->SetType(eColliderType::Rect);
-			collider->SetSize(Vector2(8.5f, 10.5f));
+			collider->SetSize(Vector2(40.0f, 40.0f));
 		}
 
 		//Knight1
@@ -154,10 +155,8 @@ namespace shr
 			Player* obj = object::Instantiate<Player>(eLayerType::Monster);
 			obj->SetName(L"FreeKnightv1c1");
 			Transform* tr = obj->GetComponent<Transform>();
-			tr->SetPosition(Vector3(-3.0f, -0.5f, 5.0f));
-			//tr->SetRotation(Vector3(0.0f, 0.0f, XM_PIDIV2));
-			//tr->SetScale(Vector3(1.5f, 1.0f, 1.0f));
-			tr->SetScale(Vector3(1.5f, 1.5f, 1.0f));
+			tr->SetPosition(Vector3(-20.0f, -0.5f, 5.0f));
+			tr->SetScale(Vector3(6.0f, 6.0f, 1.0f));
 			Collider2D* collider = obj->AddComponent<Collider2D>();
 			collider->SetType(eColliderType::Rect);
 			//collider->SetCenter(Vector2(0.2f, 0.2f));
@@ -170,8 +169,8 @@ namespace shr
 				hpBar->SetName(L"HPBAR");
 				Transform* hpBarTR = hpBar->GetComponent<Transform>();
 				hpBarTR->SetParent(tr);
-				hpBarTR->SetPosition(Vector3(0.0f, -0.65f, 0.0f));
-				hpBarTR->SetScale(Vector3(1.0f, 0.2f, 1.0f));
+				hpBarTR->SetPosition(Vector3(0.0f, -0.60f, 0.0f));
+				hpBarTR->SetScale(Vector3(0.75f, 0.14f, 1.0f));
 
 				SpriteRenderer* hpsr = hpBar->AddComponent<SpriteRenderer>();
 				hpBar->AddComponent(hpsr);
@@ -189,8 +188,8 @@ namespace shr
 				mpBar->SetName(L"MPBAR");
 				Transform* mpBarTR = mpBar->GetComponent<Transform>();
 				mpBarTR->SetParent(tr);
-				mpBarTR->SetPosition(Vector3(0.0f, -0.8f, 0.0f));
-				mpBarTR->SetScale(Vector3(1.0f, 0.2f, 1.0f));
+				mpBarTR->SetPosition(Vector3(0.0f, -0.75f, 0.0f));
+				mpBarTR->SetScale(Vector3(0.75f, 0.14f, 1.0f));
 
 				SpriteRenderer* mpSR = mpBar->AddComponent<SpriteRenderer>();
 				mpBar->AddComponent(mpSR);
@@ -244,10 +243,8 @@ namespace shr
 			GameObject* obj = object::Instantiate<Player>(eLayerType::Monster);
 			obj->SetName(L"BallandChainBot");
 			Transform* tr = obj->GetComponent<Transform>();
-			tr->SetPosition(Vector3(6.0f, -0.5f, 5.0f));
-			//tr->SetRotation(Vector3(0.0f, 0.0f, XM_PIDIV2));
-			//tr->SetScale(Vector3(3.5f, 1.0f, 1.0f));
-			tr->SetScale(Vector3(1.5f, 1.5f, 1.0f));
+			tr->SetPosition(Vector3(20.0f, 5.5f, 5.0f));
+			tr->SetScale(Vector3(6.0f, 6.0f, 1.0f));
 			Collider2D* collider = obj->AddComponent<Collider2D>();
 			collider->SetType(eColliderType::Rect);
 			//collider->SetCenter(Vector2(0.2f, 0.2f));
@@ -260,8 +257,8 @@ namespace shr
 				hpBar->SetName(L"HPBAR");
 				Transform* hpBarTR = hpBar->GetComponent<Transform>();
 				hpBarTR->SetParent(tr);
-				hpBarTR->SetPosition(Vector3(0.0f, -0.65f, 0.0f));
-				hpBarTR->SetScale(Vector3(1.0f, 0.2f, 1.0f));
+				hpBarTR->SetPosition(Vector3(0.0f, -0.60f, 0.0f));
+				hpBarTR->SetScale(Vector3(0.75f, 0.14f, 1.0f));
 
 				SpriteRenderer* hpsr = hpBar->AddComponent<SpriteRenderer>();
 				hpBar->AddComponent(hpsr);
@@ -279,8 +276,8 @@ namespace shr
 				mpBar->SetName(L"MPBAR");
 				Transform* mpBarTR = mpBar->GetComponent<Transform>();
 				mpBarTR->SetParent(tr);
-				mpBarTR->SetPosition(Vector3(0.0f, -0.8f, 0.0f));
-				mpBarTR->SetScale(Vector3(1.0f, 0.2f, 1.0f));
+				mpBarTR->SetPosition(Vector3(0.0f, -0.75f, 0.0f));
+				mpBarTR->SetScale(Vector3(0.75f, 0.14f, 1.0f));
 
 				SpriteRenderer* mpSR = mpBar->AddComponent<SpriteRenderer>();
 				mpBar->AddComponent(mpSR);

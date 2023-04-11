@@ -255,8 +255,10 @@ namespace shr
 
 			Vector3 rectPos = right->GetPosition() + right->GetCenter();
 
-			if ((right->GetSize().x * 0.5f) >= abs(pointPos.x - rectPos.x)
-				&& (right->GetSize().y * 0.5f) >= abs(pointPos.y - rectPos.y))
+			Vector3 rectSclae = right->GetOwner()->GetComponent<Transform>()->GetScale();
+
+			if ((right->GetSize().x * rectSclae.x * 0.5f) >= abs(pointPos.x - rectPos.x)
+				&& (right->GetSize().y * rectSclae.y * 0.5f) >= abs(pointPos.y - rectPos.y))
 			{
 				return true;
 			}
@@ -400,13 +402,13 @@ namespace shr
 						Vector3 mostFrontPos = objCol->GetPosition();
 						Vector3 objPos = objCol->GetPosition();
 
-						if (mostFrontPos.z > objPos.z)
+						if (mostFrontPos.z < objPos.z)
 						{
 							mostFront = objCol;
 						}
 						else if (mostFrontPos.z == objPos.z)
 						{
-							if (mostFrontPos.y > objPos.y)
+							if (mostFrontPos.y < objPos.y)
 								mostFront = objCol;
 							else if (mostFrontPos.y == objPos.y)
 								mostFront = objCol;
@@ -467,8 +469,10 @@ namespace shr
 
 			Vector3 rectPos = collider->GetPosition();
 
-			if ((collider->GetSize().x * 0.5f) >= abs(pointPos.x - rectPos.x)
-				&& (collider->GetSize().y * 0.5f) >= abs(pointPos.y - rectPos.y))
+			Vector3 rectSclae = collider->GetOwner()->GetComponent<Transform>()->GetScale();
+
+			if ((collider->GetSize().x * rectSclae.x * 0.5f) >= abs(pointPos.x - rectPos.x)
+				&& (collider->GetSize().y * rectSclae.y * 0.5f) >= abs(pointPos.y - rectPos.y))
 			{
 				return true;
 			}
