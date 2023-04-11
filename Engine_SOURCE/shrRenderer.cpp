@@ -435,7 +435,7 @@ namespace shr::renderer
 
 	void LoadBuffer()
 	{
-		// Constant Buffer
+#pragma region Constant Buffer
 		constantBuffers[(UINT)eCBType::Transform] = new ConstantBuffer(eCBType::Transform);
 		constantBuffers[(UINT)eCBType::Transform]->Create(sizeof(TransformCB));
 
@@ -457,36 +457,37 @@ namespace shr::renderer
 		constantBuffers[(UINT)eCBType::ParticleSystem] = new ConstantBuffer(eCBType::ParticleSystem);
 		constantBuffers[(UINT)eCBType::ParticleSystem]->Create(sizeof(ParticleSystemCB));
 
-		//Structed buffer
+		constantBuffers[(UINT)eCBType::Noise] = new ConstantBuffer(eCBType::Noise);
+		constantBuffers[(UINT)eCBType::Noise]->Create(sizeof(NoiseCB));
+#pragma endregion
+#pragma region Structured Buffer
 		lightsBuffer = new StructedBuffer();
 		lightsBuffer->Create(sizeof(LightAttribute), 128, eSRVType::SRV, nullptr, true);
+#pragma endregion
 	}
 
 
 	void LoadTexture()
 	{
+#pragma region Base Texture
 		Resources::Load<Texture>(L"SmileTexture", L"Smile.png");
 		Resources::Load<Texture>(L"DefaultSprite", L"Light.png");
 		Resources::Load<Texture>(L"HPBarTexture", L"HPBar.png");		
 		Resources::Load<Texture>(L"CartoonSmoke", L"particle\\CartoonSmoke.png");
+		Resources::Load<Texture>(L"noise_01", L"noise\\noise_01.png");
+		Resources::Load<Texture>(L"noise_02", L"noise\\noise_02.png");
+		//Resources::Load<Texture>(L"noise_03", L"noise\\noise_03.png");
+#pragma endregion
 
-
-		Resources::Load<Texture>(L"Noise1Texture", L"noise1.png");
-		Resources::Load<Texture>(L"Noise2Texture", L"noise2.jpg");
 		Resources::Load<Texture>(L"RedBarTexture", L"UnitUI\\RedBar.png");
 		Resources::Load<Texture>(L"BlueBarTexture", L"UnitUI\\BlueBar.png");
-
-		//Create
+#pragma region Dynamic Texture
+		//DYNAMIC TEXTURE
 		std::shared_ptr<Texture> uavTexture = std::make_shared<Texture>();
 		uavTexture->Create(1024, 1024, DXGI_FORMAT_R8G8B8A8_UNORM, D3D11_BIND_SHADER_RESOURCE
 			| D3D11_BIND_UNORDERED_ACCESS);
 		Resources::Insert<Texture>(L"PaintTexture", uavTexture);
-
-		////Create 
-		//std::shared_ptr<Texture> noiseTexture = std::make_shared<Texture>();
-		//noiseTexture->Create(1024, 1024, DXGI_FORMAT_R8G8B8A8_UNORM, D3D11_BIND_SHADER_RESOURCE
-		//	| D3D11_BIND_UNORDERED_ACCESS);
-		//Resources::Insert<Texture>(L"NoiseTexture", noiseTexture);
+#pragma endregion
 	}
 
 	void LoadMaterial()
@@ -565,6 +566,7 @@ namespace shr::renderer
 
 	void Render()
 	{
+		BindNoiseTexture();
 		BindLights();
 
 		eSceneType type = SceneManager::GetActiveScene()->GetSceneType();
@@ -610,5 +612,29 @@ namespace shr::renderer
 		cb->SetData(&trCb);
 		cb->Bind(eShaderStage::VS);
 		cb->Bind(eShaderStage::PS);
+	}
+
+	void BindNoiseTexture()
+	{
+		std::shared_ptr<Texture> noise = Resources::Find<Texture>(L"noise_01");
+		noise->BindShaderResource(eShaderStage::VS, 16);
+		noise->BindShaderResource(eShaderStage::HS, 16);
+		noise->BindShaderResource(eShaderStage::DS, 16);
+		noise->BindShaderResource(eShaderStage::GS, 16);
+		noise->BindShaderResource(eShaderStage::PS, 16);
+		noise->BindShaderResource(eShaderStage::CS, 16);
+
+		NoiseCB info = {};
+		info.noiseSize.x = noise->GetWidth();
+		info.noiseSize.y = noise->GetHeight();
+
+		ConstantBuffer* cb = renderer::constantBuffers[(UINT)eCBType::Noise];
+		cb->SetData(&info);
+		cb->Bind(eShaderStage::VS);
+		cb->Bind(eShaderStage::HS);
+		cb->Bind(eShaderStage::DS);
+		cb->Bind(eShaderStage::GS);
+		cb->Bind(eShaderStage::PS);
+		cb->Bind(eShaderStage::CS);
 	}
 }

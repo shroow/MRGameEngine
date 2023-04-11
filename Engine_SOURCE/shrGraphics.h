@@ -11,13 +11,15 @@
 #define CB_GETBINDSLOT(name) __CBUFFERBINDSLOT__##name##__
 #define CBUFFER(name, slot) static const int CB_GETBINDSLOT(name) = slot; struct alignas(16) name
 
-#define CBSLOT_TRANSFORM 0
-#define CBSLOT_MATERIAL 1
-#define CBSLOT_GRID 2
-#define CBSLOT_ANIMATION 3
-#define CBSLOT_NUMBEROFLIGHT 4
-#define CBSLOT_FADEIN 5
-#define CBSLOT_PARTICLESYSTEM 6
+#define CBSLOT_TRANSFORM		0
+#define CBSLOT_MATERIAL			1
+#define CBSLOT_GRID				2
+#define CBSLOT_ANIMATION		3
+#define CBSLOT_NUMBEROFLIGHT	4
+#define CBSLOT_FADEIN			5
+#define CBSLOT_PARTICLESYSTEM	6
+#define CBSLOT_NOISE			7
+
 using namespace shr::math;
 namespace shr::graphics
 {
@@ -36,6 +38,7 @@ namespace shr::graphics
 		GS,
 		PS,
 		CS,
+		ALL,
 		Count,
 	};
 
@@ -106,6 +109,7 @@ namespace shr::graphics
 		Light,
 		FadeIn,
 		ParticleSystem,
+		Noise,
 		End,
 	};
 

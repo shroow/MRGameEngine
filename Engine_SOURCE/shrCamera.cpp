@@ -101,7 +101,8 @@ namespace shr
 		}
 		else
 		{
-			mProjection = Matrix::CreateOrthographicLH(width / 50.f, height / 50.f, mNear, mFar);
+			//mProjection = Matrix::CreateOrthographicLH(width / 50.f, height / 50.f, mNear, mFar);
+			mProjection = Matrix::CreateOrthographicLH(width, height, mNear, mFar);
 		}
 	}
 

@@ -176,15 +176,15 @@ namespace shr
 		mMouse.worldPos.x = XMVectorGetX(mouseTr);
 		mMouse.worldPos.y = XMVectorGetY(mouseTr);
 
+		////Debug position Printf
+		//{
+		//	float x1 = mMouse.worldPos.x;
+		//	float y1 = mMouse.worldPos.y;
 
-		{
-			float x1 = mMouse.worldPos.x;
-			float y1 = mMouse.worldPos.y;
-
-			std::wstring message;
-			message = message + L"X:" + std::to_wstring(x1) + L", Y:" + std::to_wstring(y1)
-				+ L"\n";
-			OutputDebugString(message.c_str());
-		}
+		//	std::wstring message;
+		//	message = message + L"X:" + std::to_wstring(x1) + L", Y:" + std::to_wstring(y1)
+		//		+ L"\n";
+		//	OutputDebugString(message.c_str());
+		//}
 	}
 }
