@@ -219,6 +219,7 @@ namespace shr
 		if(type == eLayerType::Monster)
 			mAttack = true;
 
+
 		if (mbCursorOn)
 		{
 			if (mIsStore)
@@ -437,6 +438,10 @@ namespace shr
 		default:
 			break;
 		}
+	}
+
+	void MonsterScript::Battle()
+	{
 	}
 
 	void MonsterScript::Start()

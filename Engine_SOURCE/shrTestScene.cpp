@@ -14,6 +14,7 @@
 #include "shrCollisionManager.h"
 #include "shrParticleSystem.h"
 #include "shrPaintShader.h"
+#include "shrMonster.h"
 
 #include "shrUnitComponent.h"
 #include "shrMouseScript.h"
@@ -152,7 +153,7 @@ namespace shr
 
 		//Knight1
 		{
-			Player* obj = object::Instantiate<Player>(eLayerType::Monster);
+			Monster* obj = object::Instantiate<Monster>(eLayerType::Monster);
 			obj->SetName(L"FreeKnightv1c1");
 			Transform* tr = obj->GetComponent<Transform>();
 			tr->SetPosition(Vector3(-20.0f, -0.5f, 5.0f));
@@ -161,6 +162,18 @@ namespace shr
 			collider->SetType(eColliderType::Rect);
 			//collider->SetCenter(Vector2(0.2f, 0.2f));
 			//collider->SetSize(Vector2(1.5f, 1.5f));
+
+			//???
+			{
+				GameObject* objCL = object::Instantiate<GameObject>(eLayerType::Monster);
+				Transform* objCLTR = objCL->GetComponent<Transform>();
+				objCLTR->SetParent(tr);
+				objCLTR->SetPosition(Vector3(0.0f, -0.60f, 0.0f));
+				objCLTR->SetScale(Vector3(1.f, 1.f, 1.f));
+				Collider2D* collider2 = objCL->AddComponent<Collider2D>();
+				collider2->SetType(eColliderType::Circle);
+				collider2->SetRadius(10.f);
+			}
 
 			//HPBar
 			{

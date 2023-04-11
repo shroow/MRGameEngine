@@ -64,6 +64,8 @@ namespace shr
             , UINT spriteLength, float duration, eAtlasType atlasType = eAtlasType::Column);
         void PlayCharAnim(eCharState animState, bool loop = true);
 
+        void Battle();
+
         void Start();
         void Action();
         void End();
