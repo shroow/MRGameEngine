@@ -55,9 +55,6 @@
     <Filter Include="Scene\GameScenes">
       <UniqueIdentifier>{3f1c802d-00b4-46d6-a61f-9a100cb3d572}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Prefab">
-      <UniqueIdentifier>{26aa041c-44d0-4b41-a8ea-9f7053125ce3}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Component\Collider">
       <UniqueIdentifier>{202dd30b-8ece-4281-9fc0-b3bf81380df5}</UniqueIdentifier>
     </Filter>
@@ -67,9 +64,6 @@
     <Filter Include="Component\Collider\3D">
       <UniqueIdentifier>{24f935f2-31a2-48f6-b289-3ed9d97ecdeb}</UniqueIdentifier>
     </Filter>
-    <Filter Include="GameObject\InGame">
-      <UniqueIdentifier>{c9007064-4c1b-44c2-9c61-2db4dbe84a7a}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Script\Object">
       <UniqueIdentifier>{428deec3-4a3f-48d3-93fc-40d42f5ef44b}</UniqueIdentifier>
     </Filter>
@@ -78,12 +72,6 @@
     </Filter>
     <Filter Include="Script\Unit">
       <UniqueIdentifier>{ad06007e-5a76-4fa0-88ca-5a29f5e8a74f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Input">
-      <UniqueIdentifier>{cd4b9eba-c6cf-46a9-a814-89a620c95213}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Time">
-      <UniqueIdentifier>{d5cea299-11de-49f8-9c0c-c110056dd303}</UniqueIdentifier>
     </Filter>
     <Filter Include="Component\Animator">
       <UniqueIdentifier>{b1527e3a-156c-4417-81e7-b95f53a08b69}</UniqueIdentifier>
@@ -100,6 +88,21 @@
     <Filter Include="Resource\Compute Shader">
       <UniqueIdentifier>{606d8442-3eb2-4405-b3cb-aaaa089d5c1b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Common\Time">
+      <UniqueIdentifier>{d5cea299-11de-49f8-9c0c-c110056dd303}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Common\Input">
+      <UniqueIdentifier>{cd4b9eba-c6cf-46a9-a814-89a620c95213}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource\Prefab">
+      <UniqueIdentifier>{26aa041c-44d0-4b41-a8ea-9f7053125ce3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Unit">
+      <UniqueIdentifier>{c9007064-4c1b-44c2-9c61-2db4dbe84a7a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Skill">
+      <UniqueIdentifier>{ad01656b-f31e-40e1-a67e-cca921b5234c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="shrApplication.cpp">
@@ -112,10 +115,10 @@
       <Filter>Common\Math</Filter>
     </ClCompile>
     <ClCompile Include="shrTime.cpp">
-      <Filter>Time</Filter>
+      <Filter>Common\Time</Filter>
     </ClCompile>
     <ClCompile Include="shrInput.cpp">
-      <Filter>Input</Filter>
+      <Filter>Common\Input</Filter>
     </ClCompile>
     <ClCompile Include="shrEntity.cpp">
       <Filter>Common</Filter>
@@ -178,7 +181,7 @@
       <Filter>Component\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="shrPrefab.cpp">
-      <Filter>Prefab</Filter>
+      <Filter>Resource\Prefab</Filter>
     </ClCompile>
     <ClCompile Include="shrCollider2D.cpp">
       <Filter>Component\Collider\2D</Filter>
@@ -193,10 +196,10 @@
       <Filter>Component\Collider</Filter>
     </ClCompile>
     <ClCompile Include="shrMonster.cpp">
-      <Filter>GameObject\InGame</Filter>
+      <Filter>GameObject\Unit</Filter>
     </ClCompile>
     <ClCompile Include="shrPlayer.cpp">
-      <Filter>GameObject\InGame</Filter>
+      <Filter>GameObject\Unit</Filter>
     </ClCompile>
     <ClCompile Include="shrTestScene.cpp">
       <Filter>Scene\GameScenes</Filter>
@@ -223,7 +226,7 @@
       <Filter>Resource\Animation</Filter>
     </ClCompile>
     <ClCompile Include="shrMouseObject.cpp">
-      <Filter>GameObject\InGame</Filter>
+      <Filter>GameObject\Unit</Filter>
     </ClCompile>
     <ClCompile Include="shrCamera.cpp">
       <Filter>Component\Camera</Filter>
@@ -259,6 +262,15 @@
     <ClCompile Include="shrPaintShader.cpp">
       <Filter>Resource\Compute Shader</Filter>
     </ClCompile>
+    <ClCompile Include="shrUnitObject.cpp">
+      <Filter>GameObject\Unit</Filter>
+    </ClCompile>
+    <ClCompile Include="shrSkill.cpp">
+      <Filter>GameObject\Skill</Filter>
+    </ClCompile>
+    <ClCompile Include="shrBullet.cpp">
+      <Filter>GameObject\Skill</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CommonInclude.h">
@@ -274,10 +286,10 @@
       <Filter>Common\Math</Filter>
     </ClInclude>
     <ClInclude Include="shrTime.h">
-      <Filter>Time</Filter>
+      <Filter>Common\Time</Filter>
     </ClInclude>
     <ClInclude Include="shrInput.h">
-      <Filter>Input</Filter>
+      <Filter>Common\Input</Filter>
     </ClInclude>
     <ClInclude Include="shrEntity.h">
       <Filter>Common</Filter>
@@ -355,7 +367,7 @@
       <Filter>Component\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="shrPrefab.h">
-      <Filter>Prefab</Filter>
+      <Filter>Resource\Prefab</Filter>
     </ClInclude>
     <ClInclude Include="shrCollider2D.h">
       <Filter>Component\Collider\2D</Filter>
@@ -370,10 +382,10 @@
       <Filter>Component\Collider</Filter>
     </ClInclude>
     <ClInclude Include="shrMonster.h">
-      <Filter>GameObject\InGame</Filter>
+      <Filter>GameObject\Unit</Filter>
     </ClInclude>
     <ClInclude Include="shrPlayer.h">
-      <Filter>GameObject\InGame</Filter>
+      <Filter>GameObject\Unit</Filter>
     </ClInclude>
     <ClInclude Include="shrTestScene.h">
       <Filter>Scene\GameScenes</Filter>
@@ -400,10 +412,10 @@
       <Filter>Resource\Animation</Filter>
     </ClInclude>
     <ClInclude Include="MouseMove.h">
-      <Filter>Time</Filter>
+      <Filter>Common\Time</Filter>
     </ClInclude>
     <ClInclude Include="shrMouseObject.h">
-      <Filter>GameObject\InGame</Filter>
+      <Filter>GameObject\Unit</Filter>
     </ClInclude>
     <ClInclude Include="shrCamera.h">
       <Filter>Component\Camera</Filter>
@@ -438,6 +450,15 @@
     </ClInclude>
     <ClInclude Include="shrPaintShader.h">
       <Filter>Resource\Compute Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="shrUnitObject.h">
+      <Filter>GameObject\Unit</Filter>
+    </ClInclude>
+    <ClInclude Include="shrSkill.h">
+      <Filter>GameObject\Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="shrBullet.h">
+      <Filter>GameObject\Skill</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

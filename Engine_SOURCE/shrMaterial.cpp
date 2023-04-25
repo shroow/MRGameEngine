@@ -56,12 +56,12 @@ namespace shr::graphics
             if (mTexture[i] == nullptr)
                 continue;
 
-            mTexture[i]->BindShaderResource(eShaderStage::VS, i);
-            mTexture[i]->BindShaderResource(eShaderStage::HS, i);
-            mTexture[i]->BindShaderResource(eShaderStage::DS, i);
-            mTexture[i]->BindShaderResource(eShaderStage::GS, i);
-            mTexture[i]->BindShaderResource(eShaderStage::PS, i);
-            mTexture[i]->BindShaderResource(eShaderStage::CS, i);
+            mTexture[i]->BindShaderResource(eShaderStage::VS, (UINT)i);
+            mTexture[i]->BindShaderResource(eShaderStage::HS, (UINT)i);
+            mTexture[i]->BindShaderResource(eShaderStage::DS, (UINT)i);
+            mTexture[i]->BindShaderResource(eShaderStage::GS, (UINT)i);
+            mTexture[i]->BindShaderResource(eShaderStage::PS, (UINT)i);
+            mTexture[i]->BindShaderResource(eShaderStage::CS, (UINT)i);
         }
 
         ConstantBuffer* pCB = renderer::constantBuffers[(UINT)eCBType::Material];

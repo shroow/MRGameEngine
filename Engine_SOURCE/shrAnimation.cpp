@@ -13,7 +13,6 @@ namespace shr
 		, mTime(0.f)
 		, mbComplete(false)
 		, mDuration(0.f)
-		, mDirection(0)
 	{
 	}
 	Animation::~Animation()
@@ -36,7 +35,7 @@ namespace shr
 			if (mSpriteSheet.size() <= mIndex)
 			{
 				mbComplete = true;
-				mIndex = mSpriteSheet.size() - 1;
+				mIndex = (int)mSpriteSheet.size() - 1;
 			}
 
 			return mIndex;
@@ -80,7 +79,7 @@ namespace shr
 
 	void Animation::Create(const std::wstring& name, std::shared_ptr<Texture> atlas
 		, Vector2 leftTop, Vector2 spriteSize, Vector2 offset
-		, UINT spriteLength, float duration, eAtlasType atlasType, int dir)
+		, UINT spriteLength, float duration, eAtlasType atlasType)
 	{
 		mAnimationName = name;
 
@@ -140,7 +139,6 @@ namespace shr
 		info.offset = mSpriteSheet[mIndex].offset;
 		info.spriteSize = mSpriteSheet[mIndex].spriteSize;
 		info.atlasSize = mSpriteSheet[mIndex].atlasSize;
-		info.animationDir = (UINT)mDirection;
 
 		cb->SetData(&info);
 		cb->Bind(eShaderStage::PS);

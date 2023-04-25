@@ -185,6 +185,12 @@ namespace shr
 
 		mPrevPos = pos;
 
+
+		if (mCharDir == 1) 
+			tr->SetRotation(Vector3(0.f, 180.f, 0.f));
+		else
+			tr->SetRotation(Vector3(0.f, 0.f, 0.f));
+
 		tr->SetPosition(pos);
 	}
 
@@ -412,28 +418,28 @@ namespace shr
 		case shr::enums::eCharState::None:
 			break;
 		case shr::enums::eCharState::Idle:
-			mAnimator->Play(L"Idle_Anim", mCharDir, loop);
+			mAnimator->Play(L"Idle_Anim", loop);
 			break;
 		case shr::enums::eCharState::Run:
-			mAnimator->Play(L"Run_Anim", mCharDir, loop);
+			mAnimator->Play(L"Run_Anim", loop);
 			break;
 		case shr::enums::eCharState::Attack:
-			mAnimator->Play(L"Attack_Anim", mCharDir, loop);
+			mAnimator->Play(L"Attack_Anim", loop);
 			break;
 		case shr::enums::eCharState::Attack2:
-			mAnimator->Play(L"Attack2_Anim", mCharDir, loop);
+			mAnimator->Play(L"Attack2_Anim", loop);
 			break;
 		case shr::enums::eCharState::Skill:
-			mAnimator->Play(L"Skill_Anim", mCharDir, loop);
+			mAnimator->Play(L"Skill_Anim", loop);
 			break;
 		case shr::enums::eCharState::Skill2:
-			mAnimator->Play(L"Skill2_Anim", mCharDir, loop);
+			mAnimator->Play(L"Skill2_Anim", loop);
 			break;
 		case shr::enums::eCharState::Hit:
-			mAnimator->Play(L"Hit_Anim", mCharDir, loop);
+			mAnimator->Play(L"Hit_Anim", loop);
 			break;
 		case shr::enums::eCharState::Death:
-			mAnimator->Play(L"Death_Anim", mCharDir, loop);
+			mAnimator->Play(L"Death_Anim", loop);
 			break;
 		default:
 			break;

@@ -30,7 +30,6 @@ cbuffer Animation : register(b3)
     float2 atlasSize;
 
     uint animationType;
-    uint animationDir;
 }
 
 cbuffer NumberOfLight : register(b4)

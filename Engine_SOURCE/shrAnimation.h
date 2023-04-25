@@ -42,7 +42,7 @@ namespace shr
         
         void Create(const std::wstring& name, std::shared_ptr<Texture> atlas
             , Vector2 leftTop, Vector2 spriteSize, Vector2 offset
-            , UINT spriteLength, float duration, eAtlasType atlasType, int dir = 0);
+            , UINT spriteLength, float duration, eAtlasType atlasType);
 
         void BindShader();
         void Reset();
@@ -52,7 +52,6 @@ namespace shr
         std::wstring& AnimationName() { return mAnimationName; }
 
         void SetDuration(float duration) { mDuration = duration; }
-        void SetDirection(int dir) { mDirection = dir; }
 
     private:
         class Animator* mAnimator;
@@ -64,7 +63,6 @@ namespace shr
         float mDuration;
         Vector2 mOffset;
         bool mbComplete;
-        int mDirection;
     };
 }
 

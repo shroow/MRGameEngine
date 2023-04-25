@@ -16,6 +16,7 @@
 #include "shrPaintShader.h"
 #include "shrMonster.h"
 
+#include "shrUnitObject.h"
 #include "shrUnitComponent.h"
 #include "shrMouseScript.h"
 
@@ -151,198 +152,87 @@ namespace shr
 			collider->SetSize(Vector2(40.0f, 40.0f));
 		}
 
-		//Knight1
+		//FreeKnightv1c1 _1
 		{
-			Monster* obj = object::Instantiate<Monster>(eLayerType::Monster);
+			UnitObject* obj = object::Instantiate<UnitObject>(eLayerType::Monster);
 			obj->SetName(L"FreeKnightv1c1");
+
 			Transform* tr = obj->GetComponent<Transform>();
-			tr->SetPosition(Vector3(-20.0f, -0.5f, 5.0f));
+			tr->SetPosition(Vector3(-20.0f, 3.5f, 5.0f));
+			tr->SetRotation(Vector3(0.f, 0.f, 0.f));
 			tr->SetScale(Vector3(6.0f, 6.0f, 1.0f));
-			Collider2D* collider = obj->AddComponent<Collider2D>();
-			collider->SetType(eColliderType::Rect);
-			//collider->SetCenter(Vector2(0.2f, 0.2f));
-			//collider->SetSize(Vector2(1.5f, 1.5f));
 
-			//???
-			{
-				GameObject* objCL = object::Instantiate<GameObject>(eLayerType::Monster);
-				Transform* objCLTR = objCL->GetComponent<Transform>();
-				objCLTR->SetParent(tr);
-				objCLTR->SetPosition(Vector3(0.0f, -0.60f, 0.0f));
-				objCLTR->SetScale(Vector3(1.f, 1.f, 1.f));
-				Collider2D* collider2 = objCL->AddComponent<Collider2D>();
-				collider2->SetType(eColliderType::Circle);
-				collider2->SetRadius(10.f);
-			}
+			MonsterScript* monScript = obj->AddComponent<MonsterScript>();
+			monScript->SetChar(L"FreeKnightv1c1");
 
-			//HPBar
-			{
-				// HPBAR
-				GameObject* hpBar = object::Instantiate<GameObject>(eLayerType::Monster);
-				hpBar->SetName(L"HPBAR");
-				Transform* hpBarTR = hpBar->GetComponent<Transform>();
-				hpBarTR->SetParent(tr);
-				hpBarTR->SetPosition(Vector3(0.0f, -0.60f, 0.0f));
-				hpBarTR->SetScale(Vector3(0.75f, 0.14f, 1.0f));
-
-				SpriteRenderer* hpsr = hpBar->AddComponent<SpriteRenderer>();
-				hpBar->AddComponent(hpsr);
-				std::shared_ptr<Mesh> hpmesh = Resources::Find<Mesh>(L"RectMesh");
-				std::shared_ptr<Material> hpspriteMaterial = std::make_shared<Material>();
-				std::shared_ptr<Texture> hpTex = Resources::Find<Texture>(L"RedBarTexture");
-				std::shared_ptr<Shader> hpShader = Resources::Find<Shader>(L"UIShader");
-				hpspriteMaterial->SetTexture(eTextureSlot::T0, hpTex);
-				hpspriteMaterial->SetShader(hpShader);
-				hpsr->SetMesh(hpmesh);
-				hpsr->SetMaterial(hpspriteMaterial);
-
-				// MPBAR
-				GameObject* mpBar = object::Instantiate<GameObject>(eLayerType::Monster);
-				mpBar->SetName(L"MPBAR");
-				Transform* mpBarTR = mpBar->GetComponent<Transform>();
-				mpBarTR->SetParent(tr);
-				mpBarTR->SetPosition(Vector3(0.0f, -0.75f, 0.0f));
-				mpBarTR->SetScale(Vector3(0.75f, 0.14f, 1.0f));
-
-				SpriteRenderer* mpSR = mpBar->AddComponent<SpriteRenderer>();
-				mpBar->AddComponent(mpSR);
-				std::shared_ptr<Mesh> mpMesh = Resources::Find<Mesh>(L"RectMesh");
-				std::shared_ptr<Material> mpSpriteMaterial = std::make_shared<Material>();;
-				std::shared_ptr<Texture> mpTex = Resources::Find<Texture>(L"BlueBarTexture");
-				std::shared_ptr<Shader> mpShader = Resources::Find<Shader>(L"UIShader");
-				mpSpriteMaterial->SetTexture(eTextureSlot::T0, mpTex);
-				mpSpriteMaterial->SetShader(mpShader);
-				mpSR->SetMesh(mpMesh);
-				mpSR->SetMaterial(mpSpriteMaterial);
-			}
-
-			SpriteRenderer* mr = obj->AddComponent<SpriteRenderer>();
-			std::shared_ptr<Material> mateiral = Resources::Find<Material>(L"SpriteMaterial");
-			mr->SetMaterial(mateiral);
-			std::shared_ptr<Mesh> mesh = Resources::Find<Mesh>(L"RectMesh");
-			mr->SetMesh(mesh);
-
-			//Script
-			MonsterScript* script = obj->AddComponent<MonsterScript>();
-			script->SetChar(L"FreeKnightv1c1");
+			obj->SetAttackRange(10.f);
 
 			//Animation add(using script)
 			{
-				script->LoadCharAnim(eCharState::Idle, Vector2::Zero
+				monScript->LoadCharAnim(eCharState::Idle, Vector2::Zero
 					, Vector2(0.f, 33.f), Vector2(120.f, 47.f)
 					, 10, 0.1f, eAtlasType::Column);
-				script->LoadCharAnim(eCharState::Attack, Vector2::Zero
+				monScript->LoadCharAnim(eCharState::Attack, Vector2::Zero
 					, Vector2(0.f, 33.f), Vector2(120.f, 47.f)
 					, 10, 0.1f, eAtlasType::Column);
-				script->LoadCharAnim(eCharState::Skill, Vector2::Zero
+				monScript->LoadCharAnim(eCharState::Skill, Vector2::Zero
 					, Vector2(0.f, 33.f), Vector2(120.f, 47.f)
 					, 12, 0.1f, eAtlasType::Column);
-				script->LoadCharAnim(eCharState::Death, Vector2::Zero
+				monScript->LoadCharAnim(eCharState::Death, Vector2::Zero
 					, Vector2(0.f, 33.f), Vector2(120.f, 47.f)
 					, 10, 0.1f, eAtlasType::Column);
-				script->LoadCharAnim(eCharState::Run, Vector2::Zero
+				monScript->LoadCharAnim(eCharState::Run, Vector2::Zero
 					, Vector2(0.f, 33.f), Vector2(120.f, 47.f)
 					, 10, 0.1f, eAtlasType::Column);
-				script->LoadCharAnim(eCharState::Hit, Vector2::Zero
+				monScript->LoadCharAnim(eCharState::Hit, Vector2::Zero
 					, Vector2(0.f, 33.f), Vector2(120.f, 47.f)
 					, 1, 0.1f, eAtlasType::Column);
 			}
-
-			script->PlayCharAnim(eCharState::Idle);
+			monScript->PlayCharAnim(eCharState::Idle);
 		}
 
-		//Monster
+		//BallandChainBot _1
 		{
-			GameObject* obj = object::Instantiate<Player>(eLayerType::Monster);
+			UnitObject* obj = object::Instantiate<UnitObject>(eLayerType::Monster);
 			obj->SetName(L"BallandChainBot");
+
 			Transform* tr = obj->GetComponent<Transform>();
 			tr->SetPosition(Vector3(20.0f, 5.5f, 5.0f));
+			tr->SetRotation(Vector3(0.f, 0.f, 0.f));
 			tr->SetScale(Vector3(6.0f, 6.0f, 1.0f));
-			Collider2D* collider = obj->AddComponent<Collider2D>();
-			collider->SetType(eColliderType::Rect);
-			//collider->SetCenter(Vector2(0.2f, 0.2f));
-			//collider->SetSize(Vector2(1.5f, 1.5f));
-			
-			// HPBAR
-			{
-				// HPBAR
-				GameObject* hpBar = object::Instantiate<GameObject>(eLayerType::Monster);
-				hpBar->SetName(L"HPBAR");
-				Transform* hpBarTR = hpBar->GetComponent<Transform>();
-				hpBarTR->SetParent(tr);
-				hpBarTR->SetPosition(Vector3(0.0f, -0.60f, 0.0f));
-				hpBarTR->SetScale(Vector3(0.75f, 0.14f, 1.0f));
 
-				SpriteRenderer* hpsr = hpBar->AddComponent<SpriteRenderer>();
-				hpBar->AddComponent(hpsr);
-				std::shared_ptr<Mesh> hpmesh = Resources::Find<Mesh>(L"RectMesh");
-				std::shared_ptr<Material> hpspriteMaterial = std::make_shared<Material>();
-				std::shared_ptr<Texture> hpTex = Resources::Find<Texture>(L"RedBarTexture");
-				std::shared_ptr<Shader> hpShader = Resources::Find<Shader>(L"UIShader");
-				hpspriteMaterial->SetTexture(eTextureSlot::T0, hpTex);
-				hpspriteMaterial->SetShader(hpShader);
-				hpsr->SetMesh(hpmesh);
-				hpsr->SetMaterial(hpspriteMaterial);
-
-				// MPBAR
-				GameObject* mpBar = object::Instantiate<GameObject>(eLayerType::Monster);
-				mpBar->SetName(L"MPBAR");
-				Transform* mpBarTR = mpBar->GetComponent<Transform>();
-				mpBarTR->SetParent(tr);
-				mpBarTR->SetPosition(Vector3(0.0f, -0.75f, 0.0f));
-				mpBarTR->SetScale(Vector3(0.75f, 0.14f, 1.0f));
-
-				SpriteRenderer* mpSR = mpBar->AddComponent<SpriteRenderer>();
-				mpBar->AddComponent(mpSR);
-				std::shared_ptr<Mesh> mpMesh = Resources::Find<Mesh>(L"RectMesh");
-				std::shared_ptr<Material> mpSpriteMaterial = std::make_shared<Material>();;
-				std::shared_ptr<Texture> mpTex = Resources::Find<Texture>(L"BlueBarTexture");
-				std::shared_ptr<Shader> mpShader = Resources::Find<Shader>(L"UIShader");
-				mpSpriteMaterial->SetTexture(eTextureSlot::T0, mpTex);
-				mpSpriteMaterial->SetShader(mpShader);
-				mpSR->SetMesh(mpMesh);
-				mpSR->SetMaterial(mpSpriteMaterial);
-			}
-
-			SpriteRenderer* mr = obj->AddComponent<SpriteRenderer>();
-			std::shared_ptr<Material> mateiral = Resources::Find<Material>(L"SpriteMaterial");
-			mr->SetMaterial(mateiral);
-			std::shared_ptr<Mesh> mesh = Resources::Find<Mesh>(L"RectMesh");
-			mr->SetMesh(mesh);
-			
-			//Script
-			MonsterScript* script = obj->AddComponent<MonsterScript>();
-			script->SetChar(L"BallandChainBot");
+			MonsterScript* monScript = obj->AddComponent<MonsterScript>();
+			monScript->SetChar(L"BallandChainBot");
 
 			//Animation add(using script)
 			{
-				script->LoadCharAnim(eCharState::Idle, Vector2::Zero
+				monScript->LoadCharAnim(eCharState::Idle, Vector2::Zero
 					, Vector2(0.f, 0.f), Vector2(126.f, 39.f)
 					, 5, 0.1f, eAtlasType::Row);
-				script->LoadCharAnim(eCharState::Attack, Vector2(-0.1f, 0.f)
+				monScript->LoadCharAnim(eCharState::Attack, Vector2(-0.1f, 0.f)
 					, Vector2(0.f, 0.f), Vector2(126.f, 39.f)
 					, 8, 0.1f, eAtlasType::Row);
-				script->LoadCharAnim(eCharState::Skill, Vector2::Zero
+				monScript->LoadCharAnim(eCharState::Skill, Vector2::Zero
 					, Vector2(0.f, 0.f), Vector2(126.f, 39.f)
 					, 4, 0.1f, eAtlasType::Row);
-				script->LoadCharAnim(eCharState::Death, Vector2::Zero
+				monScript->LoadCharAnim(eCharState::Death, Vector2::Zero
 					, Vector2(0.f, 0.f), Vector2(126.f, 39.f)
 					, 5, 0.1f, eAtlasType::Row);
-				script->LoadCharAnim(eCharState::Run, Vector2::Zero
+				monScript->LoadCharAnim(eCharState::Run, Vector2::Zero
 					, Vector2(0.f, 0.f), Vector2(126.f, 39.f)
 					, 8, 0.1f, eAtlasType::Row);
-				script->LoadCharAnim(eCharState::Hit, Vector2::Zero
+				monScript->LoadCharAnim(eCharState::Hit, Vector2::Zero
 					, Vector2(0.f, 0.f), Vector2(126.f, 39.f)
 					, 2, 0.1f, eAtlasType::Row);
 			}
+			monScript->PlayCharAnim(eCharState::Idle);
 
-			script->PlayCharAnim(eCharState::Idle);
-
-			script->SetIsStore(true);
+			monScript->SetIsStore(true);
 		}
 
+
+		//Coin
 		{
-			// Coin
 			GameObject* hpBar = object::Instantiate<GameObject>(eLayerType::SystemUI);
 			hpBar->SetName(L"CoinUI");
 			Transform* hpBarTR = hpBar->GetComponent<Transform>();
@@ -376,6 +266,7 @@ namespace shr
 			hpsr->SetMesh(hpmesh);
 			hpsr->SetMaterial(hpspriteMaterial);
 		}
+
 
 		CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::Monster);
 		CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::Background);

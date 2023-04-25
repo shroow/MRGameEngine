@@ -22,7 +22,7 @@ namespace shr::renderer
 
 	void LoadMesh()
 	{
-#pragma region POINT MESH
+	#pragma region POINT MESH
 		Vertex v = {};
 		std::shared_ptr<Mesh> pointMesh = std::make_shared<Mesh>();
 		Resources::Insert<Mesh>(L"PointMesh", pointMesh);
@@ -30,7 +30,7 @@ namespace shr::renderer
 		UINT pointIndex = 0;
 		pointMesh->CreateIndexBuffer(&pointIndex, 1);
 #pragma endregion
-#pragma region LINE MESH
+	#pragma region LINE MESH
 		Vertex v2[2] = {};
 		v2[0].pos = Vector4(0.0f, 0.0f, -0.00001f, 1.0f);
 		v2[0].color = Vector4(0.f, 1.f, 0.f, 1.f);
@@ -47,7 +47,7 @@ namespace shr::renderer
 		lineMesh->CreateIndexBuffer(lineIndexes, 2);
 
 #pragma endregion
-#pragma region RECT MESH
+	#pragma region RECT MESH
 		vertexes[0].pos = Vector4(-0.5f, 0.5f, 0.0f, 1.0f);
 		vertexes[0].color = Vector4(0.f, 1.f, 0.f, 1.f);
 		vertexes[0].uv = Vector2(0.f, 0.f);
@@ -77,9 +77,9 @@ namespace shr::renderer
 		indexes.push_back(2);
 		indexes.push_back(3);
 		indexes.push_back(0);
-		mesh->CreateIndexBuffer(indexes.data(), indexes.size());
+		mesh->CreateIndexBuffer(indexes.data(), (UINT)indexes.size());
 #pragma endregion
-#pragma region DEBUG RECT MESH
+	#pragma region DEBUG RECT MESH
 		vertexes[0].pos = Vector4(-0.5f, 0.5f, -0.00001f, 1.0f);
 		vertexes[0].color = Vector4(0.f, 1.f, 0.f, 1.f);
 		vertexes[0].uv = Vector2(0.f, 0.f);
@@ -100,9 +100,9 @@ namespace shr::renderer
 		std::shared_ptr<Mesh> debugmesh = std::make_shared<Mesh>();
 		Resources::Insert<Mesh>(L"DebugRectMesh", debugmesh);
 		debugmesh->CreateVertexBuffer(vertexes, 4);
-		debugmesh->CreateIndexBuffer(indexes.data(), indexes.size());
+		debugmesh->CreateIndexBuffer(indexes.data(), (UINT)indexes.size());
 #pragma endregion
-#pragma region Circle MESH
+	#pragma region Circle MESH
 		std::vector<Vertex> circleVtxes;
 		Vertex center = {};
 		center.pos = Vector4(0.0f, 0.0f, -0.00001f, 1.0f);
@@ -132,21 +132,21 @@ namespace shr::renderer
 		indexes.clear();
 		for (size_t i = 0; i < iSlice - 2; i++)
 		{
-			indexes.push_back(i + 1);
+			indexes.push_back((UINT)i + 1);
 		}
 		indexes.push_back(1);
 
 		// Crate Mesh
 		std::shared_ptr<Mesh> cirlceMesh = std::make_shared<Mesh>();
 		Resources::Insert<Mesh>(L"CircleMesh", cirlceMesh);
-		cirlceMesh->CreateVertexBuffer(circleVtxes.data(), circleVtxes.size());
-		cirlceMesh->CreateIndexBuffer(indexes.data(), indexes.size());
+		cirlceMesh->CreateVertexBuffer(circleVtxes.data(), (UINT)circleVtxes.size());
+		cirlceMesh->CreateIndexBuffer(indexes.data(), (UINT)indexes.size());
 #pragma endregion
 	}
 
 	void LoadShader()
 	{
-#pragma region DEFAULT TRIANGLE SHADER
+	#pragma region DEFAULT TRIANGLE SHADER
 		std::shared_ptr<Shader> shader = std::make_shared<Shader>();
 		shader->Create(eShaderStage::VS, L"TriangleVS.hlsl", "main");
 		shader->Create(eShaderStage::PS, L"TrianglePS.hlsl", "main");
@@ -154,15 +154,16 @@ namespace shr::renderer
 		Resources::Insert<Shader>(L"RectShader", shader);
 
 #pragma endregion
-#pragma region SPRITE SHADER
+	#pragma region SPRITE SHADER
 		std::shared_ptr<Shader> spriteShader = std::make_shared<Shader>();
 		spriteShader->Create(eShaderStage::VS, L"SpriteVS.hlsl", "main");
 		spriteShader->Create(eShaderStage::PS, L"SpritePS.hlsl", "main");
 
+		spriteShader->SetRSState(eRSType::SolidNone);
 		Resources::Insert<Shader>(L"SpriteShader", spriteShader);
 
 #pragma endregion
-#pragma region UI SHADER
+	#pragma region UI SHADER
 		std::shared_ptr<Shader> uiShader = std::make_shared<Shader>();
 		uiShader->Create(eShaderStage::VS, L"UserInterfaceVS.hlsl", "main");
 		uiShader->Create(eShaderStage::PS, L"UserInterfacePS.hlsl", "main");
@@ -170,7 +171,7 @@ namespace shr::renderer
 		Resources::Insert<Shader>(L"UIShader", uiShader);
 
 #pragma endregion
-#pragma region GRID SHADER
+	#pragma region GRID SHADER
 		std::shared_ptr<Shader> gridShader = std::make_shared<Shader>();
 		gridShader->Create(eShaderStage::VS, L"GridVS.hlsl", "main");
 		gridShader->Create(eShaderStage::PS, L"GridPS.hlsl", "main");
@@ -181,7 +182,7 @@ namespace shr::renderer
 		Resources::Insert<Shader>(L"GridShader", gridShader);
 
 #pragma endregion
-#pragma region DEBUG SHADER
+	#pragma region DEBUG SHADER
 		std::shared_ptr<Shader> debugShader = std::make_shared<Shader>();
 		debugShader->Create(eShaderStage::VS, L"DebugVS.hlsl", "main");
 		debugShader->Create(eShaderStage::PS, L"DebugPS.hlsl", "main");
@@ -193,7 +194,7 @@ namespace shr::renderer
 		Resources::Insert<Shader>(L"DebugShader", debugShader);
 
 #pragma endregion
-#pragma region FADEIN SHADER
+	#pragma region FADEIN SHADER
 		std::shared_ptr<Shader> fadeInShader = std::make_shared<Shader>();
 		fadeInShader->Create(eShaderStage::VS, L"FadeInVS.hlsl", "main");
 		fadeInShader->Create(eShaderStage::PS, L"FadeInPS.hlsl", "main");
@@ -201,7 +202,7 @@ namespace shr::renderer
 		Resources::Insert<Shader>(L"FadeInShader", fadeInShader);
 
 #pragma endregion
-#pragma region PAINT SHADER
+	#pragma region PAINT SHADER
 		std::shared_ptr<PaintShader> paintShader = std::make_shared<PaintShader>();
 		paintShader->Create(L"PaintCS.hlsl", "main");
 		Resources::Insert<PaintShader>(L"PaintShader", paintShader);
@@ -210,7 +211,7 @@ namespace shr::renderer
 		//std::shared_ptr<NoiseShader> noiseShader = std::make_shared<NoiseShader>();
 		//noiseShader->Create(L"NoiseCS.hlsl", "main");
 		//Resources::Insert<NoiseShader>(L"NoiseShader", noiseShader);
-#pragma region PARTICLE SHADER
+	#pragma region PARTICLE SHADER
 		std::shared_ptr<Shader> particleShader = std::make_shared<Shader>();
 		particleShader->Create(eShaderStage::VS, L"ParticleVS.hlsl", "main");
 		particleShader->Create(eShaderStage::GS, L"ParticleGS.hlsl", "main");
@@ -229,7 +230,7 @@ namespace shr::renderer
 
 	void SetUpState()
 	{
-#pragma region Input layout
+	#pragma region Input layout
 		D3D11_INPUT_ELEMENT_DESC arrLayoutDesc[3] = {};
 
 		arrLayoutDesc[0].AlignedByteOffset = 0;
@@ -298,7 +299,7 @@ namespace shr::renderer
 			, particleShader->GetInputLayoutAddressOf());
 
 #pragma endregion
-#pragma region sampler state
+	#pragma region sampler state
 		D3D11_SAMPLER_DESC samplerDesc = {};
 		samplerDesc.AddressU = D3D11_TEXTURE_ADDRESS_MODE::D3D11_TEXTURE_ADDRESS_WRAP;
 		samplerDesc.AddressV = D3D11_TEXTURE_ADDRESS_MODE::D3D11_TEXTURE_ADDRESS_WRAP;
@@ -337,7 +338,7 @@ namespace shr::renderer
 		GetDevice()->BindsSamplers((UINT)eSamplerType::Anisotropic
 			, 1, samplerStates[(UINT)eSamplerType::Anisotropic].GetAddressOf());
 #pragma endregion
-#pragma region Rasterizer state
+	#pragma region Rasterizer state
 		D3D11_RASTERIZER_DESC rsDesc = {};
 		rsDesc.FillMode = D3D11_FILL_MODE::D3D11_FILL_SOLID;
 		rsDesc.CullMode = D3D11_CULL_MODE::D3D11_CULL_BACK;
@@ -365,7 +366,7 @@ namespace shr::renderer
 
 
 #pragma endregion
-#pragma region Depth Stencil State
+	#pragma region Depth Stencil State
 		D3D11_DEPTH_STENCIL_DESC dsDesc = {};
 		dsDesc.DepthEnable = true;
 		dsDesc.DepthFunc = D3D11_COMPARISON_FUNC::D3D11_COMPARISON_LESS_EQUAL;
@@ -400,7 +401,7 @@ namespace shr::renderer
 			, depthstencilStates[(UINT)eDSType::None].GetAddressOf());
 
 #pragma endregion
-#pragma region Blend State
+	#pragma region Blend State
 
 		blendStates[(UINT)eBSType::Default] = nullptr;
 
@@ -435,7 +436,7 @@ namespace shr::renderer
 
 	void LoadBuffer()
 	{
-#pragma region Constant Buffer
+	#pragma region Constant Buffer
 		constantBuffers[(UINT)eCBType::Transform] = new ConstantBuffer(eCBType::Transform);
 		constantBuffers[(UINT)eCBType::Transform]->Create(sizeof(TransformCB));
 
@@ -460,7 +461,7 @@ namespace shr::renderer
 		constantBuffers[(UINT)eCBType::Noise] = new ConstantBuffer(eCBType::Noise);
 		constantBuffers[(UINT)eCBType::Noise]->Create(sizeof(NoiseCB));
 #pragma endregion
-#pragma region Structured Buffer
+	#pragma region Structured Buffer
 		lightsBuffer = new StructedBuffer();
 		lightsBuffer->Create(sizeof(LightAttribute), 128, eSRVType::SRV, nullptr, true);
 #pragma endregion
@@ -469,7 +470,7 @@ namespace shr::renderer
 
 	void LoadTexture()
 	{
-#pragma region Base Texture
+	#pragma region Base Texture
 		Resources::Load<Texture>(L"SmileTexture", L"Smile.png");
 		Resources::Load<Texture>(L"DefaultSprite", L"Light.png");
 		Resources::Load<Texture>(L"HPBarTexture", L"HPBar.png");		
@@ -477,17 +478,17 @@ namespace shr::renderer
 		Resources::Load<Texture>(L"noise_01", L"noise\\noise_01.png");
 		Resources::Load<Texture>(L"noise_02", L"noise\\noise_02.png");
 		//Resources::Load<Texture>(L"noise_03", L"noise\\noise_03.png");
-#pragma endregion
+	#pragma endregion
 
 		Resources::Load<Texture>(L"RedBarTexture", L"UnitUI\\RedBar.png");
 		Resources::Load<Texture>(L"BlueBarTexture", L"UnitUI\\BlueBar.png");
-#pragma region Dynamic Texture
+	#pragma region Dynamic Texture
 		//DYNAMIC TEXTURE
 		std::shared_ptr<Texture> uavTexture = std::make_shared<Texture>();
 		uavTexture->Create(1024, 1024, DXGI_FORMAT_R8G8B8A8_UNORM, D3D11_BIND_SHADER_RESOURCE
 			| D3D11_BIND_UNORDERED_ACCESS);
 		Resources::Insert<Texture>(L"PaintTexture", uavTexture);
-#pragma endregion
+	#pragma endregion
 	}
 
 	void LoadMaterial()
@@ -601,12 +602,12 @@ namespace shr::renderer
 
 	void BindLights()
 	{
-		lightsBuffer->SetData(lights.data(), lights.size());
+		lightsBuffer->SetData(lights.data(), (UINT)lights.size());
 		lightsBuffer->BindSRV(eShaderStage::VS, 13);
 		lightsBuffer->BindSRV(eShaderStage::PS, 13);
 
 		renderer::LightCB trCb = {};
-		trCb.numberOfLight = lights.size();
+		trCb.numberOfLight = (UINT)lights.size();
 
 		ConstantBuffer* cb = renderer::constantBuffers[(UINT)eCBType::Light];
 		cb->SetData(&trCb);
