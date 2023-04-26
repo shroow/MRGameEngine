@@ -13,7 +13,7 @@ namespace shr
         virtual void Initialize() override;
         virtual void Update() override;
         virtual void FixedUpdate() override;
-        virtual void Render() = 0;
+        virtual void Render() override;
 
         void SetStatus(Status status) { mStatus = status; }
         Status GetStatus() { return mStatus; }

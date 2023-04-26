@@ -41,6 +41,7 @@ namespace shr
 			std::shared_ptr<Mesh> mesh = Resources::Find<Mesh>(L"RectMesh");
 			mr->SetMesh(mesh);
 
+			mStatus = AddComponent<StatusComponent>();
 			mMonScript = AddComponent<MonsterScript>();
 		}
 

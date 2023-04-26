@@ -9,6 +9,7 @@
 #include "shrAnimator.h"
 #include "shrResource.h"
 #include "shrCollisionManager.h"
+#include "shrStatusComponent.h"
 
 namespace shr
 {
@@ -56,11 +57,7 @@ namespace shr
 		Transform* tr = GetOwner()->GetComponent<Transform>();
 
 		Vector3 pos = tr->GetPosition();
-<<<<<<< HEAD
-		Status status = GetOwner()->GetStatus();
-=======
-//		Status status = GetOwner()->GetStatus();
->>>>>>> 59c7dcc9addd9fc47ad91f8c21791df6e23eb0c2
+		Status status = GetOwner()->GetComponent<StatusComponent>()->GetStatus();
 
 		if (mbCursorOn)
 		{
@@ -145,8 +142,8 @@ namespace shr
 		//	float length = sqrt(dir.x * dir.x + dir.y * dir.y);
 		//	dir.x /= length;
 		//	dir.y /= length;
-		//	pos.x += dir.x * mStatus.moveSpeed * Time::DeltaTime();
-		//	pos.y += dir.y * mStatus.moveSpeed * Time::DeltaTime();
+		//	pos.x += dir.x * status.moveSpeed * Time::DeltaTime();
+		//	pos.y += dir.y * status.moveSpeed * Time::DeltaTime();
 		//}
 
 		if (mbStartMove && !mIsStore)
@@ -158,8 +155,8 @@ namespace shr
 			dir.x = disX / length;
 			dir.y = disY / length;
 
-			pos.x += dir.x * mStatus.moveSpeed * Time::DeltaTime();
-			pos.y += dir.y * mStatus.moveSpeed * Time::DeltaTime();
+			pos.x += dir.x * status.moveSpeed * Time::DeltaTime();
+			pos.y += dir.y * status.moveSpeed * Time::DeltaTime();
 
 			mMoveDir = dir;
 
@@ -200,7 +197,9 @@ namespace shr
 
 	void MonsterScript::FixedUpdate()
 	{
-		if (mStatus.HP == 0.f)
+		Status status = GetOwner()->GetComponent<StatusComponent>()->GetStatus();
+		
+		if (status.HP == 0.f)
 			mDie = true;
 
 		if (mAnimator == nullptr)
@@ -347,16 +346,16 @@ namespace shr
 
 		mCharName = name;
 
-		mStatus.maxHP = status.maxHP;
-		mStatus.HP = status.HP;
-		mStatus.maxMP = status.maxMP;
-		mStatus.MP = status.MP;
+		status.maxHP = status.maxHP;
+		status.HP = status.HP;
+		status.maxMP = status.maxMP;
+		status.MP = status.MP;
 
-		mStatus.attackDmg = status.attackDmg;
-		mStatus.attackSpeed = status.attackSpeed;
+		status.attackDmg = status.attackDmg;
+		status.attackSpeed = status.attackSpeed;
 
-		mStatus.moveSpeed = status.moveSpeed;
-		mStatus.moveType = status.moveType;
+		status.moveSpeed = status.moveSpeed;
+		status.moveType = status.moveType;
 
 		mIdle = true;
 	}

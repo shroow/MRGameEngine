@@ -52,6 +52,8 @@ namespace shr
     private:
         std::wstring mCharName;
         Animator* mAnimator;
+        Transform* mTransform;
+        StatusComponent* mStatusComp;
 
         Status mStatus;
         bool mIdle;

@@ -185,5 +185,9 @@ namespace shr::enums
 			: maxHP{ MaxHP }, HP{ hp }, maxMP{ MaxMP }, MP{ mp }
 			, attackDmg{ AttackDmg }, attackSpeed{ AttackSpeed }, attackRange{ AttackRange }
 			, moveSpeed{ MoveSpeed }, moveType{ MoveType }, buffVec{} {}
+
+
+		Status(const Status&) = default;
+		Status& operator=(const Status&) = default;
 	};
 }

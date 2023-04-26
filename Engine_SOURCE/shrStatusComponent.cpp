@@ -14,13 +14,17 @@ namespace shr
 
 	void StatusComponent::Initialize()
 	{
+		mStatus = Status{};
 	}
 
 	void StatusComponent::Update()
 	{
 	}
-
 	void StatusComponent::FixedUpdate()
+	{
+	}
+
+	void StatusComponent::Render()
 	{
 	}
 }
