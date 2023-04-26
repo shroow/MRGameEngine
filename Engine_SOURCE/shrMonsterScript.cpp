@@ -56,7 +56,11 @@ namespace shr
 		Transform* tr = GetOwner()->GetComponent<Transform>();
 
 		Vector3 pos = tr->GetPosition();
+<<<<<<< HEAD
 		Status status = GetOwner()->GetStatus();
+=======
+//		Status status = GetOwner()->GetStatus();
+>>>>>>> 59c7dcc9addd9fc47ad91f8c21791df6e23eb0c2
 
 		if (mbCursorOn)
 		{
