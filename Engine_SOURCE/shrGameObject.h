@@ -16,6 +16,7 @@ namespace shr
 		};
 
 		GameObject();
+		GameObject(const GameObject& obj);
 		virtual ~GameObject();
 
 		virtual void Initialize();
@@ -48,7 +49,7 @@ namespace shr
 		void AddComponent(Component* comp);
 
 		template <typename T>
-		T* GetComponent()
+		T* GetComponent() const
 		{
 			T* comp;
 			for (auto c : mComponents)

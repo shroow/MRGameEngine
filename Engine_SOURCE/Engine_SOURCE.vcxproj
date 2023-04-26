@@ -218,6 +218,7 @@
     <ClInclude Include="shrUnitComponent.h" />
     <ClInclude Include="MouseMove.h" />
     <ClInclude Include="shrUnitObject.h" />
+    <ClInclude Include="shrUnitUI.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="shrAnimation.cpp" />
@@ -276,6 +277,7 @@
     <ClCompile Include="shrTransform.cpp" />
     <ClCompile Include="shrUnitComponent.cpp" />
     <ClCompile Include="shrUnitObject.cpp" />
+    <ClCompile Include="shrUnitUI.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\External\DirectXTex\Include\DirectXTex.inl" />

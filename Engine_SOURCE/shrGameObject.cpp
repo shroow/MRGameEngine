@@ -12,6 +12,19 @@ namespace shr
 		AddComponent(new Transform());
 	}
 
+	GameObject::GameObject(const GameObject& obj)
+		: Entity(obj)
+	{
+		mComponents.resize((UINT)eComponentType::End);
+		Transform* tr = AddComponent<Transform>();
+
+		Transform* objTr = obj.GetComponent<Transform>();
+
+		tr->SetPosition(objTr->GetPosition());
+		tr->SetRotation(objTr->GetRotation());
+		tr->SetScale(objTr->GetScale());
+	}
+
 	GameObject::~GameObject()
 	{
 		for (Component* comp : mComponents)

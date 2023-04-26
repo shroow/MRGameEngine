@@ -4,7 +4,7 @@
 namespace shr
 {
 	UnitComponent::UnitComponent()
-		: Component(eComponentType::Unit)
+		: Component(eComponentType::Status)
 	{
 	}
 

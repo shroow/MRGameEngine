@@ -19,6 +19,8 @@ namespace shr
 		const std::vector<GameObject*>& GetGameObjectVec() { return mGameObjectVec; }
 		std::vector<GameObject*> GetDontDestroyGameObjects();
 
+		void SortLayerVec();
+		
 	private:
 		std::vector<GameObject*> mGameObjectVec;
 	};

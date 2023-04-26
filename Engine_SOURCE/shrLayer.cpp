@@ -146,4 +146,23 @@ namespace shr
 
 		return donts;
 	}
+
+	static bool SortVecYZ(const GameObject* a, const GameObject* b)
+	{
+		Transform* aTR = a->GetComponent<Transform>();
+		Transform* bTR = a->GetComponent<Transform>();
+
+		Vector3 aPos = aTR->GetPosition();
+		Vector3 bPos = bTR->GetPosition();
+
+		if (aPos.z != bPos.z)
+			return aPos.z < bPos.z;
+		else
+			return aPos.y < bPos.y;
+	}
+
+	void Layer::SortLayerVec()
+	{
+		std::sort(mGameObjectVec.begin(), mGameObjectVec.end(), SortVecYZ);
+	}
 }
