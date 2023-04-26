@@ -270,7 +270,6 @@ namespace shr
 
 		CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::Monster);
 		CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::Background);
-		CollisionManager::CollisionLayerCheck(eLayerType::Monster, eLayerType::Monster);
 		CollisionManager::CollisionLayerCheck(eLayerType::Monster, eLayerType::Background);
 		CollisionManager::MouseCollisionLayerCheck(eLayerType::Player);
 		CollisionManager::MouseCollisionLayerCheck(eLayerType::Monster);

@@ -29,7 +29,6 @@ namespace shr
 		, mMove(0.f)
 		, mMoveDir{}
 		, mCharDir(0)
-		, mStatus{}
 		, mState(eCharState::None)
 		, mPrevState(eCharState::None)
 		, mIsStore(false)
@@ -57,6 +56,7 @@ namespace shr
 		Transform* tr = GetOwner()->GetComponent<Transform>();
 
 		Vector3 pos = tr->GetPosition();
+		Status status = GetOwner()->GetStatus();
 
 		if (mbCursorOn)
 		{
@@ -223,7 +223,7 @@ namespace shr
 	{
 		eLayerType type = collider->GetOwner()->GetLayerType();
 		if(type == eLayerType::Monster)
-			mAttack = true;
+			mAttack = true; 
 
 
 		if (mbCursorOn)

@@ -9,34 +9,6 @@ namespace shr
         public Script
     {
     public:
-        struct Status
-        {
-            float maxHP;
-            float HP;
-            float maxMP;
-            float MP;
-
-            float attackDmg;
-            float attackSpeed;
-
-            float moveSpeed;
-            eMoveType moveType;
-
-            //Skill needed
-
-            std::vector<float> buffVec[(UINT)eBuffType::End];
-
-            Status() : maxHP{ 100.f }, HP{ 100.f }, maxMP{ 100.f }, MP{ 20.f }
-                , attackDmg{ 10.f }, attackSpeed{ 1.f }, moveSpeed{ 10.f }, moveType{ eMoveType::Ground } {}
-
-            Status(float hp, float MaxHP, float mp, float MaxMP, float AttackDmg, float AttackSpeed
-                , float MoveSpeed, eMoveType MoveType)
-                : maxHP{ MaxHP }, HP{ hp }, maxMP{ MaxMP }, MP{ mp }
-                , attackDmg{ AttackDmg }, attackSpeed{ AttackSpeed }
-                , moveSpeed{ MoveSpeed }, moveType{ MoveType } {}
-        };
-
-
         MonsterScript();
         ~MonsterScript();
 
@@ -78,9 +50,10 @@ namespace shr
         void SetIsStore(bool tf) { mIsStore = tf; }
 
     private:
+        std::wstring mCharName;
         Animator* mAnimator;
 
-        std::wstring mCharName;
+        Status mStatus;
         bool mIdle;
         bool mRun;
         bool mDie;
@@ -98,7 +71,6 @@ namespace shr
         Vector2 mMoveDir;
         int mCharDir;
 
-        Status mStatus;
         eCharState mState;
         eCharState mPrevState;
 

@@ -133,6 +133,9 @@ namespace shr
 			if (mLayerMasks[i] == true)
 			{
 				Layer& layer = scene->GetLayer((eLayerType)i);
+
+				layer.SortLayerVec();
+
 				GameObjectVec vecGameObj = layer.GetGameObjectVec();
 				if (vecGameObj.size() == 0)
 					continue;

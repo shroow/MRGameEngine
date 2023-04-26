@@ -1,14 +1,16 @@
 #pragma once
 #include "shrGameObject.h"
-#include "shrMonsterScript.h"
+#include "shrStatusComponent.h"
 
 namespace shr
 {
     class UnitObject :
         public GameObject
     {
+		friend class MonsterScript;
 	public:
 		UnitObject();
+		UnitObject(const UnitObject& obj);
 		virtual ~UnitObject();
 
 		virtual void Initialize();
@@ -31,15 +33,29 @@ namespace shr
 		다시 전달하기
 
 		오브젝트에서 HP바 MP바 스크립트를 추가할수 있겠끔 설정
-		*/
-		void SetAttackRange(float radius);
+		
+		유닛 : 배틀바디 UI 
 
+		복사생성 사용처를 잘 생각해볼것**
+		*/
+		void SetChar(std::wstring name, Vector3 pos);
+
+		std::wstring GetCharName(std::wstring name) { return mCharName; }
+
+		void SetAttackRange(float radius);
 		GameObject* GetBattleBody() { return mBattleBody; }
 
 	private:
-		GameObject* mBattleBody;
+		eUnitType mUnitType;
+		std::wstring mCharName;
 
+		GameObject* mBattleBody;
 		GameObject* mCharUI;
+
+		StatusComponent* mStatus;
+
+		class MonsterScript* mMonScript;
+		class CharUIScirpt* mUIScript;
     };
 }
 

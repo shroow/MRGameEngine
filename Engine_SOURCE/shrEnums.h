@@ -30,16 +30,16 @@ namespace shr::enums
 		None,
 		Transform, // 위치 데이터 수정하는 컴포넌트
 		Camera,
-		Unit,
 		Mesh,
 		Collider,
-		//Collider2,
+		Collider2,
 		MeshRenderer,
 		SpriteRenderer,
 		ParticleSystem,
 		Animator,
 		Light,
 		UI,
+		Status,
 		Script,
 		End,
 	};
@@ -149,4 +149,41 @@ namespace shr::enums
 	//	Vector3 origin;
 	//	Vector3 dest;
 	//};
+
+	enum class eUnitType
+	{
+		FreeKnight,
+		BallandChainBot,
+
+		End,
+	};
+
+	struct Status
+	{
+		float maxHP;
+		float HP;
+		float maxMP;
+		float MP;
+
+		float attackDmg;
+		float attackSpeed;
+		float attackRange;
+
+		float moveSpeed;
+		eMoveType moveType;
+
+		//Skill needed
+
+		std::vector<float> buffVec[(UINT)eBuffType::End];
+
+		Status() : maxHP{ 100.f }, HP{ 100.f }, maxMP{ 100.f }, MP{ 20.f }
+			, attackDmg{ 10.f }, attackSpeed{ 1.f }, attackRange{ 10.f }
+			, moveSpeed{ 10.f }, moveType{ eMoveType::Ground }, buffVec{} {}
+
+		Status(float hp, float MaxHP, float mp, float MaxMP, float AttackDmg, float AttackSpeed
+			, float AttackRange, float MoveSpeed, eMoveType MoveType)
+			: maxHP{ MaxHP }, HP{ hp }, maxMP{ MaxMP }, MP{ mp }
+			, attackDmg{ AttackDmg }, attackSpeed{ AttackSpeed }, attackRange{ AttackRange }
+			, moveSpeed{ MoveSpeed }, moveType{ MoveType }, buffVec{} {}
+	};
 }

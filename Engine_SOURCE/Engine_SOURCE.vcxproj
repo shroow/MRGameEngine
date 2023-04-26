@@ -164,6 +164,7 @@
     <ClInclude Include="shrBullet.h" />
     <ClInclude Include="shrCamera.h" />
     <ClInclude Include="shrCameraScript.h" />
+    <ClInclude Include="shrCharUIScirpt.h" />
     <ClInclude Include="shrCollider.h" />
     <ClInclude Include="shrCollider2D.h" />
     <ClInclude Include="shrCollider3D.h" />
@@ -209,6 +210,7 @@
     <ClInclude Include="shrShader.h" />
     <ClInclude Include="shrSkill.h" />
     <ClInclude Include="shrSpriteRenderer.h" />
+    <ClInclude Include="shrStatusComponent.h" />
     <ClInclude Include="shrStructedBuffer.h" />
     <ClInclude Include="shrTestScene.h" />
     <ClInclude Include="shrTexture.h" />
@@ -218,6 +220,7 @@
     <ClInclude Include="shrUnitComponent.h" />
     <ClInclude Include="MouseMove.h" />
     <ClInclude Include="shrUnitObject.h" />
+    <ClInclude Include="shrUnitUI.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="shrAnimation.cpp" />
@@ -227,6 +230,7 @@
     <ClCompile Include="shrBullet.cpp" />
     <ClCompile Include="shrCamera.cpp" />
     <ClCompile Include="shrCameraScript.cpp" />
+    <ClCompile Include="shrCharUIScirpt.cpp" />
     <ClCompile Include="shrCollider.cpp" />
     <ClCompile Include="shrCollider2D.cpp" />
     <ClCompile Include="shrCollider3D.cpp" />
@@ -268,6 +272,7 @@
     <ClCompile Include="shrShader.cpp" />
     <ClCompile Include="shrSkill.cpp" />
     <ClCompile Include="shrSpriteRenderer.cpp" />
+    <ClCompile Include="shrStatusComponent.cpp" />
     <ClCompile Include="shrStructedBuffer.cpp" />
     <ClCompile Include="shrTestScene.cpp" />
     <ClCompile Include="shrTexture.cpp" />
@@ -276,6 +281,7 @@
     <ClCompile Include="shrTransform.cpp" />
     <ClCompile Include="shrUnitComponent.cpp" />
     <ClCompile Include="shrUnitObject.cpp" />
+    <ClCompile Include="shrUnitUI.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\External\DirectXTex\Include\DirectXTex.inl" />

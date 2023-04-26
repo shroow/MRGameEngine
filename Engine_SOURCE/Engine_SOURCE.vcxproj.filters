@@ -271,6 +271,9 @@
     <ClCompile Include="shrBullet.cpp">
       <Filter>GameObject\Skill</Filter>
     </ClCompile>
+    <ClCompile Include="shrUnitUI.cpp" />
+    <ClCompile Include="shrCharUIScirpt.cpp" />
+    <ClCompile Include="shrStatusComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CommonInclude.h">
@@ -460,6 +463,9 @@
     <ClInclude Include="shrBullet.h">
       <Filter>GameObject\Skill</Filter>
     </ClInclude>
+    <ClInclude Include="shrUnitUI.h" />
+    <ClInclude Include="shrCharUIScirpt.h" />
+    <ClInclude Include="shrStatusComponent.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="shrMath.inl">
