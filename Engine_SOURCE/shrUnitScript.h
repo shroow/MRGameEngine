@@ -31,12 +31,12 @@ namespace shr
         virtual void OnMouseCollisionStay() override;
         virtual void OnMouseCollisionExit() override;
 
-        bool CharStateChanged();
+        bool UnitStateChanged();
         void SetChar(const std::wstring& name, Status status = {});
-        void LoadCharAnim(eCharState animState, Vector2 offset
+        void LoadUnitAnim(eUnitState animState, Vector2 offset
             , Vector2 leftTop, Vector2 spriteSize
             , UINT spriteLength, float duration, eAtlasType atlasType = eAtlasType::Column);
-        void PlayCharAnim(eCharState animState, bool loop = true);
+        void PlayUnitAnim(eUnitState animState, bool loop = true);
 
         void Battle();
 
@@ -45,8 +45,6 @@ namespace shr
         void End();
 
         void SetCharName(const std::wstring& name) { mCharName = name; }
-        eCharState GetCharState() { return mState; }
-        void SetCharState(eCharState state) { mState = state; mPrevState = eCharState::None; }
 
         bool GetIsStore() { return mIsStore; }
         void SetIsStore(bool tf) { mIsStore = tf; }
@@ -59,12 +57,6 @@ namespace shr
         UnitStatus* mUnitStatus;
         UnitState* mUnitState;
 
-        bool mIdle;
-        bool mRun;
-        bool mDie;
-        bool mAttack;
-        bool mHit;
-
         bool mbCursorOn;
         bool mbSelected;
         bool mbStartMove;
@@ -75,9 +67,6 @@ namespace shr
         float mMove;
         Vector2 mMoveDir;
         int mCharDir;
-
-        eCharState mState;
-        eCharState mPrevState;
 
         bool mIsStore;
         bool mIsTraded;

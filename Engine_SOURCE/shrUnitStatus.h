@@ -47,7 +47,7 @@ namespace shr
 
 		Status* CreateStatus(Status status = Status()) { mStatus = status; return &mStatus; }
 
-		void SetStatus(const Status& status) { mStatus = status; }
+		void SetStatus(Status status) { mStatus = status; }
 		Status* GetStatus() { return &mStatus; }
 
 		void AddBuff(eBuffType buff, float value) { buffVec[(UINT)buff].push_back(value); }

@@ -13,9 +13,10 @@ namespace shr
 		void Update();
 		void FixedUpdate();
 
-		void Enter(eUnitState state);
-		void Action(eUnitState state);
-		void Exit(eUnitState state);
+		bool Action() { return mPrevState != mState; };
+
+		void Enter(eUnitState state) { mState.set((UINT)state, true); }
+		void Exit(eUnitState state) { mState.set((UINT)state, false); };
 
 		void SetCurrentState(eUnitState state) { mCurrentState = state; }
 		eUnitState GetCurrentState() { return mCurrentState; }

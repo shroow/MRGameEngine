@@ -17,11 +17,6 @@ namespace shr
 	UnitScript::UnitScript()
 		: Script(eScriptType::UnitScript)
 		, mAnimator(nullptr)
-		, mIdle(false)
-		, mRun(false)
-		, mDie(false)
-		, mAttack(false)
-		, mHit(false)
 		, mbCursorOn(false)
 		, mbSelected(false)
 		, mbStartMove(false)
@@ -31,8 +26,6 @@ namespace shr
 		, mMove(0.f)
 		, mMoveDir{}
 		, mCharDir(0)
-		, mState(eCharState::None)
-		, mPrevState(eCharState::None)
 		, mIsStore(false)
 		, mIsTraded(false)
 	{
@@ -127,25 +120,6 @@ namespace shr
 			}
 		}
 
-		//if (Input::GetKeyState(eKeyCode::R) == eKeyState::PRESSED)
-		//{
-		//	Vector3 rot = tr->GetRotation();
-		//	rot.z += 10.0f * Time::DeltaTime();
-		//	tr->SetRotation(rot);
-		//}
-		//if (Input::GetMouseLeftPressed())
-		//{
-		//	Vector2 mousePos = Input::GetMouseWorldPos();
-		//	Vector2 dir;
-		//	dir.x = mousePos.x - pos.x;
-		//	dir.y = mousePos.y - pos.y;
-		//	float length = sqrt(dir.x * dir.x + dir.y * dir.y);
-		//	dir.x /= length;
-		//	dir.y /= length;
-		//	pos.x += dir.x * mStatus.moveSpeed * Time::DeltaTime();
-		//	pos.y += dir.y * mStatus.moveSpeed * Time::DeltaTime();
-		//}
-
 		if (mbStartMove && !mIsStore)
 		{
 			Vector2 dir;
@@ -155,8 +129,8 @@ namespace shr
 			dir.x = disX / length;
 			dir.y = disY / length;
 
-			pos.x += dir.x * mStatus.moveSpeed * Time::DeltaTime();
-			pos.y += dir.y * mStatus.moveSpeed * Time::DeltaTime();
+			pos.x += dir.x * status->moveSpeed * Time::DeltaTime();
+			pos.y += dir.y * status->moveSpeed * Time::DeltaTime();
 
 			mMoveDir = dir;
 
@@ -173,18 +147,16 @@ namespace shr
 		{
 			mMove = Vector2::Distance(Vector2(mPrevPos.x, mPrevPos.y), Vector2(pos.x, pos.y));
 
-			mRun = true;
-			mIdle = false;
+			mUnitState->Enter(eUnitState::Run);
+			//mUnitState->Exit(eUnitState::Idle);
 		}
 		else
 		{
 			mMove = 0.f;
 
-			mIdle = true;
-			mRun = false;
+			//mUnitState->Enter(eUnitState::Idle);
+			mUnitState->Exit(eUnitState::Run);
 		}
-
-		mPrevPos = pos;
 
 
 		if (mCharDir == 1) 
@@ -192,13 +164,18 @@ namespace shr
 		else
 			tr->SetRotation(Vector3(0.f, 0.f, 0.f));
 
+		mPrevPos = pos;
 		tr->SetPosition(pos);
+
+		mUnitState->Update();
 	}
 
 	void UnitScript::FixedUpdate()
 	{
-		if (mStatus.HP == 0.f)
-			mDie = true;
+		Status* status = mUnitStatus->GetStatus();
+
+		if (status->HP == 0.f)
+			mUnitState->Enter(eUnitState::Death);
 
 		if (mAnimator == nullptr)
 			return;
@@ -209,11 +186,11 @@ namespace shr
 		}
 
 
-		if (!CharStateChanged()) //¾È ¹Ù²î¾úÀ¸¸é ¸ØÃã
+		if (!UnitStateChanged()) //¾È ¹Ù²î¾úÀ¸¸é ¸ØÃã
 			return;
 
-		PlayCharAnim(mState);
-		mPrevState = mState;
+		PlayUnitAnim(mUnitState->GetCurrentState());
+		mUnitState->FixedUpdate();
 	}
 
 	void UnitScript::Render()
@@ -222,22 +199,28 @@ namespace shr
 
 	void UnitScript::OnCollisionEnter(Collider2D* collider)
 	{
+		eComponentType compType = collider->GetOrder();
+		if (compType == eComponentType::Collider2)
+			int a = 0; // do action
+
 		eLayerType type = collider->GetOwner()->GetLayerType();
-		if(type == eLayerType::Monster)
-			mAttack = true; 
+		if(type == eLayerType::Monster || type == eLayerType::Player)
+			mUnitState->Enter(eUnitState::Attack);
 
-
-		if (mbCursorOn)
+		else if (type == eLayerType::Background)
 		{
-			if (mIsStore)
+			if (mbCursorOn)
 			{
-				if (collider->GetName() == L"PlayerFieldCollider")
-					mIsTraded = true;
-			}
-			else
-			{
-				if (collider->GetName() == L"MonsterFieldCollider")
-					mIsTraded = true;
+				if (mIsStore)
+				{
+					if (collider->GetName() == L"PlayerFieldCollider")
+						mIsTraded = true;
+				}
+				else
+				{
+					if (collider->GetName() == L"MonsterFieldCollider")
+						mIsTraded = true;
+				}
 			}
 		}
 	}
@@ -246,21 +229,28 @@ namespace shr
 	}
 	void UnitScript::OnCollisionExit(Collider2D* collider)
 	{
+		eComponentType compType = collider->GetOrder();
+		if (compType == eComponentType::Collider2)
+			int a = 0; // do action
+
 		eLayerType type = collider->GetOwner()->GetLayerType();
 		if (type == eLayerType::Monster || type == eLayerType::Player)
-			mAttack = false;
+			mUnitState->Exit(eUnitState::Attack);
 
-		if (mIsTraded)
+		else if (type == eLayerType::Background)
 		{
-			if (mIsStore)
+			if (mIsTraded)
 			{
-				if (collider->GetName() == L"PlayerFieldCollider")
-					mIsTraded = false;
-			}
-			else
-			{
-				if (collider->GetName() == L"MonsterFieldCollider")
-					mIsTraded = false;
+				if (mIsStore)
+				{
+					if (collider->GetName() == L"PlayerFieldCollider")
+						mIsTraded = false;
+				}
+				else
+				{
+					if (collider->GetName() == L"MonsterFieldCollider")
+						mIsTraded = false;
+				}
 			}
 		}
 	}
@@ -285,32 +275,48 @@ namespace shr
 		mbCursorOn = false;
 	}
 
-	bool UnitScript::CharStateChanged()
+	bool UnitScript::UnitStateChanged()
 	{
-		if (mDie)
-		{
-			mState = eCharState::Death;
-		}
-		else if (mAttack)
-		{
-			mState = eCharState::Attack;
-		}
-		else if (mRun)
-		{
-			mState = eCharState::Run;
-		}
-		else if (mIdle)
-		{
-			mState = eCharState::Idle;
-		}
+		//if (mDie)
+		//{
+		//	mState = eUnitState::Death;
+		//}
+		//else if (mAttack)
+		//{
+		//	mState = eUnitState::Attack;
+		//}
+		//else if (mRun)
+		//{
+		//	mState = eUnitState::Run;
+		//}
+		//else if (mIdle)
+		//{
+		//	mState = eUnitState::Idle;
+		//}
+		//if (mHit)
+		//{
+		//}
+		//if (mPrevState == mState)
+		//{
+		//	if (mMoveDir.x < 0.f)
+		//	{
+		//		if (mCharDir == 1)
+		//			return false;
+		//		mCharDir = 1;
+		//		return true;
+		//	}
+		//	else if (mMoveDir.x > 0.f)
+		//	{
+		//		if (mCharDir == 0)
+		//			return false;
+		//		mCharDir = 0;
+		//		return true;
+		//	}
+		//	else if (mMoveDir.x == 0.f)
+		//		return false;
+		//}
 
-		if (mHit)
-		{
-
-		}
-
-
-		if (mPrevState == mState)
+		if (mUnitState->Action())
 		{
 			if (mMoveDir.x < 0.f)
 			{
@@ -345,11 +351,9 @@ namespace shr
 		mCharName = name;
 
 		mUnitStatus->SetStatus(status);
-
-		mIdle = true;
 	}
 
-	void UnitScript::LoadCharAnim(eCharState animState, Vector2 offset
+	void UnitScript::LoadUnitAnim(eUnitState animState, Vector2 offset
 		, Vector2 leftTop, Vector2 spriteSize
 		, UINT spriteLength, float duration, eAtlasType atlasType)
 	{
@@ -360,39 +364,39 @@ namespace shr
 
 		switch (animState)
 		{
-		case shr::enums::eCharState::Idle:
+		case shr::enums::eUnitState::Idle:
 			textureName.append(L"_Idle");
 			animName = L"Idle_Anim";
 			break;
-		case shr::enums::eCharState::Run:
+		case shr::enums::eUnitState::Run:
 			textureName.append(L"_Run");
 			animName = L"Run_Anim";
 			break;
-		case shr::enums::eCharState::Attack:
+		case shr::enums::eUnitState::Attack:
 			textureName.append(L"_Attack");
 			animName = L"Attack_Anim";
 			break;
-		case shr::enums::eCharState::Attack2:
+		case shr::enums::eUnitState::Attack2:
 			textureName.append(L"_Attack2");
 			animName = L"Attack2_Anim";
 			break;
-		case shr::enums::eCharState::Skill:
+		case shr::enums::eUnitState::Skill:
 			textureName.append(L"_Skill");
 			animName = L"Skill_Anim";
 			break;
-		case shr::enums::eCharState::Skill2:
+		case shr::enums::eUnitState::Skill2:
 			textureName.append(L"_Skill2");
 			animName = L"Skill2_Anim";
 			break;
-		case shr::enums::eCharState::Hit:
+		case shr::enums::eUnitState::Hit:
 			textureName.append(L"_Hit");
 			animName = L"Hit_Anim";
 			break;
-		case shr::enums::eCharState::Death:
+		case shr::enums::eUnitState::Death:
 			textureName.append(L"_Death");
 			animName = L"Death_Anim";
 			break;
-		case shr::enums::eCharState::End:
+		case shr::enums::eUnitState::End:
 			return;
 		default:
 			return;
@@ -403,34 +407,32 @@ namespace shr
 			, spriteLength, duration, atlasType);
 	}
 
-	void UnitScript::PlayCharAnim(eCharState animState, bool loop)
+	void UnitScript::PlayUnitAnim(eUnitState animState, bool loop)
 	{
 		switch (animState)
 		{
-		case shr::enums::eCharState::None:
-			break;
-		case shr::enums::eCharState::Idle:
+		case shr::enums::eUnitState::Idle:
 			mAnimator->Play(L"Idle_Anim", loop);
 			break;
-		case shr::enums::eCharState::Run:
+		case shr::enums::eUnitState::Run:
 			mAnimator->Play(L"Run_Anim", loop);
 			break;
-		case shr::enums::eCharState::Attack:
+		case shr::enums::eUnitState::Attack:
 			mAnimator->Play(L"Attack_Anim", loop);
 			break;
-		case shr::enums::eCharState::Attack2:
+		case shr::enums::eUnitState::Attack2:
 			mAnimator->Play(L"Attack2_Anim", loop);
 			break;
-		case shr::enums::eCharState::Skill:
+		case shr::enums::eUnitState::Skill:
 			mAnimator->Play(L"Skill_Anim", loop);
 			break;
-		case shr::enums::eCharState::Skill2:
+		case shr::enums::eUnitState::Skill2:
 			mAnimator->Play(L"Skill2_Anim", loop);
 			break;
-		case shr::enums::eCharState::Hit:
+		case shr::enums::eUnitState::Hit:
 			mAnimator->Play(L"Hit_Anim", loop);
 			break;
-		case shr::enums::eCharState::Death:
+		case shr::enums::eUnitState::Death:
 			mAnimator->Play(L"Death_Anim", loop);
 			break;
 		default:

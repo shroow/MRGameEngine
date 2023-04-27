@@ -80,7 +80,7 @@
     <ClCompile Include="shrPlayerScript.cpp">
       <Filter>Script\Object</Filter>
     </ClCompile>
-    <ClCompile Include="shrUnit.cpp">
+    <ClCompile Include="shrUnitScript.cpp">
       <Filter>Script\Unit</Filter>
     </ClCompile>
     <ClCompile Include="shrEntity.cpp">

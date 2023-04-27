@@ -9,7 +9,6 @@ namespace shr
     {
         mPrevState.reset();
         mState.reset();
-        mState.set((UINT)mCurrentState, true);
     }
     UnitState::~UnitState()
     {
@@ -17,23 +16,42 @@ namespace shr
 
     void UnitState::Update()
     {
+        if (mState.any())
+        {
+            mCurrentState = eUnitState::Idle;
+        }
+        else if (mState.test((UINT)eUnitState::Death))
+        {
+            mCurrentState = eUnitState::Death;
+        }
+        else if (mState.test((UINT)eUnitState::Skill2))
+        {
+            mCurrentState = eUnitState::Skill2;
+        }
+        else if (mState.test((UINT)eUnitState::Skill))
+        {
+            mCurrentState = eUnitState::Skill;
+        }
+        else if (mState.test((UINT)eUnitState::Attack2))
+        {
+            mCurrentState = eUnitState::Attack2;
+        }
+        else if (mState.test((UINT)eUnitState::Attack))
+        {
+            mCurrentState = eUnitState::Attack;
+        }
+        else if (mState.test((UINT)eUnitState::Run))
+        {
+            mCurrentState = eUnitState::Run;
+        }
+        else if (mState.test((UINT)eUnitState::Hit))
+        {
+            mCurrentState = eUnitState::Hit;
+        }
     }
-
     void UnitState::FixedUpdate()
     {
-    }
-
-    void UnitState::Enter(eUnitState state)
-    {
-        mState.set((UINT)state, true);
-    }
-    void UnitState::Action(eUnitState state)
-    {
-
-
-    }
-    void UnitState::Exit(eUnitState state)
-    {
-        mState.set((UINT)state, false);
+        mPrevState = mState;
+        mState.reset();
     }
 }

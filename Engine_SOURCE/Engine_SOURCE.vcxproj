@@ -251,7 +251,7 @@
     <ClCompile Include="shrMesh.cpp" />
     <ClCompile Include="shrMeshRenderer.cpp" />
     <ClCompile Include="shrMonster.cpp" />
-    <ClCompile Include="shrUnit.cpp" />
+    <ClCompile Include="shrUnitScript.cpp" />
     <ClCompile Include="shrMouseObject.cpp" />
     <ClCompile Include="shrMouseScript.cpp" />
     <ClCompile Include="shrMultiShaderRenderer.cpp" />

@@ -89,13 +89,14 @@ namespace shr::enums
 
 	enum class eUnitState
 	{
-		None = 0,
-		Idle,
-		Move,
+		Idle = 0,
+		Run,
 		Attack,
+		Attack2,
 		Skill,
-		Buff,
-		Debuff,
+		Skill2,
+		Hit,
+		Death,
 		End = 16,
 	};
 
@@ -121,20 +122,6 @@ namespace shr::enums
 		Row,
 		Column,
 		Compound,
-	};
-
-	enum class eCharState
-	{
-		None,
-		Idle,
-		Run,
-		Attack,
-		Attack2,
-		Skill,
-		Skill2,
-		Hit,
-		Death,
-		End
 	};
 
 	enum class eScriptType

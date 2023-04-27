@@ -168,26 +168,26 @@ namespace shr
 
 			//Animation add(using script)
 			{
-				monScript->LoadCharAnim(eCharState::Idle, Vector2::Zero
+				monScript->LoadUnitAnim(eUnitState::Idle, Vector2::Zero
 					, Vector2(0.f, 33.f), Vector2(120.f, 47.f)
 					, 10, 0.1f, eAtlasType::Column);
-				monScript->LoadCharAnim(eCharState::Attack, Vector2::Zero
+				monScript->LoadUnitAnim(eUnitState::Attack, Vector2::Zero
 					, Vector2(0.f, 33.f), Vector2(120.f, 47.f)
 					, 10, 0.1f, eAtlasType::Column);
-				monScript->LoadCharAnim(eCharState::Skill, Vector2::Zero
+				monScript->LoadUnitAnim(eUnitState::Skill, Vector2::Zero
 					, Vector2(0.f, 33.f), Vector2(120.f, 47.f)
 					, 12, 0.1f, eAtlasType::Column);
-				monScript->LoadCharAnim(eCharState::Death, Vector2::Zero
+				monScript->LoadUnitAnim(eUnitState::Death, Vector2::Zero
 					, Vector2(0.f, 33.f), Vector2(120.f, 47.f)
 					, 10, 0.1f, eAtlasType::Column);
-				monScript->LoadCharAnim(eCharState::Run, Vector2::Zero
+				monScript->LoadUnitAnim(eUnitState::Run, Vector2::Zero
 					, Vector2(0.f, 33.f), Vector2(120.f, 47.f)
 					, 10, 0.1f, eAtlasType::Column);
-				monScript->LoadCharAnim(eCharState::Hit, Vector2::Zero
+				monScript->LoadUnitAnim(eUnitState::Hit, Vector2::Zero
 					, Vector2(0.f, 33.f), Vector2(120.f, 47.f)
 					, 1, 0.1f, eAtlasType::Column);
 			}
-			monScript->PlayCharAnim(eCharState::Idle);
+			monScript->PlayUnitAnim(eUnitState::Idle);
 		}
 
 		//BallandChainBot _1
@@ -205,26 +205,26 @@ namespace shr
 
 			//Animation add(using script)
 			{
-				monScript->LoadCharAnim(eCharState::Idle, Vector2::Zero
+				monScript->LoadUnitAnim(eUnitState::Idle, Vector2::Zero
 					, Vector2(0.f, 0.f), Vector2(126.f, 39.f)
 					, 5, 0.1f, eAtlasType::Row);
-				monScript->LoadCharAnim(eCharState::Attack, Vector2(-0.1f, 0.f)
+				monScript->LoadUnitAnim(eUnitState::Attack, Vector2(-0.1f, 0.f)
 					, Vector2(0.f, 0.f), Vector2(126.f, 39.f)
 					, 8, 0.1f, eAtlasType::Row);
-				monScript->LoadCharAnim(eCharState::Skill, Vector2::Zero
+				monScript->LoadUnitAnim(eUnitState::Skill, Vector2::Zero
 					, Vector2(0.f, 0.f), Vector2(126.f, 39.f)
 					, 4, 0.1f, eAtlasType::Row);
-				monScript->LoadCharAnim(eCharState::Death, Vector2::Zero
+				monScript->LoadUnitAnim(eUnitState::Death, Vector2::Zero
 					, Vector2(0.f, 0.f), Vector2(126.f, 39.f)
 					, 5, 0.1f, eAtlasType::Row);
-				monScript->LoadCharAnim(eCharState::Run, Vector2::Zero
+				monScript->LoadUnitAnim(eUnitState::Run, Vector2::Zero
 					, Vector2(0.f, 0.f), Vector2(126.f, 39.f)
 					, 8, 0.1f, eAtlasType::Row);
-				monScript->LoadCharAnim(eCharState::Hit, Vector2::Zero
+				monScript->LoadUnitAnim(eUnitState::Hit, Vector2::Zero
 					, Vector2(0.f, 0.f), Vector2(126.f, 39.f)
 					, 2, 0.1f, eAtlasType::Row);
 			}
-			monScript->PlayCharAnim(eCharState::Idle);
+			monScript->PlayUnitAnim(eUnitState::Idle);
 
 			monScript->SetIsStore(true);
 		}

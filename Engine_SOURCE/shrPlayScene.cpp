@@ -157,27 +157,27 @@ namespace shr
 
 			//Animation add(using script)
 			{
-				script->LoadCharAnim(eCharState::Idle, Vector2::Zero
+				script->LoadUnitAnim(eUnitState::Idle, Vector2::Zero
 					, Vector2(0.f, 33.f), Vector2(120.f, 47.f)
 					, 10, 0.1f, eAtlasType::Column);
-				script->LoadCharAnim(eCharState::Attack, Vector2::Zero
+				script->LoadUnitAnim(eUnitState::Attack, Vector2::Zero
 					, Vector2(0.f, 33.f), Vector2(120.f, 47.f)
 					, 10, 0.1f, eAtlasType::Column);
-				script->LoadCharAnim(eCharState::Skill, Vector2::Zero
+				script->LoadUnitAnim(eUnitState::Skill, Vector2::Zero
 					, Vector2(0.f, 33.f), Vector2(120.f, 47.f)
 					, 12, 0.1f, eAtlasType::Column);
-				script->LoadCharAnim(eCharState::Death, Vector2::Zero
+				script->LoadUnitAnim(eUnitState::Death, Vector2::Zero
 					, Vector2(0.f, 33.f), Vector2(120.f, 47.f)
 					, 10, 0.1f, eAtlasType::Column);
-				script->LoadCharAnim(eCharState::Run, Vector2::Zero
+				script->LoadUnitAnim(eUnitState::Run, Vector2::Zero
 					, Vector2(0.f, 33.f), Vector2(120.f, 47.f)
 					, 10, 0.1f, eAtlasType::Column);
-				script->LoadCharAnim(eCharState::Hit, Vector2::Zero
+				script->LoadUnitAnim(eUnitState::Hit, Vector2::Zero
 					, Vector2(0.f, 33.f), Vector2(120.f, 47.f)
 					, 1, 0.1f, eAtlasType::Column);
 			}
 
-			script->PlayCharAnim(eCharState::Idle);
+			script->PlayUnitAnim(eUnitState::Idle);
 		}
 
 		//Monster
@@ -247,27 +247,27 @@ namespace shr
 
 			//Animation add(using script)
 			{
-				script->LoadCharAnim(eCharState::Idle, Vector2::Zero
+				script->LoadUnitAnim(eUnitState::Idle, Vector2::Zero
 					, Vector2(0.f, 0.f), Vector2(126.f, 39.f)
 					, 5, 0.1f, eAtlasType::Row);
-				script->LoadCharAnim(eCharState::Attack, Vector2(-0.1f, 0.f)
+				script->LoadUnitAnim(eUnitState::Attack, Vector2(-0.1f, 0.f)
 					, Vector2(0.f, 0.f), Vector2(126.f, 39.f)
 					, 8, 0.1f, eAtlasType::Row);
-				script->LoadCharAnim(eCharState::Skill, Vector2::Zero
+				script->LoadUnitAnim(eUnitState::Skill, Vector2::Zero
 					, Vector2(0.f, 0.f), Vector2(126.f, 39.f)
 					, 4, 0.1f, eAtlasType::Row);
-				script->LoadCharAnim(eCharState::Death, Vector2::Zero
+				script->LoadUnitAnim(eUnitState::Death, Vector2::Zero
 					, Vector2(0.f, 0.f), Vector2(126.f, 39.f)
 					, 5, 0.1f, eAtlasType::Row);
-				script->LoadCharAnim(eCharState::Run, Vector2::Zero
+				script->LoadUnitAnim(eUnitState::Run, Vector2::Zero
 					, Vector2(0.f, 0.f), Vector2(126.f, 39.f)
 					, 8, 0.1f, eAtlasType::Row);
-				script->LoadCharAnim(eCharState::Hit, Vector2::Zero
+				script->LoadUnitAnim(eUnitState::Hit, Vector2::Zero
 					, Vector2(0.f, 0.f), Vector2(126.f, 39.f)
 					, 2, 0.1f, eAtlasType::Row);
 			}
 
-			script->PlayCharAnim(eCharState::Idle);
+			script->PlayUnitAnim(eUnitState::Idle);
 
 			script->SetIsStore(true);
 		}
