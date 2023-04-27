@@ -157,37 +157,4 @@ namespace shr::enums
 
 		End,
 	};
-
-	struct Status
-	{
-		float maxHP;
-		float HP;
-		float maxMP;
-		float MP;
-
-		float attackDmg;
-		float attackSpeed;
-		float attackRange;
-
-		float moveSpeed;
-		eMoveType moveType;
-
-		//Skill needed
-
-		std::vector<float> buffVec[(UINT)eBuffType::End];
-
-		Status() : maxHP{ 100.f }, HP{ 100.f }, maxMP{ 100.f }, MP{ 20.f }
-			, attackDmg{ 10.f }, attackSpeed{ 1.f }, attackRange{ 10.f }
-			, moveSpeed{ 10.f }, moveType{ eMoveType::Ground }, buffVec{} {}
-
-		Status(float hp, float MaxHP, float mp, float MaxMP, float AttackDmg, float AttackSpeed
-			, float AttackRange, float MoveSpeed, eMoveType MoveType)
-			: maxHP{ MaxHP }, HP{ hp }, maxMP{ MaxMP }, MP{ mp }
-			, attackDmg{ AttackDmg }, attackSpeed{ AttackSpeed }, attackRange{ AttackRange }
-			, moveSpeed{ MoveSpeed }, moveType{ MoveType }, buffVec{} {}
-
-
-		Status(const Status&) = default;
-		Status& operator=(const Status&) = default;
-	};
 }

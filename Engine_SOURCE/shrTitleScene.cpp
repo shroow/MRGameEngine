@@ -18,7 +18,7 @@
 #include "shrAnimator.h"
 #include "shrLight.h"
 #include "shrPaintShader.h"
-#include "shrMonsterScript.h"
+#include "shrUnitScript.h"
 #include "shrParticleSystem.h"
 
 namespace shr
@@ -123,7 +123,7 @@ namespace shr
 			std::shared_ptr<Mesh> mesh = Resources::Find<Mesh>(L"RectMesh");
 			mr->SetMesh(mesh);
 			obj->AddComponent<PlayerScript>();
-			obj->AddComponent<MonsterScript>();
+			obj->AddComponent<UnitScript>();
 			object::DontDestroyOnLoad(obj);
 		}
 

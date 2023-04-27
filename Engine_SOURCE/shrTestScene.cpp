@@ -8,7 +8,7 @@
 #include "shrGameObject.h"
 #include "shrObject.h"
 #include "shrSpriteRenderer.h"
-#include "shrMonsterScript.h"
+#include "shrUnitScript.h"
 #include "shrCameraScript.h"
 #include "shrAnimator.h"
 #include "shrCollisionManager.h"
@@ -17,7 +17,6 @@
 #include "shrMonster.h"
 
 #include "shrUnitObject.h"
-#include "shrUnitComponent.h"
 #include "shrMouseScript.h"
 
 namespace shr
@@ -162,7 +161,7 @@ namespace shr
 			tr->SetRotation(Vector3(0.f, 0.f, 0.f));
 			tr->SetScale(Vector3(6.0f, 6.0f, 1.0f));
 
-			MonsterScript* monScript = obj->AddComponent<MonsterScript>();
+			UnitScript* monScript = obj->AddComponent<UnitScript>();
 			monScript->SetChar(L"FreeKnightv1c1");
 
 			obj->SetAttackRange(10.f);
@@ -201,7 +200,7 @@ namespace shr
 			tr->SetRotation(Vector3(0.f, 0.f, 0.f));
 			tr->SetScale(Vector3(6.0f, 6.0f, 1.0f));
 
-			MonsterScript* monScript = obj->AddComponent<MonsterScript>();
+			UnitScript* monScript = obj->AddComponent<UnitScript>();
 			monScript->SetChar(L"BallandChainBot");
 
 			//Animation add(using script)

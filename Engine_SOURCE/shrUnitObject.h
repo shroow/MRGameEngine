@@ -1,13 +1,13 @@
 #pragma once
 #include "shrGameObject.h"
-#include "shrStatusComponent.h"
+#include "shrUnitScript.h"
 
 namespace shr
 {
     class UnitObject :
         public GameObject
     {
-		friend class MonsterScript;
+		friend class UnitScript;
 	public:
 		UnitObject();
 		UnitObject(const UnitObject& obj);
@@ -52,9 +52,7 @@ namespace shr
 		GameObject* mBattleBody;
 		GameObject* mCharUI;
 
-		StatusComponent* mStatus;
-
-		class MonsterScript* mMonScript;
+		UnitScript* mMonScript;
 		class CharUIScirpt* mUIScript;
     };
 }

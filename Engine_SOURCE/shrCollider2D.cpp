@@ -19,6 +19,19 @@ namespace shr
 		mID = ColliderNumber++;
 	}
 
+	Collider2D::Collider2D(eComponentType type)
+		: Component(type)
+		, mType(eColliderType::None)
+		, mTransform(nullptr)
+		, mSize(Vector2::One)
+		, mCenter(Vector2::Zero)
+		, mRadius(0.f)
+		, mbTrigger(false)
+		, mID(0)
+	{
+		mID = ColliderNumber++;
+	}
+
 	Collider2D::~Collider2D()
 	{
 	}

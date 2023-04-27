@@ -15,7 +15,7 @@
 #include "shrPlayer.h"
 #include "shrMonster.h"
 #include "shrPlayerScript.h"
-#include "shrMonsterScript.h"
+#include "shrUnitScript.h"
 #include "shrCollider2D.h"
 
 namespace shr
@@ -152,7 +152,7 @@ namespace shr
 			mr->SetMesh(mesh);
 
 			//Script
-			MonsterScript* script = obj->AddComponent<MonsterScript>();
+			UnitScript* script = obj->AddComponent<UnitScript>();
 			script->SetChar(L"FreeKnightv1c1");
 
 			//Animation add(using script)
@@ -242,7 +242,7 @@ namespace shr
 			mr->SetMesh(mesh);
 
 			//Script
-			MonsterScript* script = obj->AddComponent<MonsterScript>();
+			UnitScript* script = obj->AddComponent<UnitScript>();
 			script->SetChar(L"BallandChainBot");
 
 			//Animation add(using script)

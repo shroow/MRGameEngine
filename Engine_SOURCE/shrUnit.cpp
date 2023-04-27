@@ -1,4 +1,4 @@
-#include "shrMonsterScript.h"
+#include "shrUnitScript.h"
 #include "shrGameObject.h"
 #include "shrTransform.h"
 #include "shrTime.h"
@@ -9,11 +9,12 @@
 #include "shrAnimator.h"
 #include "shrResource.h"
 #include "shrCollisionManager.h"
-#include "shrStatusComponent.h"
+#include "shrUnitStatus.h"
+#include "shrUnitState.h"
 
 namespace shr
 {
-	MonsterScript::MonsterScript()
+	UnitScript::UnitScript()
 		: Script(eScriptType::UnitScript)
 		, mAnimator(nullptr)
 		, mIdle(false)
@@ -37,27 +38,26 @@ namespace shr
 	{
 	}
 
-	MonsterScript::~MonsterScript()
+	UnitScript::~UnitScript()
 	{
 	}
 
-	void MonsterScript::Initialize()
+	void UnitScript::Initialize()
 	{
 		if (mAnimator == nullptr)
 			return;
-		mAnimator->GetStartEvent(L"Run_Anim") = std::bind(&MonsterScript::Start, this);
-		mAnimator->GetCompleteEvent(L"Idle_Anim") = std::bind(&MonsterScript::Action, this);
-		mAnimator->GetEndEvent(L"Idle_Anim") = std::bind(&MonsterScript::End, this);
-		mAnimator->GetEvent(L"Idle_Anim", 1) = std::bind(&MonsterScript::End, this);
-
+		mAnimator->GetStartEvent(L"Run_Anim") = std::bind(&UnitScript::Start, this);
+		mAnimator->GetCompleteEvent(L"Idle_Anim") = std::bind(&UnitScript::Action, this);
+		mAnimator->GetEndEvent(L"Idle_Anim") = std::bind(&UnitScript::End, this);
+		mAnimator->GetEvent(L"Idle_Anim", 1) = std::bind(&UnitScript::End, this);
 	}
 
-	void MonsterScript::Update()
+	void UnitScript::Update()
 	{
 		Transform* tr = GetOwner()->GetComponent<Transform>();
 
 		Vector3 pos = tr->GetPosition();
-		Status status = GetOwner()->GetComponent<StatusComponent>()->GetStatus();
+		Status* status = mUnitStatus->GetStatus();
 
 		if (mbCursorOn)
 		{
@@ -142,8 +142,8 @@ namespace shr
 		//	float length = sqrt(dir.x * dir.x + dir.y * dir.y);
 		//	dir.x /= length;
 		//	dir.y /= length;
-		//	pos.x += dir.x * status.moveSpeed * Time::DeltaTime();
-		//	pos.y += dir.y * status.moveSpeed * Time::DeltaTime();
+		//	pos.x += dir.x * mStatus.moveSpeed * Time::DeltaTime();
+		//	pos.y += dir.y * mStatus.moveSpeed * Time::DeltaTime();
 		//}
 
 		if (mbStartMove && !mIsStore)
@@ -155,8 +155,8 @@ namespace shr
 			dir.x = disX / length;
 			dir.y = disY / length;
 
-			pos.x += dir.x * status.moveSpeed * Time::DeltaTime();
-			pos.y += dir.y * status.moveSpeed * Time::DeltaTime();
+			pos.x += dir.x * mStatus.moveSpeed * Time::DeltaTime();
+			pos.y += dir.y * mStatus.moveSpeed * Time::DeltaTime();
 
 			mMoveDir = dir;
 
@@ -195,11 +195,9 @@ namespace shr
 		tr->SetPosition(pos);
 	}
 
-	void MonsterScript::FixedUpdate()
+	void UnitScript::FixedUpdate()
 	{
-		Status status = GetOwner()->GetComponent<StatusComponent>()->GetStatus();
-		
-		if (status.HP == 0.f)
+		if (mStatus.HP == 0.f)
 			mDie = true;
 
 		if (mAnimator == nullptr)
@@ -218,11 +216,11 @@ namespace shr
 		mPrevState = mState;
 	}
 
-	void MonsterScript::Render()
+	void UnitScript::Render()
 	{
 	}
 
-	void MonsterScript::OnCollisionEnter(Collider2D* collider)
+	void UnitScript::OnCollisionEnter(Collider2D* collider)
 	{
 		eLayerType type = collider->GetOwner()->GetLayerType();
 		if(type == eLayerType::Monster)
@@ -243,10 +241,10 @@ namespace shr
 			}
 		}
 	}
-	void MonsterScript::OnCollisionStay(Collider2D* collider)
+	void UnitScript::OnCollisionStay(Collider2D* collider)
 	{
 	}
-	void MonsterScript::OnCollisionExit(Collider2D* collider)
+	void UnitScript::OnCollisionExit(Collider2D* collider)
 	{
 		eLayerType type = collider->GetOwner()->GetLayerType();
 		if (type == eLayerType::Monster || type == eLayerType::Player)
@@ -266,28 +264,28 @@ namespace shr
 			}
 		}
 	}
-	void MonsterScript::OnTriggerEnter(Collider2D* collider)
+	void UnitScript::OnTriggerEnter(Collider2D* collider)
 	{
 	}
-	void MonsterScript::OnTriggerStay(Collider2D* collider)
+	void UnitScript::OnTriggerStay(Collider2D* collider)
 	{
 	}
-	void MonsterScript::OnTriggerExit(Collider2D* collider)
+	void UnitScript::OnTriggerExit(Collider2D* collider)
 	{
 	}
-	void MonsterScript::OnMouseCollisionEnter()
+	void UnitScript::OnMouseCollisionEnter()
 	{
 		mbCursorOn = true;
 	}
-	void MonsterScript::OnMouseCollisionStay()
+	void UnitScript::OnMouseCollisionStay()
 	{
 	}
-	void MonsterScript::OnMouseCollisionExit()
+	void UnitScript::OnMouseCollisionExit()
 	{
 		mbCursorOn = false;
 	}
 
-	bool MonsterScript::CharStateChanged()
+	bool UnitScript::CharStateChanged()
 	{
 		if (mDie)
 		{
@@ -337,7 +335,7 @@ namespace shr
 		return true;
 	}
 
-	void MonsterScript::SetChar(const std::wstring& name, Status status)
+	void UnitScript::SetChar(const std::wstring& name, Status status)
 	{
 		if (GetOwner() == nullptr)
 			return;
@@ -346,21 +344,12 @@ namespace shr
 
 		mCharName = name;
 
-		status.maxHP = status.maxHP;
-		status.HP = status.HP;
-		status.maxMP = status.maxMP;
-		status.MP = status.MP;
-
-		status.attackDmg = status.attackDmg;
-		status.attackSpeed = status.attackSpeed;
-
-		status.moveSpeed = status.moveSpeed;
-		status.moveType = status.moveType;
+		mUnitStatus->SetStatus(status);
 
 		mIdle = true;
 	}
 
-	void MonsterScript::LoadCharAnim(eCharState animState, Vector2 offset
+	void UnitScript::LoadCharAnim(eCharState animState, Vector2 offset
 		, Vector2 leftTop, Vector2 spriteSize
 		, UINT spriteLength, float duration, eAtlasType atlasType)
 	{
@@ -414,7 +403,7 @@ namespace shr
 			, spriteLength, duration, atlasType);
 	}
 
-	void MonsterScript::PlayCharAnim(eCharState animState, bool loop)
+	void UnitScript::PlayCharAnim(eCharState animState, bool loop)
 	{
 		switch (animState)
 		{
@@ -449,17 +438,17 @@ namespace shr
 		}
 	}
 
-	void MonsterScript::Battle()
+	void UnitScript::Battle()
 	{
 	}
 
-	void MonsterScript::Start()
+	void UnitScript::Start()
 	{
 	}
-	void MonsterScript::Action()
+	void UnitScript::Action()
 	{
 	}
-	void MonsterScript::End()
+	void UnitScript::End()
 	{
 	}
 }

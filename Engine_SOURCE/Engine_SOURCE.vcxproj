@@ -188,7 +188,7 @@
     <ClInclude Include="shrMesh.h" />
     <ClInclude Include="shrMeshRenderer.h" />
     <ClInclude Include="shrMonster.h" />
-    <ClInclude Include="shrMonsterScript.h" />
+    <ClInclude Include="shrUnitScript.h" />
     <ClInclude Include="shrMouseObject.h" />
     <ClInclude Include="shrMouseScript.h" />
     <ClInclude Include="shrMultiShaderRenderer.h" />
@@ -210,16 +210,16 @@
     <ClInclude Include="shrShader.h" />
     <ClInclude Include="shrSkill.h" />
     <ClInclude Include="shrSpriteRenderer.h" />
-    <ClInclude Include="shrStatusComponent.h" />
     <ClInclude Include="shrStructedBuffer.h" />
     <ClInclude Include="shrTestScene.h" />
     <ClInclude Include="shrTexture.h" />
     <ClInclude Include="shrTime.h" />
     <ClInclude Include="shrTitleScene.h" />
     <ClInclude Include="shrTransform.h" />
-    <ClInclude Include="shrUnitComponent.h" />
     <ClInclude Include="MouseMove.h" />
     <ClInclude Include="shrUnitObject.h" />
+    <ClInclude Include="shrUnitState.h" />
+    <ClInclude Include="shrUnitStatus.h" />
     <ClInclude Include="shrUnitUI.h" />
   </ItemGroup>
   <ItemGroup>
@@ -251,7 +251,7 @@
     <ClCompile Include="shrMesh.cpp" />
     <ClCompile Include="shrMeshRenderer.cpp" />
     <ClCompile Include="shrMonster.cpp" />
-    <ClCompile Include="shrMonsterScript.cpp" />
+    <ClCompile Include="shrUnit.cpp" />
     <ClCompile Include="shrMouseObject.cpp" />
     <ClCompile Include="shrMouseScript.cpp" />
     <ClCompile Include="shrMultiShaderRenderer.cpp" />
@@ -272,15 +272,15 @@
     <ClCompile Include="shrShader.cpp" />
     <ClCompile Include="shrSkill.cpp" />
     <ClCompile Include="shrSpriteRenderer.cpp" />
-    <ClCompile Include="shrStatusComponent.cpp" />
     <ClCompile Include="shrStructedBuffer.cpp" />
     <ClCompile Include="shrTestScene.cpp" />
     <ClCompile Include="shrTexture.cpp" />
     <ClCompile Include="shrTime.cpp" />
     <ClCompile Include="shrTitleScene.cpp" />
     <ClCompile Include="shrTransform.cpp" />
-    <ClCompile Include="shrUnitComponent.cpp" />
     <ClCompile Include="shrUnitObject.cpp" />
+    <ClCompile Include="shrUnitState.cpp" />
+    <ClCompile Include="shrUnitStatus.cpp" />
     <ClCompile Include="shrUnitUI.cpp" />
   </ItemGroup>
   <ItemGroup>

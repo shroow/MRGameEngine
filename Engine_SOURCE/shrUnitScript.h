@@ -2,15 +2,17 @@
 #include "shrScript.h"
 #include "shrResources.h"
 #include "shrAnimator.h"
+#include "shrUnitStatus.h"
+#include "shrUnitState.h"
 
 namespace shr
 {
-    class MonsterScript :
+    class UnitScript :
         public Script
     {
     public:
-        MonsterScript();
-        ~MonsterScript();
+        UnitScript();
+        ~UnitScript();
 
         virtual void Initialize() override;
         virtual void Update() override;
@@ -53,9 +55,10 @@ namespace shr
         std::wstring mCharName;
         Animator* mAnimator;
         Transform* mTransform;
-        StatusComponent* mStatusComp;
 
-        Status mStatus;
+        UnitStatus* mUnitStatus;
+        UnitState* mUnitState;
+
         bool mIdle;
         bool mRun;
         bool mDie;

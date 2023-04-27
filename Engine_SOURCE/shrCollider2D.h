@@ -9,6 +9,7 @@ namespace shr
 	{
 	public:
 		Collider2D();
+		Collider2D(eComponentType type);
 		~Collider2D();
 
 		virtual void Initialize() override;

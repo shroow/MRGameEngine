@@ -1,7 +1,6 @@
 #include "shrUnitObject.h"
 #include "shrObject.h"
 #include "shrSpriteRenderer.h"
-#include "shrMonsterScript.h"
 #include "shrCharUIScirpt.h"
 
 namespace shr
@@ -9,10 +8,10 @@ namespace shr
 	UnitObject::UnitObject()
 		: GameObject()
 		, mCharName()
-		, mStatus{}
 		, mBattleBody(nullptr)
 		, mCharUI(nullptr)
 		, mMonScript(nullptr)
+		, mUIScript(nullptr)
 	{
 	}
 	UnitObject::UnitObject(const UnitObject& obj)
@@ -35,23 +34,28 @@ namespace shr
 			Collider2D* collider = AddComponent<Collider2D>();
 			collider->SetType(eColliderType::Rect);
 
+			//인식범위 충돌체
+			Collider2D* collider2 = new Collider2D(eComponentType::Collider2);
+			AddComponent(collider2);
+			collider2->SetType(eColliderType::Circle);
+			collider2->SetRadius(30.f); //고정크기 
+
 			SpriteRenderer* mr = AddComponent<SpriteRenderer>();
 			std::shared_ptr<Material> mateiral = Resources::Find<Material>(L"SpriteMaterial");
 			mr->SetMaterial(mateiral);
 			std::shared_ptr<Mesh> mesh = Resources::Find<Mesh>(L"RectMesh");
 			mr->SetMesh(mesh);
 
-			mStatus = AddComponent<StatusComponent>();
-			mMonScript = AddComponent<MonsterScript>();
+			mMonScript = AddComponent<UnitScript>();
 		}
 
 		//BattleBody
 		{
 			mBattleBody = object::Instantiate<GameObject>(eLayerType::Monster);
-			Transform* tr = mBattleBody->GetComponent<Transform>();
-			Collider2D* collider2 = mBattleBody->AddComponent<Collider2D>();
-			collider2->SetType(eColliderType::Circle);
-			collider2->SetRadius(20.f); //고정크기 
+			//Transform* tr = mBattleBody->GetComponent<Transform>();
+			//Collider2D* collider2 = mBattleBody->AddComponent<Collider2D>();
+			//collider2->SetType(eColliderType::Circle);
+			//collider2->SetRadius(20.f); //고정크기 
 		}
 
 		mCharUI = object::Instantiate<GameObject>(eLayerType::Monster);
