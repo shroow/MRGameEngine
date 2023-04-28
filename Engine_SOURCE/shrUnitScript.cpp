@@ -17,6 +17,9 @@ namespace shr
 	UnitScript::UnitScript()
 		: Script(eScriptType::UnitScript)
 		, mAnimator(nullptr)
+		, mTransform(nullptr)
+		, mUnitStatus()
+		, mUnitState()
 		, mbCursorOn(false)
 		, mbSelected(false)
 		, mbStartMove(false)
@@ -25,7 +28,7 @@ namespace shr
 		, mPrevPos{}
 		, mMove(0.f)
 		, mMoveDir{}
-		, mCharDir(0)
+		, mIsDirLeft(false)
 		, mIsStore(false)
 		, mIsTraded(false)
 	{
@@ -37,8 +40,11 @@ namespace shr
 
 	void UnitScript::Initialize()
 	{
+		mTransform = GetOwner()->GetComponent<Transform>();
+
 		if (mAnimator == nullptr)
 			return;
+
 		mAnimator->GetStartEvent(L"Run_Anim") = std::bind(&UnitScript::Start, this);
 		mAnimator->GetCompleteEvent(L"Idle_Anim") = std::bind(&UnitScript::Action, this);
 		mAnimator->GetEndEvent(L"Idle_Anim") = std::bind(&UnitScript::End, this);
@@ -47,10 +53,43 @@ namespace shr
 
 	void UnitScript::Update()
 	{
-		Transform* tr = GetOwner()->GetComponent<Transform>();
+		MouseControl();
+		Move();
 
-		Vector3 pos = tr->GetPosition();
-		Status* status = mUnitStatus->GetStatus();
+		if (mIsBattle)
+			Battle();
+
+		mUnitState.Update();
+		mUnitStatus.Update();
+	}
+
+	void UnitScript::FixedUpdate()
+	{
+		CheckUnitState();
+
+		if (mAnimator == nullptr)
+			return;
+
+		if (!UnitStateChanged()) //¾È ¹Ù²î¾úÀ¸¸é ¸ØÃã
+			return;
+
+		if (Input::GetKeyDown(eKeyCode::N_0))
+			StartBattle();
+
+		eUnitState a = mUnitState.GetCurrentState();
+		PlayUnitAnim(mUnitState.GetCurrentState());
+
+		mUnitState.FixedUpdate();
+		mUnitStatus.FixedUpdate();
+	}
+
+	void UnitScript::Render()
+	{
+	}
+
+	void UnitScript::MouseControl()
+	{
+		Vector3 pos = mTransform->GetPosition();
 
 		if (mbCursorOn)
 		{
@@ -111,16 +150,24 @@ namespace shr
 				}
 			}
 		}
-		else if (mbSelected)
+		else if (mbSelected && !mIsStore)
 		{
-			if(Input::GetMouseRightDown() || Input::GetMouseRightPressed())
+			if (Input::GetMouseRightDown() || Input::GetMouseRightPressed())
 			{
 				mMovetoPos = Input::GetMouseWorldPos();
 				mbStartMove = true;
 			}
 		}
 
-		if (mbStartMove && !mIsStore)
+		mTransform->SetPosition(pos);
+	}
+
+	void UnitScript::Move()
+	{
+		Vector3 pos = mTransform->GetPosition();
+		Status* status = mUnitStatus.GetStatus();
+
+		if (mbStartMove)
 		{
 			Vector2 dir;
 			float disX = mMovetoPos.x - pos.x;
@@ -133,6 +180,12 @@ namespace shr
 			pos.y += dir.y * status->moveSpeed * Time::DeltaTime();
 
 			mMoveDir = dir;
+
+			if (disX > 0.f)
+				mIsDirLeft = false;
+			else if (disX < 0.f)
+				mIsDirLeft = true;
+
 
 			disX = mMovetoPos.x - pos.x;
 			disY = mMovetoPos.y - pos.y;
@@ -147,81 +200,76 @@ namespace shr
 		{
 			mMove = Vector2::Distance(Vector2(mPrevPos.x, mPrevPos.y), Vector2(pos.x, pos.y));
 
-			mUnitState->Enter(eUnitState::Run);
-			//mUnitState->Exit(eUnitState::Idle);
+			mUnitState.Enter(eUnitState::Run);
+			mUnitState.Exit(eUnitState::Idle);
 		}
 		else
 		{
 			mMove = 0.f;
 
-			//mUnitState->Enter(eUnitState::Idle);
-			mUnitState->Exit(eUnitState::Run);
+			mUnitState.Enter(eUnitState::Idle);
+			mUnitState.Exit(eUnitState::Run);
 		}
 
 
-		if (mCharDir == 1) 
-			tr->SetRotation(Vector3(0.f, 180.f, 0.f));
+		if (mIsDirLeft)
+			mTransform->SetRotation(Vector3(0.f, 180.f, 0.f));
 		else
-			tr->SetRotation(Vector3(0.f, 0.f, 0.f));
+			mTransform->SetRotation(Vector3(0.f, 0.f, 0.f));
 
 		mPrevPos = pos;
-		tr->SetPosition(pos);
-
-		mUnitState->Update();
+		mTransform->SetPosition(pos);
 	}
 
-	void UnitScript::FixedUpdate()
+	void UnitScript::Battle()
 	{
-		Status* status = mUnitStatus->GetStatus();
+	}
+
+	void UnitScript::CheckUnitState()
+	{
+		Status* status = mUnitStatus.GetStatus();
 
 		if (status->HP == 0.f)
-			mUnitState->Enter(eUnitState::Death);
-
-		if (mAnimator == nullptr)
-			return;
-
-		if (Input::GetKey(eKeyCode::N_1))
-		{
-			mAnimator->Play(L"Attack_Anim");
-		}
-
-
-		if (!UnitStateChanged()) //¾È ¹Ù²î¾úÀ¸¸é ¸ØÃã
-			return;
-
-		PlayUnitAnim(mUnitState->GetCurrentState());
-		mUnitState->FixedUpdate();
+			mUnitState.Enter(eUnitState::Death);
 	}
 
-	void UnitScript::Render()
+	bool UnitScript::UnitStateChanged()
 	{
+		if (!mUnitState.Action())
+			return false;
+
+		return true;
 	}
 
 	void UnitScript::OnCollisionEnter(Collider2D* collider)
 	{
 		eComponentType compType = collider->GetOrder();
-		if (compType == eComponentType::Collider2)
-			int a = 0; // do action
-
-		eLayerType type = collider->GetOwner()->GetLayerType();
-		if(type == eLayerType::Monster || type == eLayerType::Player)
-			mUnitState->Enter(eUnitState::Attack);
-
-		else if (type == eLayerType::Background)
+		if (compType == eComponentType::Collider)
 		{
-			if (mbCursorOn)
+			eLayerType type = collider->GetOwner()->GetLayerType();
+			if (type == eLayerType::Monster || type == eLayerType::Player)
+				mUnitState.Enter(eUnitState::Attack);
+
+			else if (type == eLayerType::Background)
 			{
-				if (mIsStore)
+				if (mbCursorOn)
 				{
-					if (collider->GetName() == L"PlayerFieldCollider")
-						mIsTraded = true;
-				}
-				else
-				{
-					if (collider->GetName() == L"MonsterFieldCollider")
-						mIsTraded = true;
+					if (mIsStore)
+					{
+						if (collider->GetName() == L"PlayerFieldCollider")
+							mIsTraded = true;
+					}
+					else
+					{
+						if (collider->GetName() == L"MonsterFieldCollider")
+							mIsTraded = true;
+					}
 				}
 			}
+		}
+		else if (compType == eComponentType::Collider2)
+		{
+
 		}
 	}
 	void UnitScript::OnCollisionStay(Collider2D* collider)
@@ -235,7 +283,7 @@ namespace shr
 
 		eLayerType type = collider->GetOwner()->GetLayerType();
 		if (type == eLayerType::Monster || type == eLayerType::Player)
-			mUnitState->Exit(eUnitState::Attack);
+			mUnitState.Exit(eUnitState::Attack);
 
 		else if (type == eLayerType::Background)
 		{
@@ -275,72 +323,6 @@ namespace shr
 		mbCursorOn = false;
 	}
 
-	bool UnitScript::UnitStateChanged()
-	{
-		//if (mDie)
-		//{
-		//	mState = eUnitState::Death;
-		//}
-		//else if (mAttack)
-		//{
-		//	mState = eUnitState::Attack;
-		//}
-		//else if (mRun)
-		//{
-		//	mState = eUnitState::Run;
-		//}
-		//else if (mIdle)
-		//{
-		//	mState = eUnitState::Idle;
-		//}
-		//if (mHit)
-		//{
-		//}
-		//if (mPrevState == mState)
-		//{
-		//	if (mMoveDir.x < 0.f)
-		//	{
-		//		if (mCharDir == 1)
-		//			return false;
-		//		mCharDir = 1;
-		//		return true;
-		//	}
-		//	else if (mMoveDir.x > 0.f)
-		//	{
-		//		if (mCharDir == 0)
-		//			return false;
-		//		mCharDir = 0;
-		//		return true;
-		//	}
-		//	else if (mMoveDir.x == 0.f)
-		//		return false;
-		//}
-
-		if (mUnitState->Action())
-		{
-			if (mMoveDir.x < 0.f)
-			{
-				if (mCharDir == 1)
-					return false;
-
-				mCharDir = 1;
-				return true;
-			}
-			else if (mMoveDir.x > 0.f)
-			{
-				if (mCharDir == 0)
-					return false;
-
-				mCharDir = 0;
-				return true;
-			}
-			else if (mMoveDir.x == 0.f)
-				return false;
-		}
-
-		return true;
-	}
-
 	void UnitScript::SetChar(const std::wstring& name, Status status)
 	{
 		if (GetOwner() == nullptr)
@@ -350,7 +332,7 @@ namespace shr
 
 		mCharName = name;
 
-		mUnitStatus->SetStatus(status);
+		mUnitStatus.SetStatus(status);
 	}
 
 	void UnitScript::LoadUnitAnim(eUnitState animState, Vector2 offset
@@ -438,10 +420,6 @@ namespace shr
 		default:
 			break;
 		}
-	}
-
-	void UnitScript::Battle()
-	{
 	}
 
 	void UnitScript::Start()

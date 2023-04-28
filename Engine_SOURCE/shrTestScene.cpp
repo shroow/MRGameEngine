@@ -157,11 +157,11 @@ namespace shr
 			obj->SetName(L"FreeKnightv1c1");
 
 			Transform* tr = obj->GetComponent<Transform>();
-			tr->SetPosition(Vector3(-20.0f, 3.5f, 5.0f));
+			tr->SetPosition(Vector3(-20.0f, 3.5f, 5.0f)); 
 			tr->SetRotation(Vector3(0.f, 0.f, 0.f));
 			tr->SetScale(Vector3(6.0f, 6.0f, 1.0f));
 
-			UnitScript* monScript = obj->AddComponent<UnitScript>();
+			UnitScript* monScript = obj->GetComponent<UnitScript>();
 			monScript->SetChar(L"FreeKnightv1c1");
 
 			obj->SetAttackRange(10.f);
@@ -200,7 +200,7 @@ namespace shr
 			tr->SetRotation(Vector3(0.f, 0.f, 0.f));
 			tr->SetScale(Vector3(6.0f, 6.0f, 1.0f));
 
-			UnitScript* monScript = obj->AddComponent<UnitScript>();
+			UnitScript* monScript = obj->GetComponent<UnitScript>();
 			monScript->SetChar(L"BallandChainBot");
 
 			//Animation add(using script)

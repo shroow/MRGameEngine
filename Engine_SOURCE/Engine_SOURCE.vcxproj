@@ -157,6 +157,7 @@
   <ItemGroup>
     <ClInclude Include="..\External\DirectXTex\Include\DirectXTex.h" />
     <ClInclude Include="CommonInclude.h" />
+    <ClInclude Include="shrHero.h" />
     <ClInclude Include="shrAnimation.h" />
     <ClInclude Include="shrAnimator.h" />
     <ClInclude Include="shrApplication.h" />
@@ -180,6 +181,8 @@
     <ClInclude Include="shrGraphicDevice_DX11.h" />
     <ClInclude Include="shrGraphics.h" />
     <ClInclude Include="shrGridScript.h" />
+    <ClInclude Include="shrPlayerObject.h" />
+    <ClInclude Include="shrHeroScript.h" />
     <ClInclude Include="shrInput.h" />
     <ClInclude Include="shrLayer.h" />
     <ClInclude Include="shrLight.h" />
@@ -223,6 +226,7 @@
     <ClInclude Include="shrUnitUI.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="shrHero.cpp" />
     <ClCompile Include="shrAnimation.cpp" />
     <ClCompile Include="shrAnimator.cpp" />
     <ClCompile Include="shrApplication.cpp" />
@@ -243,6 +247,8 @@
     <ClCompile Include="shrGameObject.cpp" />
     <ClCompile Include="shrGraphicDevice_DX11.cpp" />
     <ClCompile Include="shrGridScript.cpp" />
+    <ClCompile Include="shrPlayerObject.cpp" />
+    <ClCompile Include="shrHeroScript.cpp" />
     <ClCompile Include="shrInput.cpp" />
     <ClCompile Include="shrLayer.cpp" />
     <ClCompile Include="shrLight.cpp" />

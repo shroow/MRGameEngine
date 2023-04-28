@@ -4,10 +4,9 @@ namespace shr
 {
     UnitState::UnitState()
         : mCurrentState(eUnitState::Idle)
+        , mPrevState(eUnitState::Idle)
         , mState{}
-        , mPrevState{}
     {
-        mPrevState.reset();
         mState.reset();
     }
     UnitState::~UnitState()
@@ -16,11 +15,7 @@ namespace shr
 
     void UnitState::Update()
     {
-        if (mState.any())
-        {
-            mCurrentState = eUnitState::Idle;
-        }
-        else if (mState.test((UINT)eUnitState::Death))
+        if (mState.test((UINT)eUnitState::Death))
         {
             mCurrentState = eUnitState::Death;
         }
@@ -48,10 +43,13 @@ namespace shr
         {
             mCurrentState = eUnitState::Hit;
         }
+        else if (mState.test((UINT)eUnitState::Idle))
+        {
+            mCurrentState = eUnitState::Idle;
+        }
     }
     void UnitState::FixedUpdate()
     {
-        mPrevState = mState;
-        mState.reset();
+        mPrevState = mCurrentState;
     }
 }

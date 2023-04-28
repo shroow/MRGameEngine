@@ -19,6 +19,13 @@ namespace shr
         virtual void FixedUpdate() override;
         virtual void Render() override;
 
+        void MouseControl();
+        void Move();
+        void Battle();
+
+        void CheckUnitState();
+        bool UnitStateChanged();
+
         virtual void OnCollisionEnter(Collider2D* collider) override;
         virtual void OnCollisionStay(Collider2D* collider) override;
         virtual void OnCollisionExit(Collider2D* collider) override;
@@ -31,14 +38,11 @@ namespace shr
         virtual void OnMouseCollisionStay() override;
         virtual void OnMouseCollisionExit() override;
 
-        bool UnitStateChanged();
         void SetChar(const std::wstring& name, Status status = {});
         void LoadUnitAnim(eUnitState animState, Vector2 offset
             , Vector2 leftTop, Vector2 spriteSize
             , UINT spriteLength, float duration, eAtlasType atlasType = eAtlasType::Column);
         void PlayUnitAnim(eUnitState animState, bool loop = true);
-
-        void Battle();
 
         void Start();
         void Action();
@@ -48,14 +52,15 @@ namespace shr
 
         bool GetIsStore() { return mIsStore; }
         void SetIsStore(bool tf) { mIsStore = tf; }
+        void StartBattle() { mIsBattle = true; }
 
     private:
         std::wstring mCharName;
         Animator* mAnimator;
         Transform* mTransform;
 
-        UnitStatus* mUnitStatus;
-        UnitState* mUnitState;
+        UnitStatus mUnitStatus;
+        UnitState mUnitState;
 
         bool mbCursorOn;
         bool mbSelected;
@@ -66,10 +71,11 @@ namespace shr
         Vector3 mPrevPos;
         float mMove;
         Vector2 mMoveDir;
-        int mCharDir;
+        bool mIsDirLeft;
 
         bool mIsStore;
         bool mIsTraded;
+        bool mIsBattle;
     };
 }
 

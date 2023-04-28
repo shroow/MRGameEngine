@@ -7,16 +7,15 @@ namespace shr
     class UnitObject :
         public GameObject
     {
-		friend class UnitScript;
 	public:
 		UnitObject();
 		UnitObject(const UnitObject& obj);
 		virtual ~UnitObject();
 
-		virtual void Initialize();
-		virtual void Update();
-		virtual void FixedUpdate();
-		virtual void Render();
+		virtual void Initialize() override;
+		virtual void Update() override;
+		virtual void FixedUpdate() override;
+		virtual void Render() override;
 
 		/*
 		구매씬에서 전투씬으로 넘어갈때
@@ -39,15 +38,17 @@ namespace shr
 		복사생성 사용처를 잘 생각해볼것**
 		*/
 		void SetChar(std::wstring name, Vector3 pos);
+		void SetUnitType(eUnitType type) { mUnitType = type; }
 
 		std::wstring GetCharName(std::wstring name) { return mCharName; }
+		eUnitType GetUnitType(eUnitType type) { return mUnitType; }
 
 		void SetAttackRange(float radius);
 		GameObject* GetBattleBody() { return mBattleBody; }
 
 	private:
-		eUnitType mUnitType;
 		std::wstring mCharName;
+		eUnitType mUnitType;
 
 		GameObject* mBattleBody;
 		GameObject* mCharUI;

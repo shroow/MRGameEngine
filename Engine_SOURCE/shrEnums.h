@@ -87,7 +87,7 @@ namespace shr::enums
 		End,
 	};
 
-	enum class eUnitState
+	enum eUnitState
 	{
 		Idle = 0,
 		Run,
@@ -139,9 +139,20 @@ namespace shr::enums
 
 	enum class eUnitType
 	{
+		None,
 		FreeKnight,
 		BallandChainBot,
+		
+		End,
+	};
 
+	enum class eHeroType
+	{
+		None,
+		Knight,
+		Hunter,
+		Chef,
+		Dealer,
 		End,
 	};
 }

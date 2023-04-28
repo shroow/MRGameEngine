@@ -40,6 +40,8 @@ namespace shr
 	{
 	public:
 		UnitStatus();
+		UnitStatus(eUnitType type);
+		UnitStatus(eUnitType type, Status status);
 		~UnitStatus();
 
 		void Update();
@@ -55,6 +57,7 @@ namespace shr
 		void ClearBuff() { buffVec->clear(); }
 
 	private:
+		eUnitType mUnitType;
 		Status mStatus;
 		std::vector<float> buffVec[(UINT)eBuffType::End];
 	};

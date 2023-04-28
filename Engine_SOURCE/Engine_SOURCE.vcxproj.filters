@@ -170,8 +170,19 @@
     <ClCompile Include="shrScript.cpp">
       <Filter>Script</Filter>
     </ClCompile>
-    <ClCompile Include="shrUnitState.cpp" />
-    <ClCompile Include="shrUnitStatus.cpp" />
+    <ClCompile Include="shrPlayerObject.cpp">
+      <Filter>GameObject\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="shrHeroScript.cpp">
+      <Filter>Script\Unit</Filter>
+    </ClCompile>
+    <ClCompile Include="shrUnitState.cpp">
+      <Filter>Resources\Unit</Filter>
+    </ClCompile>
+    <ClCompile Include="shrUnitStatus.cpp">
+      <Filter>Resources\Unit</Filter>
+    </ClCompile>
+    <ClCompile Include="shrHero.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="shrMultiShaderRenderer.h" />
@@ -362,8 +373,19 @@
     <ClInclude Include="shrScript.h">
       <Filter>Script</Filter>
     </ClInclude>
-    <ClInclude Include="shrUnitState.h" />
-    <ClInclude Include="shrUnitStatus.h" />
+    <ClInclude Include="shrPlayerObject.h">
+      <Filter>GameObject\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="shrHeroScript.h">
+      <Filter>Script\Unit</Filter>
+    </ClInclude>
+    <ClInclude Include="shrUnitState.h">
+      <Filter>Resources\Unit</Filter>
+    </ClInclude>
+    <ClInclude Include="shrUnitStatus.h">
+      <Filter>Resources\Unit</Filter>
+    </ClInclude>
+    <ClInclude Include="shrHero.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\External\DirectXTex\Include\DirectXTex.inl">
@@ -487,6 +509,15 @@
     </Filter>
     <Filter Include="Component\Light">
       <UniqueIdentifier>{75b3ff04-5f03-4b21-87d1-742b575b1a51}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Player">
+      <UniqueIdentifier>{847f347b-a8e4-49f5-8e5e-56dc9cb55b27}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Hero">
+      <UniqueIdentifier>{75a48440-bd75-4445-87b5-7d26755daacb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources\Unit">
+      <UniqueIdentifier>{7b95bfef-62c4-42f8-bf64-47ea2df2b873}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

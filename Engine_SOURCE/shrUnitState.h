@@ -13,19 +13,18 @@ namespace shr
 		void Update();
 		void FixedUpdate();
 
-		bool Action() { return mPrevState != mState; };
+		bool Action() { return mPrevState != mCurrentState; };
 
-		void Enter(eUnitState state) { mState.set((UINT)state, true); }
-		void Exit(eUnitState state) { mState.set((UINT)state, false); };
+		void Enter(eUnitState state) { mState.set(state, true); }
+		void Exit(eUnitState state) { mState.set(state, false); };
 
 		void SetCurrentState(eUnitState state) { mCurrentState = state; }
 		eUnitState GetCurrentState() { return mCurrentState; }
 
-
 	private:
 		eUnitState mCurrentState;
-		std::bitset<(UINT)eUnitState::End> mState;
-		std::bitset<(UINT)eUnitState::End> mPrevState;
+		eUnitState mPrevState;
+		std::bitset<eUnitState::End> mState;
 	};
 }
 
