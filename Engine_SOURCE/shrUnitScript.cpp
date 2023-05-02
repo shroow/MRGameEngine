@@ -1,6 +1,4 @@
 #include "shrUnitScript.h"
-#include "shrGameObject.h"
-#include "shrTransform.h"
 #include "shrTime.h"
 #include "shrInput.h"
 #include "shrSpriteRenderer.h"
@@ -9,8 +7,6 @@
 #include "shrAnimator.h"
 #include "shrResource.h"
 #include "shrCollisionManager.h"
-#include "shrUnitStatus.h"
-#include "shrUnitState.h"
 
 namespace shr
 {
@@ -40,7 +36,12 @@ namespace shr
 
 	void UnitScript::Initialize()
 	{
-		mTransform = GetOwner()->GetComponent<Transform>();
+		mOwner = (UnitObject*)GetOwner();
+
+		mTransform = mOwner->GetComponent<Transform>();
+
+		mUnitStatus = mOwner->GetUnitStatus();
+		mUnitState = mOwner->GetUnitState();
 
 		if (mAnimator == nullptr)
 			return;
@@ -59,8 +60,8 @@ namespace shr
 		if (mIsBattle)
 			Battle();
 
-		mUnitState.Update();
-		mUnitStatus.Update();
+		mUnitState->Update();
+		mUnitStatus->Update();
 	}
 
 	void UnitScript::FixedUpdate()
@@ -76,11 +77,11 @@ namespace shr
 		if (Input::GetKeyDown(eKeyCode::N_0))
 			StartBattle();
 
-		eUnitState a = mUnitState.GetCurrentState();
-		PlayUnitAnim(mUnitState.GetCurrentState());
+		eUnitState a = mUnitState->GetCurrentState();
+		PlayUnitAnim(mUnitState->GetCurrentState());
 
-		mUnitState.FixedUpdate();
-		mUnitStatus.FixedUpdate();
+		mUnitState->FixedUpdate();
+		mUnitStatus->FixedUpdate();
 	}
 
 	void UnitScript::Render()
@@ -165,7 +166,7 @@ namespace shr
 	void UnitScript::Move()
 	{
 		Vector3 pos = mTransform->GetPosition();
-		Status* status = mUnitStatus.GetStatus();
+		Status* status = mUnitStatus->GetStatus();
 
 		if (mbStartMove)
 		{
@@ -200,15 +201,15 @@ namespace shr
 		{
 			mMove = Vector2::Distance(Vector2(mPrevPos.x, mPrevPos.y), Vector2(pos.x, pos.y));
 
-			mUnitState.Enter(eUnitState::Run);
-			mUnitState.Exit(eUnitState::Idle);
+			mUnitState->Enter(eUnitState::Run);
+			mUnitState->Exit(eUnitState::Idle);
 		}
 		else
 		{
 			mMove = 0.f;
 
-			mUnitState.Enter(eUnitState::Idle);
-			mUnitState.Exit(eUnitState::Run);
+			mUnitState->Enter(eUnitState::Idle);
+			mUnitState->Exit(eUnitState::Run);
 		}
 
 
@@ -227,15 +228,15 @@ namespace shr
 
 	void UnitScript::CheckUnitState()
 	{
-		Status* status = mUnitStatus.GetStatus();
+		Status* status = mUnitStatus->GetStatus();
 
 		if (status->HP == 0.f)
-			mUnitState.Enter(eUnitState::Death);
+			mUnitState->Enter(eUnitState::Death);
 	}
 
 	bool UnitScript::UnitStateChanged()
 	{
-		if (!mUnitState.Action())
+		if (!mUnitState->Action())
 			return false;
 
 		return true;
@@ -248,7 +249,7 @@ namespace shr
 		{
 			eLayerType type = collider->GetOwner()->GetLayerType();
 			if (type == eLayerType::Monster || type == eLayerType::Player)
-				mUnitState.Enter(eUnitState::Attack);
+				mUnitState->Enter(eUnitState::Attack);
 
 			else if (type == eLayerType::Background)
 			{
@@ -283,7 +284,7 @@ namespace shr
 
 		eLayerType type = collider->GetOwner()->GetLayerType();
 		if (type == eLayerType::Monster || type == eLayerType::Player)
-			mUnitState.Exit(eUnitState::Attack);
+			mUnitState->Exit(eUnitState::Attack);
 
 		else if (type == eLayerType::Background)
 		{
@@ -325,14 +326,14 @@ namespace shr
 
 	void UnitScript::SetChar(const std::wstring& name, Status status)
 	{
-		if (GetOwner() == nullptr)
+		if (mOwner == nullptr)
 			return;
 
-		mAnimator = GetOwner()->AddComponent<Animator>();
+		mAnimator = mOwner->AddComponent<Animator>();
 
-		mCharName = name;
+		mUnitStatus->SetCharName(name)
 
-		mUnitStatus.SetStatus(status);
+		mUnitStatus->SetStatus(status);
 	}
 
 	void UnitScript::LoadUnitAnim(eUnitState animState, Vector2 offset

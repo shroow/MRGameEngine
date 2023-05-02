@@ -47,12 +47,14 @@ namespace shr
 			layer.Destroy();
 		}
 	}
+
 	void Scene::OnEnter()
 	{
 	}
 	void Scene::OnExit()
 	{
 	}
+
 	void Scene::AddGameObject(GameObject* gameObj, const eLayerType type)
 	{
 		mLayerVec[(UINT)type].AddGameObject(gameObj);

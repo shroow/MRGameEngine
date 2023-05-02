@@ -113,12 +113,6 @@
     <ClCompile Include="shrPrefab.cpp">
       <Filter>Resources\Prefab</Filter>
     </ClCompile>
-    <ClCompile Include="shrTitleScene.cpp">
-      <Filter>Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="shrTestScene.cpp">
-      <Filter>Scene</Filter>
-    </ClCompile>
     <ClCompile Include="shrScene.cpp">
       <Filter>Scene</Filter>
     </ClCompile>
@@ -183,6 +177,27 @@
       <Filter>Resources\Unit</Filter>
     </ClCompile>
     <ClCompile Include="shrHero.cpp" />
+    <ClCompile Include="shrBattleScene.cpp">
+      <Filter>Scene\BattleScene</Filter>
+    </ClCompile>
+    <ClCompile Include="shrStoreScene.cpp">
+      <Filter>Scene\StoreScene</Filter>
+    </ClCompile>
+    <ClCompile Include="shrTitleScene.cpp">
+      <Filter>Scene\TitleScene</Filter>
+    </ClCompile>
+    <ClCompile Include="shrTestScene.cpp">
+      <Filter>Scene\TestScene</Filter>
+    </ClCompile>
+    <ClCompile Include="shrTimerObject.cpp">
+      <Filter>GameObject\UI\Timer</Filter>
+    </ClCompile>
+    <ClCompile Include="shrBattleScirpt.cpp">
+      <Filter>Script\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="shrStoreScript.cpp">
+      <Filter>Script\Scene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="shrMultiShaderRenderer.h" />
@@ -316,12 +331,6 @@
     <ClInclude Include="shrPrefab.h">
       <Filter>Resources\Prefab</Filter>
     </ClInclude>
-    <ClInclude Include="shrTitleScene.h">
-      <Filter>Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="shrTestScene.h">
-      <Filter>Scene</Filter>
-    </ClInclude>
     <ClInclude Include="shrScene.h">
       <Filter>Scene</Filter>
     </ClInclude>
@@ -386,6 +395,27 @@
       <Filter>Resources\Unit</Filter>
     </ClInclude>
     <ClInclude Include="shrHero.h" />
+    <ClInclude Include="shrBattleScene.h">
+      <Filter>Scene\BattleScene</Filter>
+    </ClInclude>
+    <ClInclude Include="shrStoreScene.h">
+      <Filter>Scene\StoreScene</Filter>
+    </ClInclude>
+    <ClInclude Include="shrTitleScene.h">
+      <Filter>Scene\TitleScene</Filter>
+    </ClInclude>
+    <ClInclude Include="shrTestScene.h">
+      <Filter>Scene\TestScene</Filter>
+    </ClInclude>
+    <ClInclude Include="shrTimerObject.h">
+      <Filter>GameObject\UI\Timer</Filter>
+    </ClInclude>
+    <ClInclude Include="shrBattleScirpt.h">
+      <Filter>Script\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="shrStoreScript.h">
+      <Filter>Script\Scene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\External\DirectXTex\Include\DirectXTex.inl">
@@ -518,6 +548,27 @@
     </Filter>
     <Filter Include="Resources\Unit">
       <UniqueIdentifier>{7b95bfef-62c4-42f8-bf64-47ea2df2b873}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\BattleScene">
+      <UniqueIdentifier>{1bae151e-a50d-46a6-86a3-a60a287e1cd6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\StoreScene">
+      <UniqueIdentifier>{6b29ba6e-9d16-4a8a-adaa-31eb92c90397}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\TitleScene">
+      <UniqueIdentifier>{007e44f9-15ad-4407-9fa6-78eb28873300}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\TestScene">
+      <UniqueIdentifier>{82d80d2d-c952-4b32-aad0-21debbee4805}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\UI">
+      <UniqueIdentifier>{408ef1bd-ea02-44cf-898c-df15007706c9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\UI\Timer">
+      <UniqueIdentifier>{b8ee25dd-095d-4f29-9514-1b5c4c8c6288}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script\Scene">
+      <UniqueIdentifier>{d021b6e9-88db-4851-994c-755b7f376de8}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

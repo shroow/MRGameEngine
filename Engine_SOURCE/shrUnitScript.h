@@ -2,8 +2,7 @@
 #include "shrScript.h"
 #include "shrResources.h"
 #include "shrAnimator.h"
-#include "shrUnitStatus.h"
-#include "shrUnitState.h"
+#include "shrUnitObject.h"
 
 namespace shr
 {
@@ -50,17 +49,20 @@ namespace shr
 
         void SetCharName(const std::wstring& name) { mCharName = name; }
 
-        bool GetIsStore() { return mIsStore; }
         void SetIsStore(bool tf) { mIsStore = tf; }
+        bool GetIsStore() { return mIsStore; }
         void StartBattle() { mIsBattle = true; }
 
-    private:
+    public:
         std::wstring mCharName;
+
+        UnitStatus* mUnitStatus;
+        UnitState* mUnitState;
+
+    private:
+        UnitObject* mOwner;
         Animator* mAnimator;
         Transform* mTransform;
-
-        UnitStatus mUnitStatus;
-        UnitState mUnitState;
 
         bool mbCursorOn;
         bool mbSelected;
@@ -72,6 +74,7 @@ namespace shr
         float mMove;
         Vector2 mMoveDir;
         bool mIsDirLeft;
+
 
         bool mIsStore;
         bool mIsTraded;

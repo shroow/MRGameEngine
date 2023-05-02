@@ -50,7 +50,14 @@ namespace shr
 		Status* CreateStatus(Status status = Status()) { mStatus = status; return &mStatus; }
 
 		void SetStatus(Status status) { mStatus = status; }
+		void SetPosition(Vector3 position) { mPosition = position; }
+		void SetUnitType(eUnitType type) { mUnitType = type; }
+		void SetCharName(std::wstring name) { mCharName = name; }
+
 		Status* GetStatus() { return &mStatus; }
+		Vector3 GetPosition() { return mPosition; }
+		eUnitType GetUnitType() { return mUnitType; }
+		std::wstring GetCharName() { return mCharName; }
 
 		void AddBuff(eBuffType buff, float value) { buffVec[(UINT)buff].push_back(value); }
 		std::vector<float>& GetBuffVec() { return *buffVec; }
@@ -58,7 +65,10 @@ namespace shr
 
 	private:
 		eUnitType mUnitType;
+		std::wstring mCharName;
 		Status mStatus;
+		Vector3 mPosition;
+
 		std::vector<float> buffVec[(UINT)eBuffType::End];
 	};
 }

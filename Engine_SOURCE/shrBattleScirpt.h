@@ -1,15 +1,14 @@
 #pragma once
 #include "shrScript.h"
 
-
 namespace shr
 {
-    class PlayerScript :
+    class BattleScirpt :
         public Script
     {
     public:
-        PlayerScript();
-        ~PlayerScript();
+        BattleScirpt();
+        ~BattleScirpt();
 
         virtual void Initialize() override;
         virtual void Update() override;
@@ -20,8 +19,6 @@ namespace shr
         virtual void OnCollisionExit(Collider2D* collider) override;
 
     private:
-        class PlayerObject* mOwner;
-        float mMaxMoney;
-        float mMoney;
+        class BattleScene* mOwner;
     };
 }

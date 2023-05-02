@@ -16,8 +16,13 @@ namespace shr
 		static void LoadScene(eSceneType type);
 		static Scene* GetActiveScene() { return mActiveScene; }
 
+		static void SetStageCount(int count) { mStageCount = count; }
+		static int GetStageCount() { return mStageCount; }
+
 	private:
 		static std::vector<Scene*> mSceneVec;
 		static Scene* mActiveScene;
+
+		static int mStageCount;
 	};
 }

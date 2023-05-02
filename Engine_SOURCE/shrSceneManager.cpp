@@ -18,6 +18,8 @@
 #include "shrTitleScene.h"
 #include "shrPlayScene.h"
 #include "shrTestScene.h"
+#include "shrStoreScene.h"
+#include "shrBattleScene.h"
 
 #include "shrObject.h"
 #include "shrMouseScript.h"
@@ -34,13 +36,17 @@ namespace shr
 		mSceneVec[(UINT)eSceneType::Test] = new TestScene();
 		mSceneVec[(UINT)eSceneType::Title] = new TitleScene();
 		mSceneVec[(UINT)eSceneType::Play] = new PlayScene();
+		mSceneVec[(UINT)eSceneType::Store] = new StoreScene();
+		mSceneVec[(UINT)eSceneType::Battle] = new BattleScene();
 
 		mActiveScene = mSceneVec[(UINT)eSceneType::Test];
 
-		for (Scene* scene : mSceneVec)
-		{
-			scene->Initialize();
-		}
+		//for (Scene* scene : mSceneVec)
+		//{
+		//	scene->Initialize();
+		//}
+
+		mActiveScene->Initialize();
 	}
 
 	void SceneManager::Update()
@@ -75,6 +81,8 @@ namespace shr
 	{
 		if (mActiveScene)
 			mActiveScene->OnExit();
+
+		mSceneVec[(UINT)type]->Initialize();
 
 		// 바뀔때 dontDestory 오브젝트는 다음씬으로 같이 넘겨줘야한다.
 		std::vector<GameObject*> gameObjs

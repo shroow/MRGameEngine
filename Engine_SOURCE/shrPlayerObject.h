@@ -1,6 +1,7 @@
 #pragma once
 #include "shrGameObject.h"
 #include "shrUnitObject.h"
+#include "shrPlayerScript.h"
 
 namespace shr
 {
@@ -17,21 +18,32 @@ namespace shr
         virtual void FixedUpdate() override;
         virtual void Render() override;
 
-        void BuyUnit();
-        void SellUnit();
+        bool BuyUnit(UnitObject* obj);
+        bool SellUnit(UnitObject* obj);
 
         void AddGold(int gold);
         bool SubGold(int gold);
 
         void Battle();
+        
+        void SetPlayerState(ePlayerState state) { mPlayerState = state; }
+
+        ePlayerState GetPlayerState() { return mPlayerState; }
+        PlayerScript* GetPlayerScirpt() { return mScript; }
+
+        std::vector<UnitObject*>& GetUnitDeck() { return mUnitDeck; }
 
     private:
+        ePlayerState mPlayerState;
         eHeroType mHeroType;
         
         int mHP;
         int mGold;
-        
-        //std::vector<UnitStatus, Vector3> mUnitDeck;
+        size_t mDeckSize;
+
+        std::vector<UnitObject*> mUnitDeck;
+
+        PlayerScript* mScript;
     };
 }
 

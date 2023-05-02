@@ -1,6 +1,8 @@
 #pragma once
 #include "shrGameObject.h"
 #include "shrUnitScript.h"
+#include "shrUnitStatus.h"
+#include "shrUnitState.h"
 
 namespace shr
 {
@@ -17,40 +19,22 @@ namespace shr
 		virtual void FixedUpdate() override;
 		virtual void Render() override;
 
-		/*
-		구매씬에서 전투씬으로 넘어갈때
-		이름, 위치, 버프상태
-		전달하기
+		void SetChar(eUnitType type, std::wstring name, Vector3 pos);
+		void SetUnit(eUnitType type) { mUnitStatus.SetUnitType(type); }
 
-		전투씬:
-		가장가까운 적한테 이동
-		이동중 적이 사정거리안으로 들어올 경우 공격 (사정거리는 충돌체로 구현) 
-		공격중인 대상이 죽거나 공격이 멈추면 다시 사정거리내의 가장 가까운 유닛 서치
+		UnitStatus* GetUnitStatus() { return &mUnitStatus; }
+		UnitState* GetUnitState() { return &mUnitState; }
 
-		전투씬에서 구매씬으로 넘어갈때
-		이름, 위치, 버프상태
-		다시 전달하기
-
-		오브젝트에서 HP바 MP바 스크립트를 추가할수 있겠끔 설정
-		
-		유닛 : 배틀바디 UI 
-
-		복사생성 사용처를 잘 생각해볼것**
-		*/
-		void SetChar(std::wstring name, Vector3 pos);
-		void SetUnitType(eUnitType type) { mUnitType = type; }
-
-		std::wstring GetCharName(std::wstring name) { return mCharName; }
-		eUnitType GetUnitType(eUnitType type) { return mUnitType; }
+		std::wstring GetCharName(std::wstring name) { return mUnitStatus.GetCharName(); }
+		eUnitType GetUnitType(eUnitType type) { return mUnitStatus.GetUnitType(); }
 
 		void SetAttackRange(float radius);
-		GameObject* GetBattleBody() { return mBattleBody; }
+
+	public:
+		UnitStatus mUnitStatus;
+		UnitState mUnitState;
 
 	private:
-		std::wstring mCharName;
-		eUnitType mUnitType;
-
-		GameObject* mBattleBody;
 		GameObject* mCharUI;
 
 		UnitScript* mMonScript;

@@ -7,6 +7,8 @@ namespace shr::enums
 		Test,
 		Title,
 		Play,
+		Store,
+		Battle,
 		End,
 	};
 
@@ -14,12 +16,12 @@ namespace shr::enums
 	{
 		None = 0,
 		Camera,
-		Mouse,
 		Grid,
 		Background,
 		Monster,
 		Player,
 		Particle,
+		Mouse,
 		UI,
 		SystemUI,
 		End = 16,
@@ -32,11 +34,13 @@ namespace shr::enums
 		Camera,
 		Mesh,
 		Collider,
+
 		Collider2,
 		MeshRenderer,
 		SpriteRenderer,
 		ParticleSystem,
 		Animator,
+
 		Light,
 		UI,
 		Status,
@@ -136,6 +140,14 @@ namespace shr::enums
 	//	Vector3 origin;
 	//	Vector3 dest;
 	//};
+
+	enum class ePlayerState
+	{
+		Pause,
+		Store,
+		Battle,
+		Dead,
+	};
 
 	enum class eUnitType
 	{

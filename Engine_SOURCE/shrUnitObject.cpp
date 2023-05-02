@@ -7,8 +7,8 @@ namespace shr
 {
 	UnitObject::UnitObject()
 		: GameObject()
-		, mCharName()
-		, mBattleBody(nullptr)
+		, mUnitStatus()
+		, mUnitState()
 		, mCharUI(nullptr)
 		, mMonScript(nullptr)
 		, mUIScript(nullptr)
@@ -16,11 +16,15 @@ namespace shr
 	}
 	UnitObject::UnitObject(const UnitObject& obj)
 		: GameObject(obj)
+		, mUnitStatus(obj.mUnitStatus)
+		, mUnitState(obj.mUnitState)
+		, mCharUI(nullptr)
+		, mMonScript(nullptr)
+		, mUIScript(nullptr)
 	{
 	}
 	UnitObject::~UnitObject()
 	{
-		mBattleBody->Die();
 		mCharUI->Die();
 	}
 
@@ -49,15 +53,6 @@ namespace shr
 			mMonScript = AddComponent<UnitScript>();
 		}
 
-		//BattleBody
-		{
-			mBattleBody = object::Instantiate<GameObject>(eLayerType::Monster);
-			//Transform* tr = mBattleBody->GetComponent<Transform>();
-			//Collider2D* collider2 = mBattleBody->AddComponent<Collider2D>();
-			//collider2->SetType(eColliderType::Circle);
-			//collider2->SetRadius(20.f); //고정크기 
-		}
-
 		mCharUI = object::Instantiate<GameObject>(eLayerType::Monster);
 	}
 
@@ -66,8 +61,6 @@ namespace shr
 		GameObject::Update();
 
 		Vector3 pos = GetComponent<Transform>()->GetPosition();
-
-		mBattleBody->GetComponent<Transform>()->SetPosition(pos);
 
 		mCharUI->GetComponent<Transform>()->SetPosition(pos);
 	}
@@ -82,10 +75,12 @@ namespace shr
 		GameObject::Render();
 	}
 
-	void UnitObject::SetChar(std::wstring name, Vector3 pos)
+	void UnitObject::SetChar(eUnitType type, std::wstring name, Vector3 pos)
 	{
-		mCharName = name;
-		mMonScript->SetChar(name);
+		mUnitStatus.SetUnitType(type);
+		mUnitStatus.SetCharName(name);
+
+		mMonScript->SetChar(name)
 
 		GetComponent<Transform>()->SetPosition(pos);
 	}

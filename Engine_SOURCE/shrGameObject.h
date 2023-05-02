@@ -80,6 +80,21 @@ namespace shr
 			return components;
 		}
 
+		template <typename T>
+		T* GetScript() const
+		{
+			T* scirpt;
+			for (auto c : mScriptVec)
+			{
+				scirpt = dynamic_cast<T*>(c);
+
+				if (scirpt != nullptr)
+					return scirpt;
+			}
+
+			return nullptr;
+		}
+
 
 		const std::vector<Script*>& GetScriptVec() { return mScriptVec; }
 

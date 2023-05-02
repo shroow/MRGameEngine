@@ -8,7 +8,6 @@
 #include "shrGameObject.h"
 #include "shrObject.h"
 #include "shrSpriteRenderer.h"
-#include "shrUnitScript.h"
 #include "shrCameraScript.h"
 #include "shrAnimator.h"
 #include "shrCollisionManager.h"
@@ -16,7 +15,10 @@
 #include "shrPaintShader.h"
 #include "shrMonster.h"
 
+#include "shrPlayerObject.h"
+#include "shrPlayerScript.h"
 #include "shrUnitObject.h"
+#include "shrUnitScript.h"
 #include "shrMouseScript.h"
 
 namespace shr
@@ -73,7 +75,8 @@ namespace shr
 			object::DontDestroyOnLoad(directionalLight);
 		}
 
-		////Particle
+	////Particle
+		
 		//{
 		//	GameObject* obj = object::Instantiate<Player>(eLayerType::Particle);
 		//	obj->SetName(L"PARTICLE");
@@ -82,36 +85,35 @@ namespace shr
 		//	obj->AddComponent<ParticleSystem>();
 		//}
 
-		//paint shader
-		{
-			std::shared_ptr<PaintShader> paintShader = Resources::Find<PaintShader>(L"PaintShader");
-			//L"SmileTexture"
-			std::shared_ptr<Texture> paintTex = Resources::Find<Texture>(L"PaintTexture");
-			paintShader->SetTarget(paintTex);
-			paintShader->OnExcute();
-		}
-		 
-		//SMILE RECT
-		{
-			Player* obj = object::Instantiate<Player>(eLayerType::Player);
-			obj->SetName(L"SMILE");
-			Transform* tr = obj->GetComponent<Transform>();
-			tr->SetPosition(Vector3(-2.0f, 2.0f, 5.0f));
-			tr->SetScale(Vector3(2.0f, 2.0f, 1.0f));
-			//tr->SetRotation(Vector3(0.0f, 0.0f, XM_PIDIV2 / 2.0f));
-			Collider2D* collider = obj->AddComponent<Collider2D>();
-			collider->SetSize(Vector2(2.0f, 2.0f));
-			collider->SetType(eColliderType::Rect);
-			//collider->SetCenter(Vector2(0.2f, 0.2f));
-			//collider->SetSize(Vector2(1.5f, 1.5f));
-
-			SpriteRenderer* mr = obj->AddComponent<SpriteRenderer>();
-			std::shared_ptr<Material> mateiral = Resources::Find<Material>(L"RectMaterial");
-			mr->SetMaterial(mateiral);
-			std::shared_ptr<Mesh> mesh = Resources::Find<Mesh>(L"RectMesh");
-			mr->SetMesh(mesh);
-			object::DontDestroyOnLoad(obj);
-		}
+	////paint shader
+		
+		//{
+		//	std::shared_ptr<PaintShader> paintShader = Resources::Find<PaintShader>(L"PaintShader");
+		//	//L"SmileTexture"
+		//	std::shared_ptr<Texture> paintTex = Resources::Find<Texture>(L"PaintTexture");
+		//	paintShader->SetTarget(paintTex);
+		//	paintShader->OnExcute();
+		//}
+		////SMILE RECT
+		//{
+		//	Player* obj = object::Instantiate<Player>(eLayerType::Player);
+		//	obj->SetName(L"SMILE");
+		//	Transform* tr = obj->GetComponent<Transform>();
+		//	tr->SetPosition(Vector3(-2.0f, 2.0f, 5.0f));
+		//	tr->SetScale(Vector3(2.0f, 2.0f, 1.0f));
+		//	//tr->SetRotation(Vector3(0.0f, 0.0f, XM_PIDIV2 / 2.0f));
+		//	Collider2D* collider = obj->AddComponent<Collider2D>();
+		//	collider->SetSize(Vector2(2.0f, 2.0f));
+		//	collider->SetType(eColliderType::Rect);
+		//	//collider->SetCenter(Vector2(0.2f, 0.2f));
+		//	//collider->SetSize(Vector2(1.5f, 1.5f));
+		//	SpriteRenderer* mr = obj->AddComponent<SpriteRenderer>();
+		//	std::shared_ptr<Material> mateiral = Resources::Find<Material>(L"RectMaterial");
+		//	mr->SetMaterial(mateiral);
+		//	std::shared_ptr<Mesh> mesh = Resources::Find<Mesh>(L"RectMesh");
+		//	mr->SetMesh(mesh);
+		//	object::DontDestroyOnLoad(obj);
+		//}
 
 		//Line
 		{
@@ -161,7 +163,7 @@ namespace shr
 			tr->SetRotation(Vector3(0.f, 0.f, 0.f));
 			tr->SetScale(Vector3(6.0f, 6.0f, 1.0f));
 
-			UnitScript* monScript = obj->GetComponent<UnitScript>();
+			UnitScript* monScript = obj->GetScript<UnitScript>();
 			monScript->SetChar(L"FreeKnightv1c1");
 
 			obj->SetAttackRange(10.f);
@@ -200,7 +202,7 @@ namespace shr
 			tr->SetRotation(Vector3(0.f, 0.f, 0.f));
 			tr->SetScale(Vector3(6.0f, 6.0f, 1.0f));
 
-			UnitScript* monScript = obj->GetComponent<UnitScript>();
+			UnitScript* monScript = obj->GetScript<UnitScript>();
 			monScript->SetChar(L"BallandChainBot");
 
 			//Animation add(using script)
@@ -229,6 +231,22 @@ namespace shr
 			monScript->SetIsStore(true);
 		}
 
+		//Player
+		{
+			PlayerObject* obj = object::Instantiate<PlayerObject>(eLayerType::Player);
+			obj->SetName(L"Player");
+
+			Transform* tr = obj->GetComponent<Transform>();
+			tr->SetPosition(Vector3(-1.f, -1.f, 4.0f));
+			tr->SetRotation(Vector3(0.f, 0.f, 0.f));
+			tr->SetScale(Vector3(6.0f, 6.0f, 1.0f));
+
+			obj->SetPlayerState(ePlayerState::Store);
+
+			PlayerScript* playerScript = obj->GetPlayerScirpt();
+
+			obj->DontDestroy(true);
+		}
 
 		//Coin
 		{
@@ -280,6 +298,12 @@ namespace shr
 		if (Input::GetKeyDown(eKeyCode::N))
 		{
 			SceneManager::LoadScene(eSceneType::Title);
+		}
+
+
+		if (Input::GetKeyDown(eKeyCode::K))
+		{
+			SceneManager::LoadScene(eSceneType::Store);
 		}
 
 		Scene::Update();
