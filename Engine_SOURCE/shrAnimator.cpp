@@ -112,6 +112,8 @@ namespace shr
 
 	Animation* Animator::FindAnimation(const std::wstring& name)
 	{
+		mAnimations;
+
 		std::map<std::wstring, Animation*>::iterator iter
 			= mAnimations.find(name);
 

@@ -4,7 +4,6 @@ namespace shr
 {
 	BattleScene::BattleScene()
 		: Scene(eSceneType::Battle)
-		, mMainCamera(nullptr)
 	{
 	}
 
@@ -14,7 +13,6 @@ namespace shr
 
 	void BattleScene::Initialize()
 	{
-		Scene::Initialize();
 	}
 
 	void BattleScene::Update()

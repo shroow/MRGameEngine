@@ -18,13 +18,14 @@ namespace shr
         virtual void OnEnter() override;
         virtual void OnExit() override;
 
-    public:
-        virtual Camera* GetMainCamera() { return mMainCamera; }
-        virtual void LoadResources() override;
+        void LoadResources();
 
         void CreateMonster(int num, Vector3 pos);
 
+        std::vector<class UnitObject*>& GetUnitDeck() { return mUnitDeck; }
+
     private:
-        Camera* mMainCamera;
+        size_t mDeckSize;
+        std::vector<class UnitObject*> mUnitDeck;
     };
 }

@@ -57,7 +57,7 @@ namespace shr
 		Status* GetStatus() { return &mStatus; }
 		Vector3 GetPosition() { return mPosition; }
 		eUnitType GetUnitType() { return mUnitType; }
-		std::wstring GetCharName() { return mCharName; }
+		const std::wstring& GetCharName() { return mCharName; }
 
 		void AddBuff(eBuffType buff, float value) { buffVec[(UINT)buff].push_back(value); }
 		std::vector<float>& GetBuffVec() { return *buffVec; }

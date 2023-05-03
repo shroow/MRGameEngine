@@ -43,6 +43,7 @@ namespace shr
 
 			resource->SetKey(key);
 			resource->SetPath(path);
+			resource->SetName(key);
 			mResources.insert(std::make_pair(key, std::dynamic_pointer_cast<Resource>(resource)));
 
 			return resource;

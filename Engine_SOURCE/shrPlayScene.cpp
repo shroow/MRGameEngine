@@ -22,7 +22,6 @@ namespace shr
 {
 	PlayScene::PlayScene()
 		: Scene(eSceneType::Play)
-		, mMainCamera(nullptr)
 	{
 	}
 	PlayScene::~PlayScene()
@@ -31,8 +30,6 @@ namespace shr
 	void PlayScene::Initialize()
 	{
 		LoadResources();
-
-		Scene::Initialize();
 
 		return;
 	}
@@ -60,9 +57,6 @@ namespace shr
 		Scene::OnExit();
 	}
 	void PlayScene::LoadResources()
-	{
-	}
-	void PlayScene::CreateMonster(int num, Vector3 pos)
 	{
 	}
 }

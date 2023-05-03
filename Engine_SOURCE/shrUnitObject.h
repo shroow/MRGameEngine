@@ -1,6 +1,5 @@
 #pragma once
 #include "shrGameObject.h"
-#include "shrUnitScript.h"
 #include "shrUnitStatus.h"
 #include "shrUnitState.h"
 
@@ -19,7 +18,8 @@ namespace shr
 		virtual void FixedUpdate() override;
 		virtual void Render() override;
 
-		void SetChar(eUnitType type, std::wstring name, Vector3 pos);
+		void SetChar(eUnitType type, const std::wstring& name);
+		void SetChar(eUnitType type, const std::wstring& name, Vector3 pos);
 		void SetUnit(eUnitType type) { mUnitStatus.SetUnitType(type); }
 
 		UnitStatus* GetUnitStatus() { return &mUnitStatus; }
@@ -37,7 +37,7 @@ namespace shr
 	private:
 		GameObject* mCharUI;
 
-		UnitScript* mMonScript;
+		class UnitScript* mMonScript;
 		class CharUIScirpt* mUIScript;
     };
 }

@@ -2,7 +2,6 @@
 #include "shrEntity.h"
 #include "shrLayer.h"
 #include "shrGameObject.h"
-#include "shrCamera.h"
 
 namespace shr
 {
@@ -28,12 +27,12 @@ namespace shr
 		std::vector<GameObject*> GetDontDestroyGameObjects();
 		const std::vector<GameObject*>& GetGameObjectVec(const eLayerType type);
 
-		//Debug Check
+		//Debug Check(SceneManager)
 		std::vector<Layer> GetLayerVec() { return mLayerVec; }
+		GameObject* GetMainCamera() { return mMainCamera; }
 
-	public:
-		virtual void LoadResources() {};
-		virtual Camera* GetMainCamera() { return nullptr; }
+	protected:
+		GameObject* mMainCamera;
 
 	private:
 		std::vector<Layer> mLayerVec;

@@ -18,13 +18,9 @@ namespace shr
         virtual void OnEnter() override;
         virtual void OnExit() override;
 
-    public:
-        virtual void LoadResources() override;
-        void CreateMonster(int num, Vector3 pos);
-        virtual Camera* GetMainCamera() { return mMainCamera; }
+        void LoadResources();
 
     private:
-        Camera* mMainCamera;
     };
 }
 

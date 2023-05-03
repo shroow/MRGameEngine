@@ -1,8 +1,6 @@
 #pragma once
 #include "shrScript.h"
-#include "shrResources.h"
 #include "shrAnimator.h"
-#include "shrUnitObject.h"
 
 namespace shr
 {
@@ -37,7 +35,8 @@ namespace shr
         virtual void OnMouseCollisionStay() override;
         virtual void OnMouseCollisionExit() override;
 
-        void SetChar(const std::wstring& name, Status status = {});
+        void SetChar(const std::wstring& name);
+        void LoadUnitAnim(const std::wstring& name);
         void LoadUnitAnim(eUnitState animState, Vector2 offset
             , Vector2 leftTop, Vector2 spriteSize
             , UINT spriteLength, float duration, eAtlasType atlasType = eAtlasType::Column);
@@ -56,11 +55,11 @@ namespace shr
     public:
         std::wstring mCharName;
 
-        UnitStatus* mUnitStatus;
-        UnitState* mUnitState;
+        class UnitStatus* mUnitStatus;
+        class UnitState* mUnitState;
 
     private:
-        UnitObject* mOwner;
+        class UnitObject* mOwner;
         Animator* mAnimator;
         Transform* mTransform;
 

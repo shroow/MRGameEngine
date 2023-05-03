@@ -1,7 +1,9 @@
 #include "shrUnitObject.h"
 #include "shrObject.h"
 #include "shrSpriteRenderer.h"
+#include "shrUnitScript.h"
 #include "shrCharUIScirpt.h"
+#include "shrResources.h"
 
 namespace shr
 {
@@ -50,6 +52,7 @@ namespace shr
 			std::shared_ptr<Mesh> mesh = Resources::Find<Mesh>(L"RectMesh");
 			mr->SetMesh(mesh);
 
+			AddComponent<Animator>();
 			mMonScript = AddComponent<UnitScript>();
 		}
 
@@ -75,12 +78,20 @@ namespace shr
 		GameObject::Render();
 	}
 
-	void UnitObject::SetChar(eUnitType type, std::wstring name, Vector3 pos)
+	void UnitObject::SetChar(eUnitType type, const std::wstring& name)
 	{
 		mUnitStatus.SetUnitType(type);
 		mUnitStatus.SetCharName(name);
 
-		mMonScript->SetChar(name)
+		mMonScript->SetChar(name);
+	}
+
+	void UnitObject::SetChar(eUnitType type, const std::wstring& name, Vector3 pos)
+	{
+		mUnitStatus.SetUnitType(type);
+		mUnitStatus.SetCharName(name);
+
+		mMonScript->SetChar(name);
 
 		GetComponent<Transform>()->SetPosition(pos);
 	}

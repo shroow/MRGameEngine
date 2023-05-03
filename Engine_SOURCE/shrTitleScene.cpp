@@ -25,7 +25,6 @@ namespace shr
 {
 	TitleScene::TitleScene()
 		: Scene(eSceneType::Title)
-		, mMainCamera(nullptr)
 	{
 	}
 
@@ -35,7 +34,6 @@ namespace shr
 
 	void TitleScene::Initialize()
 	{
-		Scene::Initialize();
 	}
 	void TitleScene::Update()
 	{
@@ -63,9 +61,6 @@ namespace shr
 		Scene::Destroy();
 	}
 	void TitleScene::LoadResources()
-	{
-	}
-	void TitleScene::CreateMonster(int num, Vector3 pos)
 	{
 	}
 }

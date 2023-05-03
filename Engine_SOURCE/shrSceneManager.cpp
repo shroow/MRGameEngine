@@ -23,11 +23,14 @@
 
 #include "shrObject.h"
 #include "shrMouseScript.h"
+#include "shrPlayerObject.h"
 
 namespace shr
 {
 	std::vector<Scene*> SceneManager::mSceneVec = {};
 	Scene* SceneManager::mActiveScene = nullptr;
+	int SceneManager::mStageCount = 0;
+	PlayerObject* SceneManager::mPlayer = nullptr;
 
 	void SceneManager::Initialize()
 	{
@@ -95,7 +98,7 @@ namespace shr
 			mActiveScene->AddGameObject(obj, type);
 		}
 
-		mainCamera = mActiveScene->GetMainCamera();
+		mainCamera = mActiveScene->GetMainCamera()->GetComponent<Camera>();
 
 		mActiveScene->OnEnter();
 	}

@@ -7,23 +7,27 @@ namespace shr
 {
 	PlayerObject::PlayerObject()
 		: GameObject()
+		, mPlayerState(ePlayerState::Pause)
+		, mHeroType(eHeroType::None)
 		, mGold(0)
 		, mHP(0)
+		, mLevel(0)
+		, mStoreLevel(0)
 		, mDeckSize(0)
-		, mHeroType(eHeroType::None)
 		, mUnitDeck{}
-		, mScript(nullptr)
 	{
 		mScript = AddComponent<PlayerScript>();
 	}
 	PlayerObject::PlayerObject(const PlayerObject& obj)
 		: GameObject(obj)
+		, mPlayerState(obj.mPlayerState)
+		, mHeroType(obj.mHeroType)
 		, mGold(obj.mGold)
 		, mHP(obj.mHP)
+		, mLevel(obj.mLevel)
+		, mStoreLevel(obj.mStoreLevel)
 		, mDeckSize(obj.mDeckSize)
-		, mHeroType(obj.mHeroType)
 		, mUnitDeck{}
-		, mScript(nullptr)
 	{
 		mUnitDeck = obj.mUnitDeck;
 
@@ -37,8 +41,12 @@ namespace shr
 	{
 		GameObject::Initialize();
 
+		mHP = 100;
 		mGold = 3;
+		mLevel = 1;
+		mStoreLevel = 1;
 		mDeckSize = 3;
+		
 	}
 	void PlayerObject::Update()
 	{
@@ -61,7 +69,6 @@ namespace shr
 			{
 				if ((*iter) == nullptr)
 					break;
-
 
 				++iter;
 			}

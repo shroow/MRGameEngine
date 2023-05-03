@@ -14,6 +14,7 @@
 #include "shrParticleSystem.h"
 #include "shrPaintShader.h"
 #include "shrMonster.h"
+#include "shrResources.h"
 
 #include "shrPlayerObject.h"
 #include "shrPlayerScript.h"
@@ -25,7 +26,6 @@ namespace shr
 {
 	TestScene::TestScene()
 		: Scene(eSceneType::Test)
-		, mMainCamera(nullptr)
 	{
 	}
 	TestScene::~TestScene()
@@ -56,7 +56,7 @@ namespace shr
 		//cameraComp->RegisterCameraInRenderer();
 		cameraComp->TurnLayerMask(eLayerType::SystemUI, false);
 		mMainCamera->AddComponent<CameraScript>();
-		mainCamera = GetMainCamera();
+		mainCamera = cameraComp;
 		
 		////UI Camera
 		//GameObject* cameraUIObj = object::Instantiate<GameObject>(eLayerType::Camera);
@@ -156,19 +156,15 @@ namespace shr
 		//FreeKnightv1c1 _1
 		{
 			UnitObject* obj = object::Instantiate<UnitObject>(eLayerType::Monster);
-			obj->SetName(L"FreeKnightv1c1");
-
+			obj->SetName(L"FreeKnight");
+			obj->SetChar(eUnitType::FreeKnight, L"FreeKnight");
 			Transform* tr = obj->GetComponent<Transform>();
-			tr->SetPosition(Vector3(-20.0f, 3.5f, 5.0f)); 
+			tr->SetPosition(Vector3(-20.0f, 3.5f, 10.f));
 			tr->SetRotation(Vector3(0.f, 0.f, 0.f));
 			tr->SetScale(Vector3(6.0f, 6.0f, 1.0f));
 
-			UnitScript* monScript = obj->GetScript<UnitScript>();
-			monScript->SetChar(L"FreeKnightv1c1");
-
-			obj->SetAttackRange(10.f);
-
 			//Animation add(using script)
+			UnitScript* monScript = obj->GetScript<UnitScript>();
 			{
 				monScript->LoadUnitAnim(eUnitState::Idle, Vector2::Zero
 					, Vector2(0.f, 33.f), Vector2(120.f, 47.f)
@@ -196,16 +192,15 @@ namespace shr
 		{
 			UnitObject* obj = object::Instantiate<UnitObject>(eLayerType::Monster);
 			obj->SetName(L"BallandChainBot");
+			obj->SetChar(eUnitType::BallandChainBot, L"BallandChainBot");
 
 			Transform* tr = obj->GetComponent<Transform>();
-			tr->SetPosition(Vector3(20.0f, 5.5f, 5.0f));
+			tr->SetPosition(Vector3(12.5f, 10.0f, 10.f));
 			tr->SetRotation(Vector3(0.f, 0.f, 0.f));
 			tr->SetScale(Vector3(6.0f, 6.0f, 1.0f));
 
-			UnitScript* monScript = obj->GetScript<UnitScript>();
-			monScript->SetChar(L"BallandChainBot");
-
 			//Animation add(using script)
+			UnitScript* monScript = obj->GetScript<UnitScript>();
 			{
 				monScript->LoadUnitAnim(eUnitState::Idle, Vector2::Zero
 					, Vector2(0.f, 0.f), Vector2(126.f, 39.f)
@@ -231,22 +226,45 @@ namespace shr
 			monScript->SetIsStore(true);
 		}
 
-		//Player
+
+		//BallandChainBot _1
 		{
-			PlayerObject* obj = object::Instantiate<PlayerObject>(eLayerType::Player);
-			obj->SetName(L"Player");
+			UnitObject* obj = object::Instantiate<UnitObject>(eLayerType::Monster);
+			obj->SetName(L"BallandChainBot");
+			obj->SetChar(eUnitType::BallandChainBot, L"BallandChainBot");
 
 			Transform* tr = obj->GetComponent<Transform>();
-			tr->SetPosition(Vector3(-1.f, -1.f, 4.0f));
+			tr->SetPosition(Vector3(25.0f, 0.0f, 10.f));
 			tr->SetRotation(Vector3(0.f, 0.f, 0.f));
 			tr->SetScale(Vector3(6.0f, 6.0f, 1.0f));
 
-			obj->SetPlayerState(ePlayerState::Store);
+			//Animation add(using script)
+			UnitScript* monScript = obj->GetScript<UnitScript>();
+			{
+				monScript->LoadUnitAnim(eUnitState::Idle, Vector2::Zero
+					, Vector2(0.f, 0.f), Vector2(126.f, 39.f)
+					, 5, 0.1f, eAtlasType::Row);
+				monScript->LoadUnitAnim(eUnitState::Attack, Vector2(-0.1f, 0.f)
+					, Vector2(0.f, 0.f), Vector2(126.f, 39.f)
+					, 8, 0.1f, eAtlasType::Row);
+				monScript->LoadUnitAnim(eUnitState::Skill, Vector2::Zero
+					, Vector2(0.f, 0.f), Vector2(126.f, 39.f)
+					, 4, 0.1f, eAtlasType::Row);
+				monScript->LoadUnitAnim(eUnitState::Death, Vector2::Zero
+					, Vector2(0.f, 0.f), Vector2(126.f, 39.f)
+					, 5, 0.1f, eAtlasType::Row);
+				monScript->LoadUnitAnim(eUnitState::Run, Vector2::Zero
+					, Vector2(0.f, 0.f), Vector2(126.f, 39.f)
+					, 8, 0.1f, eAtlasType::Row);
+				monScript->LoadUnitAnim(eUnitState::Hit, Vector2::Zero
+					, Vector2(0.f, 0.f), Vector2(126.f, 39.f)
+					, 2, 0.1f, eAtlasType::Row);
+			}
+			monScript->PlayUnitAnim(eUnitState::Idle);
 
-			PlayerScript* playerScript = obj->GetPlayerScirpt();
-
-			obj->DontDestroy(true);
+			monScript->SetIsStore(true);
 		}
+
 
 		//Coin
 		{
@@ -291,7 +309,7 @@ namespace shr
 		CollisionManager::MouseCollisionLayerCheck(eLayerType::Player);
 		CollisionManager::MouseCollisionLayerCheck(eLayerType::Monster);
 
-		Scene::Initialize();
+		//Scene::Initialize();
 	}
 	void TestScene::Update()
 	{
@@ -326,8 +344,6 @@ namespace shr
 	}
 	void TestScene::LoadResources()
 	{
-		Scene::LoadResources();
-
 		//Test1 Texture
 		{
 			//Biker
@@ -382,21 +398,21 @@ namespace shr
 			/// 1200x80/10							
 			//Resources::Load<Texture>(L"FreeKnightv1c1_AttackCombo", L"FreeKnight_v1\\Colour1\\_AttackCombo.png");
 			/// 1200x80/10							
-			Resources::Load<Texture>(L"FreeKnightv1c1_Attack", L"FreeKnight_v1\\Colour1\\_AttackComboNoMovement.png");
-			/// 480x80_4						
+			Resources::Load<Texture>(L"FreeKnight_Attack", L"FreeKnight_v1\\Colour1\\_AttackComboNoMovement.png");
+			/// 480x80_4					
 			//Resources::Load<Texture>(L"FreeKnightv1c1_AttackNoMovement", L"FreeKnight_v1\\Colour1\\_AttackNoMovement.png");
 			/// 1200x80_10							
-			Resources::Load<Texture>(L"FreeKnightv1c1_Death", L"FreeKnight_v1\\Colour1\\_Death.png");
+			Resources::Load<Texture>(L"FreeKnight_Death", L"FreeKnight_v1\\Colour1\\_Death.png");
 			/// 1200x80_10							
 			//Resources::Load<Texture>(L"FreeKnightv1c1_DeathNoMovement", L"FreeKnight_v1\\Colour1\\_DeathNoMovement.png");
 			/// 120x80_1							
-			Resources::Load<Texture>(L"FreeKnightv1c1_Hit", L"FreeKnight_v1\\Colour1\\_Hit.png");
+			Resources::Load<Texture>(L"FreeKnight_Hit", L"FreeKnight_v1\\Colour1\\_Hit.png");
 			/// 1200x80_10							
-			Resources::Load<Texture>(L"FreeKnightv1c1_Idle", L"FreeKnight_v1\\Colour1\\_Idle.png");
+			Resources::Load<Texture>(L"FreeKnight_Idle", L"FreeKnight_v1\\Colour1\\_Idle.png");
 			/// 1440x80_12							
-			Resources::Load<Texture>(L"FreeKnightv1c1_Skill", L"FreeKnight_v1\\Colour1\\_Roll.png");
+			Resources::Load<Texture>(L"FreeKnight_Skill", L"FreeKnight_v1\\Colour1\\_Roll.png");
 			/// 1200x80_10							
-			Resources::Load<Texture>(L"FreeKnightv1c1_Run", L"FreeKnight_v1\\Colour1\\_Run.png");
+			Resources::Load<Texture>(L"FreeKnight_Run", L"FreeKnight_v1\\Colour1\\_Run.png");
 
 			/////Colour2
 			/// 480x80/5

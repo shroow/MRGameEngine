@@ -18,11 +18,13 @@ namespace shr
 
 		static void SetStageCount(int count) { mStageCount = count; }
 		static int GetStageCount() { return mStageCount; }
+		static class PlayerObject* GetPlayer() { return mPlayer; }
 
 	private:
 		static std::vector<Scene*> mSceneVec;
 		static Scene* mActiveScene;
 
 		static int mStageCount;
+		static class PlayerObject* mPlayer;
 	};
 }

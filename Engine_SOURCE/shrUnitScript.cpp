@@ -4,6 +4,7 @@
 #include "shrSpriteRenderer.h"
 #include "shrFadeInScript.h"
 #include "shrResources.h"
+#include "shrUnitObject.h"
 #include "shrAnimator.h"
 #include "shrResource.h"
 #include "shrCollisionManager.h"
@@ -14,8 +15,8 @@ namespace shr
 		: Script(eScriptType::UnitScript)
 		, mAnimator(nullptr)
 		, mTransform(nullptr)
-		, mUnitStatus()
-		, mUnitState()
+		, mUnitStatus(nullptr)
+		, mUnitState(nullptr)
 		, mbCursorOn(false)
 		, mbSelected(false)
 		, mbStartMove(false)
@@ -66,10 +67,10 @@ namespace shr
 
 	void UnitScript::FixedUpdate()
 	{
-		CheckUnitState();
-
 		if (mAnimator == nullptr)
 			return;
+
+		CheckUnitState();
 
 		if (!UnitStateChanged()) //¾È ¹Ù²î¾úÀ¸¸é ¸ØÃã
 			return;
@@ -77,7 +78,6 @@ namespace shr
 		if (Input::GetKeyDown(eKeyCode::N_0))
 			StartBattle();
 
-		eUnitState a = mUnitState->GetCurrentState();
 		PlayUnitAnim(mUnitState->GetCurrentState());
 
 		mUnitState->FixedUpdate();
@@ -324,16 +324,18 @@ namespace shr
 		mbCursorOn = false;
 	}
 
-	void UnitScript::SetChar(const std::wstring& name, Status status)
+	void UnitScript::SetChar(const std::wstring& name)
 	{
 		if (mOwner == nullptr)
 			return;
 
-		mAnimator = mOwner->AddComponent<Animator>();
+		mAnimator = mOwner->GetComponent<Animator>();
 
-		mUnitStatus->SetCharName(name)
+		mCharName = name;
+	}
 
-		mUnitStatus->SetStatus(status);
+	void UnitScript::LoadUnitAnim(const std::wstring& name)
+	{
 	}
 
 	void UnitScript::LoadUnitAnim(eUnitState animState, Vector2 offset
@@ -380,8 +382,6 @@ namespace shr
 			animName = L"Death_Anim";
 			break;
 		case shr::enums::eUnitState::End:
-			return;
-		default:
 			return;
 		}
 

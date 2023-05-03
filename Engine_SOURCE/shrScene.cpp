@@ -5,6 +5,7 @@ namespace shr
 {
 	Scene::Scene(eSceneType type)
 		: mType(type)
+		, mMainCamera(nullptr)
 	{
 		mLayerVec.resize((UINT)eLayerType::End);
 	}
