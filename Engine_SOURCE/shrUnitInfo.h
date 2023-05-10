@@ -16,6 +16,9 @@ namespace shr
 		UINT spriteLength; 
 		float duration; 
 		eAtlasType atlasType;
+
+		UnitInfo() {}
+		~UnitInfo() {}
 	};
 
 	static UnitInfo* GetUnitInfo(eUnitType type, eUnitState state)

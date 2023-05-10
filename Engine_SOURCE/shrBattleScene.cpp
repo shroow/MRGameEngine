@@ -24,13 +24,14 @@ namespace shr
 {
 	BattleScene::BattleScene()
 		: Scene(eSceneType::Battle)
-		, mEnemy()
+		, mEnemy(nullptr)
 	{
 	}
 
 	BattleScene::~BattleScene()
 	{
-		mEnemy->ClearDeck();
+		if(mEnemy != nullptr)
+			mEnemy->ClearDeck();
 	}
 
 	void BattleScene::Start()

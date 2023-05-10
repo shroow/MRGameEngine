@@ -32,6 +32,8 @@ namespace shr
 
 	StoreScene::~StoreScene()
 	{
+		if (mStore != nullptr)
+			mStore->ClearDeck();
 	}
 
 	void StoreScene::Start()
