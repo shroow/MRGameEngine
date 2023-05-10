@@ -506,6 +506,8 @@ namespace shr
 				mAnimator->Create(animName, Resources::Find<Texture>(textureName)
 					, info->leftTop, info->spriteSize, info->offset
 					, info->spriteLength, info->duration, info->atlasType);
+
+				delete info;
 			}
 			else if( i == (UINT)eUnitState::Run)
 			{
@@ -519,6 +521,8 @@ namespace shr
 				mAnimator->Create(animName, Resources::Find<Texture>(textureName)
 					, info->leftTop, info->spriteSize, info->offset
 					, info->spriteLength, info->duration, info->atlasType);
+
+				delete info;
 			}
 			else if( i == (UINT)eUnitState::Attack)
 			{
@@ -532,6 +536,8 @@ namespace shr
 				mAnimator->Create(animName, Resources::Find<Texture>(textureName)
 					, info->leftTop, info->spriteSize, info->offset
 					, info->spriteLength, info->duration, info->atlasType);
+
+				delete info;
 			}
 			else if( i == (UINT)eUnitState::Skill)
 			{
@@ -545,6 +551,8 @@ namespace shr
 				mAnimator->Create(animName, Resources::Find<Texture>(textureName)
 					, info->leftTop, info->spriteSize, info->offset
 					, info->spriteLength, info->duration, info->atlasType);
+
+				delete info;
 			}
 			else if( i == (UINT)eUnitState::Hit)
 			{
@@ -558,6 +566,8 @@ namespace shr
 				mAnimator->Create(animName, Resources::Find<Texture>(textureName)
 					, info->leftTop, info->spriteSize, info->offset
 					, info->spriteLength, info->duration, info->atlasType);
+
+				delete info;
 			}
 			else if( i == (UINT)eUnitState::Death)
 			{
@@ -571,6 +581,8 @@ namespace shr
 				mAnimator->Create(animName, Resources::Find<Texture>(textureName)
 					, info->leftTop, info->spriteSize, info->offset
 					, info->spriteLength, info->duration, info->atlasType);
+
+				delete info;
 			}
 		}
 	}

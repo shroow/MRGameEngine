@@ -416,14 +416,14 @@
     <ClInclude Include="shrStoreScript.h">
       <Filter>Script\Scene</Filter>
     </ClInclude>
-    <ClInclude Include="shrUnitInfo.h">
-      <Filter>GameObject\Unit</Filter>
-    </ClInclude>
     <ClInclude Include="shrSceneInfo.h">
       <Filter>Scene</Filter>
     </ClInclude>
     <ClInclude Include="shrNumUI.h">
       <Filter>GameObject\UI\Num</Filter>
+    </ClInclude>
+    <ClInclude Include="shrUnitInfo.h">
+      <Filter>UnitSetting</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
