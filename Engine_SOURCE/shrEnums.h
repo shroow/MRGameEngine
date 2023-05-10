@@ -19,6 +19,7 @@ namespace shr::enums
 		Grid,
 		Background,
 		Monster,
+		Monster2,
 		Player,
 		Particle,
 		Mouse,
@@ -33,17 +34,18 @@ namespace shr::enums
 		Transform, // 위치 데이터 수정하는 컴포넌트
 		Camera,
 		Mesh,
-		Collider,
 
-		Collider2,
 		MeshRenderer,
 		SpriteRenderer,
-		ParticleSystem,
 		Animator,
 
+		Collider,
+		Collider2,
+
+		ParticleSystem,
 		Light,
 		UI,
-		Status,
+
 		Script,
 		End,
 	};
@@ -101,7 +103,7 @@ namespace shr::enums
 		Skill2,
 		Hit,
 		Death,
-		End = 16,
+		End,
 	};
 
 	enum class eBuffType
@@ -141,17 +143,17 @@ namespace shr::enums
 	//	Vector3 dest;
 	//};
 
-	enum class ePlayerState
+	enum class ePlayerType
 	{
-		Pause,
+		None,
+		Player,
 		Store,
-		Battle,
-		Dead,
+		Enemy,
 	};
 
 	enum class eUnitType
 	{
-		None,
+		None = -1,
 		FreeKnight,
 		BallandChainBot,
 		

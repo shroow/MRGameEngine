@@ -4,10 +4,15 @@
 #include "shrSpriteRenderer.h"
 #include "shrFadeInScript.h"
 #include "shrResources.h"
+#include "shrPlayerObject.h"
 #include "shrUnitObject.h"
 #include "shrAnimator.h"
-#include "shrResource.h"
+#include "shrResources.h"
 #include "shrCollisionManager.h"
+#include "shrUnitInfo.h"
+#include "shrSceneManager.h"
+#include <float.h>// FLT_MAX
+
 
 namespace shr
 {
@@ -17,6 +22,8 @@ namespace shr
 		, mTransform(nullptr)
 		, mUnitStatus(nullptr)
 		, mUnitState(nullptr)
+		, mEnemy(nullptr)
+		, mOwner(nullptr)
 		, mbCursorOn(false)
 		, mbSelected(false)
 		, mbStartMove(false)
@@ -27,7 +34,8 @@ namespace shr
 		, mMoveDir{}
 		, mIsDirLeft(false)
 		, mIsStore(false)
-		, mIsTraded(false)
+		, mIsBattle(false)
+		, mStartPos{}
 	{
 	}
 
@@ -55,11 +63,12 @@ namespace shr
 
 	void UnitScript::Update()
 	{
-		MouseControl();
-		Move();
-
 		if (mIsBattle)
 			Battle();
+		else
+			MouseControl();
+
+		Move();
 
 		mUnitState->Update();
 		mUnitStatus->Update();
@@ -67,6 +76,9 @@ namespace shr
 
 	void UnitScript::FixedUpdate()
 	{
+		Vector3 pos = mOwner->GetComponent<Transform>()->GetPosition();
+		mPrevPos = pos;
+
 		if (mAnimator == nullptr)
 			return;
 
@@ -74,9 +86,6 @@ namespace shr
 
 		if (!UnitStateChanged()) //¾È ¹Ù²î¾úÀ¸¸é ¸ØÃã
 			return;
-
-		if (Input::GetKeyDown(eKeyCode::N_0))
-			StartBattle();
 
 		PlayUnitAnim(mUnitState->GetCurrentState());
 
@@ -127,20 +136,45 @@ namespace shr
 
 			else if (Input::GetMouseLeftUp())
 			{
-				if (mIsTraded && mIsStore)
+				if (mOwner->IsTrade() && mIsStore)
 				{
-					Vector2 mousePos = Input::GetMouseWorldPos();
-					pos.x = mousePos.x;
-					pos.y = mousePos.y;
+					PlayerObject* player = SceneManager::GetPlayer();
 
-					mIsStore = false;
-					mIsTraded = false;
-					mbStartMove = false;
+					if (player->BuyUnit(mOwner))
+					{
+						Vector2 mousePos = Input::GetMouseWorldPos();
+						pos.x = mousePos.x;
+						pos.y = mousePos.y;
+
+						mIsStore = false;
+						mOwner->SetTrade(false);
+						mbStartMove = false;
+					}
+					else
+					{
+						pos.x = mSelectedPos.x;
+						pos.y = mSelectedPos.y;
+
+						mbStartMove = false;
+					}
 				}
-				else if (mIsTraded)
+				else if (mOwner->IsTrade())
 				{
-					GetOwner()->Die();
-					CollisionManager::PrevMouseCollisionSetNull();
+
+					PlayerObject* player = SceneManager::GetPlayer();
+
+					if(player->SellUnit(mOwner))
+					{
+						GetOwner()->Die();
+						CollisionManager::PrevMouseCollisionSetNull();
+					}
+					else
+					{
+						pos.x = mSelectedPos.x;
+						pos.y = mSelectedPos.y;
+
+						mbStartMove = false;
+					}
 				}
 				else
 				{
@@ -218,12 +252,115 @@ namespace shr
 		else
 			mTransform->SetRotation(Vector3(0.f, 0.f, 0.f));
 
-		mPrevPos = pos;
+		//mPrevPos = pos;
 		mTransform->SetPosition(pos);
 	}
 
 	void UnitScript::Battle()
 	{
+		std::vector<UnitObject*>& enemyUnits = mEnemy->GetUnitDeck();
+
+		UnitObject* unit;
+		UnitObject* closestEnemyUnit = nullptr;
+
+		float closestDistance = FLT_MAX;
+
+		for (UnitObject* enemyUnit : enemyUnits)
+		{
+			Transform* tr = mTransform;
+			Transform* emTr = enemyUnit->GetComponent<Transform>();
+			Vector2 pos = Vector2(tr->GetPosition().x, tr->GetPosition().y);
+			Vector2 emPos = Vector2(emTr->GetPosition().x, emTr->GetPosition().y);
+
+			float distance = Vector2::Distance(pos, emPos);
+
+			if (distance < closestDistance) {
+				closestDistance = distance;
+				closestEnemyUnit = enemyUnit;
+			}
+		}
+
+		if (closestEnemyUnit != nullptr)
+		{
+			float attackRange = mUnitStatus->GetStatus()->attackRange;
+
+			if (attackRange >= closestDistance)
+			{
+				Attack();
+			}
+			else
+				Attack(closestEnemyUnit);
+		}
+	}
+
+	void UnitScript::Battle(PlayerObject* enemy)
+	{
+		std::vector<UnitObject*>& enemyUnits = enemy->GetUnitDeck();
+
+		UnitObject* unit; 
+		UnitObject* closestEnemyUnit = nullptr;
+
+		float closestDistance = FLT_MAX;
+
+		for (UnitObject* enemyUnit : enemyUnits) 
+		{
+			Transform* tr = mTransform;
+			Transform* emTr = enemyUnit->GetComponent<Transform>();
+			Vector2 pos = Vector2(tr->GetPosition().x, tr->GetPosition().y);
+			Vector2 emPos = Vector2(emTr->GetPosition().x, emTr->GetPosition().y);
+
+			float distance = Vector2::Distance(pos, emPos);
+
+			if (distance < closestDistance) {
+				closestDistance = distance;
+				closestEnemyUnit = enemyUnit;
+			}
+		}
+
+		if (closestEnemyUnit != nullptr)
+		{
+			float attackRange = mUnitStatus->GetStatus()->attackRange;
+			
+			if (attackRange >= closestDistance)
+			{
+				Attack();
+			}
+			else
+				Attack(closestEnemyUnit);
+		}
+	}
+
+	void UnitScript::StartBattle(PlayerObject* enemy)
+	{
+		mEnemy = enemy; 
+		mIsBattle = true;
+
+		mStartPos = mTransform->GetPosition();
+	}
+
+	void UnitScript::EndBattle()
+	{
+		mEnemy = nullptr; 
+		mIsBattle = false;
+
+		mUnitState->Exit(eUnitState::Attack);
+		mbStartMove = false;
+
+		mTransform->SetPosition(mStartPos);
+	}
+
+	void UnitScript::Attack()
+	{
+		mUnitState->Enter(eUnitState::Attack);
+		mbStartMove = false;
+	}
+
+	void UnitScript::Attack(UnitObject* target)
+	{
+		Vector3 emPos = target->GetComponent<Transform>()->GetPosition();
+
+		mMovetoPos = Vector2(emPos.x, emPos.y);
+		mbStartMove = true;
 	}
 
 	void UnitScript::CheckUnitState()
@@ -249,8 +386,9 @@ namespace shr
 		{
 			eLayerType type = collider->GetOwner()->GetLayerType();
 			if (type == eLayerType::Monster || type == eLayerType::Player)
-				mUnitState->Enter(eUnitState::Attack);
-
+			{
+				//mUnitState->Enter(eUnitState::Attack);
+			}
 			else if (type == eLayerType::Background)
 			{
 				if (mbCursorOn)
@@ -258,23 +396,37 @@ namespace shr
 					if (mIsStore)
 					{
 						if (collider->GetName() == L"PlayerFieldCollider")
-							mIsTraded = true;
+							mOwner->SetTrade(true);
 					}
 					else
 					{
 						if (collider->GetName() == L"MonsterFieldCollider")
-							mIsTraded = true;
+							mOwner->SetTrade(true);
 					}
 				}
 			}
 		}
 		else if (compType == eComponentType::Collider2)
 		{
+			if (mIsBattle)
+			{
+				eLayerType type = collider->GetOwner()->GetLayerType();
 
+				if (type == eLayerType::Monster2)
+				{
+					mUnitState->Enter(eUnitState::Attack);
+				}
+			}
 		}
 	}
 	void UnitScript::OnCollisionStay(Collider2D* collider)
 	{
+		eLayerType type = collider->GetOwner()->GetLayerType();
+
+		if (type == eLayerType::Monster2)
+		{
+			int a = 0;
+		}
 	}
 	void UnitScript::OnCollisionExit(Collider2D* collider)
 	{
@@ -288,17 +440,17 @@ namespace shr
 
 		else if (type == eLayerType::Background)
 		{
-			if (mIsTraded)
+			if (mOwner->IsTrade())
 			{
 				if (mIsStore)
 				{
 					if (collider->GetName() == L"PlayerFieldCollider")
-						mIsTraded = false;
+						mOwner->SetTrade(false);
 				}
 				else
 				{
 					if (collider->GetName() == L"MonsterFieldCollider")
-						mIsTraded = false;
+						mOwner->SetTrade(false);
 				}
 			}
 		}
@@ -324,28 +476,115 @@ namespace shr
 		mbCursorOn = false;
 	}
 
-	void UnitScript::SetChar(const std::wstring& name)
+	void UnitScript::SetUnitAnim(eUnitType type)
 	{
 		if (mOwner == nullptr)
 			return;
 
 		mAnimator = mOwner->GetComponent<Animator>();
-
-		mCharName = name;
 	}
 
-	void UnitScript::LoadUnitAnim(const std::wstring& name)
+	void UnitScript::LoadUnitAnim(eUnitType type)
 	{
+		std::wstring animName;
+
+		UINT unitType = (UINT)mUnitStatus->GetUnitType();
+		std::wstringstream ss; 
+		ss << unitType;
+
+		for (UINT i = 0; i < (UINT)eUnitState::End; ++i)
+		{
+			if( i == (UINT)eUnitState::Idle)
+			{
+				std::wstring textureName = ss.str();
+				textureName.append(L"_Idle");
+				animName = L"Idle_Anim";
+
+				UnitInfo* info;
+				info = GetUnitInfo(type, (eUnitState)i);
+
+				mAnimator->Create(animName, Resources::Find<Texture>(textureName)
+					, info->leftTop, info->spriteSize, info->offset
+					, info->spriteLength, info->duration, info->atlasType);
+			}
+			else if( i == (UINT)eUnitState::Run)
+			{
+				std::wstring textureName = ss.str();
+				textureName.append(L"_Run");
+				animName = L"Run_Anim";
+
+				UnitInfo* info;
+				info = GetUnitInfo(type, (eUnitState)i);
+
+				mAnimator->Create(animName, Resources::Find<Texture>(textureName)
+					, info->leftTop, info->spriteSize, info->offset
+					, info->spriteLength, info->duration, info->atlasType);
+			}
+			else if( i == (UINT)eUnitState::Attack)
+			{
+				std::wstring textureName = ss.str();
+				textureName.append(L"_Attack");
+				animName = L"Attack_Anim";
+
+				UnitInfo* info;
+				info = GetUnitInfo(type, (eUnitState)i);
+
+				mAnimator->Create(animName, Resources::Find<Texture>(textureName)
+					, info->leftTop, info->spriteSize, info->offset
+					, info->spriteLength, info->duration, info->atlasType);
+			}
+			else if( i == (UINT)eUnitState::Skill)
+			{
+				std::wstring textureName = ss.str();
+				textureName.append(L"_Skill");
+				animName = L"Skill_Anim";
+
+				UnitInfo* info;
+				info = GetUnitInfo(type, (eUnitState)i);
+
+				mAnimator->Create(animName, Resources::Find<Texture>(textureName)
+					, info->leftTop, info->spriteSize, info->offset
+					, info->spriteLength, info->duration, info->atlasType);
+			}
+			else if( i == (UINT)eUnitState::Hit)
+			{
+				std::wstring textureName = ss.str();
+				textureName.append(L"_Hit");
+				animName = L"Hit_Anim";
+
+				UnitInfo* info;
+				info = GetUnitInfo(type, (eUnitState)i);
+
+				mAnimator->Create(animName, Resources::Find<Texture>(textureName)
+					, info->leftTop, info->spriteSize, info->offset
+					, info->spriteLength, info->duration, info->atlasType);
+			}
+			else if( i == (UINT)eUnitState::Death)
+			{
+				std::wstring textureName = ss.str();
+				textureName.append(L"_Death");
+				animName = L"Death_Anim";
+
+				UnitInfo* info;
+				info = GetUnitInfo(type, (eUnitState)i);
+
+				mAnimator->Create(animName, Resources::Find<Texture>(textureName)
+					, info->leftTop, info->spriteSize, info->offset
+					, info->spriteLength, info->duration, info->atlasType);
+			}
+		}
 	}
 
 	void UnitScript::LoadUnitAnim(eUnitState animState, Vector2 offset
 		, Vector2 leftTop, Vector2 spriteSize
 		, UINT spriteLength, float duration, eAtlasType atlasType)
 	{
-		std::wstring textureName;
 		std::wstring animName;
 
-		textureName = mCharName;
+		UINT unitType = (UINT)mUnitStatus->GetUnitType();
+		std::wstringstream ss; ss << unitType;
+
+		std::wstring textureName = ss.str();
 
 		switch (animState)
 		{
@@ -361,18 +600,18 @@ namespace shr
 			textureName.append(L"_Attack");
 			animName = L"Attack_Anim";
 			break;
-		case shr::enums::eUnitState::Attack2:
-			textureName.append(L"_Attack2");
-			animName = L"Attack2_Anim";
-			break;
+		//case shr::enums::eUnitState::Attack2:
+		//	textureName.append(L"_Attack2");
+		//	animName = L"Attack2_Anim";
+		//	break;
 		case shr::enums::eUnitState::Skill:
 			textureName.append(L"_Skill");
 			animName = L"Skill_Anim";
 			break;
-		case shr::enums::eUnitState::Skill2:
-			textureName.append(L"_Skill2");
-			animName = L"Skill2_Anim";
-			break;
+		//case shr::enums::eUnitState::Skill2:
+		//	textureName.append(L"_Skill2");
+		//	animName = L"Skill2_Anim";
+		//	break;
 		case shr::enums::eUnitState::Hit:
 			textureName.append(L"_Hit");
 			animName = L"Hit_Anim";
@@ -417,8 +656,6 @@ namespace shr
 			break;
 		case shr::enums::eUnitState::Death:
 			mAnimator->Play(L"Death_Anim", loop);
-			break;
-		default:
 			break;
 		}
 	}

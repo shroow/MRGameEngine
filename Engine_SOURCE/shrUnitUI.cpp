@@ -14,6 +14,16 @@ namespace shr
 
 	UnitUI::~UnitUI()
 	{
+		if(mHPBar != nullptr)
+		{
+			mHPBar->DontDestroy(false);
+			mHPBar->Die();
+		}
+		if (mHPBar != nullptr)
+		{
+			mMPBar->DontDestroy(false);
+			mMPBar->Die();
+		}
 	}
 
 	void UnitUI::Initialize()
@@ -42,6 +52,8 @@ namespace shr
 		hpsr->SetMesh(hpmesh);
 		hpsr->SetMaterial(hpspriteMaterial);
 
+		mHPBar->DontDestroy(true);
+
 		// MPBAR
 		mMPBar = object::Instantiate<GameObject>(eLayerType::Monster);
 		mMPBar->SetName(L"MPBAR");
@@ -60,6 +72,8 @@ namespace shr
 		mpSpriteMaterial->SetShader(mpShader);
 		mpSR->SetMesh(mpMesh);
 		mpSR->SetMaterial(mpSpriteMaterial);
+
+		mMPBar->DontDestroy(true);
 	}
 
 	void UnitUI::Update()
@@ -75,5 +89,34 @@ namespace shr
 	void UnitUI::Render()
 	{
 		GameObject::Render();
+	}
+
+	void UnitUI::Die()
+	{
+		mHPBar->DontDestroy(false);
+		mHPBar->Die();
+		mMPBar->DontDestroy(false);
+		mMPBar->Die();
+
+		mHPBar = nullptr;
+		mMPBar = nullptr;
+
+		DontDestroy(false);
+		GameObject::Die();
+	}
+
+	void UnitUI::Destroy()
+	{
+		if(mHPBar != nullptr)
+		{
+			mHPBar->DontDestroy(false);
+			mHPBar->Die();
+		}
+
+		if (mMPBar != nullptr)
+		{
+			mMPBar->DontDestroy(false);
+			mMPBar->Die();
+		}
 	}
 }

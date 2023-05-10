@@ -15,8 +15,15 @@ namespace shr
 		virtual void FixedUpdate();
 		virtual void Render();
 
+	public:
+		bool IsSelected() { return mIsSelected; }
+
+		void UnitDeSelected() { mSelectedUnit = nullptr; mIsSelected = false; }
+		void UnitSelected(class UnitObject* obj) { mSelectedUnit = obj; mIsSelected = true; }
+		class UnitObject* GetSelectedUnit() { return mSelectedUnit; }
+
 	private:
-		
+		bool mIsSelected;
+		class UnitObject* mSelectedUnit;
     };
 }
-

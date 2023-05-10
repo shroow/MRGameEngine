@@ -15,6 +15,10 @@ namespace shr
 		virtual void FixedUpdate();
 		virtual void Render();
 
+		virtual void Die() override;
+
+		void Destroy();
+
 	private:
 		GameObject* mHPBar;
 		GameObject* mMPBar;

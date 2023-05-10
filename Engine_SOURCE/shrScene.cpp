@@ -13,6 +13,9 @@ namespace shr
 	{
 
 	}
+	void Scene::Start()
+	{
+	}
 	void Scene::Initialize()
 	{
 		for (Layer& layer : mLayerVec)

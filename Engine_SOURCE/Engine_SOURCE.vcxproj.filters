@@ -167,14 +167,11 @@
     <ClCompile Include="shrPlayerObject.cpp">
       <Filter>GameObject\Player</Filter>
     </ClCompile>
-    <ClCompile Include="shrHeroScript.cpp">
-      <Filter>Script\Unit</Filter>
-    </ClCompile>
     <ClCompile Include="shrUnitState.cpp">
-      <Filter>Resources\Unit</Filter>
+      <Filter>UnitSetting</Filter>
     </ClCompile>
     <ClCompile Include="shrUnitStatus.cpp">
-      <Filter>Resources\Unit</Filter>
+      <Filter>UnitSetting</Filter>
     </ClCompile>
     <ClCompile Include="shrHero.cpp" />
     <ClCompile Include="shrBattleScene.cpp">
@@ -197,6 +194,12 @@
     </ClCompile>
     <ClCompile Include="shrStoreScript.cpp">
       <Filter>Script\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="shrSceneInfo.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="shrNumUI.cpp">
+      <Filter>GameObject\UI\Num</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -385,14 +388,11 @@
     <ClInclude Include="shrPlayerObject.h">
       <Filter>GameObject\Player</Filter>
     </ClInclude>
-    <ClInclude Include="shrHeroScript.h">
-      <Filter>Script\Unit</Filter>
-    </ClInclude>
     <ClInclude Include="shrUnitState.h">
-      <Filter>Resources\Unit</Filter>
+      <Filter>UnitSetting</Filter>
     </ClInclude>
     <ClInclude Include="shrUnitStatus.h">
-      <Filter>Resources\Unit</Filter>
+      <Filter>UnitSetting</Filter>
     </ClInclude>
     <ClInclude Include="shrHero.h" />
     <ClInclude Include="shrBattleScene.h">
@@ -415,6 +415,15 @@
     </ClInclude>
     <ClInclude Include="shrStoreScript.h">
       <Filter>Script\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="shrUnitInfo.h">
+      <Filter>GameObject\Unit</Filter>
+    </ClInclude>
+    <ClInclude Include="shrSceneInfo.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="shrNumUI.h">
+      <Filter>GameObject\UI\Num</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -546,9 +555,6 @@
     <Filter Include="GameObject\Hero">
       <UniqueIdentifier>{75a48440-bd75-4445-87b5-7d26755daacb}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Resources\Unit">
-      <UniqueIdentifier>{7b95bfef-62c4-42f8-bf64-47ea2df2b873}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Scene\BattleScene">
       <UniqueIdentifier>{1bae151e-a50d-46a6-86a3-a60a287e1cd6}</UniqueIdentifier>
     </Filter>
@@ -569,6 +575,12 @@
     </Filter>
     <Filter Include="Script\Scene">
       <UniqueIdentifier>{d021b6e9-88db-4851-994c-755b7f376de8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UnitSetting">
+      <UniqueIdentifier>{7b95bfef-62c4-42f8-bf64-47ea2df2b873}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\UI\Num">
+      <UniqueIdentifier>{7ece96a6-b536-45b9-a36e-187084c89be8}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

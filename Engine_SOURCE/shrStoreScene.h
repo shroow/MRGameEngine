@@ -10,6 +10,8 @@ namespace shr
         StoreScene();
         virtual ~StoreScene();
 
+        virtual void Start() override;
+
         virtual void Initialize() override;
         virtual void Update() override;
         virtual void FixedUpdate() override;
@@ -23,10 +25,9 @@ namespace shr
         void RerollStore();
         void CreateMonster(eUnitType type, Vector3 pos);
 
-        std::vector<class UnitObject*>& GetUnitDeck() { return mUnitDeck; }
+        class PlayerObject* GetStore() { return mStore; }
 
     private:
-        size_t mDeckSize;
-        std::vector<class UnitObject*> mUnitDeck;
+        class PlayerObject* mStore;
     };
 }

@@ -22,7 +22,7 @@ namespace shr
 		eMoveType moveType;
 
 		Status() : maxHP{ 100.f }, HP{ 100.f }, maxMP{ 100.f }, MP{ 20.f }
-			, attackDmg{ 10.f }, attackSpeed{ 1.f }, attackRange{ 10.f }
+			, attackDmg{ 10.f }, attackSpeed{ 1.f }, attackRange{ 6.5f }
 			, moveSpeed{ 10.f }, moveType{ eMoveType::Ground } {}
 
 		Status(float hp, float MaxHP, float mp, float MaxMP, float AttackDmg, float AttackSpeed

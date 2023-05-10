@@ -118,6 +118,40 @@ namespace shr
 		}
 	}
 
+	void Layer::OnEnter()
+	{
+	}
+
+	void Layer::OnExit()
+	{
+		std::set<GameObject*> deleteObjects;
+
+		for (GameObject* gameObj : mGameObjectVec)
+		{
+			if (!gameObj->IsDontDestroy())
+				deleteObjects.insert(gameObj);
+		}
+
+		for (GameObjectIter iter = mGameObjectVec.begin()
+			; iter != mGameObjectVec.end()
+			; )
+		{
+			std::set<GameObject*>::iterator deleteIter
+				= deleteObjects.find(*iter);
+
+			if (deleteIter != deleteObjects.end())
+				iter = mGameObjectVec.erase(iter);
+			else
+				iter++;
+		}
+
+		for (GameObject* gameObj : deleteObjects)
+		{
+			delete gameObj;
+			gameObj = nullptr;
+		}
+	}
+
 	void Layer::AddGameObject(GameObject* gameObject)
 	{
 		if (gameObject == nullptr)

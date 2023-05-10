@@ -34,7 +34,7 @@ namespace shr
 		Scene* scene = SceneManager::GetActiveScene();
 
 		//플레이어 HP=0 죽었을때의 UI화면 띄워주기
-		if (mOwner->GetPlayerState() == ePlayerState::Dead)
+		if (mOwner->GetHP() <= 0)
 		{
 			GameObject* gameObj = new GameObject();
 			Layer& layer = scene->GetLayer(eLayerType::SystemUI);
@@ -48,8 +48,6 @@ namespace shr
 
 			return;
 		}
-
-
 	}
 
 	void PlayerScript::Render()

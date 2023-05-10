@@ -24,6 +24,9 @@
 #include "shrObject.h"
 #include "shrMouseScript.h"
 #include "shrPlayerObject.h"
+#include "shrSceneInfo.h"
+#include "shrCollisionManager.h"
+#include "shrNumUI.h"
 
 namespace shr
 {
@@ -31,6 +34,8 @@ namespace shr
 	Scene* SceneManager::mActiveScene = nullptr;
 	int SceneManager::mStageCount = 0;
 	PlayerObject* SceneManager::mPlayer = nullptr;
+	MouseObject* SceneManager::mMouse = nullptr;
+	NumUI* SceneManager::mGoldUI = nullptr;
 
 	void SceneManager::Initialize()
 	{
@@ -42,14 +47,27 @@ namespace shr
 		mSceneVec[(UINT)eSceneType::Store] = new StoreScene();
 		mSceneVec[(UINT)eSceneType::Battle] = new BattleScene();
 
-		mActiveScene = mSceneVec[(UINT)eSceneType::Test];
+		//mActiveScene = mSceneVec[(UINT)eSceneType::Test];
+		mActiveScene = mSceneVec[(UINT)eSceneType::Store];
+		//mActiveScene = mSceneVec[(UINT)eSceneType::Battle];
 
 		//for (Scene* scene : mSceneVec)
 		//{
 		//	scene->Initialize();
 		//}
 
+		SceneInfo::LoadResourcesInfo();
+		mActiveScene->Start();
 		mActiveScene->Initialize();
+		mainCamera = mActiveScene->GetMainCamera()->GetComponent<Camera>();
+
+
+		CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::Monster);
+		CollisionManager::CollisionLayerCheck(eLayerType::Monster, eLayerType::Monster2);
+		CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::Background);
+		CollisionManager::CollisionLayerCheck(eLayerType::Monster, eLayerType::Background);
+		CollisionManager::MouseCollisionLayerCheck(eLayerType::Player);
+		CollisionManager::MouseCollisionLayerCheck(eLayerType::Monster);
 	}
 
 	void SceneManager::Update()
@@ -82,21 +100,26 @@ namespace shr
 	}
 	void SceneManager::LoadScene(eSceneType type)
 	{
-		if (mActiveScene)
+		if (mActiveScene) 
+		{
 			mActiveScene->OnExit();
+		}
 
-		mSceneVec[(UINT)type]->Initialize();
+		Scene* mPrevScene = mActiveScene;
 
 		// 바뀔때 dontDestory 오브젝트는 다음씬으로 같이 넘겨줘야한다.
 		std::vector<GameObject*> gameObjs
 			= mActiveScene->GetDontDestroyGameObjects();
+
 		mActiveScene = mSceneVec[(UINT)type];
+		mSceneVec[(UINT)type]->Initialize();
 
 		for (GameObject* obj : gameObjs)
 		{
 			eLayerType type = obj->GetLayerType();
 			mActiveScene->AddGameObject(obj, type);
 		}
+
 
 		mainCamera = mActiveScene->GetMainCamera()->GetComponent<Camera>();
 

@@ -102,7 +102,7 @@ namespace shr
 		bool IsPaused() { return mState == eState::Paused ? true : false; }
 		bool IsDead() { return mState == eState::Dead ? true : false; }
 		void Pause() { mState = eState::Paused; }
-		void Die() { mState = eState::Dead; }
+		virtual void Die() { mState = eState::Dead; }
 
 		bool IsDontDestroy() { return mbDontDestroy; }
 		void DontDestroy(bool TF) { mbDontDestroy = TF; }

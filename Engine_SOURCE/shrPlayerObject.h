@@ -1,7 +1,5 @@
 #pragma once
 #include "shrGameObject.h"
-#include "shrUnitObject.h"
-#include "shrPlayerScript.h"
 
 namespace shr
 {
@@ -18,42 +16,58 @@ namespace shr
         virtual void FixedUpdate() override;
         virtual void Render() override;
 
-        bool BuyUnit(UnitObject* obj);
-        bool SellUnit(UnitObject* obj);
+        virtual void Die() override;
+
+        void Battle(class PlayerObject* enemy);
+        void EndBattle();
+
+        bool AddUnit(class UnitObject* obj);
+        bool DeleteUnit(class UnitObject* obj);
+        bool BuyUnit(class UnitObject* obj);
+        bool SellUnit(class UnitObject* obj);
+        void ClearDeck();
 
         void AddGold(int gold);
         bool SubGold(int gold);
 
-        void Battle();
-        
+        void AddExp(int exp);
 
     public:
-        void SetPlayerState(ePlayerState state) { mPlayerState = state; }
-        
+        void SetPlayerState(ePlayerType type) { mPlayerType = type; }
+        void SetDeckSize(size_t size) { mDeckSize = size; }
 
-        ePlayerState GetPlayerState() { return mPlayerState; }
-        PlayerScript* GetPlayerScirpt() { return mScript; }
+
+        ePlayerType GetPlayerType() { return mPlayerType; }
 
         int GetHP() { return mHP; }
         int GetGold() { return mGold; }
         int GetLevel() { return mLevel; }
+        int GetExp() { return mExp; }
+        int GetMaxExp() { return mMaxExp; }
         int GetStoreLevel() { return mStoreLevel; }
 
-        std::vector<UnitObject*>& GetUnitDeck() { return mUnitDeck; }
+        bool IsMaxLevel() { if (mLevel >= 10) return true; return false; }
+
+        size_t GetDeckSize() { return mDeckSize; }
+        std::vector<class UnitObject*>& GetUnitDeck() { return mUnitDeck; }
+
+        class PlayerScript* GetPlayerScirpt() { return mScript; }
 
     private:
-        ePlayerState mPlayerState;
+        ePlayerType mPlayerType;
         eHeroType mHeroType;
         
         int mHP;
         int mGold;
         int mLevel;
+        int mExp;
+        int mMaxExp;
         int mStoreLevel;
+        
         size_t mDeckSize;
+        std::vector<class UnitObject*> mUnitDeck;
 
-        std::vector<UnitObject*> mUnitDeck;
-
-        PlayerScript* mScript;
+        class PlayerScript* mScript;
     };
 }
 

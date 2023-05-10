@@ -18,7 +18,13 @@ namespace shr
 
 		static void SetStageCount(int count) { mStageCount = count; }
 		static int GetStageCount() { return mStageCount; }
+
+		static void SetPlayer(class PlayerObject* player) { mPlayer = player; }
+		static void SetMouse(class MouseObject* mouse) { mMouse = mouse; }
+		static void SetGoldUI(class NumUI* goldUI) { mGoldUI = goldUI; }
 		static class PlayerObject* GetPlayer() { return mPlayer; }
+		static class MouseObject* GetMouse() { return mMouse; }
+		static class NumUI* GetGoldUI() { return mGoldUI; }
 
 	private:
 		static std::vector<Scene*> mSceneVec;
@@ -26,5 +32,7 @@ namespace shr
 
 		static int mStageCount;
 		static class PlayerObject* mPlayer;
+		static class MouseObject* mMouse;
+		static class NumUI* mGoldUI;
 	};
 }

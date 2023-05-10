@@ -12,6 +12,8 @@ namespace shr
 		Scene(eSceneType type);
 		virtual ~Scene();
 
+		virtual void Start();
+		
 		virtual void Initialize();
 		virtual void Update();
 		virtual void FixedUpdate();

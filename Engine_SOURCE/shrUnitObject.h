@@ -18,27 +18,39 @@ namespace shr
 		virtual void FixedUpdate() override;
 		virtual void Render() override;
 
-		void SetChar(eUnitType type, const std::wstring& name);
-		void SetChar(eUnitType type, const std::wstring& name, Vector3 pos);
-		void SetUnit(eUnitType type) { mUnitStatus.SetUnitType(type); }
+		virtual void Die() override;
+
+		void SetCharType(eUnitType type);
+		void SetCharType(eUnitType type, Vector3 pos);
+
+		//void SetUnit(eUnitType type) { mUnitStatus.SetUnitType(type); }
+		void SetTrade(bool tf) { mTrade = tf; }
+		void SetOwner(class PlayerObject* owner) { mOwner = owner; }
 
 		UnitStatus* GetUnitStatus() { return &mUnitStatus; }
 		UnitState* GetUnitState() { return &mUnitState; }
 
 		std::wstring GetCharName(std::wstring name) { return mUnitStatus.GetCharName(); }
 		eUnitType GetUnitType(eUnitType type) { return mUnitStatus.GetUnitType(); }
+		bool IsTrade() { return mTrade; }
+		class PlayerObject* GetOwner() { return mOwner; }
 
 		void SetAttackRange(float radius);
+		void SetPosition(Vector3 pos);
 
 	public:
 		UnitStatus mUnitStatus;
 		UnitState mUnitState;
 
+		bool mTrade;
+
 	private:
-		GameObject* mCharUI;
+		class UnitUI* mCharUI;
 
 		class UnitScript* mMonScript;
 		class CharUIScirpt* mUIScript;
+
+		class PlayerObject* mOwner;
     };
 }
 

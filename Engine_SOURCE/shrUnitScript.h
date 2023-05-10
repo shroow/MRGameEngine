@@ -1,6 +1,5 @@
 #pragma once
 #include "shrScript.h"
-#include "shrAnimator.h"
 
 namespace shr
 {
@@ -19,6 +18,12 @@ namespace shr
         void MouseControl();
         void Move();
         void Battle();
+        void Battle(class PlayerObject* enemy);
+        void StartBattle(class PlayerObject* enemy);
+        void EndBattle();
+
+        void Attack();
+        void Attack(class UnitObject* target);
 
         void CheckUnitState();
         bool UnitStateChanged();
@@ -35,8 +40,9 @@ namespace shr
         virtual void OnMouseCollisionStay() override;
         virtual void OnMouseCollisionExit() override;
 
-        void SetChar(const std::wstring& name);
-        void LoadUnitAnim(const std::wstring& name);
+
+        void SetUnitAnim(eUnitType type);
+        void LoadUnitAnim(eUnitType type);
         void LoadUnitAnim(eUnitState animState, Vector2 offset
             , Vector2 leftTop, Vector2 spriteSize
             , UINT spriteLength, float duration, eAtlasType atlasType = eAtlasType::Column);
@@ -46,29 +52,31 @@ namespace shr
         void Action();
         void End();
 
-        void SetCharName(const std::wstring& name) { mCharName = name; }
-
         void SetIsStore(bool tf) { mIsStore = tf; }
         bool GetIsStore() { return mIsStore; }
-        void StartBattle() { mIsBattle = true; }
+        void SetStartPos(Vector3 pos) { mStartPos = pos; }
 
     public:
-        std::wstring mCharName;
+        eUnitType mUnitType;
 
         class UnitStatus* mUnitStatus;
         class UnitState* mUnitState;
 
     private:
+        //Class Ctrl
+        class PlayerObject* mEnemy;
         class UnitObject* mOwner;
-        Animator* mAnimator;
-        Transform* mTransform;
+        class Animator* mAnimator;
+        class Transform* mTransform;
 
+        //Mouse Ctrl
         bool mbCursorOn;
         bool mbSelected;
+
+        //Move Ctrl
         bool mbStartMove;
         Vector2 mMovetoPos;
         Vector2 mSelectedPos;
-
         Vector3 mPrevPos;
         float mMove;
         Vector2 mMoveDir;
@@ -76,8 +84,8 @@ namespace shr
 
 
         bool mIsStore;
-        bool mIsTraded;
         bool mIsBattle;
+        Vector3 mStartPos;
     };
 }
 

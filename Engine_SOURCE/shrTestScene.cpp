@@ -21,6 +21,8 @@
 #include "shrUnitObject.h"
 #include "shrUnitScript.h"
 #include "shrMouseScript.h"
+#include "shrMouseObject.h"
+#include "shrSceneInfo.h"
 
 namespace shr
 {
@@ -33,20 +35,14 @@ namespace shr
 	}
 	void TestScene::Initialize()
 	{
-		LoadResources();
+		//SceneInfo::LoadResourcesInfo();
+		//LoadResources();
 
 		//GameObject* cameraObj = object::Instantiate<GameObject>(eLayerType::Camera, this);
 		//Camera* cameraComp = cameraObj->AddComponent<Camera>();
 		////cameraComp->RegisterCameraInRenderer();
 		//cameraComp->TurnLayerMask(eLayerType::UI, false);
 		//cameraObj->AddComponent<CameraScript>();
-
-		//Mouse
-		{
-			GameObject* obj = object::Instantiate<GameObject>(eLayerType::Mouse);
-			//obj->AddComponent<MouseScript>();
-			object::DontDestroyOnLoad(obj);
-		}
 
 		// Main Camera Game Object
 		mMainCamera = object::Instantiate<GameObject>(eLayerType::Camera);
@@ -65,14 +61,70 @@ namespace shr
 		//cameraUIComp->DisableLayerMasks();
 		//cameraUIComp->TurnLayerMask(eLayerType::SystemUI, true);
 
-		//Directional Light
+		//Statics (light, player, mouse)
 		{
-			GameObject* directionalLight = object::Instantiate<GameObject>(eLayerType::Player);
-			directionalLight->GetComponent<Transform>()->SetPosition(Vector3(0.0f, 0.0f, -100.0f));
-			Light* lightComp = directionalLight->AddComponent<Light>();
-			lightComp->SetType(eLightType::Directional);
-			lightComp->SetDiffuse(Vector4(1.0f, 1.0f, 1.0f, 1.0f));
-			object::DontDestroyOnLoad(directionalLight);
+			//Directional Light
+			{
+				GameObject* directionalLight = object::Instantiate<GameObject>(eLayerType::Player);
+				directionalLight->GetComponent<Transform>()->SetPosition(Vector3(0.0f, 0.0f, -100.0f));
+				Light* lightComp = directionalLight->AddComponent<Light>();
+				lightComp->SetType(eLightType::Directional);
+				lightComp->SetDiffuse(Vector4(1.0f, 1.0f, 1.0f, 1.0f));
+				object::DontDestroyOnLoad(directionalLight);
+			}
+			//Player
+			{
+				PlayerObject* player = object::Instantiate<PlayerObject>(eLayerType::Player);
+				player->SetName(L"Player");
+
+				Transform* tr = player->GetComponent<Transform>();
+				tr->SetPosition(Vector3(-1.f, -1.f, 4.0f));
+				tr->SetRotation(Vector3(0.f, 0.f, 0.f));
+				tr->SetScale(Vector3(6.0f, 6.0f, 1.0f));
+
+				player->SetPlayerState(ePlayerType::Player);
+
+				PlayerScript* playerScript = player->GetPlayerScirpt();
+
+				object::DontDestroyOnLoad(player);
+
+				SceneManager::SetPlayer(player);
+			}
+			//Mouse
+			{
+				MouseObject* mouse = object::Instantiate<MouseObject>(eLayerType::Mouse);
+				mouse->SetName(L"Mouse");
+				object::DontDestroyOnLoad(mouse);
+				SceneManager::SetMouse(mouse);
+			}
+
+			//Field(Player)
+			{
+				GameObject* obj = object::Instantiate<GameObject>(eLayerType::Background);
+				obj->SetName(L"PlayerField");
+				Transform* tr = obj->GetComponent<Transform>();
+				tr->SetPosition(Vector3(-25.f, 0.f, 100.f));
+				Collider2D* collider = obj->AddComponent<Collider2D>();
+				collider->SetName(L"PlayerFieldCollider");
+				collider->SetType(eColliderType::Rect);
+				collider->SetSize(Vector2(40.0f, 40.0f));
+
+				object::DontDestroyOnLoad(obj);
+			}
+
+			//Field(Monster)
+			{
+				GameObject* obj = object::Instantiate<GameObject>(eLayerType::Background);
+				obj->SetName(L"MonsterField");
+				Transform* tr = obj->GetComponent<Transform>();
+				tr->SetPosition(Vector3(25.f, 0.f, 100.f));
+				Collider2D* collider = obj->AddComponent<Collider2D>();
+				collider->SetName(L"MonsterFieldCollider");
+				collider->SetType(eColliderType::Rect);
+				collider->SetSize(Vector2(40.0f, 40.0f));
+
+				object::DontDestroyOnLoad(obj);
+			}
 		}
 
 	////Particle
@@ -128,198 +180,16 @@ namespace shr
 			//그리드(10.f) 한칸당 반지름 20.f
 			collider->SetRadius(90.f);
 		}
-
-		//Field(Player)
-		{
-			GameObject* obj = object::Instantiate<GameObject>(eLayerType::Background);
-			obj->SetName(L"PlayerField");
-			Transform* tr = obj->GetComponent<Transform>();
-			tr->SetPosition(Vector3(-25.f, 0.f, 100.f));
-			Collider2D* collider = obj->AddComponent<Collider2D>();
-			collider->SetName(L"PlayerFieldCollider");
-			collider->SetType(eColliderType::Rect);
-			collider->SetSize(Vector2(40.0f, 40.0f));
-		}
-
-		//Field(Monster)
-		{
-			GameObject* obj = object::Instantiate<GameObject>(eLayerType::Background);
-			obj->SetName(L"MonsterField");
-			Transform* tr = obj->GetComponent<Transform>();
-			tr->SetPosition(Vector3(25.f, 0.f, 100.f));
-			Collider2D* collider = obj->AddComponent<Collider2D>();
-			collider->SetName(L"MonsterFieldCollider");
-			collider->SetType(eColliderType::Rect);
-			collider->SetSize(Vector2(40.0f, 40.0f));
-		}
-
-		//FreeKnightv1c1 _1
-		{
-			UnitObject* obj = object::Instantiate<UnitObject>(eLayerType::Monster);
-			obj->SetName(L"FreeKnight");
-			obj->SetChar(eUnitType::FreeKnight, L"FreeKnight");
-			Transform* tr = obj->GetComponent<Transform>();
-			tr->SetPosition(Vector3(-20.0f, 3.5f, 10.f));
-			tr->SetRotation(Vector3(0.f, 0.f, 0.f));
-			tr->SetScale(Vector3(6.0f, 6.0f, 1.0f));
-
-			//Animation add(using script)
-			UnitScript* monScript = obj->GetScript<UnitScript>();
-			{
-				monScript->LoadUnitAnim(eUnitState::Idle, Vector2::Zero
-					, Vector2(0.f, 33.f), Vector2(120.f, 47.f)
-					, 10, 0.1f, eAtlasType::Column);
-				monScript->LoadUnitAnim(eUnitState::Attack, Vector2::Zero
-					, Vector2(0.f, 33.f), Vector2(120.f, 47.f)
-					, 10, 0.1f, eAtlasType::Column);
-				monScript->LoadUnitAnim(eUnitState::Skill, Vector2::Zero
-					, Vector2(0.f, 33.f), Vector2(120.f, 47.f)
-					, 12, 0.1f, eAtlasType::Column);
-				monScript->LoadUnitAnim(eUnitState::Death, Vector2::Zero
-					, Vector2(0.f, 33.f), Vector2(120.f, 47.f)
-					, 10, 0.1f, eAtlasType::Column);
-				monScript->LoadUnitAnim(eUnitState::Run, Vector2::Zero
-					, Vector2(0.f, 33.f), Vector2(120.f, 47.f)
-					, 10, 0.1f, eAtlasType::Column);
-				monScript->LoadUnitAnim(eUnitState::Hit, Vector2::Zero
-					, Vector2(0.f, 33.f), Vector2(120.f, 47.f)
-					, 1, 0.1f, eAtlasType::Column);
-			}
-			monScript->PlayUnitAnim(eUnitState::Idle);
-		}
-
-		//BallandChainBot _1
-		{
-			UnitObject* obj = object::Instantiate<UnitObject>(eLayerType::Monster);
-			obj->SetName(L"BallandChainBot");
-			obj->SetChar(eUnitType::BallandChainBot, L"BallandChainBot");
-
-			Transform* tr = obj->GetComponent<Transform>();
-			tr->SetPosition(Vector3(12.5f, 10.0f, 10.f));
-			tr->SetRotation(Vector3(0.f, 0.f, 0.f));
-			tr->SetScale(Vector3(6.0f, 6.0f, 1.0f));
-
-			//Animation add(using script)
-			UnitScript* monScript = obj->GetScript<UnitScript>();
-			{
-				monScript->LoadUnitAnim(eUnitState::Idle, Vector2::Zero
-					, Vector2(0.f, 0.f), Vector2(126.f, 39.f)
-					, 5, 0.1f, eAtlasType::Row);
-				monScript->LoadUnitAnim(eUnitState::Attack, Vector2(-0.1f, 0.f)
-					, Vector2(0.f, 0.f), Vector2(126.f, 39.f)
-					, 8, 0.1f, eAtlasType::Row);
-				monScript->LoadUnitAnim(eUnitState::Skill, Vector2::Zero
-					, Vector2(0.f, 0.f), Vector2(126.f, 39.f)
-					, 4, 0.1f, eAtlasType::Row);
-				monScript->LoadUnitAnim(eUnitState::Death, Vector2::Zero
-					, Vector2(0.f, 0.f), Vector2(126.f, 39.f)
-					, 5, 0.1f, eAtlasType::Row);
-				monScript->LoadUnitAnim(eUnitState::Run, Vector2::Zero
-					, Vector2(0.f, 0.f), Vector2(126.f, 39.f)
-					, 8, 0.1f, eAtlasType::Row);
-				monScript->LoadUnitAnim(eUnitState::Hit, Vector2::Zero
-					, Vector2(0.f, 0.f), Vector2(126.f, 39.f)
-					, 2, 0.1f, eAtlasType::Row);
-			}
-			monScript->PlayUnitAnim(eUnitState::Idle);
-
-			monScript->SetIsStore(true);
-		}
-
-
-		//BallandChainBot _1
-		{
-			UnitObject* obj = object::Instantiate<UnitObject>(eLayerType::Monster);
-			obj->SetName(L"BallandChainBot");
-			obj->SetChar(eUnitType::BallandChainBot, L"BallandChainBot");
-
-			Transform* tr = obj->GetComponent<Transform>();
-			tr->SetPosition(Vector3(25.0f, 0.0f, 10.f));
-			tr->SetRotation(Vector3(0.f, 0.f, 0.f));
-			tr->SetScale(Vector3(6.0f, 6.0f, 1.0f));
-
-			//Animation add(using script)
-			UnitScript* monScript = obj->GetScript<UnitScript>();
-			{
-				monScript->LoadUnitAnim(eUnitState::Idle, Vector2::Zero
-					, Vector2(0.f, 0.f), Vector2(126.f, 39.f)
-					, 5, 0.1f, eAtlasType::Row);
-				monScript->LoadUnitAnim(eUnitState::Attack, Vector2(-0.1f, 0.f)
-					, Vector2(0.f, 0.f), Vector2(126.f, 39.f)
-					, 8, 0.1f, eAtlasType::Row);
-				monScript->LoadUnitAnim(eUnitState::Skill, Vector2::Zero
-					, Vector2(0.f, 0.f), Vector2(126.f, 39.f)
-					, 4, 0.1f, eAtlasType::Row);
-				monScript->LoadUnitAnim(eUnitState::Death, Vector2::Zero
-					, Vector2(0.f, 0.f), Vector2(126.f, 39.f)
-					, 5, 0.1f, eAtlasType::Row);
-				monScript->LoadUnitAnim(eUnitState::Run, Vector2::Zero
-					, Vector2(0.f, 0.f), Vector2(126.f, 39.f)
-					, 8, 0.1f, eAtlasType::Row);
-				monScript->LoadUnitAnim(eUnitState::Hit, Vector2::Zero
-					, Vector2(0.f, 0.f), Vector2(126.f, 39.f)
-					, 2, 0.1f, eAtlasType::Row);
-			}
-			monScript->PlayUnitAnim(eUnitState::Idle);
-
-			monScript->SetIsStore(true);
-		}
-
-
-		//Coin
-		{
-			GameObject* hpBar = object::Instantiate<GameObject>(eLayerType::SystemUI);
-			hpBar->SetName(L"CoinUI");
-			Transform* hpBarTR = hpBar->GetComponent<Transform>();
-			hpBarTR->SetPosition(Vector3(-10.2f, -3.9f, 12.0f));
-			hpBarTR->SetScale(Vector3(2.5f, 1.5f, 1.0f));
-
-			SpriteRenderer* hpsr = hpBar->AddComponent<SpriteRenderer>();
-			hpBar->AddComponent(hpsr);
-			std::shared_ptr<Mesh> hpmesh = Resources::Find<Mesh>(L"RectMesh");
-			std::shared_ptr<Material> hpspriteMaterial = std::make_shared<Material>();
-			hpspriteMaterial->SetTexture(eTextureSlot::T0, Resources::Find<Texture>(L"MoneyPanelTexture"));
-			hpspriteMaterial->SetShader(Resources::Find<Shader>(L"UIShader"));
-			hpsr->SetMesh(hpmesh);
-			hpsr->SetMaterial(hpspriteMaterial);
-		}
-
-		//TempNum
-		{
-			GameObject* hpBar = object::Instantiate<GameObject>(eLayerType::SystemUI);
-			hpBar->SetName(L"CoinUI");
-			Transform* hpBarTR = hpBar->GetComponent<Transform>();
-			hpBarTR->SetPosition(Vector3(-9.7f, -4.0f, 12.0f));
-			hpBarTR->SetScale(Vector3(0.8f, 0.8f, 1.0f));
-
-			SpriteRenderer* hpsr = hpBar->AddComponent<SpriteRenderer>();
-			hpBar->AddComponent(hpsr);
-			std::shared_ptr<Mesh> hpmesh = Resources::Find<Mesh>(L"RectMesh");
-			std::shared_ptr<Material> hpspriteMaterial = std::make_shared<Material>();
-			hpspriteMaterial->SetTexture(eTextureSlot::T0, Resources::Find<Texture>(L"TempNumTexture"));
-			hpspriteMaterial->SetShader(Resources::Find<Shader>(L"UIShader"));
-			hpsr->SetMesh(hpmesh);
-			hpsr->SetMaterial(hpspriteMaterial);
-		}
-
-
-		CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::Monster);
-		CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::Background);
-		CollisionManager::CollisionLayerCheck(eLayerType::Monster, eLayerType::Background);
-		CollisionManager::MouseCollisionLayerCheck(eLayerType::Player);
-		CollisionManager::MouseCollisionLayerCheck(eLayerType::Monster);
-
-		//Scene::Initialize();
 	}
 	void TestScene::Update()
 	{
-		if (Input::GetKeyDown(eKeyCode::N))
+		if (Input::GetKeyDown(eKeyCode::K))
 		{
 			SceneManager::LoadScene(eSceneType::Title);
 		}
 
 
-		if (Input::GetKeyDown(eKeyCode::K))
+		if (Input::GetKeyDown(eKeyCode::N))
 		{
 			SceneManager::LoadScene(eSceneType::Store);
 		}
@@ -370,24 +240,27 @@ namespace shr
 
 		//Ball and Chain Bot /Row
 		{
+			eUnitType::BallandChainBot;
+
 			/// 126x195/5
-			Resources::Load<Texture>(L"BallandChainBot_Idle", L"Monsters\\Ball and Chain Bot\\idle.png");
+			Resources::Load<Texture>(L"1_Idle", L"Monsters\\Ball and Chain Bot\\idle.png");
 			/// 126x312/8
-			Resources::Load<Texture>(L"BallandChainBot_Attack", L"Monsters\\Ball and Chain Bot\\attack.png");
+			Resources::Load<Texture>(L"1_Attack", L"Monsters\\Ball and Chain Bot\\attack.png");
 			/// 126x156/4
-			Resources::Load<Texture>(L"BallandChainBot_Charge", L"Monsters\\Ball and Chain Bot\\charge.png");
+			Resources::Load<Texture>(L"1_Charge", L"Monsters\\Ball and Chain Bot\\charge.png");
 			/// 126x195/5
-			Resources::Load<Texture>(L"BallandChainBot_Death", L"Monsters\\Ball and Chain Bot\\death.png");
+			Resources::Load<Texture>(L"1_Death", L"Monsters\\Ball and Chain Bot\\death.png");
 			/// 126x78/2
-			Resources::Load<Texture>(L"BallandChainBot_Hit", L"Monsters\\Ball and Chain Bot\\hit.png");
+			Resources::Load<Texture>(L"1_Hit", L"Monsters\\Ball and Chain Bot\\hit.png");
 			/// 126x312/8
-			Resources::Load<Texture>(L"BallandChainBot_Run", L"Monsters\\Ball and Chain Bot\\run.png");
+			Resources::Load<Texture>(L"1_Run", L"Monsters\\Ball and Chain Bot\\run.png");
 			/// 126x78/2
-			Resources::Load<Texture>(L"BallandChainBot_TransitionCharge", L"Monsters\\Ball and Chain Bot\\transition to charge.png");
+			Resources::Load<Texture>(L"1_TransitionCharge", L"Monsters\\Ball and Chain Bot\\transition to charge.png");
 		}
 
 		//FreeKight_v1  /Column
 		{
+			eUnitType::FreeKnight;
 			//////Colour1
 			/// 480x80/5
 			//Resources::Load<Texture>(L"FreeKnightv1c1_Attack", L"FreeKnight_v1\\Colour1\\_Attack.png");
@@ -398,21 +271,21 @@ namespace shr
 			/// 1200x80/10							
 			//Resources::Load<Texture>(L"FreeKnightv1c1_AttackCombo", L"FreeKnight_v1\\Colour1\\_AttackCombo.png");
 			/// 1200x80/10							
-			Resources::Load<Texture>(L"FreeKnight_Attack", L"FreeKnight_v1\\Colour1\\_AttackComboNoMovement.png");
+			Resources::Load<Texture>(L"0_Attack", L"FreeKnight_v1\\Colour1\\_AttackComboNoMovement.png");
 			/// 480x80_4					
 			//Resources::Load<Texture>(L"FreeKnightv1c1_AttackNoMovement", L"FreeKnight_v1\\Colour1\\_AttackNoMovement.png");
 			/// 1200x80_10							
-			Resources::Load<Texture>(L"FreeKnight_Death", L"FreeKnight_v1\\Colour1\\_Death.png");
+			Resources::Load<Texture>(L"0_Death", L"FreeKnight_v1\\Colour1\\_Death.png");
 			/// 1200x80_10							
 			//Resources::Load<Texture>(L"FreeKnightv1c1_DeathNoMovement", L"FreeKnight_v1\\Colour1\\_DeathNoMovement.png");
 			/// 120x80_1							
-			Resources::Load<Texture>(L"FreeKnight_Hit", L"FreeKnight_v1\\Colour1\\_Hit.png");
+			Resources::Load<Texture>(L"0_Hit", L"FreeKnight_v1\\Colour1\\_Hit.png");
 			/// 1200x80_10							
-			Resources::Load<Texture>(L"FreeKnight_Idle", L"FreeKnight_v1\\Colour1\\_Idle.png");
+			Resources::Load<Texture>(L"0_Idle", L"FreeKnight_v1\\Colour1\\_Idle.png");
 			/// 1440x80_12							
-			Resources::Load<Texture>(L"FreeKnight_Skill", L"FreeKnight_v1\\Colour1\\_Roll.png");
+			Resources::Load<Texture>(L"0_Skill", L"FreeKnight_v1\\Colour1\\_Roll.png");
 			/// 1200x80_10							
-			Resources::Load<Texture>(L"FreeKnight_Run", L"FreeKnight_v1\\Colour1\\_Run.png");
+			Resources::Load<Texture>(L"0_Run", L"FreeKnight_v1\\Colour1\\_Run.png");
 
 			/////Colour2
 			/// 480x80/5

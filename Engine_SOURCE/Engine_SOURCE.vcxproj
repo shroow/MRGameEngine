@@ -183,8 +183,8 @@
     <ClInclude Include="shrGraphicDevice_DX11.h" />
     <ClInclude Include="shrGraphics.h" />
     <ClInclude Include="shrGridScript.h" />
+    <ClInclude Include="shrNumUI.h" />
     <ClInclude Include="shrPlayerObject.h" />
-    <ClInclude Include="shrHeroScript.h" />
     <ClInclude Include="shrInput.h" />
     <ClInclude Include="shrLayer.h" />
     <ClInclude Include="shrLight.h" />
@@ -193,6 +193,7 @@
     <ClInclude Include="shrMesh.h" />
     <ClInclude Include="shrMeshRenderer.h" />
     <ClInclude Include="shrMonster.h" />
+    <ClInclude Include="shrSceneInfo.h" />
     <ClInclude Include="shrStoreScript.h" />
     <ClInclude Include="shrTimerObject.h" />
     <ClInclude Include="shrUnitScript.h" />
@@ -229,6 +230,7 @@
     <ClInclude Include="shrUnitStatus.h" />
     <ClInclude Include="shrUnitUI.h" />
     <ClInclude Include="shrStoreScene.h" />
+    <ClInclude Include="shrUnitInfo.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="shrBattleScene.cpp" />
@@ -254,8 +256,8 @@
     <ClCompile Include="shrGameObject.cpp" />
     <ClCompile Include="shrGraphicDevice_DX11.cpp" />
     <ClCompile Include="shrGridScript.cpp" />
+    <ClCompile Include="shrNumUI.cpp" />
     <ClCompile Include="shrPlayerObject.cpp" />
-    <ClCompile Include="shrHeroScript.cpp" />
     <ClCompile Include="shrInput.cpp" />
     <ClCompile Include="shrLayer.cpp" />
     <ClCompile Include="shrLight.cpp" />
@@ -298,6 +300,7 @@
     <ClCompile Include="shrUnitStatus.cpp" />
     <ClCompile Include="shrUnitUI.cpp" />
     <ClCompile Include="shrStoreScene.cpp" />
+    <ClCompile Include="shrSceneInfo.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\External\DirectXTex\Include\DirectXTex.inl" />

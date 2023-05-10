@@ -10,6 +10,8 @@ namespace shr
         BattleScene();
         virtual ~BattleScene();
 
+        virtual void Start() override;
+
         virtual void Initialize() override;
         virtual void Update() override;
         virtual void FixedUpdate() override;
@@ -18,14 +20,17 @@ namespace shr
         virtual void OnEnter() override;
         virtual void OnExit() override;
 
+        void Battle();
+
+        void GetEnemy();
+
         void LoadResources();
 
-        void CreateMonster(int num, Vector3 pos);
+        void CreateMonster(eUnitType type, Vector3 pos);
 
-        std::vector<class UnitObject*>& GetUnitDeck() { return mUnitDeck; }
+        class PlayerObject* GetStore() { return mEnemy; }
 
     private:
-        size_t mDeckSize;
-        std::vector<class UnitObject*> mUnitDeck;
+        class PlayerObject* mEnemy;
     };
 }
