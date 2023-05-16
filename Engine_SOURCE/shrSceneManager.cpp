@@ -20,6 +20,7 @@
 #include "shrTestScene.h"
 #include "shrStoreScene.h"
 #include "shrBattleScene.h"
+#include "shrBackgroundScene.h"
 
 #include "shrObject.h"
 #include "shrMouseScript.h"
@@ -41,6 +42,7 @@ namespace shr
 	{
 		mSceneVec.resize((UINT)eSceneType::End);
 
+		mSceneVec[(UINT)eSceneType::Background] = new BackgroundScene();
 		mSceneVec[(UINT)eSceneType::Test] = new TestScene();
 		mSceneVec[(UINT)eSceneType::Title] = new TitleScene();
 		mSceneVec[(UINT)eSceneType::Play] = new PlayScene();
@@ -57,6 +59,10 @@ namespace shr
 		//}
 
 		SceneInfo::LoadResourcesInfo();
+
+		mSceneVec[(UINT)eSceneType::Background]->Start();
+		mSceneVec[(UINT)eSceneType::Background]->Initialize();
+
 		mActiveScene->Start();
 		mActiveScene->Initialize();
 		mainCamera = mActiveScene->GetMainCamera()->GetComponent<Camera>();

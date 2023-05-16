@@ -201,6 +201,12 @@
     <ClCompile Include="shrNumUI.cpp">
       <Filter>GameObject\UI\Num</Filter>
     </ClCompile>
+    <ClCompile Include="shrBackgroundScene.cpp">
+      <Filter>Scene\BackgroundScene</Filter>
+    </ClCompile>
+    <ClCompile Include="shrSettingScene.cpp">
+      <Filter>Scene\SettingScene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="shrMultiShaderRenderer.h" />
@@ -425,6 +431,12 @@
     <ClInclude Include="shrUnitInfo.h">
       <Filter>UnitSetting</Filter>
     </ClInclude>
+    <ClInclude Include="shrBackgroundScene.h">
+      <Filter>Scene\BackgroundScene</Filter>
+    </ClInclude>
+    <ClInclude Include="shrSettingScene.h">
+      <Filter>Scene\SettingScene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\External\DirectXTex\Include\DirectXTex.inl">
@@ -581,6 +593,12 @@
     </Filter>
     <Filter Include="GameObject\UI\Num">
       <UniqueIdentifier>{7ece96a6-b536-45b9-a36e-187084c89be8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\BackgroundScene">
+      <UniqueIdentifier>{ea78e39f-26c8-411e-82fc-539931a99e31}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\SettingScene">
+      <UniqueIdentifier>{be34c2ec-e595-4454-94ad-7ac57f9d684c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

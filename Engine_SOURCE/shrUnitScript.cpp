@@ -101,19 +101,11 @@ namespace shr
 	{
 		Vector3 pos = mTransform->GetPosition();
 
-		if (mbCursorOn)
-		{
-			if (Input::GetMouseLeftDown())
-				mbSelected = true;
-		}
+		if (mbCursorOn && Input::GetMouseLeftDown())
+			mbSelected = true;
 
-		if (mbSelected && !mbCursorOn)
-		{
-			if (Input::GetMouseLeftDown())
-				mbSelected = false;
-		}
 
-		if (mbSelected && mbCursorOn)
+		if (mbSelected)
 		{
 			if (Input::GetMouseLeftDown())
 			{
@@ -149,6 +141,7 @@ namespace shr
 						mIsStore = false;
 						mOwner->SetTrade(false);
 						mbStartMove = false;
+						mbSelected = false;
 					}
 					else
 					{
@@ -156,6 +149,7 @@ namespace shr
 						pos.y = mSelectedPos.y;
 
 						mbStartMove = false;
+						mbSelected = false;
 					}
 				}
 				else if (mOwner->IsTrade())
@@ -182,10 +176,13 @@ namespace shr
 					pos.y = mSelectedPos.y;
 
 					mbStartMove = false;
+					mbSelected = false;
 				}
 			}
 		}
-		else if (mbSelected && !mIsStore)
+
+
+		if (mbSelected && !mIsStore)
 		{
 			if (Input::GetMouseRightDown() || Input::GetMouseRightPressed())
 			{

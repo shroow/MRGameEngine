@@ -4,11 +4,13 @@ namespace shr::enums
 {
 	enum class eSceneType
 	{
+		Background,
 		Test,
 		Title,
 		Play,
 		Store,
 		Battle,
+		Setting,
 		End,
 	};
 

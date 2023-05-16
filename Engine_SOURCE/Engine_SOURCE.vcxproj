@@ -157,6 +157,7 @@
   <ItemGroup>
     <ClInclude Include="..\External\DirectXTex\Include\DirectXTex.h" />
     <ClInclude Include="CommonInclude.h" />
+    <ClInclude Include="shrBackgroundScene.h" />
     <ClInclude Include="shrBattleScene.h" />
     <ClInclude Include="shrBattleScirpt.h" />
     <ClInclude Include="shrHero.h" />
@@ -194,6 +195,7 @@
     <ClInclude Include="shrMeshRenderer.h" />
     <ClInclude Include="shrMonster.h" />
     <ClInclude Include="shrSceneInfo.h" />
+    <ClInclude Include="shrSettingScene.h" />
     <ClInclude Include="shrStoreScript.h" />
     <ClInclude Include="shrTimerObject.h" />
     <ClInclude Include="shrUnitScript.h" />
@@ -233,6 +235,7 @@
     <ClInclude Include="shrUnitInfo.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="shrBackgroundScene.cpp" />
     <ClCompile Include="shrBattleScene.cpp" />
     <ClCompile Include="shrBattleScirpt.cpp" />
     <ClCompile Include="shrHero.cpp" />
@@ -266,6 +269,7 @@
     <ClCompile Include="shrMesh.cpp" />
     <ClCompile Include="shrMeshRenderer.cpp" />
     <ClCompile Include="shrMonster.cpp" />
+    <ClCompile Include="shrSettingScene.cpp" />
     <ClCompile Include="shrStoreScript.cpp" />
     <ClCompile Include="shrTimerObject.cpp" />
     <ClCompile Include="shrUnitScript.cpp" />

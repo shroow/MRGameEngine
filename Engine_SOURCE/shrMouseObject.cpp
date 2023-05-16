@@ -1,5 +1,6 @@
 #include "shrMouseObject.h"
 #include "shrInput.h"
+#include "shrUnitObject.h"
 
 namespace shr
 {
@@ -26,7 +27,7 @@ namespace shr
 		Vector2 pos = Input::GetMouseWorldPos();
 		tr->SetPosition(Vector3(pos.x, pos.y, 1.f));
 
-
+		MoveUnit();
 	}
 	void MouseObject::FixedUpdate()
 	{
@@ -40,5 +41,9 @@ namespace shr
 	void MouseObject::Die()
 	{
 		GameObject::Die();
+	}
+
+	void MouseObject::MoveUnit()
+	{
 	}
 }
