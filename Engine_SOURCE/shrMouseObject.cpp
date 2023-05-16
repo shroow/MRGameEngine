@@ -37,4 +37,8 @@ namespace shr
 	{
 		GameObject::Render();
 	}
+	void MouseObject::Die()
+	{
+		GameObject::Die();
+	}
 }

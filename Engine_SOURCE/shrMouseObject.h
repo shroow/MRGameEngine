@@ -10,10 +10,14 @@ namespace shr
 		MouseObject();
 		virtual ~MouseObject();
 
-		virtual void Initialize();
-		virtual void Update();
-		virtual void FixedUpdate();
-		virtual void Render();
+		virtual void Initialize() override;
+		virtual void Update() override;
+		virtual void FixedUpdate() override;
+		virtual void Render() override;
+
+		virtual void Die() override;
+
+		void MoveUnit();
 
 	public:
 		bool IsSelected() { return mIsSelected; }
