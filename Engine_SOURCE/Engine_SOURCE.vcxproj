@@ -160,6 +160,8 @@
     <ClInclude Include="shrBackgroundScene.h" />
     <ClInclude Include="shrBattleScene.h" />
     <ClInclude Include="shrBattleScirpt.h" />
+    <ClInclude Include="shrButtonUI.h" />
+    <ClInclude Include="shrFileSystem.h" />
     <ClInclude Include="shrHero.h" />
     <ClInclude Include="shrAnimation.h" />
     <ClInclude Include="shrAnimator.h" />
@@ -238,6 +240,8 @@
     <ClCompile Include="shrBackgroundScene.cpp" />
     <ClCompile Include="shrBattleScene.cpp" />
     <ClCompile Include="shrBattleScirpt.cpp" />
+    <ClCompile Include="shrButtonUI.cpp" />
+    <ClCompile Include="shrFileSystem.cpp" />
     <ClCompile Include="shrHero.cpp" />
     <ClCompile Include="shrAnimation.cpp" />
     <ClCompile Include="shrAnimator.cpp" />

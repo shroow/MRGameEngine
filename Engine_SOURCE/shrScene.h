@@ -29,11 +29,15 @@ namespace shr
 		std::vector<GameObject*> GetDontDestroyGameObjects();
 		const std::vector<GameObject*>& GetGameObjectVec(const eLayerType type);
 
+		void SetCameraOn(bool tf) { mCameraOn = tf; }
+		bool GetCameraOn() { return mCameraOn; }
+
 		//Debug Check(SceneManager)
 		std::vector<Layer> GetLayerVec() { return mLayerVec; }
 		GameObject* GetMainCamera() { return mMainCamera; }
 
 	protected:
+		bool mCameraOn;
 		GameObject* mMainCamera;
 
 	private:

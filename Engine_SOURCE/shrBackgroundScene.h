@@ -25,6 +25,8 @@ namespace shr
         void LoadBackground();
 
     private:
+        bool mCameraOn;
+
         GameObject* mBackground;
     };
 }

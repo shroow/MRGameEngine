@@ -112,35 +112,6 @@ namespace shr
 			}
 		}
 
-		//Static
-		{
-			//Player
-			{
-				PlayerObject* player = object::Instantiate<PlayerObject>(eLayerType::Player);
-				player->SetName(L"Player");
-
-				Transform* tr = player->GetComponent<Transform>();
-				tr->SetPosition(Vector3(-1.f, -1.f, 4.0f));
-				tr->SetRotation(Vector3(0.f, 0.f, 0.f));
-				tr->SetScale(Vector3(6.0f, 6.0f, 1.0f));
-
-				player->SetPlayerState(ePlayerType::Player);
-
-				PlayerScript* playerScript = player->GetPlayerScirpt();
-
-				player->DontDestroy(true);
-
-				SceneManager::SetPlayer(player);
-			}
-			//Mouse
-			{
-				MouseObject* mouse = object::Instantiate<MouseObject>(eLayerType::Mouse);
-				mouse->SetName(L"Mouse");
-				mouse->DontDestroy(true);
-				SceneManager::SetMouse(mouse);
-			}
-		}
-
 	}
 
 	void StoreScene::Initialize()
@@ -150,6 +121,7 @@ namespace shr
 
 		// Main Camera Game Object
 		mMainCamera = object::Instantiate<GameObject>(eLayerType::Camera);
+		mMainCamera->SetName(L"StoreSceneCamera");
 		mMainCamera->GetComponent<Transform>()->SetPosition(Vector3(0.f, 0.f, 0.f));
 		Camera* cameraComp = mMainCamera->AddComponent<Camera>();
 		cameraComp->SetProjectionType(Camera::eProjectionType::Orthographic);

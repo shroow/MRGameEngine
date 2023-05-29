@@ -10,6 +10,7 @@ namespace shr
         TitleScene();
         virtual ~TitleScene();
 
+        virtual void Start() override;
         virtual void Initialize() override;
         virtual void Update() override;
         virtual void FixedUpdate() override;

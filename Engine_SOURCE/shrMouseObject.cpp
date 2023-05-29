@@ -16,6 +16,8 @@ namespace shr
 
 	void MouseObject::Initialize()
 	{
+		Transform* tr = GetComponent<Transform>();
+		tr->SetPosition(Vector3(0.f, 0.f, 1.f));
 	}
 
 	void MouseObject::Update()

@@ -44,6 +44,7 @@ namespace shr
 
 		// Main Camera Game Object
 		mMainCamera = object::Instantiate<GameObject>(eLayerType::Camera);
+		mMainCamera->SetName(L"BattleSceneCamera");
 		mMainCamera->GetComponent<Transform>()->SetPosition(Vector3(0.f, 0.f, 0.f));
 		Camera* cameraComp = mMainCamera->AddComponent<Camera>();
 		cameraComp->SetProjectionType(Camera::eProjectionType::Orthographic);

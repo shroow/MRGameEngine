@@ -12,14 +12,14 @@
 #include "shrObject.h"
 #include "shrInput.h"
 #include "shrCollider2D.h"
-#include "shrPlayer.h"
-#include "shrMonster.h"
 #include "shrCollisionManager.h"
 #include "shrAnimator.h"
 #include "shrLight.h"
 #include "shrPaintShader.h"
 #include "shrUnitScript.h"
 #include "shrParticleSystem.h"
+#include "shrPlayerObject.h"
+#include "shrMouseObject.h"
 
 namespace shr
 {
@@ -35,6 +35,41 @@ namespace shr
 	void TitleScene::Initialize()
 	{
 	}
+
+	void TitleScene::Start()
+	{
+		Scene::Start();
+
+		//Static
+		{
+			//Player
+			{
+				PlayerObject* player = object::Instantiate<PlayerObject>(eLayerType::Player);
+				player->SetName(L"Player");
+
+				Transform* tr = player->GetComponent<Transform>();
+				tr->SetPosition(Vector3(-1.f, -1.f, 4.0f));
+				tr->SetRotation(Vector3(0.f, 0.f, 0.f));
+				tr->SetScale(Vector3(6.0f, 6.0f, 1.0f));
+
+				player->SetPlayerState(ePlayerType::Player);
+
+				PlayerScript* playerScript = player->GetPlayerScirpt();
+
+				player->DontDestroy(true);
+
+				SceneManager::SetPlayer(player);
+			}
+			//Mouse
+			{
+				MouseObject* mouse = object::Instantiate<MouseObject>(eLayerType::Mouse);
+				mouse->SetName(L"Mouse");
+				mouse->DontDestroy(true);
+				SceneManager::SetMouse(mouse);
+			}
+		}
+	}
+
 	void TitleScene::Update()
 	{
 		if (Input::GetKeyDown(eKeyCode::N))

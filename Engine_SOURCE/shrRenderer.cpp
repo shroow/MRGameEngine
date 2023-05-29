@@ -475,9 +475,9 @@ namespace shr::renderer
 		Resources::Load<Texture>(L"DefaultSprite", L"Light.png");
 		Resources::Load<Texture>(L"HPBarTexture", L"HPBar.png");		
 		Resources::Load<Texture>(L"CartoonSmoke", L"particle\\CartoonSmoke.png");
-		Resources::Load<Texture>(L"noise_01", L"noise\\noise_01.png");
-		Resources::Load<Texture>(L"noise_02", L"noise\\noise_02.png");
-		Resources::Load<Texture>(L"DefaultBackground", L"Background\\FullMoonbackground.png");
+		Resources::Load<Texture>(L"noise_01Texture", L"noise\\noise_01.png");
+		Resources::Load<Texture>(L"noise_02Texture", L"noise\\noise_02.png");
+		Resources::Load<Texture>(L"DefaultBackgroundTexture", L"Background\\FullMoonbackground.png");
 		//Resources::Load<Texture>(L"noise_03", L"noise\\noise_03.png");
 	#pragma endregion
 
@@ -618,7 +618,7 @@ namespace shr::renderer
 
 	void BindNoiseTexture()
 	{
-		std::shared_ptr<Texture> noise = Resources::Find<Texture>(L"noise_01");
+		std::shared_ptr<Texture> noise = Resources::Find<Texture>(L"noise_01Texture");
 		noise->BindShaderResource(eShaderStage::VS, 16);
 		noise->BindShaderResource(eShaderStage::HS, 16);
 		noise->BindShaderResource(eShaderStage::DS, 16);

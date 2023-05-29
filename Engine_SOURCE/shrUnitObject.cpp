@@ -49,6 +49,7 @@ namespace shr
 		{
 			Transform* tr = GetComponent<Transform>();
 			Collider2D* collider = AddComponent<Collider2D>();
+
 			collider->SetType(eColliderType::Rect);
 			collider->SetSize(Vector2(0.5f, 1.0f));
 

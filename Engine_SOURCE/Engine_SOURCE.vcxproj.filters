@@ -207,6 +207,9 @@
     <ClCompile Include="shrSettingScene.cpp">
       <Filter>Scene\SettingScene</Filter>
     </ClCompile>
+    <ClCompile Include="shrFileSystem.cpp">
+      <Filter>FileSystem</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="shrMultiShaderRenderer.h" />
@@ -437,6 +440,9 @@
     <ClInclude Include="shrSettingScene.h">
       <Filter>Scene\SettingScene</Filter>
     </ClInclude>
+    <ClInclude Include="shrFileSystem.h">
+      <Filter>FileSystem</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\External\DirectXTex\Include\DirectXTex.inl">
@@ -599,6 +605,9 @@
     </Filter>
     <Filter Include="Scene\SettingScene">
       <UniqueIdentifier>{be34c2ec-e595-4454-94ad-7ac57f9d684c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="FileSystem">
+      <UniqueIdentifier>{d1ef289f-f0fa-4a4b-8c71-8230e215c2f3}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

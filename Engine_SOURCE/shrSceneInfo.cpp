@@ -62,19 +62,10 @@ namespace shr
 		//FreeKight_v1  /Column
 		{
 			eUnitType::FreeKnight;
+
 			//////Colour1
-			/// 480x80/5
-			//Resources::Load<Texture>(L"FreeKnightv1c1_Attack", L"FreeKnight_v1\\Colour1\\_Attack.png");
-			/// 720x80/6							
-			//Resources::Load<Texture>(L"FreeKnightv1c1_Attack2", L"FreeKnight_v1\\Colour1\\_Attack2.png");
-			/// 720x80/6							
-			//Resources::Load<Texture>(L"FreeKnightv1c1_Attack2NoMovement", L"FreeKnight_v1\\Colour1\\_Attack2NoMovement.png");
-			/// 1200x80/10							
-			//Resources::Load<Texture>(L"FreeKnightv1c1_AttackCombo", L"FreeKnight_v1\\Colour1\\_AttackCombo.png");
 			/// 1200x80/10							
 			Resources::Load<Texture>(L"0_Attack", L"FreeKnight_v1\\Colour1\\_AttackComboNoMovement.png");
-			/// 480x80_4					
-			//Resources::Load<Texture>(L"FreeKnightv1c1_AttackNoMovement", L"FreeKnight_v1\\Colour1\\_AttackNoMovement.png");
 			/// 1200x80_10							
 			Resources::Load<Texture>(L"0_Death", L"FreeKnight_v1\\Colour1\\_Death.png");
 			/// 1200x80_10							
@@ -89,18 +80,8 @@ namespace shr
 			Resources::Load<Texture>(L"0_Run", L"FreeKnight_v1\\Colour1\\_Run.png");
 
 			/////Colour2
-			/// 480x80/5
-			//Resources::Load<Texture>(L"FreeKnightv1c2_Attack", L"FreeKnight_v1\\Colour2\\_Attack.png");
-			/// 720x80/6							  
-			//Resources::Load<Texture>(L"FreeKnightv1c2_Attack2", L"FreeKnight_v1\\Colour2\\_Attack2.png");
-			/// 720x80/6							  
-			//Resources::Load<Texture>(L"FreeKnightv1c2_Attack2NoMovement", L"FreeKnight_v1\\Colour2\\_Attack2NoMovement.png");
 			/// 1200x80/10							
 			Resources::Load<Texture>(L"FreeKnightv1c2_Attack", L"FreeKnight_v1\\Colour2\\_AttackCombo.png");
-			/// 1200x80/10							
-			//Resources::Load<Texture>(L"FreeKnightv1c2_AttackComboNoMovement", L"FreeKnight_v1\\Colour2\\_AttackComboNoMovement.png");
-			/// 480x80_4							  
-			//Resources::Load<Texture>(L"FreeKnightv1c2_AttackNoMovement", L"FreeKnight_v1\\Colour2\\_AttackNoMovement.png");
 			/// 1200x80_10							
 			Resources::Load<Texture>(L"FreeKnightv1c2_Death", L"FreeKnight_v1\\Colour2\\_Death.png");
 			/// 1200x80_10							
@@ -115,7 +96,7 @@ namespace shr
 			Resources::Load<Texture>(L"FreeKnightv1c2_Run", L"FreeKnight_v1\\Colour2\\_Run.png");
 		}
 
-		//Font
+		//Num Font
 		{
 			{
 				std::shared_ptr <Texture> uiTexture = Resources::Load<Texture>(L"Num_0", L"UI\\Font\\0.png");
@@ -207,6 +188,11 @@ namespace shr
 				uiMaterial->SetTexture(eTextureSlot::T0, uiTexture);
 				Resources::Insert<Material>(L"Material_Num_9", uiMaterial);
 			}
+		}
+
+		//Button
+		{
+
 		}
 	}
 }
