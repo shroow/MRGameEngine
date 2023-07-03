@@ -9,6 +9,7 @@ namespace shr
 	Collider2D::Collider2D()
 		: Component(eComponentType::Collider)
 		, mType(eColliderType::None)
+		, mCollisionState(eCollisionState::Idle)
 		, mTransform(nullptr)
 		, mSize(Vector2::One)
 		, mCenter(Vector2::Zero)
@@ -22,6 +23,7 @@ namespace shr
 	Collider2D::Collider2D(eComponentType type)
 		: Component(type)
 		, mType(eColliderType::None)
+		, mCollisionState(eCollisionState::Idle)
 		, mTransform(nullptr)
 		, mSize(Vector2::One)
 		, mCenter(Vector2::Zero)
@@ -43,6 +45,8 @@ namespace shr
 
 	void Collider2D::Update()
 	{
+		if (mCollisionState == eCollisionState::Exit)
+			mCollisionState = eCollisionState::Idle;
 	}
 
 	void Collider2D::FixedUpdate()
@@ -93,6 +97,7 @@ namespace shr
 		const std::vector<Script*>& scriptVec = GetOwner()->GetScriptVec();
 		for (Script* script : scriptVec)
 		{
+			mCollisionState = eCollisionState::Enter;
 			script->OnCollisionEnter(collider);
 		}
 	}
@@ -102,6 +107,7 @@ namespace shr
 		const std::vector<Script*>& scriptVec = GetOwner()->GetScriptVec();
 		for (Script* script : scriptVec)
 		{
+			mCollisionState = eCollisionState::Stay;
 			script->OnCollisionStay(collider);
 		}
 	}
@@ -111,6 +117,7 @@ namespace shr
 		const std::vector<Script*>& scriptVec = GetOwner()->GetScriptVec();
 		for (Script* script : scriptVec)
 		{
+			mCollisionState = eCollisionState::Exit;
 			script->OnCollisionExit(collider);
 		}
 	}

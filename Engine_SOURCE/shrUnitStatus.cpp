@@ -43,4 +43,31 @@ namespace shr
 	void UnitStatus::FixedUpdate()
 	{
 	}
+
+	void UnitStatus::SetUnitType(eUnitType type)
+	{
+		mUnitType = type;
+
+		TypetoStatus(type);
+	}
+	void UnitStatus::TypetoStatus(eUnitType type)
+	{
+		switch (mUnitType)
+		{
+		case shr::enums::eUnitType::None:
+			mStatus = { 100.f, 100.f,
+						100.f, 20.f,
+						10.f, 1.f, 10.f,
+						10.f, eMoveType::Ground };
+			break;
+		case shr::enums::eUnitType::FreeKnight:
+			break;
+		case shr::enums::eUnitType::BallandChainBot:
+			break;
+		case shr::enums::eUnitType::End:
+			break;
+		default:
+			break;
+		}
+	}
 }

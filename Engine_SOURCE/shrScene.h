@@ -37,6 +37,7 @@ namespace shr
 		GameObject* GetMainCamera() { return mMainCamera; }
 
 	protected:
+		bool mStart;
 		bool mCameraOn;
 		GameObject* mMainCamera;
 

@@ -4,6 +4,15 @@
 
 namespace shr
 {
+	enum class eCollisionState
+	{
+		Idle,
+		Enter,
+		Stay,
+		Exit,
+		End,
+	};
+
 	class Collider2D : 
 		public Component
 	{
@@ -34,6 +43,7 @@ namespace shr
 		void SetRadius(float radius) { mRadius = radius; }
 
 		eColliderType GetType() { return mType; }
+		eCollisionState GetCollisionState() { return mCollisionState; }
 		Vector2 GetSize() { return mSize; }
 		Vector2 GetCenter() { return mCenter; }
 		UINT GetID() { return mID; }
@@ -50,6 +60,7 @@ namespace shr
 		UINT mID;
 
 		eColliderType mType;
+		eCollisionState mCollisionState;
 		Transform* mTransform;
 
 		Vector2 mSize;

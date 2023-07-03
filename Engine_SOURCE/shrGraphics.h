@@ -115,10 +115,14 @@ namespace shr::graphics
 
 	enum class eGPUParam
 	{
-		Int,
-		Float,
-		Vector2,
-		Vector3,
+		Int_1,
+		Int_2,
+		Float_1,
+		Float_2,
+		Vector2_1,
+		Vector2_2,
+		Vector3_1,
+		Vector3_2,
 		Vector4,
 		Matrix,
 	};

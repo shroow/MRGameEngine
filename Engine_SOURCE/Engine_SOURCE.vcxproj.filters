@@ -47,21 +47,6 @@
     <ClCompile Include="shrUnitUI.cpp">
       <Filter>GameObject\Unit</Filter>
     </ClCompile>
-    <ClCompile Include="shrBullet.cpp">
-      <Filter>GameObject\Effect</Filter>
-    </ClCompile>
-    <ClCompile Include="shrSkill.cpp">
-      <Filter>GameObject\Effect</Filter>
-    </ClCompile>
-    <ClCompile Include="shrMonster.cpp">
-      <Filter>GameObject\etc</Filter>
-    </ClCompile>
-    <ClCompile Include="shrPlayer.cpp">
-      <Filter>GameObject\etc</Filter>
-    </ClCompile>
-    <ClCompile Include="shrMouseObject.cpp">
-      <Filter>GameObject\etc</Filter>
-    </ClCompile>
     <ClCompile Include="shrCameraScript.cpp">
       <Filter>Script\functional</Filter>
     </ClCompile>
@@ -210,6 +195,57 @@
     <ClCompile Include="shrFileSystem.cpp">
       <Filter>FileSystem</Filter>
     </ClCompile>
+    <ClCompile Include="shrUIBase.cpp">
+      <Filter>GameObject\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="shrButtonUI.cpp">
+      <Filter>GameObject\UI\Button</Filter>
+    </ClCompile>
+    <ClCompile Include="shrButtonScript.cpp">
+      <Filter>Script\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="shrBaseWidgetUI.cpp">
+      <Filter>GameObject\UI\Widget</Filter>
+    </ClCompile>
+    <ClCompile Include="shrStageSelectScene.cpp">
+      <Filter>Scene\StageSelectScene</Filter>
+    </ClCompile>
+    <ClCompile Include="shrStageIconObject.cpp">
+      <Filter>GameObject\StageIcon</Filter>
+    </ClCompile>
+    <ClCompile Include="shrMouseObject.cpp">
+      <Filter>GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="shrPlayer.cpp">
+      <Filter>GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="shrMonster.cpp">
+      <Filter>GameObject\etc</Filter>
+    </ClCompile>
+    <ClCompile Include="shrBullet.cpp">
+      <Filter>GameObject\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="shrSkill.cpp">
+      <Filter>GameObject\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="shrAnimationManager.cpp">
+      <Filter>GameObject\Effect\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="shrCloseSkill.cpp">
+      <Filter>GameObject\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="shrExplosionSkill.cpp">
+      <Filter>GameObject\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="shrRaserSkill.cpp">
+      <Filter>GameObject\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="shrFireSkill.cpp">
+      <Filter>GameObject\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="shrSkillScript.cpp">
+      <Filter>Script\Unit</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="shrMultiShaderRenderer.h" />
@@ -267,21 +303,6 @@
     </ClInclude>
     <ClInclude Include="shrUnitUI.h">
       <Filter>GameObject\Unit</Filter>
-    </ClInclude>
-    <ClInclude Include="shrBullet.h">
-      <Filter>GameObject\Effect</Filter>
-    </ClInclude>
-    <ClInclude Include="shrSkill.h">
-      <Filter>GameObject\Effect</Filter>
-    </ClInclude>
-    <ClInclude Include="shrMonster.h">
-      <Filter>GameObject\etc</Filter>
-    </ClInclude>
-    <ClInclude Include="shrPlayer.h">
-      <Filter>GameObject\etc</Filter>
-    </ClInclude>
-    <ClInclude Include="shrMouseObject.h">
-      <Filter>GameObject\etc</Filter>
     </ClInclude>
     <ClInclude Include="shrCameraScript.h">
       <Filter>Script\functional</Filter>
@@ -442,6 +463,57 @@
     </ClInclude>
     <ClInclude Include="shrFileSystem.h">
       <Filter>FileSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="shrUIBase.h">
+      <Filter>GameObject\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="shrButtonUI.h">
+      <Filter>GameObject\UI\Button</Filter>
+    </ClInclude>
+    <ClInclude Include="shrButtonScript.h">
+      <Filter>Script\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="shrBaseWidgetUI.h">
+      <Filter>GameObject\UI\Widget</Filter>
+    </ClInclude>
+    <ClInclude Include="shrStageSelectScene.h">
+      <Filter>Scene\StageSelectScene</Filter>
+    </ClInclude>
+    <ClInclude Include="shrStageIconObject.h">
+      <Filter>GameObject\StageIcon</Filter>
+    </ClInclude>
+    <ClInclude Include="shrMouseObject.h">
+      <Filter>GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="shrPlayer.h">
+      <Filter>GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="shrMonster.h">
+      <Filter>GameObject\etc</Filter>
+    </ClInclude>
+    <ClInclude Include="shrSkill.h">
+      <Filter>GameObject\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="shrBullet.h">
+      <Filter>GameObject\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="shrAnimationManager.h">
+      <Filter>GameObject\Effect\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="shrCloseSkill.h">
+      <Filter>GameObject\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="shrExplosionSkill.h">
+      <Filter>GameObject\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="shrRaserSkill.h">
+      <Filter>GameObject\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="shrFireSkill.h">
+      <Filter>GameObject\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="shrSkillScript.h">
+      <Filter>Script\Unit</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -608,6 +680,24 @@
     </Filter>
     <Filter Include="FileSystem">
       <UniqueIdentifier>{d1ef289f-f0fa-4a4b-8c71-8230e215c2f3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\UI\Button">
+      <UniqueIdentifier>{0e7a2033-1ae4-4cd1-a73c-28f664e35b13}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script\UI">
+      <UniqueIdentifier>{21d129ce-9f64-4e84-9396-f97da0151a27}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\UI\Widget">
+      <UniqueIdentifier>{eb13aaa1-3636-4ab0-8682-cc820f894a10}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\StageSelectScene">
+      <UniqueIdentifier>{33db1969-5091-4c08-acc8-3d30a3b88477}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\StageIcon">
+      <UniqueIdentifier>{abf9de5b-ed13-40a3-ba04-cf8a80710123}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Effect\Manager">
+      <UniqueIdentifier>{a999f51e-3cef-4b9f-9d9e-bed71534fde5}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

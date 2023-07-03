@@ -7,10 +7,14 @@ cbuffer Transform : register(b0)
 
 cbuffer MaterialData : register(b1)
 {
-    int cbiData;
-    float cbfData;
-    float2 cbxy;
-    float3 cbxyz;
+    int cbiData_1;
+    int cbiData_2;
+    float cbfData_1;
+    float cbfData_2;
+    float2 cbxy_1;
+    float2 cbxy_2;
+    float3 cbxyz_1;
+    float3 cbxyz_2;
     float4 cbxyzw;
     matrix cbmat;
 }

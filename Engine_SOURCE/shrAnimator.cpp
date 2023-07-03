@@ -87,7 +87,7 @@ namespace shr
 
 	bool Animator::Create(const std::wstring& name, std::shared_ptr<Texture> atlas
 						, Vector2 leftTop, Vector2 spriteSize, Vector2 offset
-						, UINT spriteLength, float duration, eAtlasType atlasType)
+						, UINT spriteLength, float duration, eAtlasType atlasType, Vector2 atlasSize)
 	{
 		if (atlas == nullptr)
 			return false;
@@ -99,7 +99,7 @@ namespace shr
 		animation = new Animation();
 		animation->Create(name, atlas,
 			leftTop, spriteSize, offset,
-			spriteLength, duration, atlasType);
+			spriteLength, duration, atlasType, atlasSize);
 
 		mAnimations.insert(std::make_pair(name, animation));
 

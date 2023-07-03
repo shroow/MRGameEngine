@@ -21,6 +21,7 @@
 #include "shrStoreScene.h"
 #include "shrBattleScene.h"
 #include "shrBackgroundScene.h"
+#include "shrStageSelectScene.h"
 
 #include "shrObject.h"
 #include "shrMouseScript.h"
@@ -45,13 +46,12 @@ namespace shr
 		mSceneVec[(UINT)eSceneType::Background] = new BackgroundScene();
 		mSceneVec[(UINT)eSceneType::Test] = new TestScene();
 		mSceneVec[(UINT)eSceneType::Title] = new TitleScene();
+		mSceneVec[(UINT)eSceneType::StageSelect] = new StageSelectScene();
 		mSceneVec[(UINT)eSceneType::Play] = new PlayScene();
 		mSceneVec[(UINT)eSceneType::Store] = new StoreScene();
 		mSceneVec[(UINT)eSceneType::Battle] = new BattleScene();
 
-		//mActiveScene = mSceneVec[(UINT)eSceneType::Test];
-		mActiveScene = mSceneVec[(UINT)eSceneType::Store];
-		//mActiveScene = mSceneVec[(UINT)eSceneType::Battle];
+		mActiveScene = mSceneVec[(UINT)eSceneType::Title];
 
 		//for (Scene* scene : mSceneVec)
 		//{
@@ -68,12 +68,14 @@ namespace shr
 		mainCamera = mActiveScene->GetMainCamera()->GetComponent<Camera>();
 
 
-		CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::Monster);
-		CollisionManager::CollisionLayerCheck(eLayerType::Monster, eLayerType::Monster2);
+		CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::Enemy);
 		CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::Background);
 		CollisionManager::CollisionLayerCheck(eLayerType::Monster, eLayerType::Background);
+
 		CollisionManager::MouseCollisionLayerCheck(eLayerType::Player);
+		CollisionManager::MouseCollisionLayerCheck(eLayerType::Enemy);
 		CollisionManager::MouseCollisionLayerCheck(eLayerType::Monster);
+		CollisionManager::MouseCollisionLayerCheck(eLayerType::SystemUI);
 	}
 
 	void SceneManager::Update()

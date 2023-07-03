@@ -9,6 +9,8 @@
 #include <sstream>
 #include <locale>
 #include "shrUnitUI.h"
+#include "shrSkill.h"
+#include "shrAnimationManager.h"
 
 
 namespace shr
@@ -22,6 +24,7 @@ namespace shr
 		, mMonScript(nullptr)
 		, mUIScript(nullptr)
 		, mOwner(nullptr)
+		, mSkill(nullptr)
 	{
 	}
 	UnitObject::UnitObject(const UnitObject& obj)
@@ -33,6 +36,7 @@ namespace shr
 		, mMonScript(nullptr)
 		, mUIScript(nullptr)
 		, mOwner(obj.mOwner)
+		, mSkill(nullptr)
 	{
 	}
 	UnitObject::~UnitObject()
@@ -106,6 +110,11 @@ namespace shr
 	{
 		mUnitStatus.SetUnitType(type);
 		mMonScript->SetUnitAnim(type);
+
+		std::wstring name;
+		name += (char)type;
+
+		mSkill->dynamic_cast<Script*>(comp)
 	}
 
 	void UnitObject::SetCharType(eUnitType type, Vector3 pos)
@@ -114,6 +123,14 @@ namespace shr
 		mMonScript->SetUnitAnim(type);
 
 		GetComponent<Transform>()->SetPosition(pos);
+	}
+	
+
+	bool UnitObject::SetSkill(std::wstring name)
+	{
+		AnimationManager::Find(name);
+
+		return true;
 	}
 
 	void UnitObject::SetAttackRange(float radius)

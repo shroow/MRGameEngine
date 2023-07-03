@@ -52,6 +52,9 @@ namespace shr
         void Action();
         void End();
 
+        void AttackComplete();
+        void SkillActive();
+
         void SetIsStore(bool tf) { mIsStore = tf; }
         bool GetIsStore() { return mIsStore; }
         void SetStartPos(Vector3 pos) { mStartPos = pos; }

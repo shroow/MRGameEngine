@@ -51,7 +51,8 @@ namespace shr
 
 		void SetStatus(Status status) { mStatus = status; }
 		void SetPosition(Vector3 position) { mPosition = position; }
-		void SetUnitType(eUnitType type) { mUnitType = type; }
+		void SetUnitType(eUnitType type);
+		void TypetoStatus(eUnitType type);
 		void SetCharName(std::wstring name) { mCharName = name; }
 
 		Status* GetStatus() { return &mStatus; }
@@ -62,6 +63,16 @@ namespace shr
 		void AddBuff(eBuffType buff, float value) { buffVec[(UINT)buff].push_back(value); }
 		std::vector<float>& GetBuffVec() { return *buffVec; }
 		void ClearBuff() { buffVec->clear(); }
+
+	public:
+		float GetHP() { return mStatus.HP; }
+		float GetMP() { return mStatus.MP; }
+		void SetHP(float num) { mStatus.HP = num; }
+		void SetMP(float num) { mStatus.MP = num; }
+		void AddHP(float num) { mStatus.HP += num; if (mStatus.HP > mStatus.maxHP) mStatus.HP = mStatus.maxHP; }
+		void AddMP(float num) { mStatus.MP += num; if (mStatus.MP > mStatus.maxMP) mStatus.MP = mStatus.maxMP; }
+		bool IsMaxMP() { if (mStatus.MP == mStatus.maxMP) return true; return false; }
+
 
 	private:
 		eUnitType mUnitType;

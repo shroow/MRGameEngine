@@ -23,6 +23,21 @@
     <Filter Include="Editor\DebugObject">
       <UniqueIdentifier>{cd0d20c9-1e17-449a-b27d-5b99a1dfb1c8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Contents">
+      <UniqueIdentifier>{8be62457-fc2e-4440-bd40-f7f2a9df8f76}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\GameObject">
+      <UniqueIdentifier>{094c4d6b-622d-4ffb-9a0c-7d07ad10aa42}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Scene">
+      <UniqueIdentifier>{c734d431-a786-4ba8-9b9b-7ee631f389e9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Script">
+      <UniqueIdentifier>{d3f27bfe-3bbe-4d0e-891a-cedc5a7fc47f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Scene\Info">
+      <UniqueIdentifier>{bf9b5ad0-390b-44ce-b1e3-e0474055280b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="44Engine.h">

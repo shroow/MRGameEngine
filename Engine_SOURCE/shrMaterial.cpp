@@ -25,17 +25,29 @@ namespace shr::graphics
     {
         switch (param)
         {
-        case shr::graphics::eGPUParam::Int:
-            mCB.iData = *static_cast<int*>(data);
+        case shr::graphics::eGPUParam::Int_1:
+            mCB.iData_1 = *static_cast<int*>(data);
             break;
-        case shr::graphics::eGPUParam::Float:
-            mCB.fData = *static_cast<float*>(data);
+        case shr::graphics::eGPUParam::Int_2:
+            mCB.iData_2 = *static_cast<int*>(data);
             break;
-        case shr::graphics::eGPUParam::Vector2:
-            mCB.xy = *static_cast<Vector2*>(data);
+        case shr::graphics::eGPUParam::Float_1:
+            mCB.fData_1 = *static_cast<float*>(data);
             break;
-        case shr::graphics::eGPUParam::Vector3:
-            mCB.xyz = *static_cast<Vector3*>(data);
+        case shr::graphics::eGPUParam::Float_2:
+            mCB.fData_2 = *static_cast<float*>(data);
+            break;
+        case shr::graphics::eGPUParam::Vector2_1:
+            mCB.xy_1 = *static_cast<Vector2*>(data);
+            break;
+        case shr::graphics::eGPUParam::Vector2_2:
+            mCB.xy_2 = *static_cast<Vector2*>(data);
+            break;
+        case shr::graphics::eGPUParam::Vector3_1:
+            mCB.xyz_1 = *static_cast<Vector3*>(data);
+            break;
+        case shr::graphics::eGPUParam::Vector3_2:
+            mCB.xyz_2 = *static_cast<Vector3*>(data);
             break;
         case shr::graphics::eGPUParam::Vector4:
             mCB.xyzw = *static_cast<Vector4*>(data);

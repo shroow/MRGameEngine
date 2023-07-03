@@ -7,6 +7,7 @@ namespace shr::enums
 		Background,
 		Test,
 		Title,
+		StageSelect,
 		Play,
 		Store,
 		Battle,
@@ -20,9 +21,9 @@ namespace shr::enums
 		Camera,
 		Grid,
 		Background,
-		Monster,
-		Monster2,
 		Player,
+		Enemy,
+		Monster,
 		Particle,
 		Mouse,
 		UI,
@@ -64,6 +65,7 @@ namespace shr::enums
 		GraphicShader,
 		ComputeShader,
 		Script,
+		Animation,
 		End,
 	};
 
@@ -157,8 +159,11 @@ namespace shr::enums
 	{
 		None = -1,
 		FreeKnight,
-		BallandChainBot,
-		
+		BallandChainBot,/*
+		Biker,
+		Ballman,
+		DemonMage = 6,
+		Necromancer,*/
 		End,
 	};
 
@@ -169,6 +174,16 @@ namespace shr::enums
 		Hunter,
 		Chef,
 		Dealer,
+		End,
+	};
+
+	enum class eSkillType
+	{
+		None,
+		Close,
+		Explosion,
+		Fire,
+		Raser,
 		End,
 	};
 }

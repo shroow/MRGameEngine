@@ -4,7 +4,8 @@
 namespace shr
 {
 	Scene::Scene(eSceneType type)
-		: mType(type)
+		: mStart(false)
+		, mType(type)
 		, mCameraOn(false)
 		, mMainCamera(nullptr)
 	{

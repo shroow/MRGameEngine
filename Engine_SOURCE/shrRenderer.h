@@ -31,10 +31,14 @@ namespace shr::renderer
 
 	CBUFFER(MaterialCB, CBSLOT_MATERIAL)
 	{
-		int iData;
-		float fData;
-		Vector2 xy;
-		Vector3 xyz;
+		int iData_1;
+		int iData_2;
+		float fData_1;
+		float fData_2;
+		Vector2 xy_1;
+		Vector2 xy_2;
+		Vector3 xyz_1;
+		Vector3 xyz_2;
 		Vector4 xyzw;
 		Matrix matrix;
 	};

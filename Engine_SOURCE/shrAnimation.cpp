@@ -79,7 +79,7 @@ namespace shr
 
 	void Animation::Create(const std::wstring& name, std::shared_ptr<Texture> atlas
 		, Vector2 leftTop, Vector2 spriteSize, Vector2 offset
-		, UINT spriteLength, float duration, eAtlasType atlasType)
+		, UINT spriteLength, float duration, eAtlasType atlasType, Vector2 atlasSize)
 	{
 		mAnimationName = name;
 
@@ -97,7 +97,7 @@ namespace shr
 				sprite.spriteSize = Vector2(spriteSize.x / width, spriteSize.y / height);
 				sprite.offset = offset;
 				//sprite.duration = duration;
-				sprite.atlasSize = Vector2(50.f / width, 50.f / height);
+				sprite.atlasSize = Vector2(atlasSize.x / width, atlasSize.y / height);
 
 				mSpriteSheet.push_back(sprite);
 			}

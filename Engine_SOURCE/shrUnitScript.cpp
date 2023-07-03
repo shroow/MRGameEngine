@@ -51,14 +51,6 @@ namespace shr
 
 		mUnitStatus = mOwner->GetUnitStatus();
 		mUnitState = mOwner->GetUnitState();
-
-		if (mAnimator == nullptr)
-			return;
-
-		mAnimator->GetStartEvent(L"Run_Anim") = std::bind(&UnitScript::Start, this);
-		mAnimator->GetCompleteEvent(L"Idle_Anim") = std::bind(&UnitScript::Action, this);
-		mAnimator->GetEndEvent(L"Idle_Anim") = std::bind(&UnitScript::End, this);
-		mAnimator->GetEvent(L"Idle_Anim", 1) = std::bind(&UnitScript::End, this);
 	}
 
 	void UnitScript::Update()
@@ -348,6 +340,10 @@ namespace shr
 
 	void UnitScript::Attack()
 	{
+		if (mUnitStatus->IsMaxMP())
+		{
+			mUnitState->Enter(eUnitState::Skill);
+		}
 		mUnitState->Enter(eUnitState::Attack);
 		mbStartMove = false;
 	}
@@ -582,6 +578,14 @@ namespace shr
 				delete info;
 			}
 		}
+
+		//mAnimator->GetStartEvent(L"Run_Anim") = std::bind(&UnitScript::Start, this);
+		//mAnimator->GetCompleteEvent(L"Idle_Anim") = std::bind(&UnitScript::Action, this);
+		//mAnimator->GetEndEvent(L"Idle_Anim") = std::bind(&UnitScript::End, this);
+		//mAnimator->GetEvent(L"Idle_Anim", 1) = std::bind(&UnitScript::End, this);
+
+		mAnimator->GetCompleteEvent(L"Attack_Anim") = std::bind(&UnitScript::AttackComplete, this);
+		mAnimator->GetStartEvent(L"Skill_Anim") = std::bind(&UnitScript::SkillActive, this);
 	}
 
 	void UnitScript::LoadUnitAnim(eUnitState animState, Vector2 offset
@@ -677,5 +681,13 @@ namespace shr
 	}
 	void UnitScript::End()
 	{
+	}
+	void UnitScript::AttackComplete()
+	{
+		mUnitStatus->AddMP(10.f);
+	}
+	void UnitScript::SkillActive()
+	{
+		mUnitStatus->GetStatus()->MP = 0.f;
 	}
 }
